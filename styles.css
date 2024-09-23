@@ -10,6 +10,14 @@ header {
     margin-bottom: 20px;
 }
 
+.container {
+    display: grid;
+    grid-template-columns: 1fr; /* Один столбец */
+    grid-gap: 20px; /* Отступы между блоками */
+    max-width: 800px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+}
+
 .profile {
     display: flex;
     align-items: center;
@@ -26,12 +34,8 @@ header {
 section {
     background: #fff;
     padding: 15px;
-    margin-bottom: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Задаем ширину 100% для всех секций */
-    max-width: 800px; /* Максимальная ширина для удобного отображения */
-    margin: 0 auto; /* Центрируем секции на странице */
 }
 
 h3 {
