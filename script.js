@@ -1,18 +1,9 @@
-function appendToDisplay(value) {
-    document.getElementById("display").value += value;
-}
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-function clearDisplay() {
-    document.getElementById("display").value = "";
-}
+    // Здесь можно добавить логику для отправки формы
+    alert('Ваше сообщение отправлено!'); // Временно, для тестирования
 
-function calculateResult() {
-    const display = document.getElementById("display");
-    
-    try {
-        display.value = eval(display.value);
-    } catch (error) {
-        display.value = "Ошибка";
-        setTimeout(clearDisplay, 1500); // Очистка дисплея через 1.5 секунды
-    }
-}
+    // Очистка формы
+    this.reset();
+});
