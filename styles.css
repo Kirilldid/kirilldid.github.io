@@ -29,6 +29,9 @@ section {
     margin-bottom: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Задаем ширину 100% для всех секций */
+    max-width: 800px; /* Максимальная ширина для удобного отображения */
+    margin: 0 auto; /* Центрируем секции на странице */
 }
 
 h3 {
