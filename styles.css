@@ -81,23 +81,23 @@ iframe {
 }
 
 footer {
-    text-align: center;
-    padding: 40px 20px;
+    position: fixed; /* Фиксируем позицию кнопки */
+    bottom: 20px; /* Отступ от низа */
+    right: 20px; /* Отступ от правого края */
+    z-index: 1000; /* Убедимся, что кнопка будет сверху остальных элементов */
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #ff69b4;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
+    padding: 15px; /* Увеличиваем padding для лучшего клика */
+    background-color: transparent; /* Прозрачный фон */
+    border: none; /* Убираем рамку */
+    font-size: 2rem; /* Увеличиваем размер эмодзи */
+    cursor: pointer; /* Указатель при наведении */
+    transition: transform 0.2s; /* Плавный переход для анимации */
 }
 
 button:hover {
-    background-color: #ff1493;
+    transform: scale(1.1); /* Увеличиваем размер кнопки при наведении */
 }
 
 #confetti {
