@@ -80,6 +80,53 @@ iframe {
     gap: 10px;
 }
 
+.gallery img {
+    width: 100%; /* Ширина 100% для адаптивности */
+    border-radius: 10px;
+    cursor: pointer; /* Курсор при наведении */
+    transition: transform 0.2s; /* Плавный переход для анимации */
+}
+
+.gallery img:hover {
+    transform: scale(1.05); /* Увеличение при наведении */
+}
+
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed; /* Фиксированная позиция */
+    z-index: 1000; /* Сверху остальных элементов */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.8); /* Полупрозрачный фон */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80%;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
 footer {
     position: fixed; /* Фиксируем позицию кнопки */
     bottom: 20px; /* Отступ от низа */
