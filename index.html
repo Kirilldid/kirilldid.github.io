@@ -29,12 +29,17 @@
     <section class="gallery">
         <h2>Весёлые моменты</h2>
         <div class="gallery-grid">
-            <img src="https://ideogram.ai/assets/progressive-image/balanced/response/p0l-NO7UQ6CP8-fgsNdidA" alt="Котик 1">
-            <img src="https://ideogram.ai/assets/image/lossless/response/WI135T7oTzuV2_dlg71kDA" alt="Котик 2">
-            <img src="https://ideogram.ai/assets/image/lossless/response/MpBnpFEiSCWJAp6JueaViA" alt="Котик 3">
-            <img src="https://ideogram.ai/assets/progressive-image/balanced/response/Gol0VXTrRkmSDTS-eJZUaQ" alt="Котик 4">
+            <img src="https://ideogram.ai/assets/progressive-image/balanced/response/p0l-NO7UQ6CP8-fgsNdidA" alt="Картинка 1" onclick="openModal(this.src)">
+            <img src="https://ideogram.ai/assets/image/lossless/response/WI135T7oTzuV2_dlg71kDA" alt="Картинка 2" onclick="openModal(this.src)">
+            <img src="https://ideogram.ai/assets/image/lossless/response/MpBnpFEiSCWJAp6JueaViA" alt="Картинка 3" onclick="openModal(this.src)">
+            <img src="https://ideogram.ai/assets/progressive-image/balanced/response/Gol0VXTrRkmSDTS-eJZUaQ" alt="Картинка 4" onclick="openModal(this.src)">
         </div>
     </section>
+    
+    <div id="modal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-img">
+    </div>
     <footer>
     <button id="confetti-btn">🎉</button>
     </footer>
