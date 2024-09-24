@@ -1,9 +1,10 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
     font-family: 'Roboto', sans-serif;
     background-color: #f0f8ff;
     color: #333;
@@ -11,19 +12,20 @@ body {
 
 header {
     text-align: center;
-    padding: 50px 0;
+    padding: 50px 20px;
     background-color: #ff69b4;
     color: white;
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
 .greeting {
     text-align: center;
     padding: 40px 20px;
     background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .video {
@@ -33,7 +35,8 @@ h1 {
 }
 
 iframe {
-    width: 80%;
+    width: 90%;
+    max-width: 600px;
     height: 315px;
 }
 
@@ -55,13 +58,28 @@ iframe {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 10px;
 }
 
 footer {
     text-align: center;
     padding: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff1493;
 }
 
 #confetti {
@@ -85,5 +103,23 @@ footer {
 @keyframes fall {
     to {
         transform: translateY(100vh);
+    }
+}
+
+/* Медиазапросы для адаптивности */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    .greeting p,
+    .wishes h2,
+    .gallery h2 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    button {
+        width: 90%;
     }
 }
