@@ -5,24 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Поздравление для Любы</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1 class="celebration-title">С днём рождения, Люба!</h1>
-        <p class="congratulations-text">Желаю тебе море радости, океан счастья и гору сладостей! Пусть каждый твой день будет как котик в шляпе — весёлым и неординарным!</p>
-        
-        <div class="logo">
-            <span class="wordart">ЛЮБА</span>
+    <header>
+        <h1>С днём рождения, Люба!</h1>
+    </header>
+    <section class="greeting">
+        <p>Желаем тебе море радости, океан счастья и гору сладостей!</p>
+    </section>
+    <section class="video">
+        <iframe src="https://www.youtube.com/embed/HfRU1ZrTxkE" frameborder="0" allowfullscreen></iframe>
+    </section>
+    <section class="wishes">
+        <h2>Пожелания</h2>
+        <ul>
+            <li>Пусть каждый день будет наполнен смехом!</li>
+            <li>Чтобы все мечты сбывались!</li>
+            <li>Чтобы удача всегда была рядом!</li>
+        </ul>
+    </section>
+    <section class="gallery">
+        <h2>Весёлые моменты</h2>
+        <div class="gallery-grid">
+            <img src="https://placekitten.com/200/200" alt="Котик 1">
+            <img src="https://placekitten.com/201/201" alt="Котик 2">
+            <img src="https://placekitten.com/202/202" alt="Котик 3">
+            <img src="https://placekitten.com/203/203" alt="Котик 4">
         </div>
-
-        <div class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/HfRU1ZrTxkE" frameborder="0" allowfullscreen></iframe>
-        </div>
-
+    </section>
+    <footer>
         <button id="confetti-btn">Пуск хлопушек!</button>
-        <div id="confetti"></div>
-    </div>
+    </footer>
+    <div id="confetti"></div>
     <script src="script.js"></script>
 </body>
 </html>
