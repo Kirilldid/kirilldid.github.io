@@ -1,40 +1,67 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: #ffeb3b; /* Жёлтый фон */
-    font-family: 'Comic Neue', cursive, sans-serif; /* Comic Neue шрифт */
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+}
+
+header {
     text-align: center;
-    overflow: hidden;
+    padding: 50px 0;
+    background-color: #ff69b4;
+    color: white;
 }
 
-.container {
-    padding: 20px;
-}
-
-.celebration-title {
+h1 {
     font-size: 3rem;
-    color: #ff69b4;
-    animation: bounce 1s infinite;
 }
 
-.congratulations-text {
-    font-size: 1.5rem;
-    color: #4b0082;
-    margin: 20px 0;
-    animation: fade-in 2s;
+.greeting {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fff;
 }
 
-.logo {
-    margin: 20px 0;
+.video {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
 }
 
-.wordart {
-    font-size: 5rem;
-    color: #ff0000;
-    text-shadow: 5px 5px 0px #00ff00, -5px -5px 0px #0000ff;
-    animation: spin 4s infinite linear;
+iframe {
+    width: 80%;
+    height: 315px;
 }
 
-.video-container {
-    margin: 20px 0;
+.wishes {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #ffe4e1;
+}
+
+.wishes ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.gallery {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
 }
 
 #confetti {
@@ -53,36 +80,6 @@ body {
     height: 10px;
     opacity: 0.8;
     animation: fall 1.5s forwards;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-20px);
-    }
-    60% {
-        transform: translateY(-10px);
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
 }
 
 @keyframes fall {
