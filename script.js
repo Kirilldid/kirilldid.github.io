@@ -11,13 +11,12 @@ function createConfetti() {
     confettiPiece.style.backgroundColor = getRandomColor();
     document.getElementById('confetti').appendChild(confettiPiece);
 
-    // Remove the confetti piece after animation
     confettiPiece.addEventListener('animationend', () => {
         confettiPiece.remove();
     });
 }
 
 function getRandomColor() {
-    const colors = ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ffdd33'];
+    const colors = ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ffdd33', '#ffff00'];
     return colors[Math.floor(Math.random() * colors.length)];
 }
