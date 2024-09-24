@@ -1,6 +1,6 @@
 body {
-    background-color: #ffeb3b;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #ffeb3b; /* Жёлтый фон */
+    font-family: 'Comic Neue', cursive, sans-serif; /* Comic Neue шрифт */
     text-align: center;
     overflow: hidden;
 }
