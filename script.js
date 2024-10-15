@@ -7,3 +7,4 @@ document.querySelectorAll('.toggle-details').forEach(button => {
         jobDetails.style.display = isExpanded ? 'none' : 'block';
     });
 });
+
