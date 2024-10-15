@@ -18,11 +18,12 @@ body {
 .header {
     display: flex;
     align-items: center;
-    background-color: #f0f4f7;
+    background: linear-gradient(135deg, #001f3f, #0074D9); /* Темно-синий градиент */
     padding: 20px;
     margin-bottom: 40px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: white;
 }
 
 .photo-container {
@@ -35,7 +36,7 @@ body {
 .photo-container::before {
     content: "";
     display: block;
-    padding-top: 100%; /* Aspect ratio 1:1 */
+    padding-top: 100%; /* Соотношение сторон 1:1 */
 }
 
 .photo-container img {
@@ -57,13 +58,11 @@ body {
 .header h1 {
     font-size: 2.5em;
     margin: 0;
-    color: #0073e6;
 }
 
 .header h2 {
     font-size: 1.5em;
     margin: 10px 0 0 0;
-    color: #333;
 }
 
 .contact-details p {
@@ -72,7 +71,7 @@ body {
 }
 
 .contact-details a {
-    color: #0073e6;
+    color: #FFD700; /* Золотой цвет ссылок */
     text-decoration: none;
 }
 
