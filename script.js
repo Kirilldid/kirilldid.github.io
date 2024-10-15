@@ -1,34 +1,7 @@
-document.getElementById('confetti-btn').addEventListener('click', () => {
-    for (let i = 0; i < 100; i++) {
-        createConfetti();
-    }
-});
-
-function createConfetti() {
-    const confettiPiece = document.createElement('div');
-    confettiPiece.className = 'confetti-piece';
-    confettiPiece.style.left = Math.random() * 100 + 'vw';
-    confettiPiece.style.backgroundColor = getRandomColor();
-    document.getElementById('confetti').appendChild(confettiPiece);
-
-    confettiPiece.addEventListener('animationend', () => {
-        confettiPiece.remove();
+document.querySelectorAll('.toggle-details').forEach(button => {
+    button.addEventListener('click', () => {
+        const details = button.nextElementSibling;
+        details.style.display = details.style.display === 'block' ? 'none' : 'block';
+        button.textContent = button.textContent === 'Показать подробности' ? 'Скрыть подробности' : 'Показать подробности';
     });
-}
-
-function getRandomColor() {
-    const colors = ['#ff5733', '#33ff57', '#3357ff', '#ff33a1', '#ffdd33', '#ffff00'];
-    return colors[Math.floor(Math.random() * colors.length)];
-}
-
-function openModal(src) {
-    const modal = document.getElementById("modal");
-    const modalImg = document.getElementById("modal-img");
-    modal.style.display = "block";
-    modalImg.src = src;
-}
-
-function closeModal() {
-    const modal = document.getElementById("modal");
-    modal.style.display = "none";
-}
+});
