@@ -75,6 +75,7 @@ body {
 
 .contact-details i {
     margin-right: 10px;
+    font-size: 20px; /* Устанавливаем размер иконок */
 }
 
 .contact-details a {
@@ -133,4 +134,20 @@ ul li {
     font-size: 1.1em;
     margin: 0;
     color: #333; /* Темный цвет для заголовка работы h4 */
+}
+
+/* Стиль для кнопок */
+.toggle-details {
+    background-color: #007BFF; /* Основной цвет кнопки */
+    color: white; /* Цвет текста кнопки */
+    border: none; /* Убираем границы */
+    border-radius: 5px; /* Скругленные углы */
+    padding: 10px 15px; /* Отступы внутри кнопки */
+    cursor: pointer; /* Указываем, что это кнопка */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Эффект тени */
+    transition: background-color 0.3s ease; /* Плавный переход цвета */
+}
+
+.toggle-details:hover {
+    background-color: #0056b3; /* Цвет кнопки при наведении */
 }
