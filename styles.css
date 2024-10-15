@@ -1,77 +1,85 @@
 body {
     font-family: 'Roboto', sans-serif;
-    background: #f9f9f9;
-    color: #333; /* Цвет текста по умолчанию */
+    line-height: 1.6;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
 }
 
 .resume-container {
-    width: 75%;
-    max-width: 900px;
-    margin: 50px auto;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
     background: white;
-    padding: 40px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .header {
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #add8e6, #a0a0a0); /* Светло-голубой градиент */
-    padding: 20px;
-    margin-bottom: 40px;
-    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .photo-container {
-    width: 150px; /* Фиксированная ширина для контейнера */
-    height: 150px; /* Фиксированная высота для контейнера */
-    overflow: hidden; /* Скрываем переполнение */
-    border-radius: 50%; /* Скругление углов */
+    margin-right: 20px;
 }
 
 .photo-container img {
-    width: 100%; /* Занимает всю ширину контейнера */
-    height: auto; /* Автоматическая высота для сохранения пропорций */
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 
-.header-text {
-    flex: 1;
+.header-text h1 {
+    margin: 0;
 }
 
-.header h1,
-.header h2,
-.contact-details p {
-    color: #333; 
+.contact-details {
+    margin-top: 10px;
 }
 
-.objective {
-    background-color: #f0f4f7;
+.contact-details a {
+    text-decoration: none;
+    color: #007bff;
 }
 
-.objective h3,
-.section h3 {
-    color: #333; 
+.objective, .competencies, .experience, .skills, .languages {
+    margin-bottom: 20px;
 }
 
-.job h4 {
-    color: #333; 
+h3 {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
 }
 
-/* Стиль для кнопок */
+.job {
+    margin-bottom: 10px;
+}
+
+.date-range {
+    color: #555;
+}
+
 .toggle-details {
-    background-color: #007BFF; /* Основной цвет кнопки */
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
-/* Эффект при наведении */
-.toggle-details:hover {
-    background-color: #0056b3; /* Цвет кнопки при наведении */
-}
-
-/* Новые стили для job-details */
 .job-details {
-   padding-top: 10px; /* Отступ сверху для деталей работы */
-   margin-top: 10px; /* Отступ сверху для деталей работы */
-   border-top: 1px solid #eaeaea; /* Легкая граница сверху */
+    display: none; /* Скрыто по умолчанию */
+    margin-top: 10px;
+    padding-left: 15px;
+    border-left: 2px solid #007bff;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
 }
