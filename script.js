@@ -3,7 +3,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     toggleButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const jobDetails = this.nextElementSibling;
+            // Ищем ближайший родительский элемент с классом .job и в нем ищем .job-details
+            const job = this.closest('.job');
+            const jobDetails = job.querySelector('.job-details');
+
             if (jobDetails.style.display === "none" || jobDetails.style.display === "") {
                 jobDetails.style.display = "block"; // Показываем детали
                 this.textContent = "Скрыть подробности"; // Меняем текст кнопки
