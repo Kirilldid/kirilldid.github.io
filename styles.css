@@ -18,7 +18,7 @@ body {
 .header {
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #001f3f, #0074D9); /* Темно-синий градиент */
+    background: linear-gradient(135deg, #b8dbff, #d3e4f2); /* Темно-синий градиент */
     padding: 20px;
     margin-bottom: 40px;
     border-radius: 10px;
@@ -75,7 +75,7 @@ body {
 }
 
 .contact-details a {
-    color: #FFD700; /* Золотой цвет ссылок */
+    color: #3D3D3D; /* Золотой цвет ссылок */
     text-decoration: none;
 }
 
