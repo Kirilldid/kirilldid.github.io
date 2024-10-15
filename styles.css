@@ -18,12 +18,12 @@ body {
 .header {
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #b8dbff, #d3e4f2); /* Темно-синий градиент */
+    background: linear-gradient(135deg, #add8e6, #a0a0a0); /* Светло-голубой градиент */
     padding: 20px;
     margin-bottom: 40px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    color: white;
+    color: #333; /* Тексты черным или серым цветом */
 }
 
 .photo-container {
@@ -75,7 +75,7 @@ body {
 }
 
 .contact-details a {
-    color: #3D3D3D; /* Золотой цвет ссылок */
+    color: #007BFF; /* Стандартный синий цвет ссылок */
     text-decoration: none;
 }
 
@@ -107,10 +107,3 @@ ul li {
 .job h4 {
     font-size: 1.1em;
     margin: 0;
-}
-
-.job .date-range {
-    color: #666;
-    font-size: 0.9em;
-    margin-top: 5px;
-}
