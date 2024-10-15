@@ -1,7 +1,7 @@
 body {
     font-family: 'Roboto', sans-serif;
     background: #f9f9f9;
-    color: #333;
+    color: #333; /* Цвет текста по умолчанию */
     margin: 0;
     padding: 0;
 }
@@ -18,7 +18,7 @@ body {
 .header {
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #add8e6, #a0a0a0);
+    background: linear-gradient(135deg, #add8e6, #a0a0a0); /* Светло-голубой градиент */
     padding: 20px;
     margin-bottom: 40px;
     border-radius: 10px;
@@ -57,10 +57,17 @@ body {
 
 /* Стиль для кнопок */
 .toggle-details {
-    background-color: #007BFF; 
+    background-color: #007BFF; /* Основной цвет кнопки */
 }
 
 /* Эффект при наведении */
 .toggle-details:hover {
-    background-color: #0056b3; 
+    background-color: #0056b3; /* Цвет кнопки при наведении */
+}
+
+/* Новые стили для job-details */
+.job-details {
+   padding-top: 10px; /* Отступ сверху для деталей работы */
+   margin-top: 10px; /* Отступ сверху для деталей работы */
+   border-top: 1px solid #eaeaea; /* Легкая граница сверху */
 }
