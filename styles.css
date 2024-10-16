@@ -1,6 +1,6 @@
 /* Общие стили для страницы */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif; /* Изменено на Roboto */
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -56,7 +56,6 @@ body {
     font-size: 28px;
     font-weight: bold;
     margin: 0;
-    color: #333;
 }
 
 .profile-title {
@@ -68,7 +67,6 @@ body {
 .profile-location {
     font-size: 16px;
     color: #555;
-    margin: 5px 0;
 }
 
 /* Стили для ссылки на Telegram */
@@ -85,7 +83,19 @@ body {
 
 .telegram-link:hover {
     text-decoration: underline; /* Подчеркивание при наведении */
-    color: #005f99; /* Темнее при наведении */
+}
+
+/* Стили для секции опыта работы */
+.job {
+    background-color: #ffffff; /* Белый фон для каждой вакансии */
+    padding: 20px; /* Отступы внутри блока вакансии */
+    border-radius: 8px; /* Скругленные углы */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для блока вакансии */
+    margin-bottom: 20px; /* Отступ между вакансиями */
+}
+
+.job h4 {
+    margin-top: 0; /* Убираем верхний отступ у заголовка вакансии */
 }
 
 /* Адаптивные стили для мобильных устройств */
