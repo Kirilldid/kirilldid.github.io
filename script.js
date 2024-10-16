@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     toggleButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Ищем ближайший родительский элемент с классом .job и в нем ищем .job-details
             const job = this.closest('.job');
             const jobDetails = job.querySelector('.job-details');
 
@@ -18,5 +17,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 this.setAttribute('aria-expanded', 'false'); // Обновляем атрибут aria
             }
         });
+    });
+
+    // Устанавливаем начальное состояние для кнопок и блоков с деталями
+    toggleButtons.forEach(button => {
+        const jobDetails = button.closest('.job').querySelector('.job-details');
+        jobDetails.style.display = "none"; // Скрываем детали при загрузке страницы
+        button.setAttribute('aria-expanded', 'false'); // Устанавливаем начальное состояние aria
     });
 });
