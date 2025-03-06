@@ -1,0 +1,197 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Memory Diary</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "anime": "https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.es.js"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="diary-container">
+        <div id="book">
+            <div class="page cover">
+                <div class="page-content">
+                    <div>
+                        <h1>Birthday Memories</h1>
+                        <p>A Journey Through Love & Moments</p>
+                        <p class="year">2023</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid-photo">
+                        <img src="https://images.unsplash.com/photo-1577717695814-012375eebfb1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmlydGhkYXklMjBjYWtlfGVufDB8fDB8fHww" alt="First Birthday Party">
+                        <p class="photo-caption">First Birthday Celebration</p>
+                    </div>
+                    <div class="handwritten-message">
+                        <p>Your first steps, your first laugh - such precious moments!</p>
+                        <span class="signature">❤️ Mom</span>
+                    </div>
+                    <div class="sticker-collection">
+                        <div class="sticker heart"></div>
+                        <div class="sticker balloon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="handwritten-message">
+                        <p>Watching you grow is the greatest joy of my life.</p>
+                        <span class="signature">Dad</span>
+                    </div>
+                    <div class="polaroid-photo">
+                        <img src="https://images.unsplash.com/photo-1627556704526-11130898e9a2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmlydGhkYXklMjBmYW1pbHl8ZW58MHx8MHx8fDA=" alt="Family Moment">
+                        <p class="photo-caption">Family Birthday Brunch</p>
+                    </div>
+                    <div class="sticker-collection">
+                        <div class="sticker star"></div>
+                        <div class="sticker cake"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid-photo">
+                        <img src="https://images.unsplash.com/photo-1600785249433-ded25425016b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmlydGhkYXklMjBmcmllbmRzfGVufDB8fDB8fHww" alt="Friends Celebration">
+                        <p class="photo-caption">Birthday Party with Friends</p>
+                    </div>
+                    <div class="handwritten-message">
+                        <p>So many laughs, so many memories made today!</p>
+                        <span class="signature">Best Friend Emma</span>
+                    </div>
+                    <div class="sticker-collection">
+                        <div class="sticker music"></div>
+                        <div class="sticker gift"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="handwritten-message">
+                        <p>Your grandparents are so proud of the wonderful person you've become.</p>
+                        <span class="signature">Grandma & Grandpa</span>
+                    </div>
+                    <div class="polaroid-photo">
+                        <img src="https://images.unsplash.com/photo-1615228402326-7adf9a257f2b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z3JhbmRwYXJlbnRzfGVufDB8fDB8fHww" alt="Grandparents' Love">
+                        <p class="photo-caption">Cherished Moments</p>
+                    </div>
+                    <div class="sticker-collection">
+                        <div class="sticker heart"></div>
+                        <div class="sticker balloon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid-photo">
+                        <img src="https://images.unsplash.com/photo-1531545514256-bd5126fc1b1f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3VwcHJpc2V8ZW58MHx8MHx8fDA=" alt="Surprise Moment">
+                        <p class="photo-caption">Unexpected Surprise</p>
+                    </div>
+                    <div class="handwritten-message">
+                        <p>We planned this surprise for months, and seeing your face was priceless!</p>
+                        <span class="signature">Your Cousins</span>
+                    </div>
+                    <div class="sticker-collection">
+                        <div class="sticker star"></div>
+                        <div class="sticker gift"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="handwritten-message">
+                        <p>Your creativity and passion inspire us every single day.</p>
+                        <span class="signature">Art Teacher</span>
+                    </div>
+                    <div class="polaroid-photo">
+                        <img src="https://images.unsplash.com/photo-1548142813-c348350df52b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YXJ0JTIwd29ya3xlbnwwfHwwfHx8MA==" alt="Art Creation">
+                        <p class="photo-caption">Creative Journey</p>
+                    </div>
+                    <div class="sticker-collection">
+                        <div class="sticker music"></div>
+                        <div class="sticker star"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid-photo">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YWR2ZW50dXJlfGVufDB8fDB8fHww" alt="Adventure">
+                        <p class="photo-caption">New Adventures Await</p>
+                    </div>
+                    <div class="handwritten-message">
+                        <p>Every year brings new adventures and opportunities!</p>
+                        <span class="signature">Travel Buddy</span>
+                    </div>
+                    <div class="sticker-collection">
+                        <div class="sticker heart"></div>
+                        <div class="sticker balloon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="handwritten-message">
+                        <p>Your strength and resilience continue to amaze us all.</p>
+                        <span class="signature">Best Friend</span>
+                    </div>
+                    <div class="polaroid-photo">
+                        <img src="https://images.unsplash.com/photo-1552664730-bd5126fc1b1f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3VwcG9ydHxlbnwwfHwwfHx8MA==" alt="Support">
+                        <p class="photo-caption">Strength & Support</p>
+                    </div>
+                    <div class="sticker-collection">
+                        <div class="sticker star"></div>
+                        <div class="sticker gift"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page">
+                <div class="page-content">
+                    <div class="polaroid-photo">
+                        <img src="https://images.unsplash.com/photo-1483381616562-74632fc0d8aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGRyZWFtc3xlbnwwfHwwfHx8MA==" alt="Dreams">
+                        <p class="photo-caption">Dreaming Big</p>
+                    </div>
+                    <div class="handwritten-message">
+                        <p>Keep dreaming, keep believing. Your potential is limitless!</p>
+                        <span class="signature">Mentor</span>
+                    </div>
+                    <div class="sticker-collection">
+                        <div class="sticker music"></div>
+                        <div class="sticker heart"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="page cover-back">
+                <div class="page-content">
+                    <h2>Thank You</h2>
+                    <p>For Being You</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="prev-page">▲ Previous</button>
+        <button id="next-page">Next ▼</button>
+    </div>
+
+    <script type="module" src="diary.js"></script>
+</body>
+</html>
