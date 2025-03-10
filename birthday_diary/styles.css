@@ -10,6 +10,10 @@
 * {
     box-sizing: border-box;
     scroll-behavior: smooth;
+    user-select: none;  
+    -webkit-user-select: none;  
+    -moz-user-select: none;  
+    -ms-user-select: none;  
 }
 
 html, body {
@@ -59,15 +63,26 @@ body {
     align-items: center;
 }
 
+.cover-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .polaroid-photo {
     flex: 1;
     background-color: white;
     padding: 2vh;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     max-width: 50%;
+    display: flex;
+    flex-direction: column;
 }
 
-.polaroid-photo img {
+.polaroid-photo img,
+.polaroid-photo video {
     width: 100%;
     height: 60vh;
     object-fit: cover;
@@ -82,12 +97,39 @@ body {
 
 .controls {
     position: fixed;
-    bottom: 2vh;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
+    padding: 0 2vw;
     z-index: 10;
+}
+
+#prev-page, 
+#next-page {
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: var(--accent-color);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    outline: none;
+}
+
+#prev-page:hover, 
+#next-page:hover {
+    opacity: 1;
+}
+
+#prev-page {
+    transform: rotate(90deg);
+}
+
+#next-page {
+    transform: rotate(-90deg);
 }
 
 @media (max-width: 768px) {
@@ -102,11 +144,14 @@ body {
         flex: none;
     }
 
+    .polaroid-photo {
+        width: 80%; 
+    }
+
     .polaroid-photo img {
         height: 40vh;
     }
-
-    .handwritten-message {
-        font-size: 2vh;
+    .controls {
+        padding: 0 5vw;
     }
 }
