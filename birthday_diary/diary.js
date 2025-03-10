@@ -5,10 +5,11 @@ class DiaryBook {
         this.book = bookElement;
         this.congratulatoryMessages = [
             {
-                photoSrc: '1.MOV',
-                photoCaption: 'Celebrating You',
-                message: 'Your spirit brings light to our world.',
-                signature: 'Family'
+                mediaType: 'video',
+                mediaSrc: '1.MOV',
+                photoCaption: '07.01.2022 г.Балашиха',
+                message: 'Спасибо, наше пение, это так красиво. Даже когда я не могу что-то спеть чисто и правильно, ты всегда «подстроишь» нужный голос и получится невероятная красота)',
+                signature: 'Кузя''
             },
             {
                 photoSrc: '2.jpg',
