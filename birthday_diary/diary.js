@@ -91,13 +91,15 @@ class DiaryBook {
                 message: "Спасибо за Боуи! And you're singin' the songs, thinkin' this is the life",
                 signature: 'Коля'
             },
+            /*
             {
                 mediaType: 'video',
                 mediaSrc: '1.MOV',
                 photoCaption: '07.01.2022 г.Балашиха',
                 message: 'Спасибо, наше пение, это так красиво. Даже когда я не могу что-то спеть чисто и правильно, ты всегда «подстроишь» нужный голос и получится невероятная красота)',
                 signature: 'Кузя''
-            },            
+            },
+            */
             {
                 photoSrc: '14.jpg',
                 photoCaption: '31.10.2023 и 07.07.2024г. Москва. Смеемся.',
