@@ -3,6 +3,143 @@ import anime from 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.es.js';
 class DiaryBook {
     constructor(bookElement) {
         this.book = bookElement;
+        this.congratulatoryMessages = [
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1488521787991-ed70c0a771b1',
+                photoCaption: 'Celebrating You',
+                message: 'Your spirit brings light to our world.',
+                signature: 'Family'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d',
+                photoCaption: 'Wishing You',
+                message: 'All the best on your special day and always.',
+                signature: 'Friends'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            },
+            {
+                mediaType: 'video',
+                mediaSrc: 'https://videos.pond5.com/distance-learning-home-footage-130211641_main_xxl.mp4',
+                photoCaption: 'Learning Together',
+                message: 'Your journey of growth and discovery inspires us all.',
+                signature: 'Mentors'
+            },
+            {
+                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
+                photoCaption: 'Congratulations',
+                message: 'May your day be filled with joy, love, and laughter.',
+                signature: 'Loved Ones'
+            }
+        ];
+
+        this.renderPages();
         this.pages = Array.from(this.book.querySelectorAll('.page'));
         this.currentPageIndex = 0;
 
@@ -11,14 +148,47 @@ class DiaryBook {
         window.addEventListener('resize', () => this.adjustPageLayout());
     }
 
+    renderPages() {
+        const bookElement = this.book;
+        
+        const firstPage = bookElement.querySelector('.page.cover-page');
+        const lastPage = bookElement.querySelector('.page.cover-page:last-child');
+        bookElement.innerHTML = '';
+        bookElement.appendChild(firstPage);
+
+        this.congratulatoryMessages.forEach((pageData, index) => {
+            const pageElement = document.createElement('div');
+            pageElement.classList.add('page');
+            
+            const mediaContent = pageData.mediaType === 'video' 
+                ? `<video src="${pageData.mediaSrc}" class="page-video" controls></video>`
+                : `<img src="${pageData.photoSrc}" alt="${pageData.photoCaption}">`;
+            
+            pageElement.innerHTML = `
+                <div class="page-content">
+                    <div class="polaroid-photo">
+                        ${mediaContent}
+                        <div class="photo-caption">${pageData.photoCaption}</div>
+                    </div>
+                    <div class="handwritten-message">
+                        <p>${pageData.message}</p>
+                        <p class="signature">- ${pageData.signature}</p>
+                    </div>
+                </div>
+            `;
+
+            bookElement.appendChild(pageElement);
+        });
+
+        bookElement.appendChild(lastPage);
+    }
+
     adjustPageLayout() {
-        // Ensure each page takes up full viewport width and height
         this.pages.forEach(page => {
             page.style.width = `${window.innerWidth}px`;
             page.style.height = `${window.innerHeight}px`;
         });
 
-        // Position book to show current page
         this.book.style.transform = `translateX(-${this.currentPageIndex * 100}vw)`;
     }
 
@@ -29,7 +199,6 @@ class DiaryBook {
         prevButton.addEventListener('click', () => this.scrollToPage('prev'));
         nextButton.addEventListener('click', () => this.scrollToPage('next'));
 
-        // Keyboard and wheel navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft') this.scrollToPage('prev');
             if (e.key === 'ArrowRight') this.scrollToPage('next');
@@ -49,11 +218,11 @@ class DiaryBook {
             this.currentPageIndex--;
         }
 
-        // Animate book's horizontal translation
         this.book.style.transform = `translateX(-${this.currentPageIndex * 100}vw)`;
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const diary = new DiaryBook(document.getElementById('book'));
+    const book = document.getElementById('book');
+    new DiaryBook(book);
 });
