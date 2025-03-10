@@ -4,6 +4,7 @@ class DiaryBook {
     constructor(bookElement) {
         this.book = bookElement;
         this.congratulatoryMessages = [
+            /*
             {
                 mediaType: 'video',
                 mediaSrc: '1.MOV',
@@ -11,133 +12,61 @@ class DiaryBook {
                 message: 'Спасибо, наше пение, это так красиво. Даже когда я не могу что-то спеть чисто и правильно, ты всегда «подстроишь» нужный голос и получится невероятная красота)',
                 signature: 'Кузя''
             },
+            */
             {
                 photoSrc: '2.jpg',
-                photoCaption: 'Wishing You',
-                message: 'All the best on your special day and always.',
-                signature: 'Friends'
+                photoCaption: '2018.03.17. Водный',
+                message: 'Спасибо за твистер в тесноте и другие тусовки на Кронштадском!',
+                signature: 'ДР В ТЕСНОТЕ'
             },
             {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
+                photoSrc: '3.jpg',
+                photoCaption: '2021.04.30. Красино',
+                message: 'Спасибо за прогулки в пустоте, песни в коровнике, и остальную спонтанную движуху!',
+                signature: 'ДР В ПУСТОТЕ'
             },
             {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
+                photoSrc: '4.jpg',
+                photoCaption: '2021.06.18. Красино',
+                message: 'Спасибо за то, что с тобой даже самые душные летние дни становятся легкими и незабываемыми. Благодарим за всё неблагозвучное и социально неприемлимое.',
+                signature: 'ДР В ДУХОТЕ'
             },
             {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
+                photoSrc: '5.jpg',
+                photoCaption: '2021.08.13. Михалёво',
+                message: 'Спасибо за колёса, с тобой обычная поездка преврашается в трип на озеро.',
+                signature: 'ДР НА ВОДЕ'
             },
             {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
+                photoSrc: '6.jpg',
+                photoCaption: '2021.09.24. Красино',
+                message: 'Спасибо за тёплые слова у камина.',
+                signature: 'ДР У КАМИНА'
             },
             {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
+                photoSrc: '7.jpg',
+                photoCaption: '2021.12.04. Люсиновская',
+                message: 'Спасибо за перекуры в подьезде, Клубничную Молли и угадайки в темноте.',
+                signature: 'ДР В ТЕМНОТЕ'
             },
             {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
+                photoSrc: '8.jpg',
+                photoCaption: '2022.02.11. Михалёво',
+                message: 'Спасибо за поездки в багажнике, прогулки по сугробам и огонёк добра в мерзлоте.',
+                signature: 'ДР В МЕРЗЛОТЕ'
             },
             {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
+                photoSrc: '9.jpg',
+                photoCaption: '2024.07.01. Тбилиси',
+                message: 'Спасибо за теплый коллектив и командную работу!',
+                signature: 'ДР В ВКУСНОТЕ'
             },
             {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
+                photoSrc: '10.jpg',
+                photoCaption: '2021.11.13. Китай-Город',
+                message: 'Спасибо за Дайкири, Штиле Нахт и Зазнобу:)',
+                signature: 'Коля'
             },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            },
-            {
-                mediaType: 'video',
-                mediaSrc: 'https://videos.pond5.com/distance-learning-home-footage-130211641_main_xxl.mp4',
-                photoCaption: 'Learning Together',
-                message: 'Your journey of growth and discovery inspires us all.',
-                signature: 'Mentors'
-            },
-            {
-                photoSrc: 'https://images.unsplash.com/photo-1576036719750-33dc1b9f5040',
-                photoCaption: 'Congratulations',
-                message: 'May your day be filled with joy, love, and laughter.',
-                signature: 'Loved Ones'
-            }
         ];
 
         this.renderPages();
