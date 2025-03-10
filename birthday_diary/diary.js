@@ -5,13 +5,13 @@ class DiaryBook {
         this.book = bookElement;
         this.congratulatoryMessages = [
             {
-                photoSrc: 'https://images.unsplash.com/photo-1488521787991-ed70c0a771b1',
+                photoSrc: '1.MOV',
                 photoCaption: 'Celebrating You',
                 message: 'Your spirit brings light to our world.',
                 signature: 'Family'
             },
             {
-                photoSrc: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d',
+                photoSrc: '2.jpg',
                 photoCaption: 'Wishing You',
                 message: 'All the best on your special day and always.',
                 signature: 'Friends'
