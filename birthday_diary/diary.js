@@ -75,7 +75,7 @@ class DiaryBook {
             {
                 photoSrc: '13.jpg',
                 photoCaption: '2019. 04.19. Боуи',
-                message: "Спасибо за Боуи! And you're singin' the songs, thinkin' this is the life",
+                message: "Спасибо за Боуи! «And you're singin' the songs, thinkin' this is the life...»",
                 signature: 'Коля'
             },
             /*
@@ -155,13 +155,13 @@ class DiaryBook {
             },
             {
                 photoSrc: '25.jpg',
-                photoCaption: '...',
+                photoCaption: '',
                 message: 'Бесконечно благодарен тебе за поддержку в самые сложные моменты!',
                 signature: 'Никита'
             },
             {
                 photoSrc: '26.jpg',
-                photoCaption: 'Все наши чаты',
+                photoCaption: '',
                 message: 'Спасибо за детство.',
                 signature: 'Саша С.'
             },
