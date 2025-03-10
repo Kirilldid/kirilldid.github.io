@@ -77,15 +77,21 @@ body {
     padding: 2vh;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     max-width: 50%;
+    min-width: 300px;  
     display: flex;
     flex-direction: column;
+    aspect-ratio: 4/5;  
+    justify-content: space-between;
 }
 
 .polaroid-photo img,
 .polaroid-photo video {
     width: 100%;
-    height: 60vh;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;  
+    object-position: center;
+    max-height: 60vh;  
+    align-self: center;
 }
 
 .handwritten-message {
@@ -93,6 +99,15 @@ body {
     font-size: 2.2vh;
     line-height: 1.6;
     max-width: 50%;
+}
+
+.photo-caption {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .controls {
@@ -146,10 +161,16 @@ body {
 
     .polaroid-photo {
         width: 80%; 
+        max-width: 90%;
+        min-width: 250px;
+        aspect-ratio: 3/4;  
     }
 
     .polaroid-photo img {
-        height: 40vh;
+        max-height: 40vh;
+    }
+    .polaroid-photo video {
+        max-height: 40vh;
     }
     .controls {
         padding: 0 5vw;
