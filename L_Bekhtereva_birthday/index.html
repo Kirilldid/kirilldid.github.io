@@ -1,0 +1,439 @@
+<html><head>
+<style>
+:root {
+  --calendar-bg: #8b0000;
+  --window-bg: #d4af37;
+  --wreath-green: #0b5c2c;
+  --wreath-red: #b22222;
+  --house-brown: #8b4513;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a2842 0%, #2d5a3f 100%);
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  padding: 80px 20px 20px;
+}
+
+/* House Structure */
+.house-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.house-roof {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  transform: translateY(10%) rotate(180deg);
+  width: 100%;
+  height: 190px;
+  background: var(--house-brown);
+  clip-path: polygon(20% 100%, 80% 100%, 100% 0, 0 0);
+}
+
+.house-wall {
+  position: absolute;
+  top: 200px;
+  left: 10%;
+  width: 80%;
+  height: calc(100% - 200px);
+  background: linear-gradient(90deg, 
+    #763c11 0%, 
+    var(--house-brown) 5%, 
+    var(--house-brown) 95%, 
+    #763c11 100%
+  );
+}
+
+.brick-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(#00000020 2px, transparent 2px),
+    linear-gradient(90deg, #00000020 2px, transparent 2px);
+  background-size: 40px 20px;
+}
+
+.window-frame {
+  position: absolute;
+  width: 60px;
+  height: 90px;
+  background: #f4e4bc;
+  border: 4px solid var(--house-brown);
+}
+
+.window-frame::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--house-brown);
+}
+
+.window-frame::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 100%;
+  background: var(--house-brown);
+}
+
+/* Existing styles */
+.snowflake {
+  position: fixed;
+  color: white;
+  font-size: 1.5em;
+  animation: fall linear infinite;
+  z-index: 1;
+}
+
+@keyframes fall {
+  from { transform: translateY(-100vh) rotate(0deg); }
+  to { transform: translateY(100vh) rotate(360deg); }
+}
+
+.calendar {
+  width: 90vw;
+  max-width: 800px;
+  min-height: 90vh;
+  background: var(--calendar-bg);
+  border-radius: 15px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: min-content;
+  gap: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  position: relative;
+  margin-top: 50px;
+}
+
+.holly {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+}
+
+.holly svg {
+  width: 100%;
+  height: 100%;
+}
+
+.holly.top-left { top: -25px; left: -25px; transform: rotate(-45deg); }
+.holly.top-right { top: -25px; right: -25px; transform: rotate(45deg); }
+.holly.bottom-left { bottom: -25px; left: -25px; transform: rotate(-135deg); }
+.holly.bottom-right { bottom: -25px; right: -25px; transform: rotate(135deg); }
+
+.window {
+  background: var(--window-bg);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+  aspect-ratio: 9/16;
+  width: 100%;
+  margin-bottom: 15px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+}
+
+.window.open {
+  transform: rotateY(180deg);
+}
+
+.window-front, .window-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.window-front {
+  background: var(--window-bg);
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--calendar-bg);
+  border: 2px solid var(--calendar-bg);
+  padding: 10px;
+  text-align: center;
+}
+
+.window-back {
+  background: #fff;
+  transform: rotateY(180deg);
+  padding: 10px;
+  flex-direction: column;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 80%;
+  padding: 10px;
+}
+
+.window-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.holly-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.holly-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.wish {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+  color: #333;
+}
+
+.title {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 32px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+</style>
+</head>
+<body>
+<div class="house-container">
+  <div class="house-roof"></div>
+  <div class="house-wall">
+    <div class="brick-pattern"></div>
+  </div>
+</div>
+
+<div class="title">Любвент календарь</div>
+<div class="calendar">
+  <div class="holly top-left">
+    <svg viewBox="0 0 100 100">
+      <path d="M50,20 C60,10 70,15 75,25 C80,35 75,45 65,50 C75,55 80,65 75,75 C70,85 60,90 50,80 C40,90 30,85 25,75 C20,65 25,55 35,50 C25,45 20,35 25,25 C30,15 40,10 50,20" fill="#006400"/>
+      <circle cx="50" cy="50" r="8" fill="#8b0000"/>
+      <circle cx="35" cy="50" r="8" fill="#8b0000"/>
+      <circle cx="65" cy="50" r="8" fill="#8b0000"/>
+    </svg>
+  </div>
+  <div class="holly top-right">
+    <svg viewBox="0 0 100 100">
+      <path d="M50,20 C60,10 70,15 75,25 C80,35 75,45 65,50 C75,55 80,65 75,75 C70,85 60,90 50,80 C40,90 30,85 25,75 C20,65 25,55 35,50 C25,45 20,35 25,25 C30,15 40,10 50,20" fill="#006400"/>
+      <circle cx="50" cy="50" r="8" fill="#8b0000"/>
+      <circle cx="35" cy="50" r="8" fill="#8b0000"/>
+      <circle cx="65" cy="50" r="8" fill="#8b0000"/>
+    </svg>
+  </div>
+  <div class="holly bottom-left">
+    <svg viewBox="0 0 100 100">
+      <path d="M50,20 C60,10 70,15 75,25 C80,35 75,45 65,50 C75,55 80,65 75,75 C70,85 60,90 50,80 C40,90 30,85 25,75 C20,65 25,55 35,50 C25,45 20,35 25,25 C30,15 40,10 50,20" fill="#006400"/>
+      <circle cx="50" cy="50" r="8" fill="#8b0000"/>
+      <circle cx="35" cy="50" r="8" fill="#8b0000"/>
+      <circle cx="65" cy="50" r="8" fill="#8b0000"/>
+    </svg>
+  </div>
+  <div class="holly bottom-right">
+    <svg viewBox="0 0 100 100">
+      <path d="M50,20 C60,10 70,15 75,25 C80,35 75,45 65,50 C75,55 80,65 75,75 C70,85 60,90 50,80 C40,90 30,85 25,75 C20,65 25,55 35,50 C25,45 20,35 25,25 C30,15 40,10 50,20" fill="#006400"/>
+      <circle cx="50" cy="50" r="8" fill="#8b0000"/>
+      <circle cx="35" cy="50" r="8" fill="#8b0000"/>
+      <circle cx="65" cy="50" r="8" fill="#8b0000"/>
+    </svg>
+  </div>
+</div>
+
+<script>
+const calendarContent = {
+  1: {
+    imageUrl: "Вася.jpg",
+    wish: "Желаю двигаться с кайфом!",
+    frontText: "Кайфуй ☝️"
+  },
+  2: {
+    imageUrl: "Илья.jpg",
+    wish: "«You Can Do It!», как говорится, а We поможем, если что",
+    frontText: "Сил 💪"
+  },
+  3: {
+    imageUrl: "Ника.jpg",
+    wish: "И заражай своей улыбкой окружающих)",
+    frontText: "Сияй ✨"
+  },
+  4: {
+    imageUrl: "Асхат.jpg",
+    wish: "Чиллово мозгу, чиллово попке, горячо сердцу!",
+    frontText: "Чиль 😎"
+  },
+  5: {
+    imageUrl: "Юля.jpg",
+    wish: "Теплом, которым согревает любовь родных и близких!",
+    frontText: "Грейся 🔥"
+  },
+  6: {
+    imageUrl: "Леша.png",
+    wish: "Пусть на дороге к твоим стремлениям не будет никаких стрёмных препятствий",
+    frontText: "Встреч 🫂"
+  },
+  7: {
+    imageUrl: "Данила.jpg",
+    wish: "Пусть жизнь будет сладкой, как грузинское вино, а удача - крепкой, как домашняя чача!",
+    frontText: "Живи ярко 🌞"
+  },
+  8: {
+    imageUrl: "Кирилл.jpg",
+    wish: "На любые изменения в жизни, которые только захочешь",
+    frontText: "Вдохновения 🪄"
+  },
+  9: {
+    imageUrl: "Коля 2.jpg",
+    wish: "Желаю любви, радости, друзей вокруг, красивой музыки, волнующей и вдохновляющей!",
+    frontText: "Неотразимости 🪩"
+  },
+  
+  10: {
+    imageUrl: "Леша 2.jpg",
+    wish: "...Z-z-z...",
+    frontText: "Высыпайся 💤"
+  },
+  11: {
+    imageUrl: "Сима.jpg",
+    wish: "...только хорошему!",
+    frontText: "Учись 📚"
+  },
+  12: {
+    imageUrl: "Маша.jpg",
+    wish: "Ведь радость возвращается тем, кто её дарит!",
+    frontText: "Улыбайся 🥰"
+  }
+  
+};
+
+const createSnowflake = () => {
+  const snowflake = document.createElement('div');
+  snowflake.classList.add('snowflake');
+  snowflake.textContent = '❄';
+  
+  // Устанавливаем случайное положение и размеры
+  snowflake.style.left = Math.random() * 100 + 'vw';
+  snowflake.style.animationDuration = Math.random() * 3 + 2 + 's'; // от 2 до 5 секунд
+  snowflake.style.fontSize = Math.random() * 10 + 10 + 'px'; // от 10px до 20px
+
+  document.body.appendChild(snowflake);
+
+  // Удаляем снежинку после окончания анимации
+  snowflake.addEventListener('animationend', () => {
+    snowflake.remove();
+  });
+};
+
+// Интервал для создания снежинок
+setInterval(createSnowflake, 200);
+
+  
+function createWindows() {
+  const calendar = document.querySelector('.calendar');
+  
+  for (let i = 1; i <= 12; i++) {
+    const window = document.createElement('div');
+    window.className = 'window';
+    window.setAttribute('data-day', i);
+    
+    const front = document.createElement('div');
+    front.className = 'window-front';
+    front.textContent = calendarContent[i].frontText;
+    
+    const back = document.createElement('div');
+    back.className = 'window-back';
+    
+    const imageWrapper = document.createElement('div');
+    imageWrapper.className = 'image-wrapper';
+    
+    const img = document.createElement('img');
+    img.src = calendarContent[i].imageUrl;
+    img.alt = `Day ${i} image`;
+    
+    const hollyFrame = document.createElement('div');
+    hollyFrame.className = 'holly-frame';
+    
+    const frameImg = document.createElement('img');
+    frameImg.src = "frame_no_bg_2.png";
+    frameImg.alt = 'Holly frame';
+    
+    hollyFrame.appendChild(frameImg);
+    
+    imageWrapper.appendChild(img);
+    imageWrapper.appendChild(hollyFrame);
+    
+    const wish = document.createElement('div');
+    wish.className = 'wish';
+    wish.textContent = calendarContent[i].wish;
+    
+    back.appendChild(imageWrapper);
+    back.appendChild(wish);
+    
+    window.appendChild(front);
+    window.appendChild(back);
+    
+    window.addEventListener('click', () => {
+      if (!window.classList.contains('open')) {
+        window.classList.add('open');
+      } else {
+        window.classList.remove('open');
+      }
+    });
+    
+    calendar.appendChild(window);
+  }
+}
+
+createWindows();
+createSnowflakes();
+</script>
+</body></html>
