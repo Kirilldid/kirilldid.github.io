@@ -1,184 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV. Kirill Didenko</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .resume {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        .profile-info {
-            display: flex;
-            align-items: center;
-        }
-        .profile-img-container {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-right: 20px;
-            flex-shrink: 0;
-        }
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-        h1 {
-            margin: 0;
-            font-size: 2.5em;
-            color: #2c3e50;
-        }
-        h2 {
-            margin: 5px 0;
-            font-size: 1.5em;
-            color: #34495e;
-        }
-        .contact-info {
-            text-align: right;
-        }
-        .contact-info a {
-            display: block;
-            margin-bottom: 5px;
-            color: #3498db;
-            text-decoration: none;
-        }
-        section {
-            margin-bottom: 30px;
-        }
-        h3 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 5px;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .skill {
-            background-color: #3498db;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9em;
-        }
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .contact-info {
-                text-align: left;
-                margin-top: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Кирилл Диденко - Продюсер вебинаров</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      --bg-primary: #f4f6f9;
+      --bg-secondary: #ffffff;
+      --text-primary: #1a2634;
+      --text-secondary: #556677;
+      --accent-color: #3a7bd5;
+      --border-color: #e2e8f0;
+      --soft-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      text-rendering: optimizeLegibility;
+    }
+
+    .container {
+      max-width: 950px;
+      width: 100%;
+      background-color: var(--bg-secondary);
+      padding: 2rem 3rem;
+      border-radius: 20px;
+      box-shadow: var(--soft-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      align-items: center;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .avatar-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .avatar {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-color);
+      box-shadow: 0 10px 30px rgba(58, 123, 213, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .avatar:hover {
+      transform: scale(1.05);
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .name-title {
+      text-align: left;
+    }
+
+    .name-title h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      line-height: 1.2;
+    }
+
+    .name-title .job-title {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .contact {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact a {
+      display: flex;
+      align-items: center;
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      gap: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .contact a:hover {
+      color: darken(var(--accent-color), 10%);
+    }
+
+    .contact-icon {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    section h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    section p, section ul {
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style-position: outside;
+      padding-left: 1.5rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .skills-grid div {
+      background-color: var(--bg-primary);
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      text-align: center;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .skills-grid div:hover {
+      transform: translateY(-5px);
+      background-color: color-mix(in srgb, var(--accent-color) 10%, var(--bg-primary));
+      color: var(--text-primary);
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      .header {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+      }
+
+      .name-title {
+        text-align: center;
+      }
+
+      .contact {
+        align-items: center;
+      }
+
+      .avatar {
+        width: 250px;
+        height: 250px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="resume">
-        <header>
-            <div class="profile-info">
-                <div class="profile-img-container">
-                    <img src="https://i.ibb.co/0BSfPyG/IMG-1376.jpg" alt="Кирилл Диденко" class="profile-img">
-                </div>
-                <div>
-                    <h1>Kirill Didenko</h1>
-                    <h2>Webinar Producer</h2>
-                </div>
-            </div>
-            <div class="contact-info">
-                <a href="mailto:kirilldid@gmail.com">kirilldid@gmail.com</a>
-                <a href="https://t.me/kirilldid">Telegram</a>
-            </div>
-        </header>
-
-        <section>
-            <h3>Profile summary</h3>
-            <p>I’m a webinar producer and content marketing professional with over 4 years of experience in EdTech. I specialize in designing and managing webinar funnels, optimizing key performance metrics like CPL, CR0, CR1, and ROMI, and producing engaging content for large audiences. I’ve successfully built webinar systems from scratch at Hexlet and Psychodemia, achieving results such as a x3 improvement in CR (from participation to lead) and organizing over six webinars monthly.</p>
-            <p>I excel at collaborating with cross-functional teams, preparing speakers, and creating innovative content formats tailored to diverse audiences. Empowering individuals to succeed in IT professions is something I’m passionate about, which is why TripleTen’s mission resonates with me. I also have hands-on experience with tools like Bizon, Streamyard, YouTube, and various CRM systems to optimize processes and deliver effective webinars.</p>
-        </section>
-
-        <section>
-            <h3>Key skills</h3>
-            <ul>
-                <li><b>Webinar Management:</b> I have solid experience in building clear and consistent monthly webinar schedules, ensuring all events are well-organized and align with overall marketing goals. My approach helps maintain regularity and efficiency in planning, execution, and follow-ups.</li>
-                <li><b>Technical Skills:</b> I’m proficient in using CRM platforms like AmoCRM and webinar tools like Bizon, Streamyard, and YouTube. I’m familiar with analytics and creating dashboards to track key performance metrics, and I’m confident in quickly mastering tools like BigMarker, HubSpot, Customer.io, and Tableau.</li>
-                <li><b>Cross-Functional Team Management:</b> I effectively manage cross-functional teams, assigning tasks to designers, copywriters, CRM specialists, and other team members to ensure seamless collaboration and project delivery. I’m skilled at prioritizing workloads and delegating technical and creative tasks based on each team member’s strengths.</li>
-                <li><b>Soft Skills:</b> I excel at multitasking and managing multiple projects simultaneously. I thrive in cross-functional teams, ensuring effective collaboration and alignment with goals. Additionally, I’m skilled in preparing and briefing speakers to deliver impactful content.</li>
-            </ul>
-        </section>
-
-        <section>
-            <h3>Professional Experience</h3>
-            <div>
-                <h4>Webinar Funnel Producer</h4>
-                <p>Hexlet | March 2024 – Present</p>
-                <p>I returned to Hexlet to spearhead the launch of innovative intensive formats and refine existing CRM chains. In this role, I've taken on challenges like:</p>
-                <ul>
-                    <li>Introducing a new intensive format featuring a dedicated Telegram channel for Java development, complete with regular announcements of upcoming intensives.</li>
-                    <li>Enhancing and optimizing current CRM chains to improve efficiency and effectiveness</li>
-                    <li>Launching and managing new intensive formats</li>
-                </ul>
-            </div>
-            <div>
-                <h4>Webinar Funnel Lead</h4>
-                <p>Psychodemia | July 2023 – March 2024</p>
-                <ul>
-                    <li>Established a monthly system for planning and executing webinars from concept to live production, organizing 2–3 events per month (including repeat events with updated formats)</li>
-                    <li>Innovated new content formats, such as interactive psycholectures and Telegram bots, to warm up and engage audiences</li>
-                    <li>Implemented best practices and tools like Bizon, Telegram bot chains, and optimized landing pages to streamline workflows and improve lead engagement</li>
-                    <li>Successfully aligned webinar strategies to target audience needs, introducing tailored formats for mass audiences, core prospects, and loyal customer bases</li>
-                </ul>
-            </div>
-            <div>
-                <h4>Producer of Webinars</h4>
-                <p>Hexlet | October 2021 – July 2023</p>
-                <ul>
-                    <li>Built a webinar funnel from scratch, producing 6+ events per month, including career-focused webinars, roundtables with graduates, and collaborations with platforms like Habr.Career</li>
-                    <li>Continuously improved key funnel metrics like CPL and CR1, achieving a 3x increase in conversion rates from unique viewers to lead (from 4–5% to 13–15%), without relying on discounts or promotions</li>
-                    <li>Collaborated with cross-functional teams to create supporting materials like landing pages, presentations, lead magnets, and email sequences, ensuring seamless execution of campaigns</li>
-                    <li>Spearheaded the creation of dashboards to monitor webinar performance, integrating data from registrations to sales, providing actionable insights for ongoing optimization</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <h3>Skills</h3>
-            <div class="skills">
-                <span class="skill">Webinar Management</span>
-                <span class="skill">CRM platforms</span>
-                <span class="skill">Webinar tools</span>
-                <span class="skill">Analytics and Dashboard</span>
-                <span class="skill">Multitasking</span>
-                <span class="skill">Speaker Preparation</span>
-                <span class="skill">Content Marketing</span>
-                <span class="skill">Data-Driven Decision</span>
-            </div>
-        </section>
+  <div class="container">
+    <div class="header">
+      <div class="avatar-container">
+        <img
+          src="https://i.ibb.co/0BSfPyG/IMG-1376.jpg"
+          alt="Кирилл Диденко"
+          class="avatar"
+        />
+      </div>
+      <div class="header-content">
+        <div class="name-title">
+          <h1>Кирилл Диденко</h1>
+          <div class="job-title">Продюсер вебинаров</div>
+        </div>
+        <div class="contact">
+          <a href="mailto:kirilldid@gmail.com">
+            <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
+            </svg>
+            kirilldid@gmail.com
+          </a>
+          <a href="https://t.me/kirilldid">
+            <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221-1.772 8.885c-.129.646-.493.805-1 .5l-2.872-2.211-1.276 1.272c-.14.141-.258.262-.53.262l.19-2.69 4.892-4.418c.213-.19-.047-.295-.333-.105l-6.055 3.853-2.616-.817c-.643-.203-.657-.643.136-.953l10.193-3.925c.476-.171.913.119.753.963z"/>
+            </svg>
+            @kirilldid
+          </a>
+        </div>
+      </div>
     </div>
+
+    <section>
+      <h2>Общая информация</h2>
+      <p>
+        Продюсер вебинаров и контент-маркетолог с опытом в EdTech более 4 лет. Строю воронки вебинаров, улучшаю CPL, CR0, CR1, ROMI и ДРР. В проектах Хекслет и Psychodemia запускал вебинарные системы с нуля. Повышал CR из участника в заявку в 3 раза. Организовывал до 6 вебинаров в месяц.
+      </p>
+      <p>
+        Создавал разные форматы от интенсивов, до тестов и лидмагнитов. Имею отличную насмотренность на бесплатные продукты в EdTech.
+      </p>
+    </section>
+
+    <section>
+      <h2>Ключевые компетенции</h2>
+      <ul>
+        <li><strong>Продюсирование вебинаров</strong> – создание четкого и стабильного графика вебинаров, согласованного с командами маркетинга и продукта</li>
+        <li><strong>Технические навыки</strong> – работал с разными аналитическими системами (Looker, Roistat и, др.), AmoCRM, разнообразными сервисами для вебинаров (Bizon, ClickMeeting, MTS Link, StreamYard и, др.)</li>
+        <li><strong>Кросс-командное взаимодействие</strong> – взаимодействие и постановка задач для дизайна, копирайтеров, CRM-специалистов</li>
+        <li><strong>Soft Skills</strong> – многозадачность, подготовка спикеров, работа в команде</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Опыт работы</h2>
+      <p><strong>Продюсер вебинаров</strong><br/><em>Хекслет | Март 2024 – по настоящее время</em></p>
+      <ul>
+        <li>Запуск нового формата интенсивов с Telegram-каналом</li>
+        <li>Улучшение CRM-цепочек</li>
+        <li>Руководство новыми форматами интенсивов</li>
+        <li>Тестирование разных форматов офферов, в том числе с конверсией около 30-40% от зрителя</li>
+        <li>Планирование запуска нового продукта — мини-курс по Python</li>
+      </ul>
+
+      <p><strong>Лид воронки вебинаров</strong><br/><em>Психодемия | Июль 2023 – Март 2024</em></p>
+      <ul>
+        <li>Планирование и запуск 2–3 вебинаров в месяц</li>
+        <li>Создание интерактивных форматов (психолектории, Telegram-боты)</li>
+        <li>Внедрение лучших практик (Bizon, автоворонки, лендинги)</li>
+        <li>Запуск с нуля регулярной воронки вебинаров и налаживание процессов их производства</li>
+      </ul>
+
+      <p><strong>Продюсер вебинаров</strong><br/><em>Хекслет | Октябрь 2021 – Июль 2023</em></p>
+      <ul>
+        <li>Построение воронки с 4-6 вебинарами в месяц</li>
+        <li>Рост CR из зрителя в заявку с 4–5% до 13–15% без возможности использовать скидки</li>
+        <li>Создание сопутствующих материалов: лендинги, презентации, лид-магниты, цепочки</li>
+        <li>Проектирование дашбордов для аналитики вебинаров</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Навыки</h2>
+      <div class="skills-grid">
+        <div>Создание вебинаров</div>
+        <div>CRM-цепочки</div>
+        <div>Инструменты для вебинаров</div>
+        <div>Аналитика и отчетность</div>
+        <div>Многозадачность</div>
+        <div>Подготовка спикеров</div>
+        <div>Контент-маркетинг</div>
+        <div>Data-Driven подход</div>
+      </div>
+    </section>
+  </div>
 </body>
 </html>
