@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Даша!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Wrap content in a div to allow background blur on body/pseudo-element -->
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="main-content">
+                <h1 class="title">С днем Рождения, Даша!</h1>
+                <p class="subtitle">Желаем много хороших дизайнов, а не таких, как эта страница</p>
+                <div class="decorative-line"></div>
+            </div>
+
+            <button id="openModalBtn" class="gift-button">
+                ✨ Нажми, чтобы получить подарок
+            </button>
+        </div>
+    </div>
+
+    <div id="giftModal" class="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+             <!-- Confetti container -->
+            <div class="confetti-container">
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+                <div class="confetti"></div>
+            </div>
+            <span class="close-button">&times;</span>
+            <p class="modal-message">Приглашаем тебя пойти в спа и аквапарк? Выбирай дату 💬</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
