@@ -15,17 +15,17 @@ const CONFIG = {
     CREATE_FORM_URL: 'https://docs.google.com/forms/d/e/1FAIpQLScaVxjAMI4Iz4w13UKUZcEjTsMR50gvnWt2qNr8TMIybZRGQA/formResponse',
 
     // Google Forms entry IDs (find these by inspecting your form HTML)
-    JOIN_ENTRY_EVENT_ID: 'entry.YOUR_EVENT_ID_FIELD',
-    JOIN_ENTRY_NAME: 'entry.YOUR_NAME_FIELD',
+    JOIN_ENTRY_EVENT_ID: 'entry.484082052',
+    JOIN_ENTRY_NAME: 'entry.945470645',
 
     // Date field is split into 3 parts in Google Forms!
-    CREATE_ENTRY_DATE_YEAR: 'entry.YOUR_DATE_YEAR',
-    CREATE_ENTRY_DATE_MONTH: 'entry.YOUR_DATE_MONTH',
-    CREATE_ENTRY_DATE_DAY: 'entry.YOUR_DATE_DAY',
-    CREATE_ENTRY_TIME_START: 'entry.YOUR_TIME_START_FIELD',
-    CREATE_ENTRY_TIME_END: 'entry.YOUR_TIME_END_FIELD',
-    CREATE_ENTRY_LOCATION: 'entry.YOUR_LOCATION_FIELD',
-    CREATE_ENTRY_ORGANIZER: 'entry.YOUR_ORGANIZER_FIELD',
+    CREATE_ENTRY_DATE_YEAR: 'entry.87044447_year',
+    CREATE_ENTRY_DATE_MONTH: 'entry-19.129556_month',
+    CREATE_ENTRY_DATE_DAY: 'entry.87044447_day',
+    CREATE_ENTRY_TIME_START: 'entry.412748059',
+    CREATE_ENTRY_TIME_END: 'entry.2002611577',
+    CREATE_ENTRY_LOCATION: 'entry.1202378861',
+    CREATE_ENTRY_ORGANIZER: 'entry.1029082665',
 
     REFRESH_INTERVAL: 30000,
 
@@ -549,3 +549,4 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
+
