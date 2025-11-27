@@ -20,7 +20,7 @@ const CONFIG = {
 
     // Date field is split into 3 parts in Google Forms!
     CREATE_ENTRY_DATE_YEAR: 'entry.87044447_year',
-    CREATE_ENTRY_DATE_MONTH: 'entry-19.129556_month',
+    CREATE_ENTRY_DATE_MONTH: 'entry.87044447_month',
     CREATE_ENTRY_DATE_DAY: 'entry.87044447_day',
     CREATE_ENTRY_TIME_START: 'entry.412748059',
     CREATE_ENTRY_TIME_END: 'entry.2002611577',
@@ -549,4 +549,5 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
+
 
