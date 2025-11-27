@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Вебинар по аналитике данных — скоро начнем</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050714;
+      --bg-card: #0b0f24;
+      --accent: #ff7a2f;
+      --accent-soft: rgba(255, 122, 47, 0.12);
+      --text-main: #f5f5f7;
+      --text-muted: #9aa0b5;
+      --danger: #ff4b6a;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --radius-xl: 20px;
+      --radius-lg: 14px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 0 0, #171b38 0, #050714 45%, #02030a 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      padding: 16px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 20px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* легкий шум/глоу */
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0.2;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 122, 47, 0.25), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(79, 70, 229, 0.3), transparent 55%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(8, 12, 32, 0.9);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #4ade80 0, #15803d 55%, transparent 70%);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .title {
+      font-size: clamp(28px, 3.4vw, 36px);
+      line-height: 1.1;
+      font-weight: 650;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 38rem;
+    }
+
+    .speaker-card {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-lg);
+      background: rgba(7, 11, 30, 0.9);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .speaker-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 0, #fed7aa, #7c2d12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: #020617;
+    }
+
+    .speaker-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .speaker-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .speaker-role {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--text-muted);
+      background: rgba(10, 16, 36, 0.9);
+    }
+
+    .countdown-card {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at 0% 0%, rgba(255, 122, 47, 0.14), transparent 55%),
+        rgba(10, 14, 32, 0.95);
+      border: 1px solid rgba(255, 122, 47, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .countdown-labels {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 13px;
+    }
+
+    .countdown-labels strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .time-box {
+      width: 58px;
+      padding: 6px 0;
+      text-align: center;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+    }
+
+    .time-value {
+      font-variant-numeric: tabular-nums;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .time-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .time-separator {
+      font-size: 16px;
+      opacity: 0.6;
+      margin: 0 2px;
+    }
+
+    .note {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .note strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .logo-slot {
+      margin-top: auto;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-top: 1px solid rgba(148, 163, 184, 0.3);
+      padding-top: 10px;
+    }
+
+    .logo-mark {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .right-card {
+      height: 100%;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.04), transparent 50%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .right-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .right-header span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .code-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .player-frame {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.9);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+      flex: 1;
+      min-height: 260px;
+    }
+
+    .player-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .hint strong {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .hint span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kbd {
+      border-radius: 7px;
+      padding: 2px 6px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 860px) {
+      .shell {
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 16px;
+        border-radius: 20px;
+      }
+
+      .right-card {
+        min-height: 260px;
+      }
+
+      .countdown-card {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 8px;
+      }
+
+      .shell {
+        padding: 14px;
+      }
+
+      .countdown {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .time-box {
+        width: 52px;
+      }
+
+      .title {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- ЛЕВАЯ КОЛОНКА: тема, спикер, таймер -->
+  <div class="col">
+    <div>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Вебинар по аналитике данных
+      </div>
+
+      <!-- TODO: поменять тему вебинара -->
+      <h1 class="title">
+        Как аналитики принимают решения на данных, а не на ощущениях
+      </h1>
+
+      <!-- TODO: короткий подзаголовок / описание -->
+      <p class="subtitle">
+        Разберём, как формулировать продуктовые вопросы, собирать нужные данные,
+        проверять гипотезы и не утонуть в дэшбордах.
+      </p>
+
+      <!-- TODO: имя и должность спикера -->
+      <div class="speaker-card">
+        <div class="speaker-avatar">А</div>
+        <div class="speaker-meta">
+          <div class="speaker-name">Алексей Иванов</div>
+          <div class="speaker-role">Lead Product Analyst, Simulative</div>
+          <div class="pill-row">
+            <span class="pill">SQL · Python · BI</span>
+            <span class="pill">юнит-экономика</span>
+            <span class="pill">A/B‑тесты</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Блок с таймером -->
+      <div class="countdown-card">
+        <div class="countdown-labels">
+          <span>Начинаем через:</span>
+          <span><strong id="webinarStartLabel">15 минут</strong></span>
+        </div>
+        <div class="countdown" id="countdown">
+          <div class="time-box">
+            <div class="time-value" id="cd-minutes">15</div>
+            <div class="time-label">минут</div>
+          </div>
+          <div class="time-separator">:</div>
+          <div class="time-box">
+            <div class="time-value" id="cd-seconds">00</div>
+            <div class="time-label">секунд</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="note">
+        Время указано по <strong>МСК</strong>. Если вы видите странный отсчёт, освежите страницу.
+      </p>
+    </div>
+
+    <div class="logo-slot">
+      <span>Подготовлено школой</span>
+      <span class="logo-mark">Simulative</span>
+    </div>
+  </div>
+
+  <!-- ПРАВАЯ КОЛОНКА: Strudel live-coding -->
+  <div class="col">
+    <div class="right-card">
+      <div class="right-header">
+        <span>
+          <span class="code-dot"></span>
+          live‑coding / музыка
+        </span>
+        <span>Strudel · browser‑repl</span>
+      </div>
+
+      <!-- TODO: заменить src на свой паттерн Strudel -->
+      <div class="player-frame">
+        <iframe
+          src="https://strudel.cc/?xwWRfuCE8TAR"
+          title="Strudel live coding player"
+          allow="autoplay"
+        ></iframe>
+      </div>
+
+      <div class="hint">
+        <span><strong>Совет:</strong> сделайте звук комфортным — вебинар начнётся без резких сюрпризов.</span>
+        <span>
+          <span class="kbd">Space</span> play / pause
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /*
+    НАСТРОЙКА ТАЙМЕРА
+
+    Вариант 1 — старт через N минут от открытия страницы:
+      const minutesFromNow = 15;
+
+    Вариант 2 — учёт конкретного времени по МСК:
+      const targetMsk = "2025-11-27T20:30:00"; // локальная дата/время по Москве
+  */
+
+  // TODO: здесь выбираешь режим работы
+
+  const USE_ABSOLUTE_MSK_TIME = true; // false — отсчёт от "сейчас"
+
+  // Вариант 1: относительный таймер (по умолчанию 15 минут)
+  const minutesFromNow = 15; // можно поменять
+
+  // Вариант 2: таймер до конкретного времени по Москве
+  // Пример: "2025-11-27T20:30:00" — 27 ноября 2025, 20:30 МСК
+  const targetMsk = "2025-11-27T20:30:00";
+
+  function getMskTargetDate() {
+    // Москва — UTC+3, без перехода на летнее время
+    const local = new Date(targetMsk + "+03:00");
+    return local;
+  }
+
+  function createRelativeTarget(minutes) {
+    const now = new Date();
+    return new Date(now.getTime() + minutes * 60 * 1000);
+  }
+
+  const targetDate = USE_ABSOLUTE_MSK_TIME
+    ? getMskTargetDate()
+    : createRelativeTarget(minutesFromNow);
+
+  const labelEl = document.getElementById("webinarStartLabel");
+  const minutesEl = document.getElementById("cd-minutes");
+  const secondsEl = document.getElementById("cd-seconds");
+  const countdownEl = document.getElementById("countdown");
+
+  function formatLabel(diffMs) {
+    if (diffMs <= 0) {
+      return "уже начинаем";
+    }
+    const totalSeconds = Math.floor(diffMs / 1000);
+    const m = Math.floor(totalSeconds / 60);
+    const s = totalSeconds % 60;
+
+    if (m >= 60) {
+      const h = Math.floor(m / 60);
+      const mRest = m % 60;
+      return `через ${h} ч ${mRest.toString().padStart(2, "0")} мин`;
+    } else {
+      return `через ${m} мин ${s.toString().padStart(2, "0")} сек`;
+    }
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = targetDate.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      minutesEl.textContent = "00";
+      secondsEl.textContent = "00";
+      labelEl.textContent = "уже в эфире";
+      countdownEl.classList.add("live");
+      return;
+    }
+
+    const totalSeconds = Math.floor(diff / 1000);
+    const minutes = Math.floor((totalSeconds / 60) % 60);
+    const seconds = totalSeconds % 60;
+
+    minutesEl.textContent = minutes.toString().padStart(2, "0");
+    secondsEl.textContent = seconds.toString().padStart(2, "0");
+    labelEl.textContent = formatLabel(diff);
+
+    // мягкое подсвечивание, когда осталось < 1 минуты
+    if (totalSeconds <= 60) {
+      countdownEl.style.filter = "drop-shadow(0 0 18px rgba(255, 75, 106, 0.7))";
+      countdownEl.style.borderColor = "rgba(248, 113, 113, 0.8)";
+    }
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
