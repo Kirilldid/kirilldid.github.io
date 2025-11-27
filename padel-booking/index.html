@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Padel Tbilisi Community - Записывайтесь на игру с друзьями. Присоединяйтесь к существующим мероприятиям или создавайте новые.">
+  <meta name="keywords" content="падел, падел тбилиси, padel, tbilisi, спорт, теннис, бронирование">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Padel Tbilisi Community">
+  <meta property="og:description" content="Записывайтесь на игру с друзьями. Присоединяйтесь к существующим мероприятиям или создавайте новые.">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630/040511/FF6A1A?text=Padel+Tbilisi">
+  
+  <title>Padel Tbilisi Community - Бронирование игр</title>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <h1 class="header__title">
+        <span class="header__emoji">🏓</span>
+        <span>Padel Tbilisi Community</span>
+      </h1>
+      <p class="header__subtitle">Записывайтесь на игру с друзьями</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="container">
+      <!-- Create Event Button -->
+      <section class="create-event-section">
+        <button id="createEventBtn" class="btn btn-primary btn-large">
+          <span>➕</span>
+          <span>Создать новое мероприятие</span>
+        </button>
+      </section>
+
+      <!-- Events Section -->
+      <section class="events-section">
+        <div class="events-section__header">
+          <span class="events-section__icon">📅</span>
+          <h2 class="events-section__title">Предстоящие мероприятия</h2>
+        </div>
+        
+        <!-- Loading State -->
+        <div id="loadingState" class="loading">
+          <div class="loading__spinner"></div>
+          <p class="loading__text">Загрузка мероприятий...</p>
+        </div>
+        
+        <!-- Events Grid -->
+        <div id="eventsGrid" class="events-grid hidden">
+          <!-- Events will be dynamically inserted here -->
+        </div>
+        
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state hidden">
+          <div class="empty-state__icon">🎾</div>
+          <h3 class="empty-state__title">Пока нет предстоящих мероприятий</h3>
+          <p class="empty-state__text">Будьте первым! Создайте новое мероприятие и пригласите друзей.</p>
+          <button class="btn btn-primary btn-large" onclick="document.getElementById('createEventBtn').click()">
+            <span>➕</span>
+            <span>Создать мероприятие</span>
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Padel Tbilisi Community. Сделано с ❤️ для любителей падела.</p>
+    </div>
+  </footer>
+
+  <!-- Join Event Modal -->
+  <div id="joinModal" class="modal">
+    <div class="modal__content">
+      <div class="modal__header">
+        <h3 class="modal__title">Присоединиться к мероприятию</h3>
+        <button class="modal__close" id="joinModalClose" aria-label="Закрыть">&times;</button>
+      </div>
+      <div class="modal__body">
+        <form id="joinEventForm">
+          <input type="hidden" id="joinEventId" name="eventId">
+          
+          <div class="form-group">
+            <label for="joinName" class="form-label form-label--required">Ваше имя</label>
+            <input 
+              type="text" 
+              id="joinName" 
+              name="name" 
+              class="form-input" 
+              placeholder="Введите ваше имя"
+              required
+              autocomplete="name"
+            >
+            <p class="form-hint">Это имя будет отображаться в списке участников</p>
+          </div>
+        </form>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn-secondary" id="joinModalCancel">Отмена</button>
+        <button type="submit" form="joinEventForm" class="btn btn-primary">Присоединиться</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Event Modal -->
+  <div id="createModal" class="modal">
+    <div class="modal__content">
+      <div class="modal__header">
+        <h3 class="modal__title">Создать новое мероприятие</h3>
+        <button class="modal__close" id="createModalClose" aria-label="Закрыть">&times;</button>
+      </div>
+      <div class="modal__body">
+        <form id="createEventForm">
+          <div class="form-group">
+            <label for="createDate" class="form-label form-label--required">Дата</label>
+            <input 
+              type="date" 
+              id="createDate" 
+              name="date" 
+              class="form-input"
+              required
+            >
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="createTimeStart" class="form-label form-label--required">Время начала</label>
+              <input 
+                type="time" 
+                id="createTimeStart" 
+                name="timeStart" 
+                class="form-input"
+                required
+              >
+            </div>
+            
+            <div class="form-group">
+              <label for="createTimeEnd" class="form-label form-label--required">Время окончания</label>
+              <input 
+                type="time" 
+                id="createTimeEnd" 
+                name="timeEnd" 
+                class="form-input"
+                required
+              >
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="createLocation" class="form-label form-label--required">Место</label>
+            <textarea 
+              id="createLocation" 
+              name="location" 
+              class="form-textarea" 
+              placeholder="Например: Теннисный клуб, ул. Руставели 15"
+              required
+            ></textarea>
+            <p class="form-hint">Укажите название и адрес места проведения</p>
+          </div>
+          
+          <div class="form-group">
+            <label for="createOrganizer" class="form-label form-label--required">Ваше имя</label>
+            <input 
+              type="text" 
+              id="createOrganizer" 
+              name="organizer" 
+              class="form-input" 
+              placeholder="Введите ваше имя"
+              required
+              autocomplete="name"
+            >
+            <p class="form-hint">Вы будете указаны как организатор мероприятия</p>
+          </div>
+        </form>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn-secondary btn-block-mobile" id="createModalCancel">Отмена</button>
+        <button type="submit" form="createEventForm" class="btn btn-primary btn-block-mobile">Создать мероприятие</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden iframe for Google Forms submission (if needed) -->
+  <iframe id="hiddenFormFrame" name="hiddenFormFrame" style="display: none;"></iframe>
+
+  <script src="app.js"></script>
+</body>
+</html>
