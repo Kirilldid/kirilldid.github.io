@@ -44,12 +44,50 @@
       padding: 12px;
     }
 
+    /* кнопка управления панелью */
+    .config-toggle {
+      position: fixed;
+      top: 10px;
+      right: 12px;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      font-size: 11px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .config-toggle span.kdot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(74, 222, 128, 0.9);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
+    }
+
+    .config-toggle[data-open="false"] {
+      padding-inline: 6px;
+      border-radius: 999px;
+      color: var(--text-muted);
+    }
+
+    .config-toggle[data-open="false"] .label-text {
+      display: none;
+    }
+
     /* ПАНЕЛЬ НАСТРОЕК */
 
     .config-panel {
       width: 100%;
       max-width: 1320px;
-      margin: 0 auto;
+      margin: 28px auto 4px;
       padding: 12px 16px;
       border-radius: 16px;
       background: rgba(15, 23, 42, 0.9);
@@ -58,6 +96,27 @@
       grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
       gap: 10px 16px;
       font-size: 12px;
+      transition:
+        opacity 0.18s ease-out,
+        transform 0.18s ease-out,
+        max-height 0.18s ease-out,
+        padding 0.18s ease-out,
+        margin 0.18s ease-out,
+        border-width 0.18s ease-out;
+      max-height: 260px;
+      overflow: hidden;
+    }
+
+    .config-panel.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-top: 12px;
+      margin-bottom: 0;
+      border-width: 0;
     }
 
     .config-panel h2 {
@@ -468,6 +527,11 @@
 
 <div class="page-bg"></div>
 
+<button type="button" class="config-toggle" id="configToggle" data-open="true">
+  <span class="kdot"></span>
+  <span class="label-text">Панель настроек</span>
+</button>
+
 <!-- Панель настройки -->
 <form class="config-panel" id="configForm">
   <h2>Параметры вебинара</h2>
@@ -607,10 +671,20 @@
 
 <script>
   // -----------------------------
+  // тоггл панели настроек
+  // -----------------------------
+  const form = document.getElementById("configForm");
+  const configToggle = document.getElementById("configToggle");
+
+  configToggle.addEventListener("click", () => {
+    const isOpen = configToggle.getAttribute("data-open") === "true";
+    configToggle.setAttribute("data-open", String(!isOpen));
+    form.classList.toggle("hidden", isOpen);
+  });
+
+  // -----------------------------
   // привязка формы к верстке
   // -----------------------------
-
-  const form = document.getElementById("configForm");
 
   const topicInput = document.getElementById("topic");
   const subtitleInput = document.getElementById("subtitle");
@@ -627,6 +701,7 @@
   const viewAvatar = document.getElementById("viewAvatar");
   const viewTags = document.getElementById("viewTags");
   const viewOrgLabel = document.getElementById("viewOrgLabel");
+  const orgLabelPreview = document.getElementById("orgLabelPreview");
   const strudelFrame = document.getElementById("strudelFrame");
 
   function updateTexts() {
@@ -649,6 +724,9 @@
         viewTags.appendChild(span);
       });
 
+    // подпись организатора (если захочешь сделать редактируемой — просто добавь инпут)
+    orgLabelPreview.textContent = viewOrgLabel.textContent;
+
     // strudel iframe
     if (strudelInput.value) {
       strudelFrame.src = strudelInput.value;
@@ -669,7 +747,6 @@
   function getTargetDate() {
     const raw = datetimeInput.value;
     if (!raw) return null;
-    // datetime-local без таймзоны -> считаем, что это МСК (UTC+3)
     try {
       return new Date(raw + ":00+03:00");
     } catch {
