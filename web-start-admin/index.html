@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Настройка заставки вебинара</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #040511;
+      --bg-deep: #020310;
+      --bg-card: #070a1c;
+      --bg-card-soft: #0b0f26;
+      --accent: #ff6a1a;
+      --accent-soft: rgba(255, 106, 26, 0.14);
+      --accent-strong: rgba(255, 106, 26, 0.8);
+      --text-main: #f8fafc;
+      --text-muted: #9da4c0;
+      --border-subtle: rgba(148, 163, 184, 0.32);
+      --border-strong: rgba(148, 163, 184, 0.55);
+      --shadow-strong: 0 32px 80px rgba(0, 0, 0, 0.85);
+      --radius-xl: 26px;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 0 0, #1d2148 0, transparent 45%),
+        radial-gradient(circle at 100% 100%, #111827 0, transparent 55%),
+        radial-gradient(circle at 50% 120%, #020310 0, #020310 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 12px;
+    }
+
+    /* ПАНЕЛЬ НАСТРОЕК */
+
+    .config-panel {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px 16px;
+      font-size: 12px;
+    }
+
+    .config-panel h2 {
+      grid-column: 1 / -1;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .field label {
+      color: var(--text-muted);
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 9px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font: inherit;
+      font-size: 12px;
+    }
+
+    .field textarea {
+      min-height: 48px;
+      resize: vertical;
+    }
+
+    .field small {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .field-row {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .field-row code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 10px;
+    }
+
+    /* ОСНОВНАЯ КАРТОЧКА */
+
+    .page-bg {
+      position: fixed;
+      inset: -25%;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 0% 10%, rgba(59, 130, 246, 0.38), transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(147, 51, 234, 0.35), transparent 55%),
+        radial-gradient(circle at 10% 90%, rgba(249, 115, 22, 0.40), transparent 55%),
+        radial-gradient(circle at 100% 100%, #020617 0, transparent 60%);
+      filter: blur(10px);
+      opacity: 0.9;
+      mix-blend-mode: screen;
+      animation: bgMeshSoft 36s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgMeshSoft {
+      0% {
+        background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%;
+        transform: scale(1);
+      }
+      50% {
+        background-position: 6% 4%, 94% 8%, 4% 92%, 96% 88%;
+        transform: scale(1.03) translate3d(-6px, -8px, 0);
+      }
+      100% {
+        background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%;
+        transform: scale(1.01) translate3d(4px, 4px, 0);
+      }
+    }
+
+    .shell-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1320px;
+      max-height: 720px;
+      min-height: min(90vh, 720px);
+      margin: auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3.3fr) minmax(0, 2.7fr);
+      gap: 28px;
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.9));
+      backdrop-filter: blur(24px) saturate(1.25);
+      -webkit-backdrop-filter: blur(24px) saturate(1.25);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.30);
+      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.85);
+      padding: 26px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0.5;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 106, 26, 0.16), transparent 60%),
+        radial-gradient(circle at 90% 100%, rgba(79, 70, 229, 0.22), transparent 60%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(9, 11, 30, 0.92);
+      border: 1px solid rgba(56, 68, 107, 0.9);
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #4ade80 0, #16a34a 55%, transparent 70%);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+    }
+
+    .title {
+      margin-top: 18px;
+      font-size: clamp(32px, 4.1vw, 42px);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 40rem;
+    }
+
+    .speaker-card {
+      margin-top: 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(
+        135deg,
+        rgba(10, 13, 35, 0.98),
+        rgba(10, 13, 35, 0.96)
+      );
+      border: 1px solid var(--border-subtle);
+    }
+
+    .speaker-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      background: radial-gradient(circle at 30% 0, #fed7aa, #7c2d12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 600;
+      color: #020617;
+    }
+
+    .speaker-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .speaker-name {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .speaker-role {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--text-muted);
+      background: rgba(10, 14, 36, 0.95);
+    }
+
+    .countdown-card {
+      margin-top: 28px;
+      padding: 14px 18px;
+      border-radius: 15px;
+      background:
+        radial-gradient(circle at 0% 0%, var(--accent-soft), transparent 65%),
+        rgba(11, 15, 37, 0.96);
+      border: 1px solid rgba(248, 250, 252, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .countdown-labels {
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .countdown {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 15px;
+      background: radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.25), transparent 70%),
+                  rgba(5, 46, 22, 0.9);
+      border: 1px solid rgba(74, 222, 128, 0.8);
+      box-shadow: 0 0 24px rgba(34, 197, 94, 0.55);
+      font-variant-numeric: tabular-nums;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .countdown span { white-space: nowrap; }
+
+    .note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .note strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .logo-slot {
+      margin-top: auto;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      padding-top: 12px;
+    }
+
+    .logo-mark {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .right-card {
+      height: 100%;
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.06), transparent 55%),
+        linear-gradient(135deg, var(--bg-card-soft), var(--bg-card));
+      border: 1px solid var(--border-strong);
+      padding: 12px 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .right-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .right-header span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .code-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .player-frame {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.95);
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.98);
+      flex: 1;
+      min-height: 280px;
+    }
+
+    .player-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .hint strong {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .hint span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .kbd {
+      border-radius: 7px;
+      padding: 2px 6px;
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 960px) {
+      .shell {
+        grid-template-columns: minmax(0, 1fr);
+        max-height: none;
+        min-height: 0;
+      }
+      .right-card { min-height: 260px; }
+      .shell-wrapper { padding-bottom: 8px; }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 8px;
+      }
+      .shell {
+        padding: 16px 12px;
+        border-radius: 20px;
+      }
+      .title { font-size: 26px; }
+      .countdown { width: 100%; justify-content: space-between; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<!-- Панель настройки -->
+<form class="config-panel" id="configForm">
+  <h2>Параметры вебинара</h2>
+
+  <div class="field">
+    <label for="topic">Тема вебинара</label>
+    <input id="topic" name="topic" type="text"
+           value="Как аналитики принимают решения на данных, а не на ощущениях" />
+  </div>
+
+  <div class="field">
+    <label for="subtitle">Короткое описание</label>
+    <textarea id="subtitle" name="subtitle">Разберём, как формулировать продуктовые вопросы, собирать нужные данные, проверять гипотезы и не утонуть в дэшбордах.</textarea>
+  </div>
+
+  <div class="field">
+    <label for="speakerName">Имя и фамилия спикера</label>
+    <input id="speakerName" name="speakerName" type="text" value="Алексей Иванов" />
+  </div>
+
+  <div class="field">
+    <label for="speakerRole">Должность спикера</label>
+    <input id="speakerRole" name="speakerRole" type="text" value="Lead Product Analyst, Simulative" />
+  </div>
+
+  <div class="field">
+    <label for="speakerTags">Теги (через запятую)</label>
+    <input id="speakerTags" name="speakerTags" type="text" value="SQL · Python · BI, юнит‑экономика, A/B‑тесты" />
+    <small>Появятся в виде пилюль под карточкой спикера.</small>
+  </div>
+
+  <div class="field">
+    <label for="datetime">Дата и время эфира (МСК)</label>
+    <input id="datetime" name="datetime" type="datetime-local" />
+    <small>Используется для расчёта таймера.</small>
+  </div>
+
+  <div class="field">
+    <label for="strudelSrc">Strudel URL</label>
+    <input id="strudelSrc" name="strudelSrc" type="text"
+           value="https://strudel.cc/?xwWRfuCE8TAR" />
+    <small>Вставь сюда ссылку с нужным паттерном.</small>
+  </div>
+
+  <div class="field-row">
+    <span>Подпись организатора:</span>
+    de id="orgLabelPreview">SIMULATIVE</code>
+  </div>
+</form>
+
+<div class="shell-wrapper">
+  <div class="shell">
+    <!-- ЛЕВАЯ КОЛОНКА -->
+    <div class="col">
+      <div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Вебинар по аналитике данных
+        </div>
+
+        <h1 class="title" id="viewTopic">
+          Как аналитики принимают решения на данных, а не на ощущениях
+        </h1>
+
+        <p class="subtitle" id="viewSubtitle">
+          Разберём, как формулировать продуктовые вопросы, собирать нужные данные,
+          проверять гипотезы и не утонуть в дэшбордах.
+        </p>
+
+        <div class="speaker-card">
+          <div class="speaker-avatar" id="viewAvatar">А</div>
+          <div class="speaker-meta">
+            <div class="speaker-name" id="viewSpeakerName">Алексей Иванов</div>
+            <div class="speaker-role" id="viewSpeakerRole">Lead Product Analyst, Simulative</div>
+            <div class="pill-row" id="viewTags">
+              <span class="pill">SQL · Python · BI</span>
+              <span class="pill">юнит‑экономика</span>
+              <span class="pill">A/B‑тесты</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="countdown-card">
+          <div class="countdown-labels">
+            <span id="viewCountdownLabel">Начинаем эфир через</span>
+          </div>
+          <div class="countdown" id="countdown">
+            <span id="cd-minutes">15</span>
+            <span>мин</span>
+            <span>:</span>
+            <span id="cd-seconds">00</span>
+            <span>сек</span>
+          </div>
+        </div>
+
+        <p class="note">
+          Время указано по <strong>МСК</strong>. Если вы видите странный отсчёт, освежите страницу.
+        </p>
+      </div>
+
+      <div class="logo-slot">
+        <span>Подготовлено школой</span>
+        <span class="logo-mark" id="viewOrgLabel">SIMULATIVE</span>
+      </div>
+    </div>
+
+    <!-- ПРАВАЯ КОЛОНКА -->
+    <div class="col">
+      <div class="right-card">
+        <div class="right-header">
+          <span>
+            <span class="code-dot"></span>
+            live‑coding / музыка
+          </span>
+          <span>Strudel · browser‑repl</span>
+        </div>
+
+        <div class="player-frame">
+          <iframe
+            id="strudelFrame"
+            src="https://strudel.cc/?xwWRfuCE8TAR"
+            title="Strudel live coding player"
+            allow="autoplay"
+          ></iframe>
+        </div>
+
+        <div class="hint">
+          <span><strong>Совет:</strong> сделайте звук комфортным — вебинар начнётся без резких сюрпризов.</span>
+          <span>
+            <span class="kbd">Space</span> play / pause
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // -----------------------------
+  // привязка формы к верстке
+  // -----------------------------
+
+  const form = document.getElementById("configForm");
+
+  const topicInput = document.getElementById("topic");
+  const subtitleInput = document.getElementById("subtitle");
+  const speakerNameInput = document.getElementById("speakerName");
+  const speakerRoleInput = document.getElementById("speakerRole");
+  const speakerTagsInput = document.getElementById("speakerTags");
+  const datetimeInput = document.getElementById("datetime");
+  const strudelInput = document.getElementById("strudelSrc");
+
+  const viewTopic = document.getElementById("viewTopic");
+  const viewSubtitle = document.getElementById("viewSubtitle");
+  const viewSpeakerName = document.getElementById("viewSpeakerName");
+  const viewSpeakerRole = document.getElementById("viewSpeakerRole");
+  const viewAvatar = document.getElementById("viewAvatar");
+  const viewTags = document.getElementById("viewTags");
+  const viewOrgLabel = document.getElementById("viewOrgLabel");
+  const strudelFrame = document.getElementById("strudelFrame");
+
+  function updateTexts() {
+    viewTopic.textContent = topicInput.value || "Тема вебинара";
+    viewSubtitle.textContent = subtitleInput.value || "";
+    viewSpeakerName.textContent = speakerNameInput.value || "Имя Фамилия";
+    viewSpeakerRole.textContent = speakerRoleInput.value || "Должность спикера";
+    viewAvatar.textContent = (speakerNameInput.value || "А")[0] || "А";
+
+    // теги -> пилюли
+    viewTags.innerHTML = "";
+    (speakerTagsInput.value || "")
+      .split(",")
+      .map(t => t.trim())
+      .filter(Boolean)
+      .forEach(tag => {
+        const span = document.createElement("span");
+        span.className = "pill";
+        span.textContent = tag;
+        viewTags.appendChild(span);
+      });
+
+    // strudel iframe
+    if (strudelInput.value) {
+      strudelFrame.src = strudelInput.value;
+    }
+  }
+
+  form.addEventListener("input", updateTexts);
+
+  // -----------------------------
+  // таймер до указанного времени МСК
+  // -----------------------------
+
+  const minutesEl = document.getElementById("cd-minutes");
+  const secondsEl = document.getElementById("cd-seconds");
+  const countdownEl = document.getElementById("countdown");
+  const labelTextEl = document.getElementById("viewCountdownLabel");
+
+  function getTargetDate() {
+    const raw = datetimeInput.value;
+    if (!raw) return null;
+    // datetime-local без таймзоны -> считаем, что это МСК (UTC+3)
+    try {
+      return new Date(raw + ":00+03:00");
+    } catch {
+      return null;
+    }
+  }
+
+  function updateCountdown() {
+    const target = getTargetDate();
+    if (!target) {
+      labelTextEl.textContent = "Скоро начнем эфир";
+      minutesEl.textContent = "--";
+      secondsEl.textContent = "--";
+      countdownEl.style.filter = "";
+      countdownEl.style.borderColor = "";
+      return;
+    }
+
+    const now = new Date();
+    const diff = target.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      labelTextEl.textContent = "Уже в эфире";
+      minutesEl.textContent = "00";
+      secondsEl.textContent = "00";
+      countdownEl.style.filter = "drop-shadow(0 0 24px rgba(74, 222, 128, 0.9))";
+      countdownEl.style.borderColor = "rgba(74, 222, 128, 0.9)";
+      return;
+    }
+
+    const totalSeconds = Math.floor(diff / 1000);
+    const m = Math.floor(totalSeconds / 60);
+    const s = totalSeconds % 60;
+
+    minutesEl.textContent = m.toString().padStart(2, "0");
+    secondsEl.textContent = s.toString().padStart(2, "0");
+    labelTextEl.textContent = "Начинаем эфир через";
+
+    if (totalSeconds <= 60) {
+      countdownEl.style.filter = "drop-shadow(0 0 18px rgba(255, 106, 26, 0.9))";
+      countdownEl.style.borderColor = "rgba(248, 113, 113, 0.9)";
+    } else {
+      countdownEl.style.filter = "";
+      countdownEl.style.borderColor = "rgba(74, 222, 128, 0.8)";
+    }
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateTexts();
+  updateCountdown();
+</script>
+
+</body>
+</html>
