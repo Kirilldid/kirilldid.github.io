@@ -44,7 +44,82 @@
       padding: 12px;
     }
 
+    /* плавающий градиентный фон */
+
+    .page-bg {
+      position: fixed;
+      inset: -30%;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 0% 10%, rgba(59, 130, 246, 0.45), transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(147, 51, 234, 0.40), transparent 55%),
+        radial-gradient(circle at 15% 90%, rgba(249, 115, 22, 0.46), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(15, 23, 42, 0.95), transparent 60%);
+      filter: blur(10px);
+      opacity: 0.9;
+      mix-blend-mode: screen;
+      animation:
+        bgBlobDrift 40s ease-in-out infinite alternate,
+        bgBlobDrift2 52s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes bgBlobDrift {
+      0% {
+        background-position:
+          0% 5%,
+          100% 0%,
+          5% 95%,
+          100% 100%;
+        transform: scale(1);
+      }
+      33% {
+        background-position:
+          10% 15%,
+          90% 5%,
+          0% 85%,
+          90% 95%;
+        transform: scale(1.03) translate3d(-6px, -4px, 0);
+      }
+      66% {
+        background-position:
+          -5% 20%,
+          95% -10%,
+          8% 100%,
+          105% 90%;
+        transform: scale(1.05) translate3d(4px, 6px, 0);
+      }
+      100% {
+        background-position:
+          0% 5%,
+          100% 0%,
+          5% 95%,
+          100% 100%;
+        transform: scale(1.02) translate3d(2px, 2px, 0);
+      }
+    }
+
+    @keyframes bgBlobDrift2 {
+      0% {
+        filter: blur(10px);
+        opacity: 0.85;
+      }
+      40% {
+        filter: blur(12px);
+        opacity: 0.95;
+      }
+      70% {
+        filter: blur(9px);
+        opacity: 0.9;
+      }
+      100% {
+        filter: blur(11px);
+        opacity: 0.88;
+      }
+    }
+
     /* кнопка управления панелью */
+
     .config-toggle {
       position: fixed;
       top: 10px;
@@ -180,37 +255,6 @@
     }
 
     /* ОСНОВНАЯ КАРТОЧКА */
-
-    .page-bg {
-      position: fixed;
-      inset: -25%;
-      z-index: -1;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 0% 10%, rgba(59, 130, 246, 0.38), transparent 55%),
-        radial-gradient(circle at 90% 0%, rgba(147, 51, 234, 0.35), transparent 55%),
-        radial-gradient(circle at 10% 90%, rgba(249, 115, 22, 0.40), transparent 55%),
-        radial-gradient(circle at 100% 100%, #020617 0, transparent 60%);
-      filter: blur(10px);
-      opacity: 0.9;
-      mix-blend-mode: screen;
-      animation: bgMeshSoft 36s ease-in-out infinite alternate;
-    }
-
-    @keyframes bgMeshSoft {
-      0% {
-        background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%;
-        transform: scale(1);
-      }
-      50% {
-        background-position: 6% 4%, 94% 8%, 4% 92%, 96% 88%;
-        transform: scale(1.03) translate3d(-6px, -8px, 0);
-      }
-      100% {
-        background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%;
-        transform: scale(1.01) translate3d(4px, 4px, 0);
-      }
-    }
 
     .shell-wrapper {
       flex: 1;
@@ -532,7 +576,6 @@
   <span class="label-text">Панель настроек</span>
 </button>
 
-<!-- Панель настройки -->
 <form class="config-panel" id="configForm">
   <h2>Параметры вебинара</h2>
 
@@ -584,7 +627,6 @@
 
 <div class="shell-wrapper">
   <div class="shell">
-    <!-- ЛЕВАЯ КОЛОНКА -->
     <div class="col">
       <div>
         <div class="badge">
@@ -638,7 +680,6 @@
       </div>
     </div>
 
-    <!-- ПРАВАЯ КОЛОНКА -->
     <div class="col">
       <div class="right-card">
         <div class="right-header">
@@ -670,9 +711,7 @@
 </div>
 
 <script>
-  // -----------------------------
-  // тоггл панели настроек
-  // -----------------------------
+  // тоггл панели
   const form = document.getElementById("configForm");
   const configToggle = document.getElementById("configToggle");
 
@@ -682,9 +721,7 @@
     form.classList.toggle("hidden", isOpen);
   });
 
-  // -----------------------------
   // привязка формы к верстке
-  // -----------------------------
 
   const topicInput = document.getElementById("topic");
   const subtitleInput = document.getElementById("subtitle");
@@ -711,7 +748,6 @@
     viewSpeakerRole.textContent = speakerRoleInput.value || "Должность спикера";
     viewAvatar.textContent = (speakerNameInput.value || "А")[0] || "А";
 
-    // теги -> пилюли
     viewTags.innerHTML = "";
     (speakerTagsInput.value || "")
       .split(",")
@@ -724,10 +760,8 @@
         viewTags.appendChild(span);
       });
 
-    // подпись организатора (если захочешь сделать редактируемой — просто добавь инпут)
     orgLabelPreview.textContent = viewOrgLabel.textContent;
 
-    // strudel iframe
     if (strudelInput.value) {
       strudelFrame.src = strudelInput.value;
     }
@@ -735,9 +769,7 @@
 
   form.addEventListener("input", updateTexts);
 
-  // -----------------------------
-  // таймер до указанного времени МСК
-  // -----------------------------
+  // таймер
 
   const minutesEl = document.getElementById("cd-minutes");
   const secondsEl = document.getElementById("cd-seconds");
