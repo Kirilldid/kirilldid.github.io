@@ -6,16 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #050714;
-      --bg-card: #0b0f24;
-      --accent: #ff7a2f;
-      --accent-soft: rgba(255, 122, 47, 0.12);
-      --text-main: #f5f5f7;
-      --text-muted: #9aa0b5;
-      --danger: #ff4b6a;
-      --border-subtle: rgba(255, 255, 255, 0.06);
-      --radius-xl: 20px;
-      --radius-lg: 14px;
+      /* темный сине-фиолетовый фон + оранжевый акцент, ближе к сайту simulative */
+      --bg: #040511;
+      --bg-deep: #020310;
+      --bg-card: #070a1c;
+      --bg-card-soft: #0b0f26;
+      --accent: #ff6a1a;
+      --accent-soft: rgba(255, 106, 26, 0.14);
+      --accent-strong: rgba(255, 106, 26, 0.8);
+      --text-main: #f8fafc;
+      --text-muted: #9da4c0;
+      --border-subtle: rgba(148, 163, 184, 0.32);
+      --border-strong: rgba(148, 163, 184, 0.55);
+      --shadow-strong: 0 32px 80px rgba(0, 0, 0, 0.85);
+      --radius-xl: 26px;
+      --radius-lg: 18px;
       --radius-pill: 999px;
     }
 
@@ -28,7 +33,10 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
-      background: radial-gradient(circle at 0 0, #171b38 0, #050714 45%, #02030a 100%);
+      background:
+        radial-gradient(circle at 0 0, #1d2148 0, transparent 45%),
+        radial-gradient(circle at 100% 100%, #111827 0, transparent 55%),
+        radial-gradient(circle at 50% 120%, #020310 0, #020310 100%);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -38,30 +46,36 @@
     }
 
     .shell {
+      /* шире и выше: ощущение «полноэкранной» заставки */
       width: 100%;
-      max-width: 1120px;
+      max-width: 1320px;
+      max-height: 720px;
+      min-height: min(90vh, 720px);
       margin: auto;
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
-      gap: 20px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
-      padding: 20px;
+      grid-template-columns: minmax(0, 3.3fr) minmax(0, 2.7fr);
+      gap: 28px;
+      background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.98),
+          rgba(15, 23, 42, 0.96)
+        );
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(15, 23, 42, 0.95);
+      box-shadow: var(--shadow-strong);
+      padding: 28px 32px;
       position: relative;
       overflow: hidden;
     }
 
-    /* легкий шум/глоу */
     .shell::before {
       content: "";
       position: absolute;
       inset: -40%;
-      opacity: 0.2;
+      opacity: 0.45;
       background:
-        radial-gradient(circle at 10% 0%, rgba(255, 122, 47, 0.25), transparent 55%),
-        radial-gradient(circle at 90% 100%, rgba(79, 70, 229, 0.3), transparent 55%);
+        radial-gradient(circle at 10% 0%, rgba(255, 106, 26, 0.2), transparent 60%),
+        radial-gradient(circle at 90% 100%, rgba(79, 70, 229, 0.25), transparent 60%);
       pointer-events: none;
       z-index: -1;
     }
@@ -76,57 +90,63 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: var(--radius-pill);
-      background: rgba(8, 12, 32, 0.9);
-      border: 1px solid var(--border-subtle);
+      background: rgba(9, 11, 30, 0.92);
+      border: 1px solid rgba(56, 68, 107, 0.9);
       color: var(--text-muted);
       font-size: 12px;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
     .badge-dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
-      background: radial-gradient(circle, #4ade80 0, #15803d 55%, transparent 70%);
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+      background: radial-gradient(circle, #4ade80 0, #16a34a 55%, transparent 70%);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
     }
 
     .title {
-      font-size: clamp(28px, 3.4vw, 36px);
-      line-height: 1.1;
-      font-weight: 650;
-      letter-spacing: -0.03em;
+      margin-top: 18px;
+      font-size: clamp(32px, 4.1vw, 42px);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: -0.035em;
     }
 
     .subtitle {
+      margin-top: 10px;
       font-size: 15px;
       color: var(--text-muted);
-      max-width: 38rem;
+      max-width: 40rem;
     }
 
     .speaker-card {
-      margin-top: 8px;
+      margin-top: 18px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
+      gap: 14px;
+      padding: 12px 14px;
       border-radius: var(--radius-lg);
-      background: rgba(7, 11, 30, 0.9);
+      background: linear-gradient(
+        135deg,
+        rgba(10, 13, 35, 0.98),
+        rgba(10, 13, 35, 0.96)
+      );
       border: 1px solid var(--border-subtle);
     }
 
     .speaker-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
       background: radial-gradient(circle at 30% 0, #fed7aa, #7c2d12);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 600;
       color: #020617;
     }
@@ -134,11 +154,11 @@
     .speaker-meta {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .speaker-name {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 600;
     }
 
@@ -151,29 +171,30 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .pill {
       font-size: 11px;
       padding: 4px 9px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.35);
+      border: 1px solid rgba(148, 163, 184, 0.45);
       color: var(--text-muted);
-      background: rgba(10, 16, 36, 0.9);
+      background: rgba(10, 14, 36, 0.95);
     }
 
     .countdown-card {
-      margin-top: 10px;
-      padding: 12px 14px;
+      margin-top: 24px;
+      padding: 14px 16px;
       border-radius: var(--radius-lg);
-      background: radial-gradient(circle at 0% 0%, rgba(255, 122, 47, 0.14), transparent 55%),
-        rgba(10, 14, 32, 0.95);
-      border: 1px solid rgba(255, 122, 47, 0.35);
+      background:
+        radial-gradient(circle at 0% 0%, var(--accent-soft), transparent 60%),
+        rgba(11, 15, 37, 0.96);
+      border: 1px solid rgba(248, 113, 113, 0.4);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 16px;
       flex-wrap: wrap;
     }
 
@@ -191,41 +212,42 @@
 
     .countdown {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
     }
 
     .time-box {
-      width: 58px;
-      padding: 6px 0;
+      width: 68px;
+      padding: 8px 0;
       text-align: center;
-      border-radius: 12px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
     }
 
     .time-value {
       font-variant-numeric: tabular-nums;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 600;
     }
 
     .time-label {
+      margin-top: 2px;
       font-size: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.14em;
       color: var(--text-muted);
     }
 
     .time-separator {
-      font-size: 16px;
+      font-size: 18px;
       opacity: 0.6;
-      margin: 0 2px;
+      margin: 0 4px;
     }
 
     .note {
-      margin-top: 6px;
+      margin-top: 10px;
       font-size: 12px;
       color: var(--text-muted);
     }
@@ -245,8 +267,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      border-top: 1px solid rgba(148, 163, 184, 0.3);
-      padding-top: 10px;
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      padding-top: 12px;
     }
 
     .logo-mark {
@@ -257,13 +279,14 @@
     .right-card {
       height: 100%;
       border-radius: var(--radius-xl);
-      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.04), transparent 50%),
-        linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      padding: 10px;
+      background:
+        radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.06), transparent 55%),
+        linear-gradient(135deg, var(--bg-card-soft), var(--bg-card));
+      border: 1px solid var(--border-strong);
+      padding: 12px 12px 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .right-header {
@@ -281,20 +304,20 @@
     }
 
     .code-dot {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
       background: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-soft);
+      box-shadow: 0 0 0 4px var(--accent-soft);
     }
 
     .player-frame {
-      border-radius: 14px;
+      border-radius: 18px;
       overflow: hidden;
-      border: 1px solid rgba(15, 23, 42, 0.9);
-      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(15, 23, 42, 0.95);
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.98);
       flex: 1;
-      min-height: 260px;
+      min-height: 280px;
     }
 
     .player-frame iframe {
@@ -326,26 +349,25 @@
     .kbd {
       border-radius: 7px;
       padding: 2px 6px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.75);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
 
-    @media (max-width: 860px) {
+    /* адаптив: на мобильном всё равно почти полный экран */
+    @media (max-width: 960px) {
       .shell {
         display: flex;
         flex-direction: column-reverse;
-        padding: 16px;
-        border-radius: 20px;
+        padding: 20px 16px;
+        gap: 20px;
+        max-height: none;
+        min-height: 0;
       }
 
       .right-card {
         min-height: 260px;
-      }
-
-      .countdown-card {
-        align-items: flex-start;
       }
     }
 
@@ -355,7 +377,12 @@
       }
 
       .shell {
-        padding: 14px;
+        padding: 16px 12px;
+        border-radius: 20px;
+      }
+
+      .title {
+        font-size: 26px;
       }
 
       .countdown {
@@ -364,11 +391,7 @@
       }
 
       .time-box {
-        width: 52px;
-      }
-
-      .title {
-        font-size: 24px;
+        width: 60px;
       }
     }
   </style>
@@ -384,12 +407,12 @@
         Вебинар по аналитике данных
       </div>
 
-      <!-- TODO: поменять тему вебинара -->
+      <!-- TODO: тема вебинара -->
       <h1 class="title">
         Как аналитики принимают решения на данных, а не на ощущениях
       </h1>
 
-      <!-- TODO: короткий подзаголовок / описание -->
+      <!-- TODO: подзаголовок -->
       <p class="subtitle">
         Разберём, как формулировать продуктовые вопросы, собирать нужные данные,
         проверять гипотезы и не утонуть в дэшбордах.
@@ -403,7 +426,7 @@
           <div class="speaker-role">Lead Product Analyst, Simulative</div>
           <div class="pill-row">
             <span class="pill">SQL · Python · BI</span>
-            <span class="pill">юнит-экономика</span>
+            <span class="pill">юнит‑экономика</span>
             <span class="pill">A/B‑тесты</span>
           </div>
         </div>
@@ -435,7 +458,7 @@
 
     <div class="logo-slot">
       <span>Подготовлено школой</span>
-      <span class="logo-mark">Simulative</span>
+      <span class="logo-mark">SIMULATIVE</span>
     </div>
   </div>
 
@@ -492,7 +515,7 @@
   const targetMsk = "2025-11-27T20:30:00";
 
   function getMskTargetDate() {
-    // Москва — UTC+3, без перехода на летнее время
+    // Москва — UTC+3, без перехода на летнее время [web:18]
     const local = new Date(targetMsk + "+03:00");
     return local;
   }
@@ -537,6 +560,7 @@
       secondsEl.textContent = "00";
       labelEl.textContent = "уже в эфире";
       countdownEl.classList.add("live");
+      countdownEl.style.filter = "drop-shadow(0 0 24px rgba(74, 222, 128, 0.9))";
       return;
     }
 
@@ -550,8 +574,8 @@
 
     // мягкое подсвечивание, когда осталось < 1 минуты
     if (totalSeconds <= 60) {
-      countdownEl.style.filter = "drop-shadow(0 0 18px rgba(255, 75, 106, 0.7))";
-      countdownEl.style.borderColor = "rgba(248, 113, 113, 0.8)";
+      countdownEl.style.filter = "drop-shadow(0 0 18px rgba(255, 106, 26, 0.9))";
+      countdownEl.style.borderColor = "rgba(248, 113, 113, 0.9)";
     }
   }
 
