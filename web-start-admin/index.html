@@ -507,6 +507,7 @@
       box-shadow: 0 26px 70px rgba(15, 23, 42, 0.98);
       flex: 1;
       min-height: 280px;
+      background: #020617;
     }
 
     .player-frame iframe {
@@ -613,10 +614,10 @@
   </div>
 
   <div class="field">
-    <label for="strudelSrc">Strudel URL</label>
-    <input id="strudelSrc" name="strudelSrc" type="text"
-           value="https://strudel.cc/?xwWRfuCE8TAR" />
-    <small>Вставь сюда ссылку с нужным паттерном.</small>
+    <label for="musicSrc">YouTube embed URL</label>
+    <input id="musicSrc" name="musicSrc" type="text"
+           value="https://www.youtube.com/embed/videoseries?list=PLfP6i5T0-DkKcqkL51FpL22a0l08ph31v" />
+    <small>Сюда можно вставить любой de>https://www.youtube.com/embed/...</code> или плейлист.</small>
   </div>
 
   <div class="field-row">
@@ -685,24 +686,25 @@
         <div class="right-header">
           <span>
             <span class="code-dot"></span>
-            live‑coding / музыка
+            музыка для эфира
           </span>
-          <span>Strudel · browser‑repl</span>
+          <span>YouTube · embed</span>
         </div>
 
         <div class="player-frame">
           <iframe
-            id="strudelFrame"
-            src="https://strudel.cc/?xwWRfuCE8TAR"
-            title="Strudel live coding player"
-            allow="autoplay"
+            id="musicFrame"
+            src="https://www.youtube.com/embed/videoseries?list=PLfP6i5T0-DkKcqkL51FpL22a0l08ph31v"
+            title="Lofi playlist"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
           ></iframe>
         </div>
 
         <div class="hint">
-          <span><strong>Совет:</strong> сделайте звук комфортным — вебинар начнётся без резких сюрпризов.</span>
+          <span><strong>Совет:</strong> включите музыку так, чтобы было комфортно слушать до начала вебинара.</span>
           <span>
-            <span class="kbd">Space</span> play / pause
+            Управляйте громкостью в YouTube‑плеере
           </span>
         </div>
       </div>
@@ -729,7 +731,7 @@
   const speakerRoleInput = document.getElementById("speakerRole");
   const speakerTagsInput = document.getElementById("speakerTags");
   const datetimeInput = document.getElementById("datetime");
-  const strudelInput = document.getElementById("strudelSrc");
+  const musicInput = document.getElementById("musicSrc");
 
   const viewTopic = document.getElementById("viewTopic");
   const viewSubtitle = document.getElementById("viewSubtitle");
@@ -739,7 +741,7 @@
   const viewTags = document.getElementById("viewTags");
   const viewOrgLabel = document.getElementById("viewOrgLabel");
   const orgLabelPreview = document.getElementById("orgLabelPreview");
-  const strudelFrame = document.getElementById("strudelFrame");
+  const musicFrame = document.getElementById("musicFrame");
 
   function updateTexts() {
     viewTopic.textContent = topicInput.value || "Тема вебинара";
@@ -762,8 +764,8 @@
 
     orgLabelPreview.textContent = viewOrgLabel.textContent;
 
-    if (strudelInput.value) {
-      strudelFrame.src = strudelInput.value;
+    if (musicInput.value) {
+      musicFrame.src = musicInput.value;
     }
   }
 
