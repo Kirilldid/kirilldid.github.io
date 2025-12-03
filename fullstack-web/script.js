@@ -1,6 +1,6 @@
 // Slide Navigation System
 let currentSlide = 1;
-const totalSlides = 13;
+const totalSlides = 22;
 
 // DOM Elements
 const slides = document.querySelectorAll('.slide');
