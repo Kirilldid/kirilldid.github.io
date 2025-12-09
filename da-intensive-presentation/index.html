@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интенсив по Аналитике: 3 дня на датасете аптечной сети</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .clickable-card {
+            transition: all 0.3s ease;
+        }
+
+        .clickable-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .clickable-card.selected {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .progress-dot {
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background-color: #3b82f6;
+            transform: scale(1.3);
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Mobile Warning -->
+    <div class="md:hidden h-screen flex items-center justify-center p-8 bg-white">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold mb-4">📱</h1>
+            <p class="text-xl text-gray-800 mb-2">Эта презентация оптимизирована для просмотра на десктопе</p>
+            <p class="text-gray-600">Для лучшего опыта откройте на компьютере</p>
+        </div>
+    </div>
+
+    <!-- Desktop Slides -->
+    <div class="hidden md:block relative w-full h-screen">
+
+        <!-- Slide 1: Hero -->
+        <div class="slide active bg-white" data-slide="1">
+            <div class="text-center px-8 max-w-5xl">
+                <h1 class="text-6xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight">
+                    Интенсив по Аналитике
+                </h1>
+                <p class="text-3xl text-gray-600 mb-8 leading-relaxed">
+                    3 дня на датасете аптечной сети
+                </p>
+                <p class="text-2xl text-blue-600 mb-16">
+                    От таблиц к SQL и Python
+                </p>
+                <p class="text-xl text-gray-400 animate-pulse">
+                    Нажмите «Далее» для начала →
+                </p>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 1: Блок 1 - Вступление -->
+        <div class="slide bg-gray-50" data-slide="2">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-blue-600 font-semibold">ДЕНЬ 1</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Аналитик — детектив бизнеса
+                </h2>
+                <div class="bg-white p-10 rounded-2xl shadow-md mb-8">
+                    <p class="text-2xl text-gray-700 leading-relaxed mb-8">
+                        Представьте: вы пришли на работу в сеть аптек. Руководство говорит: «У нас есть данные по всем
+                        продажам, но мы не понимаем, за счёт чего мы зарабатываем и где теряем деньги». Вот здесь вы и
+                        нужны. Аналитик — это не программист и не учёный, это человек, который смотрит на цифры и видит
+                        за ними бизнес-историю.
+                    </p>
+                </div>
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-blue-50 p-6 rounded-xl">
+                        <p class="text-lg text-gray-800">
+                            <strong>Превращать</strong> сырые данные в понятные выводы для руководства
+                        </p>
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-xl">
+                        <p class="text-lg text-gray-800">
+                            <strong>Отвечать</strong> на вопросы бизнеса: где зарабатываем, где теряем, куда расти
+                        </p>
+                    </div>
+                    <div class="bg-yellow-50 p-6 rounded-xl">
+                        <p class="text-lg text-gray-800">
+                            <strong>Принимать решения</strong> на основе данных, а не интуиции
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 1: Блок 2 - Погружение в задачу -->
+        <div class="slide bg-white" data-slide="3">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-blue-600 font-semibold">ДЕНЬ 1</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Наша задача на три дня
+                </h2>
+                <div class="bg-blue-50 p-10 rounded-2xl mb-8">
+                    <p class="text-2xl text-gray-800 leading-relaxed italic">
+                        «У нас есть 20+ аптек, тысячи чеков каждый день. Я вижу, что одни аптеки зарабатывают, другие —
+                        нет. Какие товары продаются лучше? На какие производители ставить? Помогает ли скидка или только
+                        убивает маржу? Дай мне понять, где наш бизнес, и что делать дальше».
+                    </p>
+                    <p class="text-right text-lg text-gray-600 mt-4">— Директор сети аптек</p>
+                </div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-md border-l-4 border-blue-500">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Ключевые вопросы</h3>
+                        <ul class="space-y-3 text-lg text-gray-700">
+                            <li class="flex items-start">
+                                <span class="text-blue-500 mr-3">•</span>
+                                <span>Какие аптеки — наши локомотивы?</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-blue-500 mr-3">•</span>
+                                <span>Какие категории товаров и производители тянут маржу?</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-blue-500 mr-3">•</span>
+                                <span>Как скидки влияют на выручку и маржу?</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-blue-500 mr-3">•</span>
+                                <span>Где просадки, и как их закрывать?</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-green-50 p-8 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900">Наш путь</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <span class="text-4xl mr-4">📊</span>
+                                <div>
+                                    <p class="font-semibold text-lg">День 1: Таблицы</p>
+                                    <p class="text-gray-600">Первый взгляд на данные</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-4xl mr-4">🗄️</span>
+                                <div>
+                                    <p class="font-semibold text-lg">День 2: SQL</p>
+                                    <p class="text-gray-600">Масштабируемые отчёты</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-4xl mr-4">🐍</span>
+                                <div>
+                                    <p class="font-semibold text-lg">День 3: Python</p>
+                                    <p class="text-gray-600">Визуализация и выводы</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 1: Блок 3 - Ключевые метрики -->
+        <div class="slide bg-gray-50" data-slide="4">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-blue-600 font-semibold">ДЕНЬ 1</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Что считают аналитики: три метрики
+                </h2>
+                <div class="space-y-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-l-4 border-green-500">
+                        <div class="flex items-start">
+                            <span class="text-5xl mr-6">💰</span>
+                            <div class="flex-1">
+                                <h3 class="text-3xl font-bold mb-3 text-gray-900">Выручка (Revenue)</h3>
+                                <p class="text-xl text-gray-700 mb-3">
+                                    <strong>Определение:</strong> Сколько денег аптека получила от продажи товара =
+                                    Количество × Розничная цена
+                                </p>
+                                <p class="text-lg text-gray-600">
+                                    <strong>Почему важно:</strong> Если выручка падает, бизнес потенциально в опасности
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-l-4 border-blue-500">
+                        <div class="flex items-start">
+                            <span class="text-5xl mr-6">📈</span>
+                            <div class="flex-1">
+                                <h3 class="text-3xl font-bold mb-3 text-gray-900">Маржа (Margin)</h3>
+                                <p class="text-xl text-gray-700 mb-3">
+                                    <strong>Определение:</strong> Прибыль с каждого товара = Розничная цена − Закупочная
+                                    цена
+                                </p>
+                                <p class="text-lg text-gray-600">
+                                    <strong>Почему важно:</strong> Можно много продавать со скидкой, но не зарабатывать.
+                                    Маржа показывает реальную прибыль
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-l-4 border-yellow-500">
+                        <div class="flex items-start">
+                            <span class="text-5xl mr-6">🧾</span>
+                            <div class="flex-1">
+                                <h3 class="text-3xl font-bold mb-3 text-gray-900">Средний чек (Average Check)</h3>
+                                <p class="text-xl text-gray-700 mb-3">
+                                    <strong>Определение:</strong> Выручка ÷ Количество чеков
+                                </p>
+                                <p class="text-lg text-gray-600">
+                                    <strong>Почему важно:</strong> Растёт ли размер покупок? Меняется ли поведение
+                                    клиентов?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 1: Блок 4 - Три инструмента -->
+        <div class="slide bg-white" data-slide="5">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-blue-600 font-semibold">ДЕНЬ 1</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Три инструмента аналитика
+                </h2>
+                <div class="grid grid-cols-3 gap-8">
+                    <div class="bg-green-50 p-8 rounded-2xl shadow-md">
+                        <div class="text-6xl text-center mb-4">📊</div>
+                        <h3 class="text-2xl font-bold text-center mb-4">Таблицы</h3>
+                        <p class="text-center text-gray-600 mb-6 italic">Для быстрого анализа</p>
+                        <div class="mb-6">
+                            <p class="font-semibold text-green-800 mb-2">Плюсы:</p>
+                            <ul class="text-sm space-y-1 text-gray-700">
+                                <li>• Простой инструмент</li>
+                                <li>• Сводные за 2 клика</li>
+                                <li>• Всё видно сразу</li>
+                            </ul>
+                        </div>
+                        <div class="mb-6">
+                            <p class="font-semibold text-red-800 mb-2">Минусы:</p>
+                            <ul class="text-sm space-y-1 text-gray-700">
+                                <li>• Только малые данные</li>
+                                <li>• Медленно обновляется</li>
+                                <li>• Сложно документировать</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm text-gray-600"><strong>Когда:</strong> первый анализ, быстрая проверка</p>
+                    </div>
+
+                    <div class="bg-blue-50 p-8 rounded-2xl shadow-md">
+                        <div class="text-6xl text-center mb-4">🗄️</div>
+                        <h3 class="text-2xl font-bold text-center mb-4">SQL</h3>
+                        <p class="text-center text-gray-600 mb-6 italic">Для масштабирования</p>
+                        <div class="mb-6">
+                            <p class="font-semibold text-green-800 mb-2">Плюсы:</p>
+                            <ul class="text-sm space-y-1 text-gray-700">
+                                <li>• Быстро с большими данными</li>
+                                <li>• Легко повторять</li>
+                                <li>• Запрос = документация</li>
+                            </ul>
+                        </div>
+                        <div class="mb-6">
+                            <p class="font-semibold text-red-800 mb-2">Минусы:</p>
+                            <ul class="text-sm space-y-1 text-gray-700">
+                                <li>• Нужно учить код</li>
+                                <li>• Дольше первый раз</li>
+                                <li>• Результат не сразу</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm text-gray-600"><strong>Когда:</strong> регулярные отчёты, большие данные</p>
+                    </div>
+
+                    <div class="bg-purple-50 p-8 rounded-2xl shadow-md">
+                        <div class="text-6xl text-center mb-4">🐍</div>
+                        <h3 class="text-2xl font-bold text-center mb-4">Python</h3>
+                        <p class="text-center text-gray-600 mb-6 italic">Для визуализации</p>
+                        <div class="mb-6">
+                            <p class="font-semibold text-green-800 mb-2">Плюсы:</p>
+                            <ul class="text-sm space-y-1 text-gray-700">
+                                <li>• Красивые графики</li>
+                                <li>• Расчёты + визуалы</li>
+                                <li>• Легко документировать</li>
+                            </ul>
+                        </div>
+                        <div class="mb-6">
+                            <p class="font-semibold text-red-800 mb-2">Минусы:</p>
+                            <ul class="text-sm space-y-1 text-gray-700">
+                                <li>• Самый сложный</li>
+                                <li>• Нужны библиотеки</li>
+                                <li>• Медленнее чем SQL</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm text-gray-600"><strong>Когда:</strong> финальные отчёты, визуализация</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 1: Блок 5 - Почему все три -->
+        <div class="slide bg-gray-50" data-slide="6">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-blue-600 font-semibold">ДЕНЬ 1</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Путь аналитика: от простого к сложному
+                </h2>
+                <div class="space-y-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-md">
+                        <div class="flex items-start">
+                            <div class="text-5xl font-black text-green-500 mr-6">1</div>
+                            <div>
+                                <h3 class="text-2xl font-bold mb-3">День 1 — Таблицы: «ощупать» данные</h3>
+                                <p class="text-lg text-gray-700">
+                                    Когда директор приходит первый раз, вы не знаете, что там в данных. Нужно быстро
+                                    посмотреть: есть ли экстремальные значения? Какой диапазон выручки? Какие аптеки
+                                    есть? Таблицы — инструмент для первого взгляда.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-md">
+                        <div class="flex items-start">
+                            <div class="text-5xl font-black text-blue-500 mr-6">2</div>
+                            <div>
+                                <h3 class="text-2xl font-bold mb-3">День 2 — SQL: документировать логику</h3>
+                                <p class="text-lg text-gray-700">
+                                    Директор доволен, просит это считать каждый день. Таблицы уже медленные, вы
+                                    ошибаетесь в расчётах. SQL-запрос — это документация вашей логики, её можно
+                                    повторять и обновлять без ошибок.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-md">
+                        <div class="flex items-start">
+                            <div class="text-5xl font-black text-purple-500 mr-6">3</div>
+                            <div>
+                                <h3 class="text-2xl font-bold mb-3">День 3 — Python: рассказать историю</h3>
+                                <p class="text-lg text-gray-700">
+                                    Хорошо, цифры есть, но руководству нужно это понять за 5 минут. Графики показывают
+                                    тренды быстрее, чем таблицы. Python даёт вам инструмент, чтобы собрать все цифры и
+                                    графики в один понятный отчёт.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                        <p class="text-xl font-semibold text-blue-900">
+                            Опытный аналитик знает, когда какой инструмент использовать. Новичок думает, что это
+                            конкуренция. На самом деле они работают вместе.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 1: Блок 6 - Практика -->
+        <div class="slide bg-white" data-slide="7">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-blue-600 font-semibold">ДЕНЬ 1</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Сегодня: собираем первый мини-дашборд
+                </h2>
+                <div class="bg-gradient-to-br from-blue-50 to-green-50 p-10 rounded-2xl mb-8">
+                    <p class="text-2xl text-gray-800 mb-8">За два часа вы будете:</p>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="text-green-600 text-2xl mr-3">✓</span>
+                                <p class="text-lg">Изучить датасет — посмотрите, что за колонки, какой период, сколько
+                                    аптек</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-600 text-2xl mr-3">✓</span>
+                                <p class="text-lg">Собрать сводные таблицы: аптека → выручка, маржа, кол-во чеков</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="text-green-600 text-2xl mr-3">✓</span>
+                                <p class="text-lg">Построить графики: выручка по аптекам и по дням/неделям</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="text-green-600 text-2xl mr-3">✓</span>
+                                <p class="text-lg">Сделать выводы — написать 3 коротких вывода о бизнесе</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="https://sheets.google.com" target="_blank"
+                        class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-8 rounded-lg shadow-md transition text-xl">
+                        📊 Открыть Google Sheets
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 1: Блок 7 - Домашка -->
+        <div class="slide bg-gray-50" data-slide="8">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-blue-600 font-semibold">ДЕНЬ 1</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Домашка дня 1
+                </h2>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <div class="flex items-start">
+                                <input type="checkbox" class="mt-1 mr-4 w-5 h-5">
+                                <p class="text-lg">Собрать сводную «Аптека → выручка, маржа, количество чеков»</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <div class="flex items-start">
+                                <input type="checkbox" class="mt-1 mr-4 w-5 h-5">
+                                <p class="text-lg">Собрать сводную «Категория товара → выручка, маржа»</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <div class="flex items-start">
+                                <input type="checkbox" class="mt-1 mr-4 w-5 h-5">
+                                <p class="text-lg">Построить график: выручка по аптекам</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <div class="flex items-start">
+                                <input type="checkbox" class="mt-1 mr-4 w-5 h-5">
+                                <p class="text-lg">Построить график: выручка по дням/неделям</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <div class="flex items-start">
+                                <input type="checkbox" class="mt-1 mr-4 w-5 h-5">
+                                <div>
+                                    <p class="text-lg font-semibold mb-2">Написать 3 вывода:</p>
+                                    <ul class="text-sm space-y-1 text-gray-600">
+                                        <li>• Какие аптеки — локомотивы сети</li>
+                                        <li>• Какие категории дают маржу</li>
+                                        <li>• Где видна просадка</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 2: Блок 1 - Обзор дня 1 -->
+        <div class="slide bg-white" data-slide="9">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-orange-600 font-semibold">ДЕНЬ 2</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Вчера мы ощупали данные.<br>Сегодня — документируем логику
+                </h2>
+                <div class="grid grid-cols-2 gap-8 mb-8">
+                    <div class="bg-gray-50 p-8 rounded-2xl">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-700">Вчера</h3>
+                        <ul class="space-y-3 text-lg text-gray-600">
+                            <li>• Собирали сводные — быстро</li>
+                            <li>• Но с ошибками</li>
+                            <li>• Не масштабируется</li>
+                        </ul>
+                    </div>
+                    <div class="bg-orange-50 p-8 rounded-2xl border-2 border-orange-500">
+                        <h3 class="text-2xl font-bold mb-4 text-orange-900">Сегодня</h3>
+                        <ul class="space-y-3 text-lg text-gray-700">
+                            <li>• SQL-запрос</li>
+                            <li>• Считает одно и то же каждый день</li>
+                            <li>• Без ошибок</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-8 rounded-lg">
+                    <p class="text-2xl font-semibold text-blue-900 italic">
+                        «Таблицы помогают понять, SQL помогает масштабировать»
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 2: Блок 2 - Почему SQL -->
+        <div class="slide bg-gray-50" data-slide="10">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-orange-600 font-semibold">ДЕНЬ 2</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Когда таблиц становится недостаточно
+                </h2>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-md">
+                        <h3 class="text-3xl font-bold mb-6 text-gray-700">Таблицы</h3>
+                        <div class="space-y-3 text-lg">
+                            <p class="text-green-700">✓ Быстро, интуитивно</p>
+                            <p class="text-red-700">✗ Ошибки в расчётах</p>
+                            <p class="text-red-700">✗ Медленно на больших объёмах</p>
+                            <p class="text-red-700">✗ Результат на вашей машине</p>
+                            <p class="text-red-700">✗ Сложно передать логику</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-2 border-orange-500">
+                        <h3 class="text-3xl font-bold mb-6 text-orange-600">SQL</h3>
+                        <div class="space-y-3 text-lg">
+                            <p class="text-gray-600">Медленнее первый раз учиться</p>
+                            <p class="text-green-700">✓ Расчёты всегда одинаковые</p>
+                            <p class="text-green-700">✓ База справляется с миллионами строк</p>
+                            <p class="text-green-700">✓ Запрос хранится на сервере</p>
+                            <p class="text-green-700">✓ Коллега может прочитать логику</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 2: Блок 3 - SQL для новичка -->
+        <div class="slide bg-white" data-slide="11">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-orange-600 font-semibold">ДЕНЬ 2</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    SQL — это просто переформатированные вопросы
+                </h2>
+                <div class="grid grid-cols-2 gap-8 mb-8">
+                    <div class="bg-blue-50 p-8 rounded-2xl">
+                        <h3 class="text-2xl font-bold mb-4">На человеческом языке:</h3>
+                        <p class="text-xl text-gray-700 italic">
+                            «Дай мне выручку и маржу каждой аптеки, отсортированные по выручке»
+                        </p>
+                    </div>
+                    <div class="bg-gray-900 p-8 rounded-2xl">
+                        <h3 class="text-2xl font-bold mb-4 text-white">На SQL:</h3>
+                        <pre class="text-sm"><code>SELECT
+    store_name,
+    SUM(revenue) as total_revenue,
+    SUM(margin) as total_margin
+FROM sales
+GROUP BY store_name
+ORDER BY total_revenue DESC;</code></pre>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold mb-4">Объяснение построчно:</h3>
+                    <ul class="space-y-2 text-lg">
+                        <li><code class="bg-gray-100 px-2 py-1 rounded">SELECT</code> = "дай мне" (какие колонки)</li>
+                        <li><code class="bg-gray-100 px-2 py-1 rounded">SUM(revenue)</code> = "сумму выручки" (агрегат)
+                        </li>
+                        <li><code class="bg-gray-100 px-2 py-1 rounded">FROM sales</code> = "из таблицы продаж"</li>
+                        <li><code class="bg-gray-100 px-2 py-1 rounded">GROUP BY</code> = "сгруппированную по аптекам"
+                        </li>
+                        <li><code class="bg-gray-100 px-2 py-1 rounded">ORDER BY</code> = "отсортированную по"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 2: Блок 4 - Структура SQL-отчёта -->
+        <div class="slide bg-gray-50" data-slide="12">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-orange-600 font-semibold">ДЕНЬ 2</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Полноценный SQL-отчёт по аптечной сети
+                </h2>
+                <div class="space-y-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-l-4 border-blue-500">
+                        <h3 class="text-2xl font-bold mb-3">Блок A: По аптекам</h3>
+                        <p class="text-lg text-gray-700 mb-3">Выручка, маржа, кол-во чеков, средний чек, доля чеков со
+                            скидкой</p>
+                        <p class="text-gray-600 italic">Вопрос: Какие аптеки приносят деньги, какие нет?</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-l-4 border-green-500">
+                        <h3 class="text-2xl font-bold mb-3">Блок B: По товарам/категориям</h3>
+                        <p class="text-lg text-gray-700 mb-3">Топ-N товаров по выручке и марже, среднее кол-во в чеке
+                        </p>
+                        <p class="text-gray-600 italic">Вопрос: На какие товары спрос? Какие дают маржу?</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-l-4 border-yellow-500">
+                        <h3 class="text-2xl font-bold mb-3">Блок C: По скидкам</h3>
+                        <p class="text-lg text-gray-700 mb-3">Выручка и маржа: с скидкой vs без скидки</p>
+                        <p class="text-gray-600 italic">Вопрос: Скидка — инструмент продаж или убыток?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 2: Блок 5 - Свободное исследование -->
+        <div class="slide bg-white" data-slide="13">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-orange-600 font-semibold">ДЕНЬ 2</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    SQL-отчёт — это способ мышления
+                </h2>
+                <div class="bg-gradient-to-br from-orange-50 to-yellow-50 p-10 rounded-2xl mb-8">
+                    <p class="text-2xl text-gray-800 mb-6">
+                        На домашку вы также напишете два своих SQL-запроса на любой вопрос, который вас заинтересует:
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <ul class="space-y-3 text-lg text-gray-700">
+                            <li>• Какой производитель даёт больше выручки?</li>
+                            <li>• Меняется ли выручка от типа оплаты?</li>
+                        </ul>
+                        <ul class="space-y-3 text-lg text-gray-700">
+                            <li>• В какое время дня продажи выше?</li>
+                            <li>• Какой вид закупки приносит больше денег?</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-8 rounded-lg">
+                    <p class="text-xl font-semibold text-blue-900">
+                        Вы учитесь думать как аналитик — не просто выполнять инструкцию, а задавать вопросы.
+                        Руководитель НЕ скажет вам: «напиши запрос про производителей». Он скажет: «разберись, почему
+                        эта аптека отстаёт».
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 2: Блок 6 - Практика -->
+        <div class="slide bg-gray-50" data-slide="14">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-orange-600 font-semibold">ДЕНЬ 2</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Сегодня: пишем SQL-отчёт вместе
+                </h2>
+                <div class="bg-white p-10 rounded-2xl shadow-md mb-8">
+                    <p class="text-2xl text-gray-800 mb-6">На вебинаре мы:</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <span class="text-orange-600 text-2xl mr-3">1.</span>
+                            <p class="text-lg">Откроем CSVFiddle — даёт прямо в браузере писать SQL к CSV</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-orange-600 text-2xl mr-3">2.</span>
+                            <p class="text-lg">Напишем вместе 3–4 базовых запроса: выручка по аптекам, топ-товары,
+                                анализ скидок</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-orange-600 text-2xl mr-3">3.</span>
+                            <p class="text-lg">Я покажу, как исследовать: как я бы спросил базу, если бы у меня возник
+                                вопрос</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="https://csvfiddle.io" target="_blank"
+                        class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-8 rounded-lg shadow-md transition text-xl">
+                        🗄️ Открыть CSVFiddle
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 2: Блок 7 - Примеры запросов -->
+        <div class="slide bg-white" data-slide="15">
+            <div class="w-full max-w-6xl px-8 overflow-y-auto h-screen py-20">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-orange-600 font-semibold">ДЕНЬ 2</span>
+                </div>
+                <h2 class="text-4xl font-bold text-center mb-8 text-gray-900">
+                    Примеры запросов (шпаргалка)
+                </h2>
+                <div class="space-y-6">
+                    <div class="bg-gray-900 p-6 rounded-xl">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-bold text-white">Пример 1: Выручка по аптекам</h3>
+                            <button onclick="copyCode(this, 'sql1')"
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
+                                Копировать
+                            </button>
+                        </div>
+                        <pre id="sql1" class="text-sm"><code>SELECT
+    store_id,
+    COUNT(DISTINCT receipt_id) as receipts_count,
+    SUM(revenue) as total_revenue,
+    SUM(margin) as total_margin,
+    ROUND(AVG(revenue), 2) as avg_receipt
+FROM sales
+GROUP BY store_id
+ORDER BY total_revenue DESC;</code></pre>
+                    </div>
+
+                    <div class="bg-gray-900 p-6 rounded-xl">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-bold text-white">Пример 2: Анализ скидок</h3>
+                            <button onclick="copyCode(this, 'sql2')"
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
+                                Копировать
+                            </button>
+                        </div>
+                        <pre id="sql2" class="text-sm"><code>SELECT
+    store_id,
+    COUNT(CASE WHEN discount > 0 THEN 1 END) as receipts_with_discount,
+    COUNT(*) as total_receipts,
+    ROUND(SUM(discount), 2) as total_discount
+FROM sales
+GROUP BY store_id
+ORDER BY total_discount DESC;</code></pre>
+                    </div>
+
+                    <div class="bg-gray-900 p-6 rounded-xl">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-bold text-white">Пример 3: Топ-товары</h3>
+                            <button onclick="copyCode(this, 'sql3')"
+                                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
+                                Копировать
+                            </button>
+                        </div>
+                        <pre id="sql3" class="text-sm"><code>SELECT
+    product_name,
+    SUM(revenue) as total_revenue,
+    SUM(margin) as total_margin
+FROM sales
+GROUP BY product_name
+ORDER BY total_revenue DESC
+LIMIT 10;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 2: Блок 8 - Домашка -->
+        <div class="slide bg-gray-50" data-slide="16">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-orange-600 font-semibold">ДЕНЬ 2</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Домашка дня 2
+                </h2>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Часть A: Обязательный отчёт</h3>
+                        <div class="space-y-3">
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ По аптекам: выручка, маржа, кол-во чеков, средний чек
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ По товарам: топ-10 по выручке и по марже
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ По производителям: выручка и маржа
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ По скидкам: с скидкой vs без скидки
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Часть B: Ваше исследование</h3>
+                        <div class="space-y-3">
+                            <div class="bg-orange-50 p-4 rounded-xl shadow-md text-sm">
+                                ☐ Выберите минимум 2 вопроса из списка
+                            </div>
+                            <div class="bg-orange-50 p-4 rounded-xl shadow-md text-sm">
+                                ☐ Напишите SQL-запрос для каждого
+                            </div>
+                            <div class="bg-orange-50 p-4 rounded-xl shadow-md text-sm">
+                                ☐ Коротко объясните, что вы узнали (2–3 предложения)
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-blue-50 p-4 rounded-xl">
+                            <p class="text-sm font-semibold">Формат сдачи:</p>
+                            <p class="text-sm text-gray-700">SQL-запросы + короткие выводы</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 3: Блок 1 - Обзор дня 2 -->
+        <div class="slide bg-white" data-slide="17">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-purple-600 font-semibold">ДЕНЬ 3</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Вчера мы документировали логику.<br>Сегодня — рассказываем историю
+                </h2>
+                <div class="grid grid-cols-2 gap-8 mb-8">
+                    <div class="bg-gray-50 p-8 rounded-2xl">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-700">Вчера</h3>
+                        <ul class="space-y-3 text-lg text-gray-600">
+                            <li>• Писали SQL-запросы</li>
+                            <li>• Результаты правильные</li>
+                            <li>• Но это таблицы с цифрами</li>
+                        </ul>
+                    </div>
+                    <div class="bg-purple-50 p-8 rounded-2xl border-2 border-purple-500">
+                        <h3 class="text-2xl font-bold mb-4 text-purple-900">Сегодня</h3>
+                        <ul class="space-y-3 text-lg text-gray-700">
+                            <li>• Python-отчёт</li>
+                            <li>• Графики + выводы</li>
+                            <li>• Понятно за 5 минут</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-8 rounded-lg">
+                    <p class="text-2xl font-semibold text-blue-900 italic">
+                        «SQL отвечает на вопросы. Python рассказывает историю»
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 3: Блок 2 - Почему Python -->
+        <div class="slide bg-gray-50" data-slide="18">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-purple-600 font-semibold">ДЕНЬ 3</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Когда SQL-цифр становится недостаточно
+                </h2>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-md">
+                        <h3 class="text-2xl font-bold mb-4">SQL-таблица</h3>
+                        <div class="bg-gray-100 p-4 rounded font-mono text-sm">
+                            <div>store_id | revenue | margin</div>
+                            <div>1 | 500000 | 150000</div>
+                            <div>2 | 450000 | 130000</div>
+                            <div>3 | 200000 | 40000</div>
+                        </div>
+                        <p class="text-red-700 mt-4">❌ Человек смотрит 30 секунд и ничего не запомнил</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-md border-2 border-purple-500">
+                        <h3 class="text-2xl font-bold mb-4 text-purple-600">Python-граф</h3>
+                        <div class="space-y-2 text-lg">
+                            <div class="flex items-center">
+                                <div class="w-32 bg-green-500 h-8 mr-3"></div>
+                                <span>Аптека 1</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-28 bg-yellow-500 h-8 mr-3"></div>
+                                <span>Аптека 2</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-16 bg-red-500 h-8 mr-3"></div>
+                                <span>Аптека 3</span>
+                            </div>
+                        </div>
+                        <p class="text-green-700 mt-4">✓ Человек видит проблему за 2 секунды</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 3: Блок 3 - Три типа графиков -->
+        <div class="slide bg-white" data-slide="19">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-purple-600 font-semibold">ДЕНЬ 3</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Какие графики помогают понять бизнес?
+                </h2>
+                <div class="space-y-6">
+                    <div class="bg-blue-50 p-8 rounded-2xl shadow-md">
+                        <div class="flex items-start">
+                            <span class="text-5xl mr-6">📊</span>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-3">График 1: Барчарт выручки и маржи по аптекам</h3>
+                                <p class="text-lg text-gray-700 mb-2"><strong>Что показывает:</strong> Какие аптеки
+                                    сильные, какие слабые</p>
+                                <p class="text-gray-600"><strong>Зачем:</strong> Руководитель видит сразу, какие аптеки
+                                    — локомотивы</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 p-8 rounded-2xl shadow-md">
+                        <div class="flex items-start">
+                            <span class="text-5xl mr-6">📈</span>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-3">График 2: Линейный график выручки по дням/неделям
+                                </h3>
+                                <p class="text-lg text-gray-700 mb-2"><strong>Что показывает:</strong> Тренд продаж
+                                    (растёт, падает, сезонность)</p>
+                                <p class="text-gray-600"><strong>Зачем:</strong> Показать динамику, есть ли проблемы в
+                                    конкретные дни</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 p-8 rounded-2xl shadow-md">
+                        <div class="flex items-start">
+                            <span class="text-5xl mr-6">📉</span>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold mb-3">График 3: Барчарт топ-товаров/производителей по
+                                    марже</h3>
+                                <p class="text-lg text-gray-700 mb-2"><strong>Что показывает:</strong> Какие товары
+                                    реально приносят прибыль</p>
+                                <p class="text-gray-600"><strong>Зачем:</strong> Показать, на какие товары ставить</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 3: Блок 4 - Структура Python-ноутбука -->
+        <div class="slide bg-gray-50" data-slide="20">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-purple-600 font-semibold">ДЕНЬ 3</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Структура Python-ноутбука
+                </h2>
+                <div class="bg-white p-10 rounded-2xl shadow-md">
+                    <h3 class="text-3xl font-bold mb-6">📝 ОТЧЁТ: Аналитика аптечной сети</h3>
+                    <div class="space-y-4 text-lg">
+                        <div class="flex items-start">
+                            <span class="text-blue-600 font-bold mr-4">1️⃣</span>
+                            <div>
+                                <p class="font-semibold">ЗАГРУЗКА И ЧИСТКА ДАННЫХ</p>
+                                <p class="text-gray-600 text-sm">Импортируем pandas, читаем CSV, проверяем типы данных
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-600 font-bold mr-4">2️⃣</span>
+                            <div>
+                                <p class="font-semibold">ОСНОВНЫЕ РАСЧЁТЫ</p>
+                                <p class="text-gray-600 text-sm">Считаем выручку, маржу, средний чек</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-600 font-bold mr-4">3️⃣</span>
+                            <div>
+                                <p class="font-semibold">АНАЛИЗ ПО АПТЕКАМ</p>
+                                <p class="text-gray-600 text-sm">Таблица + график: выручка и маржа по аптекам</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-600 font-bold mr-4">4️⃣</span>
+                            <div>
+                                <p class="font-semibold">АНАЛИЗ ПО ТОВАРАМ</p>
+                                <p class="text-gray-600 text-sm">Таблица + график: топ-категории по выручке и марже</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-600 font-bold mr-4">5️⃣</span>
+                            <div>
+                                <p class="font-semibold">АНАЛИЗ СКИДОК</p>
+                                <p class="text-gray-600 text-sm">Таблица + график: как скидка влияет на маржу</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-600 font-bold mr-4">6️⃣</span>
+                            <div>
+                                <p class="font-semibold">ВЫВОДЫ И РЕКОМЕНДАЦИИ</p>
+                                <p class="text-gray-600 text-sm">Какие аптеки работают, где проблемы, что делать дальше
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 3: Блок 5 - Код = документация -->
+        <div class="slide bg-white" data-slide="21">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-purple-600 font-semibold">ДЕНЬ 3</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Код = документация
+                </h2>
+                <div class="bg-gray-900 p-8 rounded-2xl mb-8">
+                    <pre class="text-sm"><code># Выручка по аптекам
+revenue_by_store = sales.groupby('store_id').agg({
+    'revenue': 'sum',
+    'margin': 'sum',
+    'receipt_id': 'count'
+}).rename(columns={'receipt_id': 'receipts_count'})
+
+# Средний чек
+revenue_by_store['avg_receipt'] = (
+    revenue_by_store['revenue'] / revenue_by_store['receipts_count']
+)
+
+revenue_by_store.sort_values('revenue', ascending=False)</code></pre>
+                </div>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-8 rounded-lg">
+                    <p class="text-xl font-semibold text-blue-900">
+                        Этот код — на самом деле описание: мы группируем по аптекам, считаем выручку, маржу, кол-во
+                        чеков, потом делим выручку на чеки, получаем средний чек. Коллега прочитает этот код и сразу
+                        поймёт, как вы считали.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 3: Блок 6 - Практика -->
+        <div class="slide bg-gray-50" data-slide="22">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-purple-600 font-semibold">ДЕНЬ 3</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Сегодня: собираем Python-отчёт вместе
+                </h2>
+                <div class="bg-white p-10 rounded-2xl shadow-md mb-8">
+                    <p class="text-2xl text-gray-800 mb-6">На вебинаре мы:</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <span class="text-purple-600 text-2xl mr-3">1.</span>
+                            <p class="text-lg">Откроем Google Colab — облачный Python, ничего не нужно ставить</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-purple-600 text-2xl mr-3">2.</span>
+                            <p class="text-lg">Напишем вместе пошагово: загрузим CSV, посчитаем выручку и маржу</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-purple-600 text-2xl mr-3">3.</span>
+                            <p class="text-lg">Построим 2–3 графика: выручка по аптекам, топ-товары, динамика</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-purple-600 text-2xl mr-3">4.</span>
+                            <p class="text-lg">Напишем выводы — 4–5 текстовых выводов, что мы узнали</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="https://colab.research.google.com" target="_blank"
+                        class="inline-block bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 px-8 rounded-lg shadow-md transition text-xl">
+                        🐍 Открыть Google Colab
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 3: Блок 7 - Пример результата -->
+        <div class="slide bg-white" data-slide="23">
+            <div class="w-full max-w-6xl px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-purple-600 font-semibold">ДЕНЬ 3</span>
+                </div>
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Вот так выглядит готовый отчёт
+                </h2>
+                <div class="bg-gradient-to-br from-purple-50 to-blue-50 p-10 rounded-2xl">
+                    <p class="text-2xl text-gray-800 mb-6">В вашем ноутбуке будет:</p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <span class="mr-3">📊</span>
+                                <p class="text-lg">Таблица 1: Аптеки по выручке и марже</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="mr-3">📈</span>
+                                <p class="text-lg">График 1: Барчарт выручки/маржи по аптекам</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="mr-3">🏆</span>
+                                <p class="text-lg">Таблица 2: Топ-10 товаров по марже</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <span class="mr-3">📊</span>
+                                <p class="text-lg">График 2: Топ-категории по выручке</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="mr-3">🎯</span>
+                                <p class="text-lg">Таблица 3: Анализ скидок</p>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="mr-3">💬</span>
+                                <p class="text-lg">Выводы: 5 текстовых выводов</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-white p-6 rounded-xl">
+                        <p class="text-xl text-center text-gray-700">
+                            Всё в одном месте, красиво, с графиками. Такой отчёт можно показать руководству! ✨
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 3: Блок 8 - Домашка -->
+        <div class="slide bg-gray-50" data-slide="24">
+            <div class="w-full max-w-6xl px-8 overflow-y-auto h-screen py-20">
+                <div class="text-center mb-12">
+                    <span class="text-xl text-purple-600 font-semibold">ДЕНЬ 3</span>
+                </div>
+                <h2 class="text-4xl font-bold text-center mb-8 text-gray-900">
+                    Домашка дня 3: аналитический отчёт в Python
+                </h2>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Часть 1-2: Загрузка и расчёты</h3>
+                        <div class="space-y-3">
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ Импортированы библиотеки (pandas, matplotlib/seaborn)
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ Загружен CSV-файл
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ Посчитана выручка, маржа, средний чек
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 mt-6">Часть 3: Таблицы и графики</h3>
+                        <div class="space-y-3">
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ Таблица: выручка, маржа по аптекам
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ График: выручка и маржа по аптекам
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ Таблица: топ-10 товаров по марже
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ График: топ-товары по марже
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-md text-sm">
+                                ☐ Таблица: анализ скидок
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Часть 4: Выводы (ключевая часть)</h3>
+                        <div class="space-y-3">
+                            <div class="bg-purple-50 p-4 rounded-xl shadow-md text-sm">
+                                ☐ Вывод 1: Какие 2–3 аптеки — локомотивы сети?
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-xl shadow-md text-sm">
+                                ☐ Вывод 2: Какие аптеки требуют внимания?
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-xl shadow-md text-sm">
+                                ☐ Вывод 3: Какие категории/товары дают основную маржу?
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-xl shadow-md text-sm">
+                                ☐ Вывод 4: Какие товары много продаются, но с низкой маржой?
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-xl shadow-md text-sm">
+                                ☐ Вывод 5: Помогает ли скидка в вашей сети?
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-blue-50 p-4 rounded-xl">
+                            <p class="text-sm font-semibold">Формат сдачи:</p>
+                            <p class="text-sm text-gray-700">Ссылка на Colab-ноутбук или файл .ipynb</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 3: Блок 9 - Резюме 3 дней -->
+        <div class="slide bg-white" data-slide="25">
+            <div class="w-full max-w-6xl px-8">
+                <h2 class="text-5xl font-bold text-center mb-16 text-gray-900">
+                    Что вы научились делать
+                </h2>
+                <div class="space-y-8">
+                    <div class="bg-green-50 p-10 rounded-2xl shadow-md border-l-4 border-green-500">
+                        <div class="flex items-start">
+                            <span class="text-6xl mr-6">📊</span>
+                            <div>
+                                <h3 class="text-3xl font-bold mb-3 text-green-800">День 1 (Таблицы): "Я вижу, где
+                                    деньги"</h3>
+                                <p class="text-xl text-gray-700">
+                                    Сводные таблицы и графики помогают быстро понять, какие аптеки и товары работают
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-orange-50 p-10 rounded-2xl shadow-md border-l-4 border-orange-500">
+                        <div class="flex items-start">
+                            <span class="text-6xl mr-6">🗄️</span>
+                            <div>
+                                <h3 class="text-3xl font-bold mb-3 text-orange-800">День 2 (SQL): "Я могу это считать
+                                    каждый день"</h3>
+                                <p class="text-xl text-gray-700">
+                                    SQL-запрос — это документация логики, которую можно повторять и обновлять без ошибок
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 p-10 rounded-2xl shadow-md border-l-4 border-purple-500">
+                        <div class="flex items-start">
+                            <span class="text-6xl mr-6">🐍</span>
+                            <div>
+                                <h3 class="text-3xl font-bold mb-3 text-purple-800">День 3 (Python): "Я могу рассказать
+                                    эту историю"</h3>
+                                <p class="text-xl text-gray-700">
+                                    Аналитический отчёт с графиками и выводами — вот что ценит бизнес
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ДЕНЬ 3: Блок 10 - Что дальше -->
+        <div class="slide bg-gray-50" data-slide="26">
+            <div class="w-full max-w-6xl px-8">
+                <h2 class="text-5xl font-bold text-center mb-12 text-gray-900">
+                    Что дальше?
+                </h2>
+                <div class="bg-white p-10 rounded-2xl shadow-md mb-8">
+                    <p class="text-2xl text-gray-700 mb-6 leading-relaxed">
+                        Эти три навыка (таблицы, SQL, Python) — основа работы любого аналитика. Реальная работа часто
+                        требует одновременно все три: сначала исследуешь в таблицах, потом документируешь в SQL, потом
+                        показываешь в Python.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="bg-blue-50 p-8 rounded-2xl">
+                        <h3 class="text-2xl font-bold mb-4">Рекомендации по изучению:</h3>
+                        <ul class="space-y-3 text-lg text-gray-700">
+                            <li>• Практика в CSVFiddle с любыми CSV</li>
+                            <li>• Курсы SQL (mode.com, hackerrank.com)</li>
+                            <li>• Документация pandas и matplotlib</li>
+                            <li>• Датасеты Kaggle для практики</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-8 rounded-2xl">
+                        <h3 class="text-2xl font-bold mb-4">Главное:</h3>
+                        <p class="text-xl text-gray-700 leading-relaxed">
+                            Найти данные, которые вас интересуют, и применить эти три инструмента. Практика на реальных
+                            задачах — лучший способ обучения!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Slide -->
+        <div class="slide bg-gradient-to-br from-blue-500 to-purple-600" data-slide="27">
+            <div class="text-center px-8 max-w-5xl">
+                <h1 class="text-6xl md:text-7xl font-bold text-white mb-8 leading-tight">
+                    Вы прошли интенсив!
+                </h1>
+                <p class="text-3xl text-white mb-16 leading-relaxed opacity-90">
+                    За три дня вы научились думать как аналитик: видеть данные, задавать вопросы, считать ответы и
+                    рассказывать историю
+                </p>
+                <div class="grid grid-cols-3 gap-12 mb-16">
+                    <div>
+                        <div class="text-7xl font-black text-white mb-4">3</div>
+                        <p class="text-2xl text-white">Дня обучения</p>
+                    </div>
+                    <div>
+                        <div class="text-7xl font-black text-white mb-4">3</div>
+                        <p class="text-2xl text-white">Инструмента</p>
+                    </div>
+                    <div>
+                        <div class="text-7xl font-black text-white mb-4">∞</div>
+                        <p class="text-2xl text-white">Возможностей</p>
+                    </div>
+                </div>
+                <p class="text-2xl text-white font-semibold">
+                    Это основа профессии аналитика 🎯
+                </p>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="fixed bottom-8 right-8 flex items-center gap-4 z-50">
+            <button id="prevBtn"
+                class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed text-lg">
+                ← Назад
+            </button>
+            <div id="progress" class="flex gap-2"></div>
+            <button id="nextBtn"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition text-lg">
+                Далее →
+            </button>
+        </div>
+
+        <!-- Slide Counter -->
+        <div class="fixed bottom-8 left-8 bg-white px-4 py-2 rounded-lg shadow-md z-50">
+            <span class="text-lg font-medium text-gray-700">
+                <span id="currentSlide">1</span> / <span id="totalSlides">27</span>
+            </span>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
