@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Random Analytics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="analytics-frame">
+      <div class="analytics-grid"></div>
+      <div class="analytics-line analytics-line--1"></div>
+      <div class="analytics-line analytics-line--2"></div>
+      <div class="analytics-pills">
+        <div class="pill pill--accent">
+          <span class="pill-label">RNG</span>
+          <span class="pill-value">simulative</span>
+        </div>
+        <div class="pill pill--mono">
+          <span class="pill-label">SEED</span>
+          <span id="seed-label" class="pill-value">system</span>
+        </div>
+      </div>
+      <div class="analytics-mini-chart">
+        <div class="mini-bar mini-bar--1"></div>
+        <div class="mini-bar mini-bar--2"></div>
+        <div class="mini-bar mini-bar--3"></div>
+        <div class="mini-bar mini-bar--4"></div>
+      </div>
+    </div>
+
+    <main class="panel">
+      <section class="panel-header">
+        <div class="badge">random</div>
+        <div class="panel-title-block">
+          <h1 class="panel-title">Число в диапазоне</h1>
+          <p class="panel-subtitle">простой генератор для быстрых решений</p>
+        </div>
+      </section>
+
+      <section class="panel-body">
+        <div class="range-row">
+          <label class="field">
+            <span class="field-label">от</span>
+            <input
+              id="min-input"
+              class="field-input"
+              type="number"
+              inputmode="numeric"
+              value="1"
+            />
+          </label>
+          <label class="field">
+            <span class="field-label">до</span>
+            <input
+              id="max-input"
+              class="field-input"
+              type="number"
+              inputmode="numeric"
+              value="100"
+            />
+          </label>
+        </div>
+
+        <button id="generate-btn" class="primary-btn">
+          Сгенерировать
+        </button>
+
+        <div class="result-block">
+          <div class="result-label-row">
+            <span class="result-label">результат</span>
+            <span id="range-label" class="result-range">1–100</span>
+          </div>
+          <div id="result-value" class="result-value">42</div>
+        </div>
+      </section>
+
+      <section class="panel-footer">
+        <div class="dist-header">
+          <span class="dist-title">Распределение попыток</span>
+          <span id="dist-count" class="dist-count">0</span>
+        </div>
+        <div id="dist-bars" class="dist-bars">
+          <!-- bars rendered via JS -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
+
