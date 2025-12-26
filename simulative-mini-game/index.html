@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Analyst Runner — Simulative</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700&display=swap');
+    :root {
+      --accent: #ff6a1a;
+      --bg: #050509;
+      --panel: #111119;
+      --good: #00ff88;
+      --bad: #ff3366;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Onest', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #151522 0, #050509 55%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 16px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .header h1 {
+      font-size: 2rem;
+      background: linear-gradient(120deg, var(--accent), #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+    .hud {
+      display: flex;
+      gap: 12px;
+      margin: 12px 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hud-item {
+      background: rgba(17,17,25,0.9);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .hud-item span.value {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .game-wrapper {
+      background: linear-gradient(180deg, rgba(17,17,25,0.96), rgba(5,5,9,0.98));
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.6);
+      padding: 16px;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .lane-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      opacity: 0.75;
+      margin-bottom: 4px;
+      padding: 0 4px;
+    }
+
+    .game-area {
+      position: relative;
+      width: 100%;
+      max-width: 448px;
+      aspect-ratio: 16 / 9;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 16px;
+      background: radial-gradient(circle at bottom, #101020 0, #050509 60%);
+    }
+
+    .lane {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 33.333%;
+      border-top: 1px dashed rgba(255,255,255,0.08);
+    }
+    .lane:nth-child(1) { top: 0; }
+    .lane:nth-child(2) { top: 33.333%; }
+    .lane:nth-child(3) { top: 66.666%; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+
+    .hero {
+      position: absolute;
+      left: 8%;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #fff 0, var(--accent) 40%, #ff3b10 100%);
+      box-shadow: 0 0 18px rgba(255,106,26,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transform: translateY(-50%);
+      transition: top 0.18s ease-out;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 70%;
+      height: 10%;
+      bottom: -18px;
+      left: 15%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,0,0,0.7), transparent 70%);
+      filter: blur(2px);
+    }
+
+    .object {
+      position: absolute;
+      right: -80px;
+      width: 40px;
+      min-height: 40px;
+      padding: 6px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.06);
+      opacity: 0;
+      transform: translateX(0);
+    }
+    .object.good {
+      background: radial-gradient(circle at top, #0f2b1f, #04130b);
+      color: #b2ffe1;
+      box-shadow: 0 0 18px rgba(0,255,136,0.4);
+    }
+    .object.bad {
+      background: radial-gradient(circle at top, #2b0f19, #16040b);
+      color: #ffd2df;
+      box-shadow: 0 0 18px rgba(255,51,102,0.5);
+    }
+    .object span.icon {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .object span.label {
+      font-size: 0.6rem;
+      line-height: 1.1;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.78);
+    }
+    .controls .keys {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pill kbd {
+      background: rgba(0,0,0,0.5);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.65rem;
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(255,106,26,0.6);
+      transition: transform 0.14s ease-out, box-shadow 0.14s ease-out;
+      white-space: nowrap;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 26px rgba(255,106,26,0.8);
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(10,10,20,0.98), rgba(5,5,9,0.98));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px;
+      z-index: 4;
+    }
+    .overlay.hidden { display: none; }
+
+    .overlay h2 {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+    .overlay p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin-bottom: 12px;
+    }
+    .badge-role {
+      margin: 8px 0 14px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: rgba(0,255,136,0.1);
+      border: 1px solid rgba(0,255,136,0.6);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 480px) {
+      .game-wrapper { padding: 12px; }
+      .header h1 { font-size: 1.6rem; }
+      .game-area { border-radius: 14px; }
+      .hud { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Analyst Runner</h1>
+    <p>Успей собрать полезные данные и избегай мусора за 30 секунд.</p>
+  </div>
+
+  <div class="game-wrapper">
+    <div class="hud">
+      <div class="hud-item">⏱️ Время: <span class="value" id="time">30</span> c</div>
+      <div class="hud-item">⭐ Очки: <span class="value" id="score">0</span></div>
+      <div class="hud-item">✅ Чистые данные: <span class="value" id="clean">0</span></div>
+    </div>
+
+    <div class="lane-labels">
+      <span>SQL / Обработка</span>
+      <span>BI / Дашборд</span>
+      <span>Продукт / Метрики</span>
+    </div>
+
+    <div class="game-area" id="gameArea">
+      <div class="lane"></div>
+      <div class="lane"></div>
+      <div class="lane"></div>
+
+      <div class="hero" id="hero">📈</div>
+
+      <!-- Старт / финиш -->
+      <div class="overlay" id="overlay">
+        <h2>Станешь middle‑аналитиком?</h2>
+        <p>Переключайся между линиями и собирай только полезные артефакты.</p>
+        <div class="pill">
+          <span>Управление:</span>
+          <span><kbd>W</kbd>/<kbd>↑</kbd> вверх · <kbd>S</kbd>/<kbd>↓</kbd> вниз</span>
+        </div>
+        <button class="btn-primary" id="startBtn">Старт</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="keys">
+        <div class="pill">
+          <span>Хорошее:</span> <span style="color:var(--good)">SQL · таблицы · дашборды</span>
+        </div>
+        <div class="pill">
+          <span>Мусор:</span> <span style="color:var(--bad)">HiPPO · vanity metrics</span>
+        </div>
+      </div>
+      <button class="btn-primary" id="restartBtn" style="display:none;">Играть снова</button>
+    </div>
+  </div>
+
+  <script>
+    const hero = document.getElementById('hero');
+    const gameArea = document.getElementById('gameArea');
+    const overlay = document.getElementById('overlay');
+    const startBtn = document.getElementById('startBtn');
+    const restartBtn = document.getElementById('restartBtn');
+
+    const timeEl = document.getElementById('time');
+    const scoreEl = document.getElementById('score');
+    const cleanEl = document.getElementById('clean');
+
+    const lanesY = [16.7, 50, 83.3]; // проценты по высоте
+    let currentLane = 1;
+    let gameRunning = false;
+    let timer = 30;
+    let timerInterval;
+    let spawnInterval;
+    let score = 0;
+    let cleanCount = 0;
+    let objects = [];
+
+    const goodObjects = [
+      { icon: '🧹', label: 'Очистка' },
+      { icon: '🧮', label: 'SQL' },
+      { icon: '📊', label: 'DAU' },
+      { icon: '📈', label: 'Фанел' },
+      { icon: '📉', label: 'Сегменты' }
+    ];
+
+    const badObjects = [
+      { icon: '🦛', label: 'HiPPO' },
+      { icon: '✨', label: 'Vanity' },
+      { icon: '🎲', label: 'Рандом' },
+      { icon: '🧱', label: 'Силосы' }
+    ];
+
+    function setLane(laneIndex) {
+      currentLane = Math.max(0, Math.min(2, laneIndex));
+      hero.style.top = lanesY[currentLane] + '%';
+    }
+
+    function resetGame() {
+      score = 0;
+      cleanCount = 0;
+      timer = 30;
+      scoreEl.textContent = score;
+      cleanEl.textContent = cleanCount;
+      timeEl.textContent = timer;
+      objects.forEach(o => o.el.remove());
+      objects = [];
+      setLane(1);
+    }
+
+    function startGame() {
+      resetGame();
+      overlay.classList.add('hidden');
+      restartBtn.style.display = 'none';
+      gameRunning = true;
+
+      timerInterval = setInterval(() => {
+        timer--;
+        timeEl.textContent = timer;
+        if (timer <= 0) {
+          endGame();
+        }
+      }, 1000);
+
+      spawnInterval = setInterval(() => {
+        spawnObject();
+      }, 700);
+
+      requestAnimationFrame(updateObjects);
+    }
+
+    function endGame() {
+      gameRunning = false;
+      clearInterval(timerInterval);
+      clearInterval(spawnInterval);
+
+      // оценка роли
+      let role = 'Новичок';
+      let subtitle = 'Ты только начинаешь путь в данных — самое время для Simulative.';
+
+      if (score >= 400 && score < 800) {
+        role = 'Strong junior';
+        subtitle = 'У тебя уже есть чуть‑чуть опыта. Прокачайся до middle на программе Simulative.';
+      } else if (score >= 800) {
+        role = 'Middle analyst';
+        subtitle = 'Красиво! Такой темп пригодится на реальных проектах. Забирай промо и приходи в Simulative.';
+      }
+
+      overlay.classList.remove('hidden');
+      overlay.innerHTML = `
+        <h2>Результат: ${score} очков</h2>
+        <div class="badge-role">${role}</div>
+        <p>${subtitle}</p>
+        <p style="margin-bottom:10px;font-size:0.85rem;opacity:0.9;">
+          Чистых артефактов: <strong>${cleanCount}</strong> · Мусор обходил стороной? Проверь ещё разок.
+        </p>
+        <div class="pill" style="margin-bottom:10px;">
+          Промокод на обучение: <strong style="margin-left:6px;">SIMULATIVE‑RUNNER</strong>
+        </div>
+        <button class="btn-primary" id="playAgain">Играть снова</button>
+      `;
+      document.getElementById('playAgain').onclick = () => {
+        overlay.innerHTML = `
+          <h2>Станешь middle‑аналитиком?</h2>
+          <p>Переключайся между линиями и собирай только полезные артефакты.</p>
+          <div class="pill">
+            <span>Управление:</span>
+            <span><kbd>W</kbd>/<kbd>↑</kbd> вверх · <kbd>S</kbd>/<kbd>↓</kbd> вниз</span>
+          </div>
+          <button class="btn-primary" id="startBtn">Старт</button>
+        `;
+        document.getElementById('startBtn').onclick = startGame;
+      };
+      restartBtn.style.display = 'inline-flex';
+    }
+
+    function spawnObject() {
+      if (!gameRunning) return;
+
+      const laneIndex = Math.floor(Math.random() * 3);
+      const isGood = Math.random() < 0.65;
+      const data = isGood
+        ? goodObjects[Math.floor(Math.random() * goodObjects.length)]
+        : badObjects[Math.floor(Math.random() * badObjects.length)];
+
+      const el = document.createElement('div');
+      el.className = 'object ' + (isGood ? 'good' : 'bad');
+      el.style.top = lanesY[laneIndex] + '%';
+      el.style.transform = 'translateY(-50%)';
+      el.innerHTML = `<span class="icon">${data.icon}</span><span class="label">${data.label}</span>`;
+      gameArea.appendChild(el);
+
+      const obj = {
+        lane: laneIndex,
+        isGood,
+        x: gameArea.clientWidth + 40,
+        speed: 3 + Math.random() * 2,
+        el,
+        hit: false
+      };
+      objects.push(obj);
+
+      setTimeout(() => {
+        el.style.opacity = 1;
+      }, 10);
+    }
+
+    function updateObjects() {
+      if (!gameRunning) return;
+
+      const heroRect = hero.getBoundingClientRect();
+      const gameRect = gameArea.getBoundingClientRect();
+
+      objects.forEach(obj => {
+        obj.x -= obj.speed;
+        obj.el.style.right = (gameRect.right - (gameRect.left + obj.x)) + 'px';
+
+        // столкновение
+        if (!obj.hit && obj.lane === currentLane) {
+          const objRect = obj.el.getBoundingClientRect();
+          const dx = (objRect.left + objRect.width / 2) - (heroRect.left + heroRect.width / 2);
+          const dy = (objRect.top + objRect.height / 2) - (heroRect.top + heroRect.height / 2);
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 40) {
+            obj.hit = true;
+            if (obj.isGood) {
+              score += 80;
+              cleanCount++;
+              hero.style.boxShadow = '0 0 26px rgba(0,255,136,0.9)';
+              setTimeout(() => {
+                hero.style.boxShadow = '0 0 18px rgba(255,106,26,0.9)';
+              }, 150);
+            } else {
+              score = Math.max(0, score - 100);
+              hero.style.boxShadow = '0 0 30px rgba(255,51,102,0.9)';
+              setTimeout(() => {
+                hero.style.boxShadow = '0 0 18px rgba(255,106,26,0.9)';
+              }, 200);
+            }
+            scoreEl.textContent = score;
+            cleanEl.textContent = cleanCount;
+            obj.el.style.opacity = 0;
+          }
+        }
+      });
+
+      // удаление ушедших объектов
+      objects = objects.filter(obj => {
+        if (obj.x < -60) {
+          obj.el.remove();
+          return false;
+        }
+        return true;
+      });
+
+      requestAnimationFrame(updateObjects);
+    }
+
+    // Управление
+    window.addEventListener('keydown', e => {
+      if (!gameRunning) return;
+      if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp') {
+        setLane(currentLane - 1);
+      }
+      if (e.key === 's' || e.key === 'S' || e.key === 'ArrowDown') {
+        setLane(currentLane + 1);
+      }
+    });
+
+    startBtn.onclick = startGame;
+    restartBtn.onclick = () => {
+      overlay.classList.add('hidden');
+      startGame();
+    };
+
+    // начальное положение
+    setLane(currentLane);
+  </script>
+</body>
+</html>
