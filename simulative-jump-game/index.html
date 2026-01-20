@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IT Resume Runner — Hard Mode</title>
+<style>
+:root {
+  --color-1: #999999;
+  --color-2: #ff9600;
+  --color-3: #1e1e1e;
+  --color-4: #f4f4f4;
+  --color-5: #f5a83d;
+  --color-7: #555555;
+  --color-8: #cccccc;
+  --color-9: #767676;
+
+  --font-1: "Onest", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+
+  --box-shadow-1: rgb(255, 150, 0) 4px 4px 0px 0px;
+  --box-shadow-7: rgba(255, 150, 0, 0.42) 0px 0px 28px -2px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-3);
+  font-family: var(--font-1);
+  color: var(--color-4);
+}
+
+#app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 16px;
+  height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.panel {
+  background: var(--color-3);
+  border: 2px solid var(--color-7);
+  border-radius: 16px;
+  box-shadow: var(--box-shadow-1);
+  padding: 16px;
+}
+
+.brand { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+.logoBox {
+  width:42px; height:42px; border-radius:10px;
+  background: var(--color-2); display:grid; place-items:center;
+  color:#1e1e1e; font-weight:900; box-shadow: var(--box-shadow-7);
+}
+
+.stats { display:grid; gap:12px; }
+.stat { border: 2px solid var(--color-7); border-radius: 12px; padding: 12px; background: #141414; }
+.stat .label { color: var(--color-1); font-size: 12px; }
+.stat .value { font-size: 22px; font-weight: 800; color: var(--color-2); }
+
+.bar { height:8px; background: #0f0f0f; border-radius:999px; overflow:hidden; margin-top:8px; border:1px solid var(--color-7); }
+.bar > span { display:block; height:100%; background: linear-gradient(90deg, var(--color-2), var(--color-5)); width: 40%; }
+
+.log { margin-top:16px; height: calc(100vh - 300px); overflow:auto; font-size:12px; color: var(--color-8); }
+.log p { margin: 0 0 6px 0; }
+
+#gameWrap { position: relative; }
+canvas {
+  background:
+    repeating-linear-gradient(90deg, #222 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(0deg, #222 0 1px, transparent 1px 80px),
+    #111;
+  border-radius: 16px; border: 2px solid var(--color-7); box-shadow: var(--box-shadow-1);
+}
+
+.hint { position:absolute; bottom:12px; left:0; right:0; text-align:center; color: var(--color-1); font-size: 13px; }
+.topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.pill { padding:6px 12px; border-radius:999px; border:2px solid var(--color-7); background:#141414; color: var(--color-2); font-size:12px; font-weight:700; }
+.btn { cursor:pointer; user-select:none; padding:8px 14px; border-radius:12px; border:2px solid var(--color-7); background:#141414; color: var(--color-4); font-weight:700; }
+.btn:hover { border-color: var(--color-2); color: var(--color-2); }
+</style>
+</head>
+<body>
+<div id="app">
+  <aside class="panel">
+    <div class="brand">
+      <div class="logoBox">IR</div>
+      <div>
+        <h1>IT Resume Runner</h1>
+        <small>HARD MODE</small>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="label">Score</div>
+        <div class="value" id="score">0</div>
+        <div class="bar"><span id="scoreBar"></span></div>
+      </div>
+      <div class="stat">
+        <div class="label">Best</div>
+        <div class="value" id="best">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">Стабильность метрик</div>
+        <div class="value" id="stability">100%</div>
+        <div class="bar"><span id="stabBar" style="width:100%"></span></div>
+      </div>
+    </div>
+
+    <div class="log" id="log"></div>
+  </aside>
+
+  <main class="panel" id="gameWrap">
+    <div class="topbar">
+      <div class="pill">Роль: Аналитик</div>
+      <div><span class="btn" id="restartBtn">R — рестарт</span></div>
+    </div>
+    <canvas id="game" width="980" height="360"></canvas>
+    <div class="hint">Пробел / клик — прыжок • Лови бонусы в воздухе • Уворачивайся от высоких объектов</div>
+  </main>
+</div>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+const GROUND_Y = 260;
+
+// HARDER BASELINE
+let speed = 8.5;          // faster start
+let gravity = 0.7;        // heavier
+let score = 0;
+let best = Number(localStorage.getItem("it_resume_best_hard") || 0);
+let gameOver = false;
+let started = false;
+let stability = 100;
+
+const ui = {
+  score: document.getElementById("score"),
+  best: document.getElementById("best"),
+  stability: document.getElementById("stability"),
+  scoreBar: document.getElementById("scoreBar"),
+  stabBar: document.getElementById("stabBar"),
+  log: document.getElementById("log")
+};
+ui.best.textContent = best;
+
+// Hero image
+const heroImg = new Image();
+heroImg.src = "https://media.licdn.com/dms/image/v2/D560BAQGGPyRxLg5vHA/company-logo_200_200/company-logo_200_200/0/1733846037498/it_resume_logo?e=2147483647&v=beta&t=VXitCN_kpcf8VDcTMVBsmZyGeMd39O4cRjpA0heub9Q";
+
+const hero = { x: 90, y: GROUND_Y, w: 48, h: 48, vy: 0, jumping: false };
+
+let obstacles = [];
+let goodies = [];
+let spawnTimer = 0;
+let goodieTimer = 0;
+
+// More tall obstacles (weighted)
+const OBST_TYPES = [
+  { name: "Высокий баг в проде", color: "#ff3b30", w:[28,40], h:[70,110], damage: 18, weight: 4 },
+  { name: "Сломанный пайплайн", color: "#ff9600", w:[26,38], h:[60,90], damage: 14, weight: 3 },
+  { name: "Провал A/B", color: "#f5a83d", w:[22,34], h:[40,60], damage: 10, weight: 2 },
+  { name: "Мелкий баг", color: "#c2410c", w:[20,28], h:[24,36], damage: 8, weight: 1 }
+];
+
+const GOODIES = [
+  { name: "График", emoji: "📈", score: 25 },
+  { name: "Датасет", emoji: "🗂️", score: 20 },
+  { name: "Отчёт", emoji: "📄", score: 15 }
+];
+
+function pickWeighted(arr){
+  const total = arr.reduce((s,a)=>s+a.weight,0);
+  let r = Math.random()*total;
+  for (const a of arr){
+    if ((r -= a.weight) <= 0) return a;
+  }
+  return arr[0];
+}
+
+function log(msg){
+  const p = document.createElement("p");
+  const t = new Date().toLocaleTimeString();
+  p.textContent = `[${t}] ${msg}`;
+  ui.log.prepend(p);
+}
+
+function reset() {
+  speed = 8.5;
+  score = 0;
+  stability = 100;
+  gameOver = false;
+  started = false;
+  obstacles = [];
+  goodies = [];
+  hero.y = GROUND_Y;
+  hero.vy = 0;
+  hero.jumping = false;
+  ui.log.innerHTML = "";
+  log("Новый день. Риски повышены. Продакшн не ждёт.");
+}
+
+function spawnObstacle() {
+  const t = pickWeighted(OBST_TYPES);
+  const h = t.h[0] + Math.random() * (t.h[1]-t.h[0]);
+  const w = t.w[0] + Math.random() * (t.w[1]-t.w[0]);
+  obstacles.push({
+    x: canvas.width + 20,
+    y: GROUND_Y + (48 - h),
+    w, h, type: t
+  });
+}
+
+function spawnGoodie() {
+  const g = GOODIES[Math.floor(Math.random() * GOODIES.length)];
+  const size = 28;
+  // spawn in air band
+  const y = GROUND_Y - (60 + Math.random()*120);
+  goodies.push({
+    x: canvas.width + 20,
+    y, w: size, h: size, g, collected: false
+  });
+}
+
+function rectHit(a,b){
+  return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+}
+
+function update() {
+  if (!started || gameOver) return;
+
+  // Physics
+  hero.vy += gravity;
+  hero.y += hero.vy;
+  if (hero.y >= GROUND_Y) {
+    hero.y = GROUND_Y;
+    hero.vy = 0;
+    hero.jumping = false;
+  }
+
+  // Spawn more frequently and denser
+  spawnTimer--;
+  if (spawnTimer <= 0) {
+    // sometimes spawn two close obstacles
+    spawnObstacle();
+    if (Math.random() < 0.35) setTimeout(spawnObstacle, 120);
+    spawnTimer = 35 + Math.random() * 45; // denser than before
+  }
+
+  goodieTimer--;
+  if (goodieTimer <= 0) {
+    spawnGoodie();
+    goodieTimer = 120 + Math.random() * 160;
+  }
+
+  // Obstacles move & collide
+  for (let i = obstacles.length - 1; i >= 0; i--) {
+    const o = obstacles[i];
+    o.x -= speed;
+
+    if (rectHit(hero, o)) {
+      stability -= o.type.damage;
+      log(`⚠️ ${o.type.name}. -${o.type.damage}% к стабильности.`);
+      obstacles.splice(i,1);
+      if (stability <= 0) {
+        gameOver = true;
+        best = Math.max(best, Math.floor(score));
+        localStorage.setItem("it_resume_best_hard", best);
+        log("❌ Метрики уничтожены. Релиз откатили.");
+      }
+      continue;
+    }
+    if (o.x + o.w < 0) obstacles.splice(i, 1);
+  }
+
+  // Goodies
+  for (let i = goodies.length - 1; i >= 0; i--) {
+    const g = goodies[i];
+    g.x -= speed;
+    if (rectHit(hero, g)) {
+      score += g.g.score;
+      log(`✅ Поймал: ${g.g.name}. +${g.g.score} очков.`);
+      goodies.splice(i,1);
+      continue;
+    }
+    if (g.x + g.w < 0) goodies.splice(i,1);
+  }
+
+  // Scoring & difficulty ramp (faster than before)
+  score += 0.18;
+  speed += 0.0018; // ramps quicker
+
+  // UI
+  ui.score.textContent = Math.floor(score);
+  ui.best.textContent = best;
+  ui.stability.textContent = Math.max(0, Math.floor(stability)) + "%";
+  ui.scoreBar.style.width = Math.min(100, (score % 100)) + "%";
+  ui.stabBar.style.width = Math.max(0, stability) + "%";
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Ground
+  ctx.strokeStyle = "#444";
+  ctx.beginPath();
+  ctx.moveTo(0, GROUND_Y + hero.h);
+  ctx.lineTo(canvas.width, GROUND_Y + hero.h);
+  ctx.stroke();
+
+  // Hero
+  if (heroImg.complete) ctx.drawImage(heroImg, hero.x, hero.y, hero.w, hero.h);
+  else { ctx.fillStyle = "#ff9600"; ctx.fillRect(hero.x, hero.y, hero.w, hero.h); }
+
+  // Obstacles
+  obstacles.forEach(o => { ctx.fillStyle = o.type.color; ctx.fillRect(o.x, o.y, o.w, o.h); });
+
+  // Goodies
+  goodies.forEach(g => {
+    ctx.font = "24px system-ui";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(g.g.emoji, g.x + g.w/2, g.y + g.h/2);
+  });
+
+  if (!started) {
+    ctx.fillStyle = "#f4f4f4";
+    ctx.font = "28px monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("HARD MODE — Нажми ПРОБЕЛ", canvas.width / 2, canvas.height / 2);
+    ctx.font = "16px monospace";
+    ctx.fillText("Лови бонусы в воздухе, но высокие объекты теперь смертельно опасны", canvas.width / 2, canvas.height / 2 + 36);
+    ctx.textAlign = "left";
+  }
+
+  if (gameOver) {
+    ctx.fillStyle = "#ff3b30";
+    ctx.font = "36px monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("PRODUCTION FAILED", canvas.width / 2, canvas.height / 2 - 10);
+    ctx.fillStyle = "#f4f4f4";
+    ctx.font = "18px monospace";
+    ctx.fillText("Нажми R чтобы начать новый день", canvas.width / 2, canvas.height / 2 + 30);
+    ctx.textAlign = "left";
+  }
+}
+
+function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+function jump() {
+  if (!started) { started = true; log("▶️ День начался. Риск высокий."); return; }
+  if (hero.jumping || gameOver) return;
+  hero.vy = -13.5; // higher jump, but still risky with tall obstacles
+  hero.jumping = true;
+}
+
+window.addEventListener("keydown", e => {
+  if (e.code === "Space") { e.preventDefault(); if (!gameOver) jump(); }
+  if (e.code === "KeyR") reset();
+});
+window.addEventListener("mousedown", () => { if (!gameOver) jump(); });
+document.getElementById("restartBtn").onclick = reset;
+
+reset(); loop();
+</script>
+</body>
+</html>
