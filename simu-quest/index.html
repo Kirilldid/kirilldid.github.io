@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Город Прозрачных Сигналов | Simulative</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Главный контейнер -->
+    <div id="app">
+        
+        <!-- Экран загрузки / старт -->
+        <div id="startScreen" class="screen active">
+            <div class="start-container">
+                <h1 class="title-main">🏙️ Город Прозрачных Сигналов</h1>
+                <p class="subtitle">Станьте специалистом по данным за 90 дней</p>
+                
+                <div class="start-box">
+                    <label for="heroName">Ваше имя:</label>
+                    <input type="text" id="heroName" placeholder="Алекс" maxlength="20">
+                    
+                    <div class="name-suggestions">
+                        <span class="name-chip" onclick="setName('Алекс')">Алекс</span>
+                        <span class="name-chip" onclick="setName('Мира')">Мира</span>
+                        <span class="name-chip" onclick="setName('Никс')">Никс</span>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="startGame()">
+                        Начать приключение →
+                    </button>
+                </div>
+                
+                <div class="intro-story">
+                    <p>У вас есть <strong>90 дней</strong>, чтобы подготовиться к собеседованию в <strong>Helios Systems</strong> — компанию мечты каждого аналитика.</p>
+                    <p>Каждый день вы выбираете, куда пойти и чему учиться. Ваши решения определят, кем вы станете.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Главный игровой экран -->
+        <div id="gameScreen" class="screen">
+            
+            <!-- Верхняя панель (HUD) -->
+            <div class="hud">
+                <div class="hud-left">
+                    <div class="stat-badge">
+                        <span class="stat-icon">📅</span>
+                        <span>День <span id="dayNumber">1</span> / 90</span>
+                    </div>
+                    <div class="stat-badge">
+                        <span class="stat-icon">⚡</span>
+                        <span id="energyDisplay">10/10</span>
+                    </div>
+                    <div class="stat-badge">
+                        <span class="stat-icon">💰</span>
+                        <span id="moneyDisplay">0 ₽</span>
+                    </div>
+                </div>
+                
+                <div class="hud-center">
+                    <h2 id="locationName">Ваш дом</h2>
+                </div>
+                
+		<div class="hud-right">
+    		<button class="btn-icon" onclick="toggleStats()" title="Статистика">
+        		📊
+    		</button>
+    		<button class="btn-icon" onclick="toggleMap()" title="Карта">
+       		 🗺️
+    		</button>
+    		<button class="btn-icon" onclick="endDay()" title="Закончить день">
+        		🌙
+    		</button>
+		    <!-- НОВАЯ КНОПКА СБРОСА -->
+		    <button class="btn-icon" onclick="resetGame()" title="Сбросить прогресс" style="background: #f44336;">
+        		🔄
+		    </button>
+		</div>
+            </div>
+
+            <!-- Основное игровое поле -->
+            <div class="game-content">
+                
+                <!-- Карта города -->
+                <div id="cityMap" class="city-map">
+                    <div class="map-grid">
+                        <!-- Локации будут добавлены через JS -->
+                    </div>
+                </div>
+
+                <!-- Локация (список активностей) -->
+                <div id="locationView" class="location-view" style="display: none;">
+                    <div class="location-header">
+                        <button class="btn-back" onclick="showMap()">← К карте</button>
+                        <h2 id="currentLocationName"></h2>
+                    </div>
+                    
+                    <div id="activitiesList" class="activities-list">
+                        <!-- Активности будут добавлены через JS -->
+                    </div>
+                </div>
+
+                <!-- Квест/Событие -->
+                <div id="questView" class="quest-view" style="display: none;">
+                    <div class="quest-container">
+                        <div class="quest-header">
+                            <button class="btn-back" onclick="backToLocation()">← Назад</button>
+                        </div>
+                        
+                        <div id="questContent">
+                            <!-- Контент квеста -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Боковая панель (профиль) -->
+            <!-- Компактный виджет персонажа -->
+            <div class="sidebar">
+                <div class="profile-card">
+                    <h3 id="profileName">Игрок</h3>
+                    <div class="reputation">
+                        <span style="font-size: 0.8em;">Репутация</span>
+                        <div class="stars" id="reputationStars">★☆☆☆☆</div>
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <h4>📈 Топ навыки</h4>
+                    <div id="skillsList" class="skills-compact">
+                        <!-- Показываем только топ-3 навыка -->
+                    </div>
+                    <button class="view-all-btn" onclick="showFullStats()">Все навыки →</button>
+                </div>
+            
+                <div class="stats-section">
+                    <h4>🎒 Портфолио <span style="font-weight: normal; font-size: 0.85em;" id="portfolioCount">(0)</span></h4>
+                    <div id="portfolioList" class="portfolio-compact">
+                        <p class="empty-state">Пока пусто</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Модальное окно для финала -->
+        <div id="finalScreen" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div id="finalContent"></div>
+            </div>
+        </div>
+	<!-- Модальное окно статистики -->
+	<div id="statsModal" class="modal" style="display: none;">
+    	<div class="modal-content" style="max-width: 600px;">
+        	<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+           	 <h2>📊 Полная статистика</h2>
+            	<button class="btn-icon" onclick="closeStatsModal()" style="width: 36px; height: 36px;">✕</button>
+        	</div>
+ 	       
+        	<div class="stats-full">
+            	<h3>💪 Все навыки</h3>
+            	<div id="allSkillsList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;">
+                <!-- Все навыки -->
+ 	           </div>
+            
+        	    <h3>🎒 Все проекты</h3>
+            	<div id="allPortfolioList" style="display: flex; flex-direction: column; gap: 8px;">
+                	<!-- Все проекты -->
+            	</div>
+    	    </div>
+   	 </div>
+
+
+    </div>
+
+    <!-- Скрипты -->
+    <script src="locations.js"></script>
+    <script src="events.js"></script>
+    <script src="npcs.js"></script>
+    <script src="quests.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
