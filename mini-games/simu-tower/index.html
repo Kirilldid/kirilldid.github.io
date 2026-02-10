@@ -1,0 +1,40 @@
+<div id="gameContainer">
+  <canvas id="gameCanvas"></canvas>
+  <div id="ui">
+    <div class="score-container">
+      <div class="score-label">Блоки</div>
+      <div class="score-value" id="score">0</div>
+      <div class="best-score">Рекорд: <span id="bestScore">0</span></div>
+    </div>
+  </div>
+  <button id="restartBtn" class="hidden">↻ Заново</button>
+  <div class="speed-indicator">
+    <div class="speed-label-row">
+      <div>Скорость</div>
+      <span id="speedLevelLabel">×1.0</span>
+    </div>
+    <div class="speed-bar">
+      <div class="speed-fill" id="speedFill"></div>
+    </div>
+  </div>
+  <div id="startScreen">
+    <h1>Data Tower</h1>
+    <div class="subtitle">by Simulative</div>
+    <div class="instructions">
+      <p>🎯 Стройте башню из блоков данных</p>
+      <p>⚡ Кликайте или нажимайте Пробел</p>
+      <p>📊 Чем выше — тем сложнее</p>
+      <p>🏆 Цель: дотянуться до 30+ блоков</p>
+    </div>
+    <button id="startBtn">Начать игру</button>
+  </div>
+  <div id="gameOverScreen" class="hidden">
+    <h1>Игра окончена</h1>
+    <div class="game-over-stats">
+      <h2 id="finalScore">0</h2>
+      <div class="label">блоков установлено</div>
+    </div>
+    <div class="motivation" id="motivation"></div>
+    <button id="playAgainBtn">Попробовать снова</button>
+  </div>
+</div>
