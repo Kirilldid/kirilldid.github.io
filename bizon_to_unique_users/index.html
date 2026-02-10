@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bizon → уникальные участники</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- SheetJS (xlsx-js-style) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.min.js"></script>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+      padding: 24px 28px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0 0 8px;
+    }
+    p {
+      margin: 0 0 16px;
+      color: #4b5563;
+      font-size: 14px;
+    }
+    #fileInput {
+      display: none;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
+    }
+    .btn-primary {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.45);
+    }
+    .btn-primary:active {
+      transform: translateY(1px);
+      box-shadow: 0 3px 8px rgba(37, 99, 235, 0.35);
+    }
+    .btn-disabled {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+    .status {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #4b5563;
+      min-height: 18px;
+    }
+    .status-error {
+      color: #b91c1c;
+    }
+    .status-ok {
+      color: #15803d;
+    }
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-top-color: #ffffff;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Обработка отчёта Bizon</h1>
+    <p>Выберите Excel‑файл с листом «Зрители».<br />Сайт удалит дубли, посчитает статистику и сразу скачает новый файл.</p>
+
+    <input type="file" id="fileInput" accept=".xlsx,.xls" />
+    <button id="uploadBtn" class="btn btn-primary">
+      <span id="btnLabel">Выбрать файл</span>
+    </button>
+
+    <div id="status" class="status"></div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const btnLabel = document.getElementById('btnLabel');
+    const statusEl = document.getElementById('status');
+
+    function setStatus(msg, type) {
+      statusEl.textContent = msg || "";
+      statusEl.className = "status";
+      if (type === "error") statusEl.classList.add("status-error");
+      if (type === "ok") statusEl.classList.add("status-ok");
+    }
+
+    function setLoading(isLoading) {
+      if (isLoading) {
+        uploadBtn.classList.add("btn-disabled");
+        uploadBtn.disabled = true;
+        btnLabel.innerHTML = '';
+        const span = document.createElement('span');
+        span.textContent = 'Обработка...';
+        const spinner = document.createElement('div');
+        spinner.className = 'spinner';
+        uploadBtn.appendChild(spinner);
+        uploadBtn.appendChild(span);
+      } else {
+        uploadBtn.classList.remove("btn-disabled");
+        uploadBtn.disabled = false;
+        btnLabel.innerHTML = 'Выбрать файл';
+        // удалить детей
+        while (uploadBtn.childNodes.length > 1) {
+          uploadBtn.removeChild(uploadBtn.lastChild);
+        }
+      }
+    }
+
+    uploadBtn.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      setStatus('Читаю файл...', null);
+      setLoading(true);
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+
+        const sheetName = 'Зрители';
+        if (!workbook.Sheets[sheetName]) {
+          throw new Error('Не найден лист «Зрители» в файле');
+        }
+
+        // Читаем лист "Зрители" в массив объектов (первый ряд — заголовки)
+        const sheet = workbook.Sheets[sheetName];
+        const rawData = XLSX.utils.sheet_to_json(sheet, {
+          header: 1,
+          defval: null
+        });
+
+        // header=1 в pandas: заголовки во второй строке (index=1)
+        if (rawData.length < 2) {
+          throw new Error('Недостаточно строк в листе «Зрители»');
+        }
+
+        const headers = rawData[1];
+        const dataRows = rawData.slice(2);
+
+        function idx(colName) {
+          const i = headers.indexOf(colName);
+          if (i === -1) throw new Error('Не найден столбец: ' + colName);
+          return i;
+        }
+
+        const colIdx = {
+          name: idx('Имя зрителя'),
+          email: idx('E-mail'),
+          ip: idx('IP'),
+          phone: idx('Телефон'),
+          inTime: idx('На вебинаре с'),
+          outTime: idx('Досмотрел до'),
+          utm_source: idx('utm_source'),
+          utm_medium: idx('utm_medium'),
+          utm_campaign: idx('utm_campaign'),
+          utm_term: idx('utm_term'),
+          utm_content: idx('utm_content'),
+          utm_keyword: idx('utm_keyword')
+        };
+
+        // Преобразуем строки в объекты, удаляя полностью пустые
+        const rows = [];
+        for (const row of dataRows) {
+          const allEmpty = row.every(v => v === null || v === undefined || v === "");
+          if (allEmpty) continue;
+          rows.push(row);
+        }
+
+        if (!rows.length) {
+          throw new Error('После удаления пустых строк данных не осталось');
+        }
+
+        // Маркирование участника
+        // is_new_participant = 1, если в колонке "Имя зрителя" не пусто
+        let groupCounter = 0;
+        const enriched = rows.map((row) => {
+          const nameVal = row[colIdx.name];
+          const isNew = (nameVal !== null && nameVal !== undefined && String(nameVal).trim() !== "") ? 1 : 0;
+          if (isNew) groupCounter += 1;
+          return {
+            row,
+            is_new_participant: isNew,
+            participant_group: groupCounter
+          };
+        });
+
+        if (groupCounter === 0) {
+          throw new Error('Не найдено ни одного участника (пустой столбец «Имя зрителя»)');
+        }
+
+        // Фильтр: хотя бы имя, IP или email
+        const filtered = enriched.filter(({ row }) => {
+          const nameVal = row[colIdx.name];
+          const ipVal = row[colIdx.ip];
+          const emailVal = row[colIdx.email];
+          const hasName = nameVal !== null && nameVal !== undefined && String(nameVal).trim() !== "";
+          const hasIP = ipVal !== null && ipVal !== undefined && String(ipVal).trim() !== "";
+          const hasEmail = emailVal !== null && emailVal !== undefined && String(emailVal).trim() !== "";
+          return hasName || hasIP || hasEmail;
+        });
+
+        if (!filtered.length) {
+          throw new Error('После фильтрации по имени/IP/email не осталось строк');
+        }
+
+        // Протягиваем данные участника по группе (bfill/ffill)
+        const colsToFill = [
+          colIdx.name,
+          colIdx.email,
+          colIdx.ip,
+          colIdx.phone,
+          colIdx.utm_source,
+          colIdx.utm_medium,
+          colIdx.utm_campaign,
+          colIdx.utm_term,
+          colIdx.utm_content,
+          colIdx.utm_keyword
+        ];
+
+        // Группируем по participant_group
+        const groups = new Map();
+        for (const item of filtered) {
+          const g = item.participant_group;
+          if (!groups.has(g)) groups.set(g, []);
+          groups.get(g).push(item.row);
+        }
+
+        // Для каждой группы протягиваем значения вверх/вниз
+        for (const [g, groupRows] of groups.entries()) {
+          // для каждого col делаем bfill (с конца) и ffill (с начала)
+          for (const c of colsToFill) {
+            // bfill
+            let lastSeen = null;
+            for (let i = groupRows.length - 1; i >= 0; i--) {
+              const v = groupRows[i][c];
+              if (v !== null && v !== undefined && String(v).trim() !== "") {
+                lastSeen = v;
+              } else if (lastSeen !== null) {
+                groupRows[i][c] = lastSeen;
+              }
+            }
+            // ffill
+            lastSeen = null;
+            for (let i = 0; i < groupRows.length; i++) {
+              const v = groupRows[i][c];
+              if (v !== null && v !== undefined && String(v).trim() !== "") {
+                lastSeen = v;
+              } else if (lastSeen !== null) {
+                groupRows[i][c] = lastSeen;
+              }
+            }
+          }
+        }
+
+        // Агрегация по группе (как groupby + agg first/last)
+        const aggregatedByGroup = [];
+        for (const [g, groupRows] of groups.entries()) {
+          // сортировка по исходному порядку нам не критична, считаем, что уже в порядке
+          const firstRow = groupRows[0];
+          const lastRow = groupRows[groupRows.length - 1];
+
+          const obj = {
+            participant_group: g,
+            name: firstRow[colIdx.name],
+            email: firstRow[colIdx.email],
+            ip: firstRow[colIdx.ip],
+            phone: firstRow[colIdx.phone],
+            time_in: firstRow[colIdx.inTime],
+            time_out: lastRow[colIdx.outTime],
+            utm_source: firstRow[colIdx.utm_source],
+            utm_medium: firstRow[colIdx.utm_medium],
+            utm_campaign: firstRow[colIdx.utm_campaign],
+            utm_term: firstRow[colIdx.utm_term],
+            utm_content: firstRow[colIdx.utm_content],
+            utm_keyword: firstRow[colIdx.utm_keyword]
+          };
+          aggregatedByGroup.push(obj);
+        }
+
+        // email_final
+        function chooseEmail(row) {
+          const utm = row.utm_term;
+          const em = row.email;
+          if (utm != null) {
+            const s = String(utm);
+            if (s.includes('@') && !s.includes('{%')) return s.trim();
+          }
+          if (em != null && String(em).trim() !== '') {
+            return String(em).trim();
+          }
+          return null;
+        }
+
+        for (const r of aggregatedByGroup) {
+          r.email_final = chooseEmail(r);
+        }
+
+        // unique_key = email_final+IP или no_email+IP
+        function makeKey(row) {
+          const ip = row.ip != null ? String(row.ip).trim() : '';
+          if (row.email_final != null) {
+            return String(row.email_final).toLowerCase() + '_' + ip;
+          }
+          return 'no_email_' + ip;
+        }
+
+        for (const r of aggregatedByGroup) {
+          r.unique_key = makeKey(r);
+        }
+
+        // 1) Убираем дубли по unique_key (оставляем первый)
+        const seenKeys = new Set();
+        const afterUniqueKey = [];
+        for (const r of aggregatedByGroup) {
+          if (seenKeys.has(r.unique_key)) continue;
+          seenKeys.add(r.unique_key);
+          afterUniqueKey.push(r);
+        }
+
+        // 2) Дедуп по IP, предпочтение строк с email
+        const withHasEmail = afterUniqueKey.map(r => ({
+          ...r,
+          has_email: r.email_final != null && String(r.email_final).trim() !== '' ? 1 : 0
+        }));
+
+        withHasEmail.sort((a, b) => {
+          const ipA = (a.ip == null ? '' : String(a.ip));
+          const ipB = (b.ip == null ? '' : String(b.ip));
+          if (ipA < ipB) return -1;
+          if (ipA > ipB) return 1;
+          // одинаковый IP → сначала тот, у кого has_email=1
+          if (a.has_email > b.has_email) return -1;
+          if (a.has_email < b.has_email) return 1;
+          return 0;
+        });
+
+        const finalByIP = [];
+        const seenIP = new Set();
+        for (const r of withHasEmail) {
+          const ip = r.ip == null ? '' : String(r.ip);
+          if (seenIP.has(ip)) continue;
+          seenIP.add(ip);
+          finalByIP.push(r);
+        }
+
+        // Подготовка итоговых строк result_df
+        function formatDuration(timeIn, timeOut) {
+          if (!timeIn || !timeOut) return 'N/A';
+          try {
+            const strIn = String(timeIn).trim();
+            const strOut = String(timeOut).trim();
+            if (!strIn || !strOut) return 'N/A';
+
+            // ожидаем формат HH:MM
+            const [hIn, mIn] = strIn.split(':').map(Number);
+            const [hOut, mOut] = strOut.split(':').map(Number);
+            if (Number.isNaN(hIn) || Number.isNaN(mIn) || Number.isNaN(hOut) || Number.isNaN(mOut)) {
+              return 'N/A';
+            }
+            const minutesIn = hIn * 60 + mIn;
+            const minutesOut = hOut * 60 + mOut;
+            const diff = minutesOut - minutesIn;
+            if (diff < 0) return 'N/A';
+            const hours = Math.floor(diff / 60);
+            const mins = diff % 60;
+            if (hours > 0) return `${hours}ч ${mins}м`;
+            return `${mins}м`;
+          } catch (e) {
+            return 'N/A';
+          }
+        }
+
+        const resultRows = finalByIP.map(r => {
+          const name = (r.name != null && String(r.name).trim() !== '') ? r.name : 'N/A';
+          const email = r.email_final != null ? r.email_final : '';
+          const ip = r.ip != null ? r.ip : '';
+          const timeIn = r.time_in != null ? r.time_in : '';
+          const timeOut = r.time_out != null ? r.time_out : '';
+          const durationStr = formatDuration(timeIn, timeOut);
+          const utm_source = r.utm_source != null ? r.utm_source : '';
+          const utm_medium = r.utm_medium != null ? r.utm_medium : '';
+          const utm_campaign = r.utm_campaign != null ? r.utm_campaign : '';
+          const utm_term = r.utm_term != null ? r.utm_term : '';
+          const utm_content = r.utm_content != null ? r.utm_content : '';
+          const utm_keyword = r.utm_keyword != null ? r.utm_keyword : '';
+
+          return {
+            'Зритель': name,
+            'Email': email,
+            'IP': ip,
+            'Входил': timeIn,
+            'Выходил': timeOut,
+            'Время присутствия': durationStr,
+            'utm_source': utm_source,
+            'utm_medium': utm_medium,
+            'utm_campaign': utm_campaign,
+            'utm_term': utm_term,
+            'utm_content': utm_content,
+            'utm_keyword': utm_keyword
+          };
+        });
+
+        if (!resultRows.length) {
+          throw new Error('После всех фильтров и дедупликации не осталось участников');
+        }
+
+        const totalCount = resultRows.length;
+
+        // Создание нового Excel
+        const outWb = XLSX.utils.book_new();
+
+        // --- Лист 1: Участники ---
+        const ws1 = XLSX.utils.json_to_sheet(resultRows, { origin: 'A2' });
+        const headersOrder = [
+          'Зритель','Email','IP','Входил','Выходил','Время присутствия',
+          'utm_source','utm_medium','utm_campaign','utm_term','utm_content','utm_keyword'
+        ];
+        XLSX.utils.sheet_add_aoa(ws1, [headersOrder], { origin: 'A1' });
+
+        // Стили заголовков (синий фон, белый текст, центровка)
+        for (let c = 0; c < headersOrder.length; c++) {
+          const cellRef = XLSX.utils.encode_cell({ r: 0, c });
+          const cell = ws1[cellRef] || (ws1[cellRef] = {});
+          cell.s = {
+            font: { bold: true, color: { rgb: "FFFFFF" } },
+            fill: { fgColor: { rgb: "4472C4" } },
+            alignment: { horizontal: "center", vertical: "center", wrapText: true }
+          };
+        }
+
+        // Выравнивание данных (слева)
+        for (let rIdx = 1; rIdx <= resultRows.length; rIdx++) {
+          for (let c = 0; c < headersOrder.length; c++) {
+            const cellRef = XLSX.utils.encode_cell({ r: rIdx, c });
+            const cell = ws1[cellRef];
+            if (!cell) continue;
+            cell.s = cell.s || {};
+            cell.s.alignment = Object.assign({}, cell.s.alignment, {
+              horizontal: "left",
+              vertical: "center"
+            });
+          }
+        }
+
+        // Ширина колонок
+        ws1['!cols'] = [
+          { wch: 20 }, // A
+          { wch: 30 }, // B
+          { wch: 18 }, // C
+          { wch: 10 }, // D
+          { wch: 10 }, // E
+          { wch: 18 }, // F
+          { wch: 15 }, // G
+          { wch: 15 }, // H
+          { wch: 15 }, // I
+          { wch: 25 }, // J
+          { wch: 15 }, // K
+          { wch: 15 }  // L
+        ];
+
+        // Автофильтр
+        ws1['!autofilter'] = { ref: `A1:L${resultRows.length + 1}` };
+
+        XLSX.utils.book_append_sheet(outWb, ws1, 'Участники');
+
+        // --- Лист 2: Статистика (по utm_medium) ---
+        // Подсчёт уникальных значений utm_medium
+        const utmCounts = new Map();
+        for (const row of resultRows) {
+          const key = (row['utm_medium'] == null || row['utm_medium'] === '') ? null : String(row['utm_medium']);
+          const mapKey = key === null ? '__NONE__' : key;
+          utmCounts.set(mapKey, (utmCounts.get(mapKey) || 0) + 1);
+        }
+
+        const utmStats = [];
+        for (const [k, cnt] of utmCounts.entries()) {
+          utmStats.push({
+            utm_medium: (k === '__NONE__' ? null : k),
+            count: cnt
+          });
+        }
+        utmStats.sort((a, b) => b.count - a.count);
+
+        const ws2 = XLSX.utils.aoa_to_sheet([
+          ['utm_medium', 'Количество', 'Процент']
+        ]);
+
+        // заголовки: зелёный фон
+        ['A1', 'B1', 'C1'].forEach(ref => {
+          const cell = ws2[ref] || (ws2[ref] = {});
+          cell.s = {
+            font: { bold: true, color: { rgb: "FFFFFF" } },
+            fill: { fgColor: { rgb: "70AD47" } },
+            alignment: { horizontal: "center", vertical: "center" }
+          };
+        });
+
+        let rowIndex = 2;
+        for (const stat of utmStats) {
+          const display = stat.utm_medium == null ? '(нет данных)' : stat.utm_medium;
+
+          const aRef = `A${rowIndex}`;
+          const bRef = `B${rowIndex}`;
+          const cRef = `C${rowIndex}`;
+
+          ws2[aRef] = { t: 's', v: display };
+          ws2[aRef].s = {
+            alignment: { horizontal: "left", vertical: "center" }
+          };
+
+          // формула COUNTIF по колонке H листа "Участники"
+          if (display === '(нет данных)') {
+            ws2[bRef] = {
+              t: 'n',
+              f: `COUNTIF(Участники!H:H,"")`
+            };
+          } else {
+            ws2[bRef] = {
+              t: 'n',
+              f: `COUNTIF(Участники!H:H,A${rowIndex})`
+            };
+          }
+          ws2[bRef].s = {
+            alignment: { horizontal: "center", vertical: "center" }
+          };
+
+          ws2[cRef] = {
+            t: 'n',
+            f: `B${rowIndex}/${totalCount}`
+          };
+          ws2[cRef].z = '0.0%';
+          ws2[cRef].s = {
+            alignment: { horizontal: "center", vertical: "center" }
+          };
+
+          rowIndex++;
+        }
+
+        const totalRow = rowIndex;
+        const totalLabelRef = `A${totalRow}`;
+        const totalCountRef = `B${totalRow}`;
+        const totalPercentRef = `C${totalRow}`;
+
+        ws2[totalLabelRef] = { t: 's', v: 'ИТОГО' };
+        ws2[totalLabelRef].s = {
+          font: { bold: true },
+          fill: { fgColor: { rgb: "E7E6E6" } },
+          alignment: { horizontal: "left", vertical: "center" }
+        };
+
+        ws2[totalCountRef] = {
+          t: 'n',
+          f: `SUM(B2:B${totalRow - 1})`
+        };
+        ws2[totalCountRef].s = {
+          font: { bold: true },
+          fill: { fgColor: { rgb: "E7E6E6" } },
+          alignment: { horizontal: "center", vertical: "center" }
+        };
+
+        ws2[totalPercentRef] = {
+          t: 'n',
+          f: `SUM(C2:C${totalRow - 1})`
+        };
+        ws2[totalPercentRef].z = '0.0%';
+        ws2[totalPercentRef].s = {
+          font: { bold: true },
+          fill: { fgColor: { rgb: "E7E6E6" } },
+          alignment: { horizontal: "center", vertical: "center" }
+        };
+
+        ws2['!cols'] = [
+          { wch: 25 },
+          { wch: 15 },
+          { wch: 15 }
+        ];
+
+        XLSX.utils.book_append_sheet(outWb, ws2, 'Статистика');
+
+        const outFileName = 'bizon_уникальные_участники.xlsx';
+        XLSX.writeFile(outWb, outFileName);
+
+        setStatus(`Готово. Найдено уникальных участников: ${finalByIP.length}`, "ok");
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || 'Ошибка обработки файла', "error");
+      } finally {
+        setLoading(false);
+        fileInput.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
