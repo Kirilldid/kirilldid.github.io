@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Спасибо за участие</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-color: #050816;
+      --accent: #7c3aed;
+      --accent-soft: rgba(124, 58, 237, 0.2);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --pill-bg: rgba(15, 23, 42, 0.85);
+      --border-subtle: rgba(148, 163, 184, 0.15);
+      --blur-strong: 24px;
+      --radius-lg: 24px;
+      --radius-pill: 999px;
+      --brand-orange: #ff7a1a;
+      --brand-orange-soft: rgba(255, 122, 26, 0.32);
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      background: radial-gradient(circle at top, #111827 0, #020617 50%, #000 100%);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      position: relative;
+    }
+
+    /* Canvas background */
+
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+    }
+
+    /* Main card */
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      height: 100vh;
+      padding: 48px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    /* Badge */
+
+    .badge {
+      align-self: flex-start;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-subtle);
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      backdrop-filter: blur(var(--blur-strong));
+    }
+
+    /* Content */
+
+    .content {
+      position: relative;
+      margin: auto 0;
+      padding: 32px 28px;
+      border-radius: 28px;
+      border: 1px solid var(--border-subtle);
+      background:
+        radial-gradient(circle at top left, var(--brand-orange-soft), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.18), transparent 55%),
+        rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(var(--blur-strong));
+      box-shadow:
+        0 0 60px rgba(15, 23, 42, 0.9),
+        0 0 80px rgba(88, 28, 135, 0.45);
+      overflow: hidden;
+      pointer-events: auto;
+    }
+
+    .content::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background:
+        linear-gradient(135deg, rgba(255, 122, 26, 0.18), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.32), transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    /* Оранжевая подложка под центральным текстом */
+
+    .content--highlight::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%) skewX(-8deg);
+      width: 120%;
+      height: 54%;
+      background: radial-gradient(
+          circle at top left,
+          rgba(255, 255, 255, 0.2),
+          transparent 55%
+        ),
+        linear-gradient(90deg, #ff7a1a, #ffb347);
+      opacity: 0.22;
+      filter: blur(14px);
+      z-index: 0;
+    }
+
+    .content > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .label {
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .title {
+      font-size: clamp(34px, 4.6vw, 44px);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+
+    .footer-note {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 13px;
+      pointer-events: auto;
+    }
+
+    .footer-pill {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      background: var(--pill-bg);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 640px) {
+      .screen {
+        padding: 24px 18px;
+      }
+
+      .content {
+        padding: 24px 20px;
+        border-radius: 22px;
+      }
+
+      .content--highlight::after {
+        height: 65%;
+        opacity: 0.28;
+      }
+
+      .footer-note {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+
+  <main class="screen">
+    <header class="badge">SIMULATIVE</header>
+
+    <section class="content content--highlight">
+      <p class="label">ВЕБИНАР ПО АНАЛИТИКЕ ДАННЫХ</p>
+      <h1 class="title">Спасибо за участие в вебинаре</h1>
+      <p class="subtitle">До встречи на следующих мероприятиях</p>
+    </section>
+
+    <footer class="footer-note">
+      <span class="footer-pill">LIVE SESSION</span>
+      <span class="footer-text">Следите за новыми эфирами в рассылке и соцсетях</span>
+    </footer>
+  </main>
+
+  <script>
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+
+    let width, height, particles;
+    const PARTICLE_COUNT = 110;
+    let tick = 0;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    function createParticles() {
+      particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        baseX: Math.random() * width,
+        baseY: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        r: 1 + Math.random() * 2.2,
+        alpha: 0.25 + Math.random() * 0.75,
+        offset: Math.random() * 360
+      }));
+    }
+
+    createParticles();
+
+    function draw() {
+      tick += 0.005;
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Градиентный фон с легким «дышанием»
+      const pulse = 0.3 + Math.sin(tick * 2) * 0.1;
+
+      const gradient = ctx.createRadialGradient(
+        width * 0.75,
+        height * 0.15,
+        0,
+        width * 0.75,
+        height * 0.15,
+        width * 0.9
+      );
+      gradient.addColorStop(0, `rgba(255, 122, 26, ${0.22 + pulse * 0.1})`);
+      gradient.addColorStop(0.45, "rgba(124, 58, 237, 0.22)");
+      gradient.addColorStop(1, "rgba(15, 23, 42, 0)");
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+
+      // Полупрозрачный слой для эффекта trail
+      ctx.fillStyle = "rgba(2, 6, 23, 0.28)";
+      ctx.fillRect(0, 0, width, height);
+
+      particles.forEach((p, i) => {
+        // Легкое «колебание» вокруг базовой точки
+        const wobbleX = Math.cos(tick * 3 + p.offset) * 10;
+        const wobbleY = Math.sin(tick * 2.4 + p.offset) * 10;
+
+        p.x += p.vx + wobbleX * 0.01;
+        p.y += p.vy + wobbleY * 0.01;
+
+        // Плавный возврат в зону, если частица ушла далеко
+        if (p.x < -50 || p.x > width + 50 || p.y < -50 || p.y > height + 50) {
+          p.x = Math.random() * width;
+          p.y = Math.random() * height;
+          p.baseX = p.x;
+          p.baseY = p.y;
+        }
+
+        // Отрисовка частицы
+        ctx.beginPath();
+        const accent =
+          i % 7 === 0
+            ? `rgba(255, 122, 26, ${p.alpha})`
+            : i % 11 === 0
+            ? `rgba(56, 189, 248, ${p.alpha})`
+            : `rgba(148, 163, 184, ${p.alpha})`;
+        ctx.fillStyle = accent;
+        ctx.shadowColor = accent;
+        ctx.shadowBlur = 8;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Линии-соединения
+      ctx.shadowBlur = 0;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const p1 = particles[i];
+          const p2 = particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 140) {
+            const alpha = (1 - dist / 140) * 0.35;
+            const baseColor =
+              i % 5 === 0 ? "255, 122, 26" : "148, 163, 184";
+
+            ctx.strokeStyle = `rgba(${baseColor}, ${alpha})`;
+            ctx.lineWidth = 0.5 + alpha * 0.7;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+</body>
+</html>
