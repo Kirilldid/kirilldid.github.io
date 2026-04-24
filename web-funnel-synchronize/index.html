@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Цепочка сообщений к вебинару</title>
+  <style>
+    :root {
+      --bg-page: #f7f5f2;
+      --bg-card: #ffffff;
+      --accent: #f2c27b;
+      --accent-soft: #fff4df;
+      --text-main: #242424;
+      --text-muted: #6b6b6b;
+      --border-soft: rgba(0, 0, 0, 0.04);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.06);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 24px 64px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fdf7ee 0, var(--bg-page) 60%);
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 32px;
+      padding: 24px 24px 20px;
+      background: var(--bg-card);
+      border-radius: 20px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .page-header h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.25;
+      font-weight: 600;
+    }
+
+    .page-header p {
+      margin: 0;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .timeline-label {
+      margin: 24px 0 8px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timeline-label::before {
+      content: "";
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(to right, var(--accent), transparent);
+      opacity: 0.9;
+    }
+
+    .timeline-label span {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: #f3ede3;
+      font-size: 10px;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--text-muted);
+    }
+
+    .step {
+      margin-top: 12px;
+      padding: 18px 20px 20px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .step__header {
+      margin-bottom: 12px;
+    }
+
+    .step__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .step__tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #8a5a1c;
+      font-weight: 500;
+    }
+
+    .step__tag--phase {
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 11px;
+    }
+
+    .step__time,
+    .step__channel {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #f0f0f0;
+    }
+
+    .step__title {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.3;
+      font-weight: 600;
+    }
+
+    .step__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .step__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step__block {
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: #faf7f3;
+      border: 1px solid var(--border-soft);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .step__block--note {
+      background: #fdf7ee;
+      border-style: dashed;
+    }
+
+    .step__subtitle {
+      margin: 0 0 6px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .step__block p {
+      margin: 0 0 4px;
+    }
+
+    .step__block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .step__block strong {
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 24px 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="page-header">
+      <h1>Цепочка сообщений к вебинару</h1>
+      <p>Каждый блок — отдельный пуш: когда отправляем, какая задача и какой текст уходит.</p>
+    </header>
+
+    <!-- Сразу после регистрации -->
+    <div class="timeline-label">
+      Сразу после регистрации
+      <span>Этап 0 · момент, когда человек зарегистрировался</span>
+    </div>
+
+    <!-- 1. Проверка / сбор контактов -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Регистрация</span>
+          <span class="step__time">Сразу после регистрации</span>
+          <span class="step__channel">Канал: бот · сбор контактов</span>
+        </div>
+        <h2 class="step__title">1. Проверка / сбор контактов</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> зафиксировать факт регистрации, собрать недостающие контакты (если пользователь регается впервые в боте).</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> подтверждение, что заявка прошла; объяснение, зачем нужны контакты (напоминания и материалы) + мотивация в формате того, что пользователь получит лидмагнит после завершения регистрации.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Привет! Ты в списке участников вебинара «название вебинара»👋<br>
+          Чтобы я смог(ла) напомнить про эфир и прислать материалы, оставь, пожалуйста, удобные контакты.</p>
+          <p>[Сбор контактов, если требуется и контакты автоматически могут не прокидываться из тильды + чтобы потом было проще из бота собирать заявки]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Лидмагнит за ввод данных -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Регистрация</span>
+          <span class="step__time">Сразу после выбора контактов</span>
+          <span class="step__channel">Канал: бот · лид‑магнит</span>
+        </div>
+        <h2 class="step__title">2. Лидмагнит за ввод данных</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> Выдаем обещаный подарок за регистрацию, мягко напоминаем, как он привязан к тебе вебинара.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> конкретный бонус (чек‑лист/конспект), напоминание.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Круто, спасибо 🙌<br>
+          Собрал для тебя небольшой чек‑лист по разбору картин, чтобы во время эфира было проще фиксировать главное.</p>
+          <p>[Ссылка / кнопка на получение лидмагнита]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Отбивка о регистрации -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Регистрация</span>
+          <span class="step__time">Сразу после оформления</span>
+          <span class="step__channel">Канал: бот · подтверждение</span>
+        </div>
+        <h2 class="step__title">3. Отбивка о регистрации</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> снять тревогу «а точно всё сработало?», зафиксировать дату/время, пообещать понятные напоминания.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> подтверждение регистрации, параметры события, обещание конкретных пушей позже, ссылка/кнопка «добавить в календарь».</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Готово, ты в списке ✔️</p>
+          <p>🗓 Дата: 25 марта<br>
+          ⏰ Время: 19:00 (МСК)<br>
+          ⏱ Длительность: 1–1,5 часа<br>
+          📍 Формат: онлайн‑вебинар</p>
+          <p>За день и за час пришлю напоминание и ссылку на вход.<br>
+          Можешь сразу добавить вебинар в календарь, чтобы точно не пропустить.</p>
+          <p>[Хорошей практикой будет сразу добавить ссылки на добавление мероприятия в календарь]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Повторный старт бота -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Регистрация</span>
+          <span class="step__time">При повторном заходе в бота</span>
+          <span class="step__channel">Канал: бот · техническое</span>
+        </div>
+        <h2 class="step__title">4. Повторный старт бота</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> не плодить дубликаты регистраций и не гонять человека по одной и той же воронке.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> признание, что он уже в базе, краткое напоминание ключевых деталей, предложение дополнительно настроить напоминание, а не «регистрироваться заново».</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Похоже, ты уже зарегистрирован(а) на вебинар [название вебинара]💡</p>
+          <p>Напомню:<br>
+          🗓 25 марта, 19:00 (МСК)<br>
+          Ссылку на эфир пришлю в день мероприятия.</p>
+          <p>Если хочешь, могу ещё раз скинуть детали и добавить напоминание за час до начала.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- За несколько дней до вебинара -->
+    <div class="timeline-label">
+      За несколько дней до вебинара
+      <span>Этап 1 · От 7 до 2 дней до · прогрев и доверие</span>
+    </div>
+
+    <!-- 5. Общий прогрев -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Прогрев</span>
+          <span class="step__time">За 5–7 дней до эфира</span>
+          <span class="step__channel">Канал: канал · прогрев</span>
+        </div>
+        <h2 class="step__title">5. Общий прогрев</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> обозначить главную боль и обещание результата вебинара.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> формулировка проблемы аудитории; обещание осязаемого исхода; привязка к дате вебинара без жёстких продаж.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Есть ощущение, что смотришь на картину — а понимать, «что в ней такого», по‑честному не получается?</p>
+          <p>На вебинаре 25 марта разберём, как смотреть на произведения искусства так, как это делают кураторы и искусствоведы: без заученных формул, но с чёткой логикой.</p>
+          <p>Соберём на живом примере «шпаргалку» из вопросов, которые помогут читать любую работу.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. История/путь спикера -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Прогрев</span>
+          <span class="step__time">За 3–5 дней до эфира</span>
+          <span class="step__channel">Канал: канал · доверие</span>
+        </div>
+        <h2 class="step__title">6. История/путь спикера</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> усилить доверие к спикеру и показать, почему именно ему/ей стоит выделить вечер.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> короткая история; 2–3 ключевые регалии/проекта; связка этого опыта с пользой вебинара.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>За этим вебинаром стоит не только любовь к искусству, но и довольно длинный путь.</p>
+          <p>[Имя спикера] работал(а) с [музеями / галереями / проектами], собирал(а) выставки, преподавал(а) и несколько лет помогает людям «подружиться» с искусством без сложных терминов.</p>
+          <p>На вебинаре он/она покажет, как использовать этот опыт в своих походах в музей или онлайн‑просмотрах.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Разбор подтемы с интригой -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Прогрев</span>
+          <span class="step__time">За 1–2 дня до эфира</span>
+          <span class="step__channel">Канал: канал · пример из темы</span>
+        </div>
+        <h2 class="step__title">7. Разбор подтемы с интригой</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> показать глубину разбора и оставить недосказанность, чтобы захотелось прийти.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> конкретный пример/картина; 2–3 конкурирующие версии; обещание раскрыть правду уже на вебинаре.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Возьмём одну картину, вокруг которой за годы возникло много мифов.</p>
+          <p>Кто‑то уверен, что автор зашифровал в ней личную драму, кто‑то — что это политическое высказывание, а кто‑то — что всё гораздо проще.</p>
+          <p>На вебинаре разберём, какая версия действительно подтверждается фактами, и почему так часто популярные трактовки расходятся с тем, что имел в виду художник.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- День вебинара -->
+    <div class="timeline-label">
+      День вебинара
+      <span>Этап 1.1 · доводим до комнаты</span>
+    </div>
+
+    <!-- 8. За несколько часов -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">День вебинара</span>
+          <span class="step__time">За 3–4 часа до старта</span>
+          <span class="step__channel">Канал: бот · напоминание</span>
+        </div>
+        <h2 class="step__title">8. Напоминание за несколько часов</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> напомнить о событии и помочь заранее освободить время.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> сегодняшняя дата/время; просьба «зарезервировать» слот; лёгкий акцент на ценности живого участия.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Сегодня в 19:00 встречаемся на вебинаре [название] 🎨</p>
+          <p>Выдели, пожалуйста, 1–1,5 часа без созвонов и дел — будет много живых примеров, и важно не отвлекаться.</p>
+          <p>Ссылку на вход пришлю ближе к началу.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Кружочек за час -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">День вебинара</span>
+          <span class="step__time">За 60 минут до старта</span>
+          <span class="step__channel">Канал: бот · кружочек</span>
+        </div>
+        <h2 class="step__title">9. Кружочек за час</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> создать ощущение живого события и подогреть интерес за счёт закулисья.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> видео/фото подготовки; напоминание времени; мини‑интрига о содержании.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>[кружочек от спикера, фон — слайды/комната вебинара]</p>
+          <p>«Мы уже готовим слайды и отбираем работы, о которых обычно не рассказывают на экскурсиях.</p>
+          <p>Старт через час, в 19:00 (МСК).<br>
+          Заодно покажем одну картину, которую 90% людей трактуют неверно 🤫»</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. За 10–15 минут -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">День вебинара</span>
+          <span class="step__time">За 10–15 минут до начала</span>
+          <span class="step__channel">Канал: бот · финальный пуш</span>
+        </div>
+        <h2 class="step__title">10. Финальный пуш перед стартом</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> дотащить человека до входа в комнату и запустить активность в чате.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> формулировка «комната уже открыта»; упоминание подготовки и живого чата; явный call‑to‑action «заходи по ссылке».</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Мы уже открыли комнату вебинара ✔️</p>
+          <p>Сейчас проверяем звук и загружаем презентацию, участники потихоньку заходят и знакомятся в чате.</p>
+          <p>Можешь переходить по ссылке уже сейчас, написать, откуда ты и как часто ходишь в музеи 🙂</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Эфир начался -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">День вебинара</span>
+          <span class="step__time">В момент старта эфира</span>
+          <span class="step__channel">Канал: бот · эфир начался</span>
+        </div>
+        <h2 class="step__title">11. Эфир начался</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> показать, что вебинар реально идёт, и снизить барьер «подключаться/не подключаться».</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> скрин из прямого эфира; короткое описание того, что уже происходит; подчёркивание, что важно успеть к началу анализа.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>[скрин из эфира со спикером и слайдами]</p>
+          <p>Мы в эфире 🔴<br>
+          Разбираем, почему одни картины попадают в музей, а другие остаются «на чердаке».</p>
+          <p>Подключайся по ссылке, чтобы успеть на вводную и не вывалиться из контекста.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- После начала эфира -->
+    <div class="timeline-label">
+      После начала эфира
+      <span>T0 · 10–60 минут лайва</span>
+    </div>
+
+    <!-- 12. Пуш на 10–15 минуте -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Эфир</span>
+          <span class="step__time">10–15 мин от старта</span>
+          <span class="step__channel">Канал: бот · лайв‑пуш</span>
+        </div>
+        <h2 class="step__title">12. Пуш на 10–15 минуте</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> вернуть тех, кто отвлёкся или ещё не подключился, пока идёт вводная.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> указание, какой блок сейчас; формулировка «ещё не поздно влететь»; акцент, что это база для следующего контента.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Мы уже в эфире и разбираем, как «читать» первые впечатления от картины: с чего вообще стоит начинать взгляд.</p>
+          <p>Если хочешь успеть на базу, которая дальше поможет понимать примеры — подключайся прямо сейчас.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Пуш на 20–30 минуте -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Эфир</span>
+          <span class="step__time">20–30 мин от старта</span>
+          <span class="step__channel">Канал: бот · кейсы</span>
+        </div>
+        <h2 class="step__title">13. Пуш на 20–30 минуте</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> подчеркнуть ценность середины вебинара с примерами.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> фокус на «живых разборах»; ощущение, что сейчас идёт «главная часть»; мягкий FOMO.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Сейчас показываем конкретные работы и вместе разбираем, почему их читают по‑разному зрители, экскурсоводы и кураторы.</p>
+          <p>Самое сочное по примерам — подключайся, чтобы увидеть разбор в живую, а не по пересказам.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. Пуш на 45–60 минуте -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Эфир</span>
+          <span class="step__time">45–60 мин от старта</span>
+          <span class="step__channel">Канал: бот · оффер‑блок</span>
+        </div>
+        <h2 class="step__title">14. Пуш на 45–60 минуте</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> подтянуть людей к продающему блоку и Q&amp;A.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> обозначение, что сейчас «выводы + оффер»; акцент на возможности задать вопрос и получить персональный комментарий.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Переходим к итогам и рассказываем, как продолжить историю с искусством дальше — в формате курса.</p>
+          <p>Параллельно собираем вопросы и даём обратную связь участникам. Если хочешь задать свой вопрос и узнать про программу — самое время залететь.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. Пуш про бонусы только в лайве -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Эфир</span>
+          <span class="step__time">Во второй половине эфира</span>
+          <span class="step__channel">Канал: бот · лайв‑бонусы</span>
+        </div>
+        <h2 class="step__title">15. Пуш про бонусы только в лайве</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> создать дополнительную ценность наличия «здесь и сейчас» и объяснить, почему запись — не равно лайв.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> проговоренные рамки: только для участников эфира; тезис про отсутствие открытой записи; прямой призыв подключиться.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Напомню: специальные условия на курс и бонусные материалы доступны только тем, кто сейчас в эфире.</p>
+          <p>Записи вебинара в открытом доступе не будет, так что если тема для тебя важна — лучше присоединиться прямо сейчас.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Сразу после вебинара -->
+    <div class="timeline-label">
+      Сразу после вебинара
+      <span>Этап 2 · Сразу после вебинара</span>
+    </div>
+
+    <!-- 16. Эмоциональный мост после эфира -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">После вебинара</span>
+          <span class="step__time">В течение 15 минут после эфира</span>
+          <span class="step__channel">Канал: бот · после вебинара</span>
+        </div>
+        <h2 class="step__title">16. Эмоциональный мост после эфира</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> удержать эмоцию от эфира и связать её с идеей продолжить путь на курсе, а не уехать в сухую раздачу материалов.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> 2–3 ключевых инсайта вебинара; благодарность за участие; мягкий мост «если откликнулось — курс поможет пойти дальше».</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Спасибо, что были на вебинаре 🙌</p>
+          <p>За эти полтора часа мы успели:<br>
+          — по‑другому посмотреть на знакомые картины;<br>
+          — разобрать, как «читать» работу без академического образования;<br>
+          — собрать набор вопросов, которые помогут не теряться в музее.</p>
+          <p>Если почувствовал(а), что это только начало, — дальше можно идти глубже в формате курса.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 17. Первое офферное сообщение после эфира -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">После вебинара</span>
+          <span class="step__time">В этот же день, после эмоционального моста</span>
+          <span class="step__channel">Канал: бот · оффер</span>
+        </div>
+        <h2 class="step__title">17. Первое офферное сообщение после эфира</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> явно сформулировать предложение после эфира и запустить FOMO‑окно для участников вебинара.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> связка «вебинар → курс»; 2–3 ядровых преимущества программы; отдельное спецусловие для участников эфира + ссылка на лендинг.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>На вебинаре мы успели только наметить путь — курс поможет пройти его до конца.</p>
+          <p>В программе:<br>
+          — структурная база, чтобы уверенно ориентироваться в искусстве;<br>
+          — разборы работ и кураторских подходов;<br>
+          — поддержка куратора и комьюнити людей, которым тоже «не всё равно».</p>
+          <p>Для участников вебинара действует спецусловие на ближайший поток.<br>
+          Подробности и программа — по кнопке ниже.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 18. Ветка: не был на вебинаре → повтор -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">После вебинара</span>
+          <span class="step__time">Утром после эфира (если не было лайва)</span>
+          <span class="step__channel">Канал: бот · ветка повтора</span>
+        </div>
+        <h2 class="step__title">18. Ветка: не был на вебинаре → повтор</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> не терять тех, кто зарегистрировался, но не дошёл, и перевести их в отдельную ветку с повтором.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> признание, что человек не был; приглашение на повтор/сжатую версию; прямое указание, что это «последний шанс» получить материалы и условия.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Видим, что вчера не получилось попасть на вебинар 😔</p>
+          <p>Сделаем для тебя один повторный показ с самыми важными фрагментами:<br>
+          🗓 Сегодня, 13:00 (МСК)<br>
+          ⏱ 90 минут, без лишних отступлений</p>
+          <p>Это последний шанс посмотреть разбор и получить спецусловия на курс по итогам вебинара.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- После вебинара: оффер и повтор -->
+    <div class="timeline-label">
+      После вебинара: оффер и повтор
+      <span>Этап 3 · дожим и разные заходы</span>
+    </div>
+
+    <!-- 19. Офферный пуш: истории выпускников -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Оффер</span>
+          <span class="step__time">1–2 день после вебинара</span>
+          <span class="step__channel">Канал: бот · оффер • истории</span>
+        </div>
+        <h2 class="step__title">19. Оффер: истории выпускников</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> показать, во что может вырасти вебинарный опыт, через проекты выпускников, без упора только в деньги.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> 2–3 истории/типа проектов; связка с курсом; мягкий переход к офферу (можно чередовать с другими заходами от вебинара к вебинару).</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>На вебинаре мы говорили, как смотреть на искусство.<br>
+          На курсе — ещё и как с этим знанием что‑то делать.</p>
+          <p>Например, наши выпускники уже:<br>
+          — ведут авторские экскурсии и онлайн‑разборы;<br>
+          — помогают музеям и галереям с просветительскими проектами;<br>
+          — запускают свои блоги и лекционные форматы.</p>
+          <p>Всё это выросло из той базы, о которой мы начали говорить на вебинаре.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 20. Офферный пуш: программа курса -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Оффер</span>
+          <span class="step__time">2–3 день после вебинара</span>
+          <span class="step__channel">Канал: бот · оффер • программа</span>
+        </div>
+        <h2 class="step__title">20. Оффер: программа курса</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> показать, как программа закрывает ключевые потребности ядра ЦА.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> 2–3 главных модуля и формула «в курсе есть → это закрывает»; приглашение посмотреть полное описание на лендинге; пометка, что это один из вариантов захода, который можно чередовать с другими.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Если коротко, курс — это систематизация всего, что мы затронули на вебинаре.</p>
+          <p>В программе:<br>
+          — блок про основы: как читать композицию, цвет, контекст;<br>
+          — блок про кураторские подходы и работу с экспозицией;<br>
+          — блок про собственные проекты и работу с аудиторией.</p>
+          <p>Можно выбрать, какие модули для тебя критичнее, и идти в них с особым фокусом.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 21. Офферный пуш: старт потока и комьюнити -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Оффер</span>
+          <span class="step__time">Ближе к старту потока</span>
+          <span class="step__channel">Канал: бот · оффер • старт</span>
+        </div>
+        <h2 class="step__title">21. Оффер: старт потока и комьюнити</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> усилить ощущение «движухи» и показать ценность комьюнити и близкого старта.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> дата старта; акцент на живых встречах и сообществе; ощущение, что «всё начинается сейчас».</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Старт ближайшего потока уже совсем скоро.</p>
+          <p>В первые недели:<br>
+          — познакомитесь с группой и кураторами;<br>
+          — соберёте личный план развития в искусстве;<br>
+          — начнёте разбирать работы и обсуждать их с людьми «на одной волне».</p>
+          <p>Если давно искал(а) безопасное пространство, где можно спрашивать «глупые» вопросы про искусство — это как раз оно.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 22. Ветка повтора: напоминания к повторному эфиру -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Повтор вебинара</span>
+          <span class="step__time">День повтора: за час / за 15 минут</span>
+          <span class="step__channel">Канал: бот · повтор • напоминания</span>
+        </div>
+        <h2 class="step__title">22. Ветка повтора: напоминания к повторному эфиру</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> провести отдельную мини‑цепочку для повтора с чётким ощущением «последнего шанса».</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> явно прописанный статус «единственный повтор»; напоминания за час и за 15 минут; формулировка, что после повтора записи не будет, а условия по курсу ещё коротко действуют.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Сегодня в 13:00 — единственный повтор вебинара по чтению картин для тех, кто не попал в лайв.</p>
+          <p>За час до старта:<br>
+          «Напоминаю: в 13:00 покажем сжатую версию вебинара с ключевыми примерами и расскажем про условия на курс. Это последний показ.»</p>
+          <p>За 15 минут:<br>
+          «Комната повтора уже открыта, загружаем нужные фрагменты и ждём тебя. После этого повтора записи не будет.»</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Финальный день оффера -->
+    <div class="timeline-label">
+      Финальный день оффера
+      <span>Последние часы до закрытия условий</span>
+    </div>
+
+    <!-- 23. Утренний FOMO-пуш -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Финальный день</span>
+          <span class="step__time">Утро финального дня</span>
+          <span class="step__channel">Канал: бот · финальный день • FOMO</span>
+        </div>
+        <h2 class="step__title">23. Утренний FOMO‑пуш</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> с утра задать рамку финального дня и напомнить про закрытие спецусловий.</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> чёткая формулировка «последний день»; указание, что условия привязаны к вебинару; мягкий, но прямой призыв не откладывать.</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Сегодня последний день, когда действуют условия для участников вебинара.</p>
+          <p>Вечером мы закрываем набор на поток и спецстоимость, дальше попасть на курс можно будет уже на других условиях.</p>
+          <p>Если после вебинара мысль «надо продолжить» не отпускает — самое время принять решение.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 24. Вечерний FOMO-пуш -->
+    <section class="step">
+      <header class="step__header">
+        <div class="step__meta">
+          <span class="step__tag step__tag--phase">Финальный день</span>
+          <span class="step__time">За 2–3 часа до закрытия</span>
+          <span class="step__channel">Канал: бот · финальный час • FOMO</span>
+        </div>
+        <h2 class="step__title">24. Вечерний FOMO‑пуш</h2>
+      </header>
+      <div class="step__grid">
+        <div class="step__block">
+          <h3 class="step__subtitle">Задача</h3>
+          <p><strong>Задача:</strong> сделать сильный дожим с максимальным FOMO в финальные часы, не переходя в откровенный «шантаж».</p>
+        </div>
+        <div class="step__block">
+          <h3 class="step__subtitle">Что должно быть</h3>
+          <p><strong>Что должно быть:</strong> конкретный остаток времени; перечисление того, что именно исчезнет (места/цена/бонусы); формулировка «последний момент, когда решение что‑то меняет».</p>
+        </div>
+        <div class="step__block step__block--note">
+          <h3 class="step__subtitle">Текст сообщения</h3>
+          <p>Напоминание на случай, если день закрутил 🌙</p>
+          <p>До конца действия условий для участников вебинара осталось около пары часов.<br>
+          Дальше:<br>
+          — закрываем набор на текущий поток;<br>
+          — убираем спецстоимость и бонусы по вебинару.</p>
+          <p>Если чувствуешь, что курс «про тебя», — сейчас тот самый момент, когда решение ещё что‑то меняет.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
