@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Кирилл Диденко — Резюме</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --surface: #181c27;
+      --surface2: #1e2335;
+      --border: #2a2f45;
+      --accent: #4f8ef7;
+      --text: #e8eaf0;
+      --text-muted: #7b82a0;
+      --text-light: #b0b8d0;
+      --tag-bg: #1e2a45;
+      --tag-border: #2e3f6a;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 40px 20px 80px;
+    }
+
+    .page { max-width: 820px; margin: 0 auto; }
+
+    /* ── HEADER ── */
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: start;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .header-left h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .header-left .role {
+      font-size: 15px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .contacts { display: flex; flex-direction: column; gap: 6px; }
+
+    .contacts a, .contacts span {
+      font-size: 13.5px;
+      color: var(--text-light);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contacts a:hover { color: var(--accent); }
+    .contacts .icon { width: 16px; text-align: center; color: var(--text-muted); font-style: normal; }
+
+    .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+
+    .badge {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      color: var(--text-light);
+      white-space: nowrap;
+    }
+
+    .badge span { color: var(--text-muted); font-size: 11px; display: block; margin-bottom: 2px; }
+
+    /* ── SECTIONS ── */
+    section { margin-bottom: 44px; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── COVER ── */
+    .cover-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 24px 28px;
+    }
+
+    .cover-box h3 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .cover-box p {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .cover-box p:last-child { margin-bottom: 0; }
+
+    /* ── EXPERIENCE ── */
+    .job {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0 28px;
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .job:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .job-meta { padding-top: 2px; }
+
+    .job-period { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+    .job-duration { font-size: 11.5px; color: var(--text-muted); opacity: 0.65; margin-top: 2px; }
+
+    .job-company { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .job-title { font-size: 13.5px; font-weight: 500; color: var(--accent); margin-bottom: 12px; }
+
+    .job ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+
+    .job li {
+      font-size: 13.5px;
+      color: var(--text-light);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .job li::before { content: '—'; position: absolute; left: 0; color: var(--text-muted); }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-group h4 {
+      font-size: 11.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: 12.5px;
+      color: var(--text-light);
+    }
+
+    /* ── EDUCATION ── */
+    .edu-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0 28px;
+      margin-bottom: 14px;
+    }
+
+    .edu-year { font-size: 12.5px; color: var(--text-muted); padding-top: 2px; }
+    .edu-name { font-size: 14px; font-weight: 500; color: var(--text); }
+    .edu-spec { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+    @media (max-width: 600px) {
+      header { grid-template-columns: 1fr; }
+      .header-right { align-items: flex-start; }
+      .job { grid-template-columns: 1fr; }
+      .job-meta { margin-bottom: 10px; }
+      .edu-row { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <h1>Кирилл Диденко</h1>
+      <p class="role">Специалист технической поддержки</p>
+      <div class="contacts">
+        <a href="mailto:kirilldid@gmail.com"><i class="icon">✉</i> kirilldid@gmail.com</a>
+        <a href="https://t.me/kirilldid" target="_blank"><i class="icon">✈</i> t.me/kirilldid</a>
+        
+        <span><i class="icon">◎</i> Тбилиси, Грузия · Удалённо</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="badge"><span>Формат</span>Полная занятость, удалённо</div>
+      <div class="badge"><span>Языки</span>RU — родной · EN — B1</div>
+    </div>
+  </header>
+
+  <!-- СОПРОВОДИТЕЛЬНОЕ ПИСЬМО -->
+  <section>
+    <p class="section-label">Сопроводительное письмо</p>
+    <div class="cover-box">
+      <h3>О переходе и мотивации</h3>
+      <p>
+        Я начинал карьеру в поддержке — работал специалистом чата и почты в Тинькофф Банке, 
+        затем строил процессы сопровождения студентов в SkillFactory. Имею более двух лет работы с большим потоком обращений, финансовыми 
+        запросами пользователей, выработкой FAQ и обучением новых сотрудников за время работы в банке и школе аналитики.
+      </p>
+      <p>
+        Последние несколько лет я провёл в edtech — продюсировал вебинары, строил воронки. Помиомо маркетинга погружался 
+        в IT-продукты изнутри, освоил настройку платформ и CRM, начал самостоятельно 
+        поднимать сервисы на Raspberry Pi, писать Telegram-боты и хостить проекты на Render. 
+        Это не коммерческий опыт, но живой интерес и привычка разбираться самостоятельно.
+      </p>
+      <p>
+        Сейчас я хочу вернуться в поддержку — осознанно, с более широкой базой. 
+        Paper VPN интересен мне и как продукт, и как команда: я слежу за «Бумагой» 
+        и разделяю ценности независимого медиа. Я живу в Тбилиси, работаю удалённо — 
+        формат и часовой пояс совпадают. Готов быстро наверстать технические детали по работе с VPN.
+      </p>
+    </div>
+  </section>
+
+  <!-- ОПЫТ -->
+  <section>
+    <p class="section-label">Опыт работы</p>
+
+    <!-- 1. ТИНЬКОФФ -->
+    <div class="job">
+      <div class="job-meta">
+        <div class="job-period">2018 — 2019</div>
+        <div class="job-duration">~1 год</div>
+      </div>
+      <div>
+        <div class="job-company">Тинькофф Банк</div>
+        <div class="job-title">Специалист поддержки (чат + почта)</div>
+        <ul>
+          <li>Обрабатывал входящие обращения пользователей в чате и по электронной почте — параллельно вёл несколько диалогов в режиме реального времени</li>
+          <li>Работал с финансовыми запросами: платежи, блокировки, возвраты, кредитные продукты — объяснял сложные механики простым языком</li>
+          <li>Выступал на второй линии в роли более опытного сотрудника: помогал коллегам разбирать нестандартные кейсы</li>
+          <li>Выработал навык быстрого поиска решений в условиях высокой нагрузки и строгих SLA по времени ответа</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2. SKILLFACTORY — КУРАТОР + ВЕДУЩИЙ -->
+    <div class="job">
+      <div class="job-meta">
+        <div class="job-period">Март 2019 — Май 2020</div>
+        <div class="job-duration">1 год 3 месяца</div>
+      </div>
+      <div>
+        <div class="job-company">SkillFactory</div>
+        <div class="job-title">Куратор онлайн-курсов / Ведущий мероприятий</div>
+        <ul>
+          <li>Онбординг и сопровождение студентов на протяжении всего обучения — первая точка контакта при технических и организационных вопросах</li>
+          <li>Выстроил с нуля систему сопровождения студентов одного из ключевых курсов</li>
+          <li>Модерировал студенческие чаты, обрабатывал обращения, создавал FAQ и рассылки для пользователей</li>
+          <li>Участвовал в найме менторов для курсов по аналитике данных</li>
+          <li>Провёл более 150 часов прямых трансляций на аудиторию 700–900 человек; работал со спикерами из Mail, Yandex, VK</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3. SKILLBOX -->
+    <div class="job">
+      <div class="job-meta">
+        <div class="job-period">Март — Сент 2021</div>
+        <div class="job-duration">7 месяцев</div>
+      </div>
+      <div>
+        <div class="job-company">SkillBox</div>
+        <div class="job-title">Ведущий онлайн-мероприятий</div>
+        <ul>
+          <li>Модерировал прямые трансляции: общался со спикерами, отрабатывал вопросы из чата в реальном времени</li>
+          <li>Запустил систему обратной связи и наставничества для ведущих — внутренний инструмент контроля качества</li>
+          <li>Участвовал в разработке внутренних FAQ и инструкций для ведущих</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4. НОРМ АГЕНТСТВО -->
+    <div class="job">
+      <div class="job-meta">
+        <div class="job-period">Июль — Окт 2021</div>
+        <div class="job-duration">4 месяца</div>
+      </div>
+      <div>
+        <div class="job-company">Норм Агентство</div>
+        <div class="job-title">Младший продюсер</div>
+        <ul>
+          <li>Организовывал вебинарные воронки для заказчиков — от трафика до модерации трансляции и рассылок</li>
+          <li>Отцифровывал и стандартизировал процессы для последующих запусков, коммуницировал с заказчиками и подрядчиками</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5. HEXLET 1 -->
+    <div class="job">
+      <div class="job-meta">
+        <div class="job-period">Окт 2021 — Июль 2023</div>
+        <div class="job-duration">1 год 10 месяцев</div>
+      </div>
+      <div>
+        <div class="job-company">Hexlet</div>
+        <div class="job-title">Продюсер вебинаров (онлайн-школа программирования)</div>
+        <ul>
+          <li>Работал внутри IT-продукта — глубоко погрузился в веб-технологии, процессы разработки и инфраструктуру образовательной платформы</li>
+          <li>С нуля поставил на поток производство ~6 мероприятий в месяц; настраивал CRM, аналитику и дашборды по ключевым метрикам воронки</li>
+          <li>Последовательно поднял конверсию из зрителя в заявку с 4–5% до 13–15% без использования скидок и закрытых распродаж</li>
+          <li>Запускал разные форматы: профориентации, интенсивы, дни открытых дверей, карьерные мероприятия; взаимодействовал с командой разработчиков</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 6. ПСИХОДЕМИЯ -->
+    <div class="job">
+      <div class="job-meta">
+        <div class="job-period">Июль 2023 — Апр 2024</div>
+        <div class="job-duration">10 месяцев</div>
+      </div>
+      <div>
+        <div class="job-company">Психодемия</div>
+        <div class="job-title">Продюсер вебинаров</div>
+        <ul>
+          <li>С нуля выстроил систему сборки мероприятий: планирование → концепция → распределение задач (CRM, SMM, дизайн, тех. настройка) → проведение → аналитика</li>
+          <li>Отладил систему аналитики обработки лидов, выстроил воронку в AmoCRM для отдела продаж</li>
+          <li>Внедрил Bizon, офферные страницы, Telegram-боты для прогрева — перевёл инфраструктуру мероприятий на современный стек</li>
+          <li>Добился регулярности: ~2 новых мероприятия + 2–3 повторных с переупаковкой ежемесячно</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 7. HEXLET 2 -->
+    <div class="job">
+      <div class="job-meta">
+        <div class="job-period">Апр 2024 — Июнь 2025</div>
+        <div class="job-duration">1 год 3 месяца</div>
+      </div>
+      <div>
+        <div class="job-company">Hexlet</div>
+        <div class="job-title">Продюсер вебинаров (второй период)</div>
+        <ul>
+          <li>Запустил новый формат интенсивов по Java с собственным Telegram-каналом, выросшим до ~2 000 подписчиков</li>
+          <li>Разрабатывал новый продукт — мини-курс по Python; совмещал запуски новых форматов с поддержкой существующих мероприятий</li>
+          <li>Активно использовал нейросети (GPT, Claude) в операционной работе — быстрое освоение новых инструментов является частью рабочего процесса</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 8. SIMULATIVE -->
+    <div class="job">
+      <div class="job-meta">
+        <div class="job-period">Сент 2025 — Фев 2026</div>
+        <div class="job-duration">6 месяцев</div>
+      </div>
+      <div>
+        <div class="job-company">Simulative</div>
+        <div class="job-title">Продюсер вебинаров</div>
+        <ul>
+          <li>Запускал 5–7 мероприятий в месяц по аналитике данных; перевёл платформу на Bizon, реализовал кастомные элементы оформления</li>
+          <li>Довёл доходимость до 40–45% за счёт Telegram-бота и продуманной цепочки напоминаний</li>
+          <li>Запустил и стабилизировал 2 автовебинара на холодную аудиторию, включая продукты с чеком 200 000+ рублей</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- НАВЫКИ -->
+  <section>
+    <p class="section-label">Навыки и инструменты</p>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <h4>Поддержка</h4>
+        <div class="tags">
+          <span class="tag">Чат / почта</span>
+          <span class="tag">Мультипоток</span>
+          <span class="tag">SLA / тикеты</span>
+          <span class="tag">FAQ / база знаний</span>
+          <span class="tag">Отработка возражений</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4>Операционные системы</h4>
+        <div class="tags">
+          <span class="tag">Windows</span>
+          <span class="tag">Android</span>
+          <span class="tag">Linux (базово)</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4>Технический бэкграунд</h4>
+        <div class="tags">
+          <span class="tag">Raspberry Pi</span>
+          <span class="tag">Telegram-боты</span>
+          <span class="tag">Хостинг (Render)</span>
+          <span class="tag">HTML / CSS / JS</span>
+          <span class="tag">Python (базово)</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4>Инструменты</h4>
+        <div class="tags">
+          <span class="tag">AmoCRM</span>
+          <span class="tag">Аналитика / дашборды</span>
+          <span class="tag">Нейросети (GPT, Claude)</span>
+          <span class="tag">Bizon365</span>
+          <span class="tag">Notion</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+</div>
+</body>
+</html>
