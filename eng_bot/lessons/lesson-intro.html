@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Урок</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="../shared/components.js"></script>
+  <script>
+    const LESSONS = {
+      1: { title: "Приветствия и основы", desc: "Научимся здороваться, благодарить и вежливо обращаться." },
+      2: { title: "Семья и люди", desc: "Слова о семье, друзьях и описании людей." },
+      3: { title: "Еда и напитки", desc: "Как называются продукты и как заказать еду в кафе." },
+    };
+
+    const app = document.getElementById("app");
+    const ctx = TelegramApp.init();
+    const params = TelegramApp.getParams();
+    const lessonId = params.lesson || 1;
+    const lesson = LESSONS[lessonId] || LESSONS[1];
+
+    app.innerHTML = UI.renderShell(
+      `Урок ${lessonId}`,
+      "",
+      `
+        <div class="card card-highlight fade-in" style="margin-bottom:16px">
+          <div style="font-size:1.25rem;font-weight:700;margin-bottom:8px">${lesson.title}</div>
+          <div style="color:var(--text-secondary)">${lesson.desc}</div>
+        </div>
+
+        <div class="card fade-in">
+          <div style="font-weight:600;margin-bottom:8px">Что тебя ждёт:</div>
+          <div style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.6">
+            1. Карточки слов — запоминание<br>
+            2. Тест — проверка<br>
+            3. Набор текста — закрепление
+          </div>
+        </div>
+
+        <button class="btn btn-primary fade-in" onclick="startFirst()" style="margin-top:12px">
+          Начать урок →
+        </button>
+      `
+    );
+
+    window.startFirst = function () {
+      TelegramApp.close();
+    };
+  </script>
+</body>
+</html>

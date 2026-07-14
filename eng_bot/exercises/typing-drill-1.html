@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Набор текста</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="../shared/components.js"></script>
+  <script>
+    const DRILLS = {
+      1: [
+        { prompt: "Hello", translation: "Привет" },
+        { prompt: "Goodbye", translation: "До свидания" },
+        { prompt: "Please", translation: "Пожалуйста" },
+        { prompt: "Thank you", translation: "Спасибо" },
+        { prompt: "How are you?", translation: "Как дела?" },
+      ],
+      2: [
+        { prompt: "Mother", translation: "Мама" },
+        { prompt: "Father", translation: "Папа" },
+        { prompt: "Sister", translation: "Сестра" },
+        { prompt: "Brother", translation: "Брат" },
+        { prompt: "Family", translation: "Семья" },
+      ],
+      3: [
+        { prompt: "Water", translation: "Вода" },
+        { prompt: "Bread", translation: "Хлеб" },
+        { prompt: "Coffee", translation: "Кофе" },
+        { prompt: "Tea", translation: "Чай" },
+        { prompt: "Apple", translation: "Яблоко" },
+      ],
+    };
+
+    const app = document.getElementById("app");
+    const ctx = TelegramApp.init();
+    const params = TelegramApp.getParams();
+    const lessonId = params.lesson || 1;
+    const drills = DRILLS[lessonId] || DRILLS[1];
+
+    let index = 0;
+    let score = 0;
+    let wrongIds = [];
+
+    function render() {
+      if (index >= drills.length) {
+        showResult();
+        return;
+      }
+
+      const d = drills[index];
+      UI.setProgress(index, drills.length);
+
+      app.innerHTML = UI.renderShell(
+        `Набор текста: Урок ${lessonId}`,
+        `${index + 1} из ${drills.length}`,
+        `
+          <div class="card card-highlight fade-in">
+            <div style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:4px">Перевод:</div>
+            <div style="font-size:1.25rem;font-weight:600;margin-bottom:16px">${d.translation}</div>
+            <input
+              type="text"
+              class="input-field"
+              id="input"
+              placeholder="Напиши по-английски..."
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+            />
+            <div id="feedback" style="margin-top:12px;text-align:center"></div>
+          </div>
+        `
+      );
+
+      document.getElementById("actions").innerHTML = `
+        <button class="btn btn-primary" id="check-btn" onclick="check()">Проверить</button>
+      `;
+
+      const input = document.getElementById("input");
+      input.focus();
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") check();
+      });
+    }
+
+    window.check = function () {
+      const input = document.getElementById("input");
+      const btn = document.getElementById("check-btn");
+      const fb = document.getElementById("feedback");
+      const d = drills[index];
+      const val = input.value.trim();
+
+      if (!val) return;
+
+      const correct = val.toLowerCase() === d.prompt.toLowerCase();
+
+      if (correct) {
+        score++;
+        fb.innerHTML = `<span class="tag tag-success">✓ Правильно!</span>`;
+        input.style.borderColor = "var(--success)";
+      } else {
+        wrongIds.push(d.prompt.toLowerCase().replace(/[^a-z]/g, ""));
+        fb.innerHTML = `<span class="tag tag-danger">✗ ${d.prompt}</span>`;
+        input.style.borderColor = "var(--danger)";
+      }
+
+      input.disabled = true;
+      btn.disabled = true;
+
+      setTimeout(() => {
+        index++;
+        render();
+      }, 1200);
+    };
+
+    function showResult() {
+      const payload = UI.generateResultPayload(params, score, drills.length, wrongIds);
+      UI.saveLocalResult(payload);
+
+      const wrongWords = wrongIds.map(id => drills.find(d => d.prompt.toLowerCase().replace(/[^a-z]/g, "") === id)).filter(Boolean);
+
+      app.innerHTML = UI.renderShell(
+        `Набор текста: Урок ${lessonId}`,
+        "Результат",
+        UI.renderResult(score, drills.length, wrongWords.map(w => ({ word: w.prompt, translation: w.translation })))
+      );
+
+      document.getElementById("actions").innerHTML = `
+        <button class="btn btn-primary" onclick="TelegramApp.close()">Готово</button>
+      `;
+    }
+
+    render();
+  </script>
+</body>
+</html>

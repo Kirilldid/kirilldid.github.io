@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Повторение слов</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="../shared/components.js"></script>
+  <script>
+    const REVIEW_WORDS = [
+      { id: "hello", word: "Hello", translation: "Привет", example: "Hello, how are you?" },
+      { id: "goodbye", word: "Goodbye", translation: "До свидания", example: "Goodbye, see you tomorrow!" },
+      { id: "please", word: "Please", translation: "Пожалуйста", example: "Please sit down." },
+      { id: "thank_you", word: "Thank you", translation: "Спасибо", example: "Thank you very much!" },
+      { id: "yes", word: "Yes", translation: "Да", example: "Yes, I agree." },
+      { id: "no", word: "No", translation: "Нет", example: "No, thank you." },
+      { id: "mother", word: "Mother", translation: "Мама", example: "My mother is a teacher." },
+      { id: "father", word: "Father", translation: "Папа", example: "My father works in an office." },
+      { id: "water", word: "Water", translation: "Вода", example: "Can I have some water?" },
+      { id: "bread", word: "Bread", translation: "Хлеб", example: "I eat bread for breakfast." },
+    ];
+
+    const app = document.getElementById("app");
+    const ctx = TelegramApp.init();
+    const params = TelegramApp.getParams();
+
+    let words = [...REVIEW_WORDS];
+    let current = 0;
+    let correct = 0;
+    let wrongIds = [];
+    let revealed = false;
+
+    function render() {
+      if (current >= words.length) {
+        showResult();
+        return;
+      }
+
+      const w = words[current];
+      UI.setProgress(current, words.length);
+
+      app.innerHTML = UI.renderShell(
+        "Повторение слов",
+        `${current + 1} из ${words.length}`,
+        `
+          <div class="word-card fade-in" id="card" onclick="reveal()">
+            <div class="word-main" id="card-front">${w.word}</div>
+            <div class="word-secondary hidden" id="card-back">${w.translation}</div>
+            <div class="word-example hidden" id="card-example">"${w.example}"</div>
+          </div>
+        `
+      );
+
+      document.getElementById("actions").innerHTML = `
+        <div id="btn-correct" class="hidden" style="margin-bottom:8px">
+          <button class="btn btn-success" onclick="markCorrect()">✓ Помню</button>
+        </div>
+        <div id="btn-wrong" class="hidden">
+          <button class="btn btn-outline" onclick="markWrong()">✗ Забыл</button>
+        </div>
+      `;
+    }
+
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
+      document.getElementById("card-back").classList.remove("hidden");
+      document.getElementById("card-example").classList.remove("hidden");
+      document.getElementById("btn-correct").classList.remove("hidden");
+      document.getElementById("btn-wrong").classList.remove("hidden");
+    }
+
+    window.markCorrect = function () {
+      correct++;
+      current++;
+      revealed = false;
+      render();
+    };
+
+    window.markWrong = function () {
+      wrongIds.push(words[current].id);
+      current++;
+      revealed = false;
+      render();
+    };
+
+    function showResult() {
+      const payload = UI.generateResultPayload(params, correct, words.length, wrongIds);
+      UI.saveLocalResult(payload);
+
+      const wrongWords = wrongIds.map(id => words.find(w => w.id === id)).filter(Boolean);
+
+      app.innerHTML = UI.renderShell(
+        "Повторение слов",
+        "Результат",
+        UI.renderResult(correct, words.length, wrongWords)
+      );
+
+      document.getElementById("actions").innerHTML = `
+        <button class="btn btn-primary" onclick="TelegramApp.close()">Готово</button>
+      `;
+    }
+
+    render();
+  </script>
+</body>
+</html>
