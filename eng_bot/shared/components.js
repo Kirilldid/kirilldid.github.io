@@ -85,6 +85,7 @@ const UI = (() => {
     const payload = generateResultPayload(params, score, total, wrongWordIds);
     saveLocalResult(payload);
     TelegramApp.sendData(JSON.stringify(payload));
+    setTimeout(() => TelegramApp.close(), 2000);
   }
 
   return { renderShell, setProgress, renderResult, generateResultPayload, saveLocalResult, sendResultToBot };
