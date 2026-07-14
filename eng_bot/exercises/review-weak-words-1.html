@@ -90,7 +90,7 @@
     };
 
     function showResult() {
-      UI.sendResultToBot(params, correct, words.length, wrongIds);
+      const resultUrl = UI.buildResultUrl(params, correct, words.length, wrongIds);
 
       const wrongWords = wrongIds.map(id => words.find(w => w.id === id)).filter(Boolean);
 
@@ -101,7 +101,7 @@
       );
 
       document.getElementById("actions").innerHTML = `
-        <button class="btn btn-primary" onclick="TelegramApp.close()">Готово</button>
+        <a class="btn btn-primary" href="${resultUrl}">✅ Продолжить</a>
       `;
     }
 

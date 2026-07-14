@@ -130,13 +130,13 @@
     };
 
     function showResult() {
-      UI.sendResultToBot(params, score, sentences.length, wrongIds);
+      const resultUrl = UI.buildResultUrl(params, score, sentences.length, wrongIds);
       app.innerHTML = UI.renderShell(
         `Порядок слов: Урок ${lessonId}`, "Результат",
         UI.renderResult(score, sentences.length, [])
       );
       document.getElementById("actions").innerHTML =
-        `<button class="btn btn-primary" onclick="TelegramApp.close()">Готово</button>`;
+        `<a class="btn btn-primary" href="${resultUrl}">✅ Продолжить</a>`;
     }
 
     render();

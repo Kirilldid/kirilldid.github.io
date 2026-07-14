@@ -125,13 +125,13 @@
     function showResult() {
       const score = rawPairs.length;
       const wrongIds = wrongCount > 0 ? rawPairs.filter((_, i) => i < wrongCount).map(p => p.eng.toLowerCase()) : [];
-      UI.sendResultToBot(params, score, rawPairs.length, wrongIds);
+      const resultUrl = UI.buildResultUrl(params, score, rawPairs.length, wrongIds);
       app.innerHTML = UI.renderShell(
         `Пары: Урок ${lessonId}`, "Результат",
         UI.renderResult(score, rawPairs.length, [])
       );
       document.getElementById("actions").innerHTML =
-        `<button class="btn btn-primary" onclick="TelegramApp.close()">Готово</button>`;
+        `<a class="btn btn-primary" href="${resultUrl}">✅ Продолжить</a>`;
     }
 
     render();

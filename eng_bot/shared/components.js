@@ -1,7 +1,6 @@
-/**
- * Reusable UI components for exercise pages
- */
 const UI = (() => {
+  const BOT_USERNAME = "hexlet_eng_learning_bot";
+
   function renderShell(title, subtitle, content) {
     return `
       <div class="app-shell">
@@ -58,37 +57,17 @@ const UI = (() => {
     `;
   }
 
-  function generateResultPayload(params, score, total, wrongWordIds) {
-    return {
-      type: "exercise_result",
-      lesson: params.lesson,
-      exercise: params.exercise,
-      session: params.session,
-      userId: params.userId,
-      score,
-      total,
-      pct: Math.round((score / total) * 100),
-      wrongWords: wrongWordIds,
-      timestamp: Date.now(),
-    };
+  function buildResultUrl(params, score, total, wrongIds) {
+    const lessonId = params.lesson || 1;
+    const limitedWrong = (wrongIds || []).slice(0, 5);
+    const encoded = limitedWrong
+      .map((id) => id.replace(/_/g, "Z").replace(/ /g, "X"))
+      .join("-");
+    const payload = `r_${lessonId}_${score}_${total}${encoded ? "_" + encoded : ""}`;
+    return `https://t.me/${BOT_USERNAME}?start=${payload}`;
   }
 
-  function saveLocalResult(payload) {
-    const key = `eng_result_${payload.exercise}_${payload.session}`;
-    localStorage.setItem(key, JSON.stringify(payload));
-    const history = JSON.parse(localStorage.getItem("eng_result_history") || "[]");
-    history.push(key);
-    localStorage.setItem("eng_result_history", JSON.stringify(history));
-  }
-
-  function sendResultToBot(params, score, total, wrongWordIds) {
-    const payload = generateResultPayload(params, score, total, wrongWordIds);
-    saveLocalResult(payload);
-    TelegramApp.sendData(JSON.stringify(payload));
-    setTimeout(() => TelegramApp.close(), 2000);
-  }
-
-  return { renderShell, setProgress, renderResult, generateResultPayload, saveLocalResult, sendResultToBot };
+  return { renderShell, setProgress, renderResult, buildResultUrl };
 })();
 
 window.UI = UI;

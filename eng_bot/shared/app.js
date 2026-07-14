@@ -1,7 +1,3 @@
-/**
- * Telegram WebApp helper
- * Reads launch params and provides app context
- */
 const TelegramApp = (() => {
   const tg = window.Telegram?.WebApp;
   let _params = null;
@@ -49,12 +45,6 @@ const TelegramApp = (() => {
     if (tg) tg.close();
   }
 
-  function sendData(data) {
-    if (tg) {
-      tg.sendData(JSON.stringify(data));
-    }
-  }
-
   function showConfirm(message, callback) {
     if (tg) {
       tg.showConfirm(message, callback);
@@ -63,7 +53,7 @@ const TelegramApp = (() => {
     }
   }
 
-  return { init, getParams, getUserId, close, sendData, showConfirm };
+  return { init, getParams, getUserId, close, showConfirm };
 })();
 
 window.TelegramApp = TelegramApp;

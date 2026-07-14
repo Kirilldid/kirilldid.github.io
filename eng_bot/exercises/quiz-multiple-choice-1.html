@@ -98,7 +98,7 @@
     };
 
     function showResult() {
-      UI.sendResultToBot(params, score, questions.length, wrongIds);
+      const resultUrl = UI.buildResultUrl(params, score, questions.length, wrongIds);
 
       app.innerHTML = UI.renderShell(
         `Тест: Урок ${lessonId}`,
@@ -107,7 +107,7 @@
       );
 
       document.getElementById("actions").innerHTML = `
-        <button class="btn btn-primary" onclick="TelegramApp.close()">Готово</button>
+        <a class="btn btn-primary" href="${resultUrl}">✅ Продолжить</a>
       `;
     }
 
