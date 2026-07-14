@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Расставь буквы</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="../shared/components.js"></script>
+  <script>
+    const DATA = {
+      1: [
+        { word: "Hello", hint: "Привет" },
+        { word: "Goodbye", hint: "До свидания" },
+        { word: "Please", hint: "Пожалуйста" },
+        { word: "Thanks", hint: "Спасибо" },
+        { word: "Morning", hint: "Утро" },
+        { word: "Evening", hint: "Вечер" },
+        { word: "Friend", hint: "Друг" },
+        { word: "Family", hint: "Семья" },
+      ],
+      2: [
+        { word: "Mother", hint: "Мама" },
+        { word: "Father", hint: "Папа" },
+        { word: "Sister", hint: "Сестра" },
+        { word: "Brother", hint: "Брат" },
+        { word: "Family", hint: "Семья" },
+        { word: "Friend", hint: "Друг" },
+        { word: "Tall", hint: "Высокий" },
+        { word: "Kind", hint: "Добрый" },
+      ],
+      3: [
+        { word: "Water", hint: "Вода" },
+        { word: "Bread", hint: "Хлеб" },
+        { word: "Coffee", hint: "Кофе" },
+        { word: "Apple", hint: "Яблоко" },
+        { word: "Chicken", hint: "Курица" },
+        { word: "Hungry", hint: "Голодный" },
+        { word: "Rice", hint: "Рис" },
+        { word: "Milk", hint: "Молоко" },
+      ],
+    };
+
+    const app = document.getElementById("app");
+    TelegramApp.init();
+    const params = TelegramApp.getParams();
+    const lessonId = params.lesson || 1;
+    const words = DATA[lessonId] || DATA[1];
+
+    let index = 0, score = 0, wrongIds = [];
+
+    function scramble(w) {
+      const arr = w.split("");
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      const s = arr.join("");
+      return s === w && w.length > 1 ? scramble(w) : s;
+    }
+
+    function render() {
+      if (index >= words.length) { showResult(); return; }
+      const w = words[index];
+      const scrambled = scramble(w.word);
+      UI.setProgress(index, words.length);
+
+      app.innerHTML = UI.renderShell(
+        `Анаграмма: Урок ${lessonId}`,
+        `${index + 1} из ${words.length}`,
+        `<div class="card fade-in" style="text-align:center">
+          <div style="font-size:2rem;font-weight:800;letter-spacing:6px;margin-bottom:8px;color:var(--primary)">${scrambled}</div>
+          <div style="color:var(--text-secondary);margin-bottom:16px">${w.hint}</div>
+          <input type="text" class="input-field" id="input" placeholder="Напиши слово..." autocomplete="off" autocapitalize="off" spellcheck="false"/>
+          <div id="feedback" style="margin-top:12px;text-align:center"></div>
+        </div>`
+      );
+
+      document.getElementById("actions").innerHTML =
+        `<button class="btn btn-primary" id="check-btn" onclick="check()">Проверить</button>`;
+
+      const input = document.getElementById("input");
+      input.focus();
+      input.addEventListener("keydown", (e) => { if (e.key === "Enter") check(); });
+    }
+
+    window.check = function() {
+      const input = document.getElementById("input");
+      const val = input.value.trim();
+      if (!val) return;
+      const w = words[index];
+      const correct = val.toLowerCase() === w.word.toLowerCase();
+      const fb = document.getElementById("feedback");
+
+      if (correct) {
+        score++;
+        fb.innerHTML = '<span class="tag tag-success">✓ Правильно!</span>';
+        input.style.borderColor = "var(--success)";
+      } else {
+        wrongIds.push(w.word.toLowerCase());
+        fb.innerHTML = `<span class="tag tag-danger">✗ ${w.word}</span>`;
+        input.style.borderColor = "var(--danger)";
+      }
+      input.disabled = true;
+      document.getElementById("check-btn").disabled = true;
+      setTimeout(() => { index++; render(); }, 1000);
+    };
+
+    function showResult() {
+      UI.sendResultToBot(params, score, words.length, wrongIds);
+      app.innerHTML = UI.renderShell(
+        `Анаграмма: Урок ${lessonId}`, "Результат",
+        UI.renderResult(score, words.length, [])
+      );
+      document.getElementById("actions").innerHTML =
+        `<button class="btn btn-primary" onclick="TelegramApp.close()">Готово</button>`;
+    }
+
+    render();
+  </script>
+</body>
+</html>

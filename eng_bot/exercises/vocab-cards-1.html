@@ -108,8 +108,7 @@
     };
 
     function showResult() {
-      const payload = UI.generateResultPayload(params, correctIds.length, words.length, wrongIds);
-      UI.saveLocalResult(payload);
+      UI.sendResultToBot(params, correctIds.length, words.length, wrongIds);
 
       const wrongWords = wrongIds.map(id => words.find(w => w.id === id)).filter(Boolean);
 

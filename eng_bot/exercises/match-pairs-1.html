@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Соедини пары</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    .pair-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .pair-btn {
+      padding: 14px 8px; border-radius: var(--radius-sm); font-size: 0.9375rem; font-weight: 600;
+      border: 2px solid var(--border); background: var(--surface); cursor: pointer; transition: all 0.15s;
+      text-align: center; min-height: 52px; display: flex; align-items: center; justify-content: center;
+    }
+    .pair-btn.selected { border-color: var(--primary); background: var(--primary-light); }
+    .pair-btn.matched { border-color: var(--success); background: var(--success-light); opacity: 0.6; pointer-events: none; }
+    .pair-btn.wrong-flash { border-color: var(--danger); background: var(--danger-light); }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="../shared/components.js"></script>
+  <script>
+    const DATA = {
+      1: [
+        { eng: "Hello", rus: "Привет" },
+        { eng: "Goodbye", rus: "До свидания" },
+        { eng: "Please", rus: "Пожалуйста" },
+        { eng: "Thank you", rus: "Спасибо" },
+        { eng: "Yes", rus: "Да" },
+        { eng: "No", rus: "Нет" },
+      ],
+      2: [
+        { eng: "Mother", rus: "Мама" },
+        { eng: "Father", rus: "Папа" },
+        { eng: "Sister", rus: "Сестра" },
+        { eng: "Brother", rus: "Брат" },
+        { eng: "Family", rus: "Семья" },
+        { eng: "Friend", rus: "Друг" },
+      ],
+      3: [
+        { eng: "Water", rus: "Вода" },
+        { eng: "Bread", rus: "Хлеб" },
+        { eng: "Coffee", rus: "Кофе" },
+        { eng: "Tea", rus: "Чай" },
+        { eng: "Apple", rus: "Яблоко" },
+        { eng: "Milk", rus: "Молоко" },
+      ],
+    };
+
+    const app = document.getElementById("app");
+    TelegramApp.init();
+    const params = TelegramApp.getParams();
+    const lessonId = params.lesson || 1;
+    const rawPairs = DATA[lessonId] || DATA[1];
+
+    function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+    const engItems = shuffle(rawPairs.map((p, i) => ({ text: p.eng, pairId: i })));
+    const rusItems = shuffle(rawPairs.map((p, i) => ({ text: p.rus, pairId: i })));
+
+    let selected = null;
+    let matched = new Set();
+    let attempts = 0;
+    let wrongCount = 0;
+
+    function render() {
+      UI.setProgress(matched.size, rawPairs.length);
+      app.innerHTML = UI.renderShell(
+        `Пары: Урок ${lessonId}`,
+        `${matched.size} из ${rawPairs.length} пар`,
+        `<div class="pair-grid">
+          ${engItems.map((item, i) => {
+            const isMatched = matched.has(item.pairId);
+            return `<button class="pair-btn ${isMatched ? 'matched' : ''}" data-side="eng" data-idx="${i}" data-pair="${item.pairId}" onclick="tap(this)" ${isMatched ? 'disabled' : ''}>${item.text}</button>`;
+          }).join("")}
+          ${rusItems.map((item, i) => {
+            const isMatched = matched.has(item.pairId);
+            return `<button class="pair-btn ${isMatched ? 'matched' : ''}" data-side="rus" data-idx="${i}" data-pair="${item.pairId}" onclick="tap(this)" ${isMatched ? 'disabled' : ''}>${item.text}</button>`;
+          }).join("")}
+        </div>`
+      );
+    }
+
+    window.tap = function(el) {
+      if (el.classList.contains("matched")) return;
+      const side = el.dataset.side;
+      const pairId = parseInt(el.dataset.pair);
+
+      if (!selected) {
+        el.classList.add("selected");
+        selected = { el, side, pairId };
+        return;
+      }
+
+      if (selected.side === side) {
+        selected.el.classList.remove("selected");
+        el.classList.add("selected");
+        selected = { el, side, pairId };
+        return;
+      }
+
+      attempts++;
+      if (selected.pairId === pairId) {
+        matched.add(pairId);
+        selected.el.classList.remove("selected");
+        selected.el.classList.add("matched");
+        el.classList.add("matched");
+        selected = null;
+        if (matched.size === rawPairs.length) setTimeout(showResult, 400);
+        else render();
+      } else {
+        wrongCount++;
+        selected.el.classList.remove("selected");
+        selected.el.classList.add("wrong-flash");
+        el.classList.add("wrong-flash");
+        const prev = selected.el;
+        setTimeout(() => { prev.classList.remove("wrong-flash"); el.classList.remove("wrong-flash"); }, 400);
+        selected = null;
+      }
+    };
+
+    function showResult() {
+      const score = rawPairs.length;
+      const wrongIds = wrongCount > 0 ? rawPairs.filter((_, i) => i < wrongCount).map(p => p.eng.toLowerCase()) : [];
+      UI.sendResultToBot(params, score, rawPairs.length, wrongIds);
+      app.innerHTML = UI.renderShell(
+        `Пары: Урок ${lessonId}`, "Результат",
+        UI.renderResult(score, rawPairs.length, [])
+      );
+      document.getElementById("actions").innerHTML =
+        `<button class="btn btn-primary" onclick="TelegramApp.close()">Готово</button>`;
+    }
+
+    render();
+  </script>
+</body>
+</html>

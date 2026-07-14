@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Порядок слов</title>
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    .word-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 16px; }
+    .word-chip {
+      padding: 10px 16px; border-radius: 20px; font-size: 1rem; font-weight: 600;
+      border: 2px solid var(--border); background: var(--surface); cursor: pointer; transition: all 0.15s;
+    }
+    .word-chip:active { transform: scale(0.95); }
+    .word-chip.placed { opacity: 0.3; pointer-events: none; }
+    .sentence-area {
+      min-height: 60px; padding: 12px; border: 2px dashed var(--border); border-radius: var(--radius-sm);
+      display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 12px;
+    }
+    .sentence-area .word-chip { border-color: var(--primary); background: var(--primary-light); cursor: pointer; }
+    .sentence-area .word-chip:active { background: var(--danger-light); border-color: var(--danger); }
+    .sentence-placeholder { color: var(--text-secondary); font-size: 0.875rem; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="../shared/components.js"></script>
+  <script>
+    const DATA = {
+      1: [
+        { words: ["Hello", "how", "are", "you?"], translation: "Привет, как дела?" },
+        { words: ["Good", "morning", "everyone!"], translation: "Доброе утро всем!" },
+        { words: ["Nice", "to", "meet", "you."], translation: "Приятно познакомиться." },
+        { words: ["Thank", "you", "very", "much!"], translation: "Большое спасибо!" },
+        { words: ["Please", "sit", "down."], translation: "Пожалуйста, садитесь." },
+        { words: ["How", "are", "you?"], translation: "Как дела?" },
+      ],
+      2: [
+        { words: ["My", "mother", "is", "a", "teacher."], translation: "Моя мама — учитель." },
+        { words: ["I", "have", "one", "sister."], translation: "У меня одна сестра." },
+        { words: ["My", "brother", "is", "older."], translation: "Мой брат старше." },
+        { words: ["I", "love", "my", "family."], translation: "Я люблю свою семью." },
+        { words: ["She", "is", "my", "best", "friend."], translation: "Она мой лучший друг." },
+        { words: ["He", "is", "very", "tall."], translation: "Он очень высокий." },
+      ],
+      3: [
+        { words: ["Can", "I", "have", "some", "water?"], translation: "Можно мне воды?" },
+        { words: ["I", "drink", "coffee", "every", "morning."], translation: "Я пью кофе каждое утро." },
+        { words: ["Would", "you", "like", "some", "tea?"], translation: "Хотите чаю?" },
+        { words: ["We", "eat", "rice", "with", "dinner."], translation: "Мы едим рис на ужин." },
+        { words: ["I", "like", "grilled", "chicken."], translation: "Мне нравится жареная курица." },
+        { words: ["I'm", "very", "hungry."], translation: "Я очень голоден." },
+      ],
+    };
+
+    const app = document.getElementById("app");
+    TelegramApp.init();
+    const params = TelegramApp.getParams();
+    const lessonId = params.lesson || 1;
+    const sentences = DATA[lessonId] || DATA[1];
+
+    let index = 0, score = 0, wrongIds = [];
+    let placed = [];
+
+    function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+    function render() {
+      if (index >= sentences.length) { showResult(); return; }
+      const s = sentences[index];
+      placed = [];
+      const bankWords = shuffle([...s.words]);
+
+      UI.setProgress(index, sentences.length);
+      app.innerHTML = UI.renderShell(
+        `Порядок слов: Урок ${lessonId}`,
+        `${index + 1} из ${sentences.length}`,
+        `<div class="card fade-in">
+          <div style="color:var(--text-secondary);margin-bottom:12px">${s.translation}</div>
+          <div class="sentence-area" id="sentence-area">
+            <span class="sentence-placeholder" id="placeholder">Нажми на слова...</span>
+          </div>
+          <div class="word-bank" id="bank">
+            ${bankWords.map((w, i) => `<button class="word-chip" data-word="${w}" data-idx="${i}" onclick="pickWord(this)">${w}</button>`).join("")}
+          </div>
+          <div id="feedback" style="text-align:center"></div>
+        </div>`
+      );
+
+      document.getElementById("actions").innerHTML =
+        `<button class="btn btn-primary" id="check-btn" onclick="check()">Проверить</button>`;
+    }
+
+    window.pickWord = function(el) {
+      if (el.classList.contains("placed")) return;
+      const word = el.dataset.word;
+      el.classList.add("placed");
+      placed.push(word);
+      document.getElementById("placeholder")?.remove();
+
+      const area = document.getElementById("sentence-area");
+      const chip = document.createElement("button");
+      chip.className = "word-chip";
+      chip.textContent = word;
+      chip.onclick = () => {
+        chip.remove();
+        placed = placed.filter((w, i) => { if (w === word) { placed.splice(i, 1); return false; } return true; });
+        el.classList.remove("placed");
+        if (placed.length === 0) area.innerHTML = '<span class="sentence-placeholder" id="placeholder">Нажми на слова...</span>';
+      };
+      area.appendChild(chip);
+    };
+
+    window.check = function() {
+      const s = sentences[index];
+      const correct = placed.join(" ") === s.words.join(" ");
+      const fb = document.getElementById("feedback");
+
+      if (correct) {
+        score++;
+        fb.innerHTML = '<span class="tag tag-success">✓ Правильно!</span>';
+      } else {
+        wrongIds.push(s.words.join(" ").toLowerCase().replace(/[^a-z ]/g, ""));
+        fb.innerHTML = `<span class="tag tag-danger">✗ ${s.words.join(" ")}</span>`;
+      }
+      document.getElementById("check-btn").disabled = true;
+      document.querySelectorAll(".word-chip").forEach(b => b.style.pointerEvents = "none");
+      setTimeout(() => { index++; render(); }, 1000);
+    };
+
+    function showResult() {
+      UI.sendResultToBot(params, score, sentences.length, wrongIds);
+      app.innerHTML = UI.renderShell(
+        `Порядок слов: Урок ${lessonId}`, "Результат",
+        UI.renderResult(score, sentences.length, [])
+      );
+      document.getElementById("actions").innerHTML =
+        `<button class="btn btn-primary" onclick="TelegramApp.close()">Готово</button>`;
+    }
+
+    render();
+  </script>
+</body>
+</html>

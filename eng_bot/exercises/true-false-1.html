@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Верно или неверно</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="../shared/app.js"></script>
+  <script src="../shared/components.js"></script>
+  <script>
+    const DATA = {
+      1: [
+        { eng: "Hello", rus: "Привет", correct: true },
+        { eng: "Goodbye", rus: "До свидания", correct: true },
+        { eng: "Please", rus: "Спасибо", correct: false },
+        { eng: "Thank you", rus: "Спасибо", correct: true },
+        { eng: "Yes", rus: "Нет", correct: false },
+        { eng: "No", rus: "Нет", correct: true },
+        { eng: "Good morning", rus: "Доброе утро", correct: true },
+        { eng: "How are you?", rus: "Где ты?", correct: false },
+        { eng: "Nice to meet you", rus: "Приятно познакомиться", correct: true },
+        { eng: "Good evening", rus: "Доброе утро", correct: false },
+      ],
+      2: [
+        { eng: "Mother", rus: "Мама", correct: true },
+        { eng: "Father", rus: "Папа", correct: true },
+        { eng: "Sister", rus: "Брат", correct: false },
+        { eng: "Brother", rus: "Брат", correct: true },
+        { eng: "Family", rus: "Друг", correct: false },
+        { eng: "Friend", rus: "Друг", correct: true },
+        { eng: "Tall", rus: "Высокий", correct: true },
+        { eng: "Short", rus: "Длинный", correct: false },
+        { eng: "Young", rus: "Молодой", correct: true },
+        { eng: "Kind", rus: "Злой", correct: false },
+      ],
+      3: [
+        { eng: "Water", rus: "Вода", correct: true },
+        { eng: "Bread", rus: "Молоко", correct: false },
+        { eng: "Coffee", rus: "Кофе", correct: true },
+        { eng: "Tea", rus: "Чай", correct: true },
+        { eng: "Apple", rus: "Яблоко", correct: true },
+        { eng: "Rice", rus: "Хлеб", correct: false },
+        { eng: "Chicken", rus: "Курица", correct: true },
+        { eng: "Milk", rus: "Молоко", correct: true },
+        { eng: "Hungry", rus: "Жаждущий", correct: false },
+        { eng: "Delicious", rus: "Вкусный", correct: true },
+      ],
+    };
+
+    const app = document.getElementById("app");
+    TelegramApp.init();
+    const params = TelegramApp.getParams();
+    const lessonId = params.lesson || 1;
+    const questions = DATA[lessonId] || DATA[1];
+
+    let index = 0;
+    let score = 0;
+    let wrongIds = [];
+    let answered = false;
+
+    function render() {
+      if (index >= questions.length) { showResult(); return; }
+      const q = questions[index];
+      UI.setProgress(index, questions.length);
+
+      app.innerHTML = UI.renderShell(
+        `Верно/неверно: Урок ${lessonId}`,
+        `${index + 1} из ${questions.length}`,
+        `<div class="card fade-in">
+          <div style="font-size:1.25rem;font-weight:700;margin-bottom:4px">${q.eng}</div>
+          <div style="font-size:1rem;color:var(--text-secondary);margin-bottom:16px">${q.rus}</div>
+          <div id="feedback" style="text-align:center;margin-bottom:8px"></div>
+        </div>`
+      );
+
+      document.getElementById("actions").innerHTML = `
+        <button class="btn btn-success" id="btn-true" onclick="answer(true)">✓ Верно</button>
+        <div style="height:8px"></div>
+        <button class="btn btn-outline" id="btn-false" onclick="answer(false)">✗ Неверно</button>
+      `;
+    }
+
+    window.answer = function(userSays) {
+      if (answered) return;
+      answered = true;
+      const q = questions[index];
+      const correct = userSays === q.correct;
+      if (correct) score++; else wrongIds.push(q.eng.toLowerCase());
+
+      const fb = document.getElementById("feedback");
+      fb.innerHTML = correct
+        ? '<span class="tag tag-success">✓ Правильно!</span>'
+        : `<span class="tag tag-danger">✗ ${q.correct ? "Верно" : "Неверно"}</span>`;
+
+      document.getElementById("btn-true").disabled = true;
+      document.getElementById("btn-false").disabled = true;
+
+      setTimeout(() => { index++; answered = false; render(); }, 700);
+    };
+
+    function showResult() {
+      UI.sendResultToBot(params, score, questions.length, wrongIds);
+      app.innerHTML = UI.renderShell(
+        `Верно/неверно: Урок ${lessonId}`, "Результат",
+        UI.renderResult(score, questions.length, [])
+      );
+      document.getElementById("actions").innerHTML =
+        `<button class="btn btn-primary" onclick="TelegramApp.close()">Готово</button>`;
+    }
+
+    render();
+  </script>
+</body>
+</html>

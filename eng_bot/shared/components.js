@@ -81,7 +81,13 @@ const UI = (() => {
     localStorage.setItem("eng_result_history", JSON.stringify(history));
   }
 
-  return { renderShell, setProgress, renderResult, generateResultPayload, saveLocalResult };
+  function sendResultToBot(params, score, total, wrongWordIds) {
+    const payload = generateResultPayload(params, score, total, wrongWordIds);
+    saveLocalResult(payload);
+    TelegramApp.sendData(JSON.stringify(payload));
+  }
+
+  return { renderShell, setProgress, renderResult, generateResultPayload, saveLocalResult, sendResultToBot };
 })();
 
 window.UI = UI;
