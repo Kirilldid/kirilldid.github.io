@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!-- Slide 1 -->
+<div class='slide active'>
+  <h1>Вебинар: Проектируем витрину данных с нуля за полтора часа</h1>
+  <p class='subtitle'>От бизнес-вопроса до готового слоя для аналитики. Практический разбор глазами инженера данных.</p>
+  <div style='margin-top: 40px;'>
+    <p><strong>Александр Дарьин</strong></p>
+    <p style='font-size: 14px; color: var(--text-muted);'>Инженер данных группы аналитики и автор канала <a href='https://t.me/junior_analyst' style='color: var(--primary-color); text-decoration: none;'>Аналитик на минималках</a></p>
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<div class='slide'>
+  <h2>Кейс: Эффективность маркетинга</h2>
+  <p>Бизнес хочет понимать: "Сколько денег приносит каждый вложенный рубль в рекламу в разрезе регионов и устройств?"</p>
+  <div class='content-card'>
+    <p style='color: #d32f2f; font-weight: 600;'>Проблема сейчас:</p>
+    <ul>
+      <li>Данные в разных таблицах (визиты и заказы).</li>
+      <li>Сырой SQL запрос на 200 строк работает 5 минут.</li>
+      <li>Аналитик тратит полдня на один отчет.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Slide 3 -->
+<div class='slide'>
+  <h2>Мышление аналитика vs. Инженера</h2>
+  <div class='grid-2'>
+    <div class='grid-item'>
+      <h3>Аналитик</h3>
+      <p style='font-size: 14px;'>"Мне нужно посчитать ROAS по кампаниям. Напишу JOIN и посчитаю в BI."</p>
+    </div>
+    <div class='grid-item' style='border-color: var(--primary-color);'>
+      <h3>Инженер данных</h3>
+      <p style='font-size: 14px;'>"Как сделать таблицу, чтобы следующий похожий запрос выполнялся в 100 раз быстрее и писался одной строкой?"</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<div class='slide'>
+  <h2>Шаг 1. Определяем "зерно" витрины</h2>
+  <p>Зерно (Grain) — это самый детальный уровень данных. Одна строка = чему?</p>
+  <div class='grid-3'>
+    <div class='grid-item'><p style='color: #999;'>1 посещение?</p></div>
+    <div class='grid-item'><p style='color: #999;'>1 заказ?</p></div>
+    <div class='grid-item' style='border-color: var(--primary-color);'><strong style='color: var(--primary-color);'>1 визит (сессия)</strong></div>
+  </div>
+  <div class='benefit-box'>
+    <strong>Наше решение: Зерно = 1 визит (session).</strong>
+    <p style='margin-bottom: 0; font-size: 14px;'>Почему? Это позволяет анализировать полную воронку: от клика до заказа. Заказы будут атрибутами визита.</p>
+  </div>
+</div>
+
+<!-- Slide 5 -->
+<div class='slide'>
+  <h2>Шаг 2. Определяем ключи и источники</h2>
+  <p style='font-size: 14px; color: var(--text-muted);'>(Смотрим на схему в buildin.ai)</p>
+  <ul style='margin: 10px 0;'>
+    <li><strong>visits:</strong> user_id, session_id, campaign_id, device, region, timestamp.</li>
+    <li><strong>orders:</strong> order_id, user_id, revenue, timestamp.</li>
+  </ul>
+  <p style='color: #d32f2f; font-weight: 600; font-size: 14px;'>Проблема: Прямой связи session_id -> order_id нет!</p>
+  <div class='benefit-box' style='border-left-color: #4caf50; background: #f1f8e9;'>
+    <strong style='color: #2e7d32;'>Решение инженера: Сессионизация заказов.</strong>
+    <p style='margin-bottom: 0; font-size: 13px;'>Правило: заказ относится к последнему визиту этого пользователя в течение 24 часов. Это фиксированная бизнес-логика.</p>
+  </div>
+</div>
+
+<!-- Slide 6 -->
+<div class='slide'>
+  <h2>Шаг 3. Определяем поля и метрики</h2>
+  <p style='font-size: 14px; color: var(--text-muted);'>(Витрина dm_advertising_campaign_performance)</p>
+  <div class='grid-2'>
+    <div class='grid-item'>
+      <h3 style='font-size: 12px; color: var(--text-muted);'>Атрибуты (Измерения)</h3>
+      <ul style='font-size: 13px;'>
+        <li>event_date (День)</li>
+        <li>region, device</li>
+        <li>campaign_id, channel</li>
+      </ul>
+    </div>
+    <div class='grid-item'>
+      <h3 style='font-size: 12px; color: var(--text-muted);'>Метрики (Факты)</h3>
+      <ul style='font-size: 13px;'>
+        <li>visits_count</li>
+        <li>orders_count, revenue</li>
+      </ul>
+      <p style='font-size: 12px; font-style: italic;'>Производные: conversion_rate, avg_order_value.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7 -->
+<div class='slide'>
+  <h2>Финальная DDL структура таблицы</h2>
+  <div class='sql-code'>
+<span class='sql-keyword'>CREATE TABLE</span> dm_advertising_campaign_performance (
+    event_date <span class='sql-type'>Date</span>,
+    region <span class='sql-type'>String</span>,
+    device <span class='sql-type'>String</span>,
+    campaign_id <span class='sql-type'>String</span>,
+    
+    <span class='sql-comment'>-- Атрибуты сессии из visits</span>
+    session_id <span class='sql-type'>String</span>,
+    user_id <span class='sql-type'>String</span>,
+    start_time <span class='sql-type'>DateTime</span>,
+    
+    <span class='sql-comment'>-- Метрики</span>
+    orders_count <span class='sql-type'>UInt8</span> <span class='sql-keyword'>DEFAULT</span> 0,
+    revenue <span class='sql-type'>Decimal</span>(10, 2) <span class='sql-keyword'>DEFAULT</span> 0
+)
+<span class='sql-keyword'>ENGINE</span> = MergeTree()
+<span class='sql-keyword'>ORDER BY</span> (event_date, region, device, campaign_id);
+  </div>
+</div>
+
+<!-- Slide 8 -->
+<div class='slide'>
+  <h2>Шаг 4. Процесс наполнения (Pipeline)</h2>
+  <div class='grid-3'>
+    <div class='grid-item'>
+      <div class='tag'>Extract</div>
+      <p style='font-size: 12px;'>visits & orders</p>
+    </div>
+    <div class='grid-item' style='border-color: var(--primary-color);'>
+      <div class='tag tag-primary'>Transform</div>
+      <p style='font-size: 12px;'>Сессионизация</p>
+    </div>
+    <div class='grid-item'>
+      <div class='tag'>Load</div>
+      <p style='font-size: 12px;'>Витрина (dm_)</p>
+    </div>
+  </div>
+  <p style='margin-top: 15px; font-size: 14px;'>Инструменты: SQL (dbt), Python, Airflow.</p>
+  <div class='benefit-box' style='padding: 10px; margin-top: 10px;'>
+    <p style='margin-bottom: 0; font-size: 13px;'><strong>Ключевое:</strong> Процесс должен быть автоматическим, надежным и мониториться.</p>
+  </div>
+</div>
+
+<!-- Slide 9 -->
+<div class='slide'>
+  <h2>Какие навыки мы применили?</h2>
+  <div style='display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px;'>
+    <span class='tag'>Анализ требований</span>
+    <span class='tag tag-primary'>Проектирование</span>
+    <span class='tag'>Data Modeling</span>
+    <span class='tag tag-primary'>Advanced SQL</span>
+    <span class='tag'>Инженерия пайплайнов</span>
+    <span class='tag'>Облачные хранилища</span>
+    <span class='tag'>Документация</span>
+  </div>
+  <div class='content-card' style='padding: 15px;'>
+    <p style='font-size: 14px; margin-bottom: 0;'>Инженер переводит бизнес-запрос на язык данных и создает надежный продукт.</p>
+  </div>
+</div>
+
+<!-- Slide 10 -->
+<div class='slide'>
+  <h2>Пишем ключевой запрос</h2>
+  <div class='sql-code'>
+<span class='sql-comment'>-- Сессионизация заказов</span>
+<span class='sql-keyword'>WITH</span> sessions_with_orders <span class='sql-keyword'>AS</span> (
+    <span class='sql-keyword'>SELECT</span>
+        v.*,
+        o.order_id,
+        o.revenue,
+        <span class='sql-function'>ROW_NUMBER</span>() <span class='sql-keyword'>OVER</span> (
+            <span class='sql-keyword'>PARTITION BY</span> o.order_id 
+            <span class='sql-keyword'>ORDER BY</span> v.start_time <span class='sql-keyword'>DESC</span>
+        ) <span class='sql-keyword'>as</span> rn
+    <span class='sql-keyword'>FROM</span> visits v
+    <span class='sql-keyword'>JOIN</span> orders o <span class='sql-keyword'>ON</span> v.user_id = o.user_id
+        <span class='sql-keyword'>AND</span> o.order_time <span class='sql-keyword'>BETWEEN</span> v.start_time 
+        <span class='sql-keyword'>AND</span> v.start_time + <span class='sql-keyword'>INTERVAL</span> 24 <span class='sql-keyword'>HOUR</span>
+    <span class='sql-keyword'>WHERE</span> v.start_time >= <span class='sql-function'>today</span>() - 30
+)
+<span class='sql-keyword'>SELECT</span>
+    <span class='sql-function'>toDate</span>(start_time) <span class='sql-keyword'>as</span> event_date,
+    region,
+    device,
+    campaign_id,
+    <span class='sql-function'>COUNTIf</span>(order_id, rn = 1) <span class='sql-keyword'>as</span> orders_count,
+    <span class='sql-function'>SUMIf</span>(revenue, rn = 1) <span class='sql-keyword'>as</span> revenue
+<span class='sql-keyword'>FROM</span> sessions_with_orders
+<span class='sql-keyword'>GROUP BY</span> 1, 2, 3, 4;
+  </div>
+  <p style='font-size: 11px; margin-top: 5px; color: var(--text-muted);'>Оконная функция ROW_NUMBER() привязывает заказ к последнему визиту.</p>
+</div>
+
+<!-- Slide 11 -->
+<div class='slide'>
+  <h2>Что еще важно продумать инженеру?</h2>
+  <ul style='font-size: 14px;'>
+    <li><strong>Обновление (Refresh):</strong> Раз в день или Real-time?</li>
+    <li><strong>Историчность (SCD):</strong> Что если campaign_id изменится?</li>
+    <li><strong>Мониторинг:</strong> Контрольные суммы, алерты на пустые данные.</li>
+    <li><strong>Документация:</strong> Описание полей. Без нее витриной не воспользуются.</li>
+  </ul>
+</div>
+
+<!-- Slide 12 -->
+<div class='slide'>
+  <h2>Итог: что мы спроектировали</h2>
+  <p style='font-size: 14px;'>Из размытого запроса мы создали продукт — витрину <strong>dm_advertising_campaign_performance</strong>.</p>
+  <div class='benefit-box' style='padding: 10px;'>
+    <strong>Для аналитика:</strong>
+    <p style='margin-bottom: 0;'>Дашборд одним SELECT * FROM dm_...</p>
+  </div>
+  <div class='content-card'>
+    <p style='margin-bottom: 0;'><strong>Результат:</strong> Окупаемость маркетинга видна за 1 секунду вместо 1 часа ручной работы.</p>
+  </div>
+</div>
+
+<div class='nav-controls'>
+  <button class='btn' id='prevBtn'>Назад</button>
+  <div class='progress-container'>
+    <div class='progress-bar' id='progressBar'></div>
+  </div>
+  <div class='slide-counter'>
+    <span id='currentSlideNum'>1</span> / <span id='totalSlides'>12</span>
+  </div>
+  <button class='btn btn-primary' id='nextBtn'>Далее</button>
+</div>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
