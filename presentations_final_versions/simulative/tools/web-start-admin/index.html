@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Заставка вебинара — Симулейтив</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #ff9600;
+      --accent-soft: rgba(255,150,0,.12);
+      --accent-border: rgba(255,150,0,.25);
+      --text-main: #f9fafb;
+      --text-muted: rgba(255,255,255,.4);
+      --card-bg: rgba(255,255,255,.03);
+      --card-border: rgba(255,255,255,.07);
+    }
+
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: #0f0f0f;
+      font-family: 'Onest', sans-serif;
+      color: var(--text-main);
+      display: flex; flex-direction: column;
+      padding: 12px;
+    }
+
+    /* ── dot grid bg ── */
+    #bg-canvas {
+      position: fixed; inset: 0;
+      width: 100%; height: 100%;
+      opacity: 0.06; pointer-events: none; z-index: 0;
+    }
+
+    /* ── config toggle ── */
+    .config-toggle {
+      position: fixed; top: 12px; right: 12px;
+      z-index: 20;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-border);
+      background: rgba(15,15,15,.92);
+      color: var(--text-muted);
+      font-size: 11px; font-family: inherit;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: border-color .25s;
+    }
+    .config-toggle:hover { border-color: var(--accent); }
+    .config-toggle .kdot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 0 3px rgba(74,222,128,.3);
+    }
+    .config-toggle[data-open="false"] .label-text { display: none; }
+
+    /* ── config panel ── */
+    .config-panel {
+      position: relative; z-index: 10;
+      width: 100%; max-width: 1240px;
+      margin: 30px auto 4px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px 16px;
+      font-size: 12px;
+      transition: opacity .2s, transform .2s, max-height .2s, padding .2s, margin .2s;
+      max-height: 300px; overflow: hidden;
+    }
+    .config-panel.hidden {
+      opacity: 0; pointer-events: none;
+      transform: translateY(-8px);
+      max-height: 0; padding-top: 0; padding-bottom: 0;
+      margin-top: 8px; margin-bottom: 0;
+    }
+    .config-panel h2 {
+      grid-column: 1 / -1;
+      font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .14em;
+      color: var(--accent); margin-bottom: 2px;
+    }
+    .field {
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .field label {
+      color: var(--text-muted); font-size: 11px;
+    }
+    .field input, .field textarea {
+      width: 100%; padding: 6px 8px; border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background: rgba(0,0,0,.4);
+      color: var(--text-main); font: inherit; font-size: 12px;
+      transition: border-color .25s;
+    }
+    .field input:focus, .field textarea:focus {
+      outline: none; border-color: var(--accent);
+    }
+    .field textarea { min-height: 44px; resize: vertical; }
+    .field small { font-size: 10px; color: var(--text-muted); }
+
+    /* ── shell ── */
+    .shell {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 1240px;
+      flex: 1; min-height: 0; margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+      gap: 40px;
+      padding: 32px 36px 28px;
+      border-radius: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(8px);
+    }
+    .shell::before {
+      content: '';
+      position: absolute; top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: .35;
+    }
+
+    /* ── left ── */
+    .left {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center;
+      align-self: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .bottom-group {
+      margin-top: auto;
+      margin-bottom: -2px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .title {
+      font-size: clamp(36px, 4.2vw, 48px);
+      line-height: 1.05; font-weight: 800;
+      letter-spacing: -.03em;
+      max-width: 26ch;
+    }
+
+    .subtitle {
+      font-size: 21px;
+      color: var(--text-muted);
+      max-width: 50ch; line-height: 1.6;
+    }
+
+    .speaker {
+      display: flex; align-items: center; gap: 14px;
+      margin-top: 2px;
+    }
+    .speaker-avatar {
+      width: 54px; height: 54px; border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255,150,0,.25), rgba(255,150,0,.08));
+      border: 1px solid var(--accent-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 700; color: var(--accent);
+    }
+    .speaker-meta { display: flex; flex-direction: column; gap: 2px; }
+    .speaker-name { font-size: 24px; font-weight: 600; }
+    .speaker-role { font-size: 18px; color: var(--text-muted); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 15px; font-weight: 500;
+      padding: 5px 13px; border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      color: rgba(255,150,0,.75);
+    }
+
+    .footer-left {
+      padding-top: 12px;
+      border-top: 1px solid var(--card-border);
+      font-size: 13px; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: .18em;
+      display: flex; justify-content: space-between;
+    }
+    .logo { color: var(--accent); font-weight: 700; }
+
+    /* ── right ── */
+    .right {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    /* ── timer ── */
+    .timer-card {
+      border-radius: 20px; padding: 14px 16px 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .timer-card::before {
+      content: '';
+      position: absolute; top: 0; left: 15%; right: 15%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: .25;
+    }
+    .timer-card { position: relative; overflow: hidden; }
+
+    .timer-header {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--text-muted);
+      letter-spacing: .16em; text-transform: uppercase;
+    }
+    .live-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 8px; border-radius: 999px;
+      border: 1px solid rgba(74,222,128,.5);
+      background: rgba(74,222,128,.1);
+      font-size: 9px; letter-spacing: .12em;
+      color: #86efac;
+    }
+    .live-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 0 3px rgba(74,222,128,.3);
+    }
+
+    .timer-main {
+      padding: 12px; border-radius: 14px;
+      border: 1px solid var(--accent-border);
+      background: rgba(255,150,0,.06);
+      display: flex; justify-content: center; gap: 16px;
+    }
+    .timer-segment {
+      min-width: 76px;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+    }
+    .timer-value {
+      font-variant-numeric: tabular-nums;
+      font-size: 28px; font-weight: 700;
+      letter-spacing: .06em;
+      padding: 4px 10px; border-radius: 10px;
+      background: rgba(0,0,0,.4);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+    }
+    .timer-caption {
+      font-size: 10px; text-transform: uppercase; letter-spacing: .14em;
+      color: var(--text-muted);
+    }
+    .timer-sub {
+      font-size: 11px; text-align: center;
+      color: rgba(255,255,255,.5);
+    }
+    .timer-footer {
+      font-size: 10px; color: var(--text-muted);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .tz { text-transform: uppercase; letter-spacing: .16em; }
+
+    /* ── chart ── */
+    .chart-window {
+      flex: 1; border-radius: 20px; padding: 10px 14px 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      position: relative; overflow: hidden;
+      min-height: 120px;
+    }
+    .chart-window::before {
+      content: '';
+      position: absolute; top: 0; left: 12%; right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: .2;
+    }
+    .chart-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      position: absolute; top: 10px; left: 14px;
+      box-shadow: 0 0 8px rgba(255,150,0,.5);
+    }
+    .chart {
+      position: absolute; inset: 30px 10px 6px 10px;
+    }
+    .chart svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+    }
+    .chart path {
+      fill: none; stroke: var(--accent);
+      stroke-width: 2.5; stroke-linecap: round;
+      opacity: 1; transition: opacity 1.2s ease;
+    }
+    .chart-bars {
+      position: absolute; inset: 0 0 0 0;
+      display: flex; align-items: flex-end; gap: 4px;
+      padding: 0 2px;
+    }
+    .chart-bar {
+      flex: 1;
+      background: linear-gradient(to top, rgba(255,150,0,.7), rgba(255,150,0,.1));
+      border-radius: 3px 3px 0 0;
+      transition: height .8s ease;
+    }
+
+    /* ── responsive ── */
+    @media (max-width: 960px) {
+      .shell {
+        grid-template-columns: minmax(0, 1fr);
+        min-height: 0; gap: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+
+  <button type="button" class="config-toggle" id="configToggle" data-open="true">
+    <span class="kdot"></span>
+    <span class="label-text">Панель настроек</span>
+  </button>
+
+  <form class="config-panel" id="configForm">
+    <h2>Параметры вебинара</h2>
+    <div class="field">
+      <label for="topic">Тема вебинара</label>
+      <input id="topic" type="text" value="Как аналитики принимают решения на данных, а не на ощущениях" />
+    </div>
+    <div class="field">
+      <label for="subtitle">Короткое описание</label>
+      <textarea id="subtitle">Разберём, как формулировать продуктовые вопросы, собирать нужные данные, проверять гипотезы и не утонуть в дэшбордах.</textarea>
+    </div>
+    <div class="field">
+      <label for="speakerName">Имя и фамилия спикера</label>
+      <input id="speakerName" type="text" value="Алексей Иванов" />
+    </div>
+    <div class="field">
+      <label for="speakerRole">Должность спикера</label>
+      <input id="speakerRole" type="text" value="Lead Product Analyst, Simulative" />
+    </div>
+    <div class="field">
+      <label for="speakerTags">Теги (через запятую)</label>
+      <input id="speakerTags" type="text" value="SQL · Python · BI, юнит‑экономика, A/B‑тесты" />
+      <small>Появятся под карточкой спикера.</small>
+    </div>
+    <div class="field">
+      <label for="datetime">Дата и время эфира (МСК)</label>
+      <input id="datetime" type="datetime-local" />
+      <small>Используется для расчёта таймера.</small>
+    </div>
+    <div class="field">
+      <label for="orgLabel">Подпись организатора</label>
+      <input id="orgLabel" type="text" value="SIMULATIVE" />
+    </div>
+  </form>
+
+  <div class="shell">
+    <div class="left">
+      <div class="badge">
+        <svg style="height:65px;width:auto;display:block;" viewBox="0 0 873 210" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#ff9600" d="M0 0h190.292v188.134H0z"/><path fill="#ffffff" d="M137.191 52.492q12.497 0 20.921 3.148 8.424 3.147 16.015 9.257l-8.98 10.46q-6.017-5.09-12.775-7.22-6.665-2.222-13.978-2.222-10.461 0-19.347 4.999-8.887 4.906-14.349 16.385-5.37 11.386-5.37 30.919 0 18.977 5.092 30.456 5.184 11.478 13.979 16.57 8.793 5.091 19.625 5.092 10.738 0 17.588-3.24 6.943-3.24 12.035-7.406l8.331 10.553q-5.832 5.647-15.182 9.813-9.35 4.073-22.957 4.073-15.46 0-28.05-7.591-12.496-7.591-19.81-22.217-7.313-14.72-7.313-36.103 0-21.477 7.406-36.103 7.498-14.626 19.903-22.124 12.496-7.5 27.216-7.499M253.936 114.608V182h-10.752v-31.552q0-6.593.384-12.672.385-6.144 1.024-10.752L215.92 182h-13.056v-67.392h10.752v31.488q0 6.528-.384 12.928-.384 6.335-.96 10.304l28.352-54.72zM333.246 114.608 338.11 182h-10.304l-2.624-32.96q-.384-5.44-.576-11.2-.127-5.76 0-12.544h-.512l-13.376 45.376h-10.752l-14.848-45.376h-.512q.257 5.504.128 11.84a305 305 0 0 1-.448 11.712L282.366 182H272.19l4.736-67.392h14.144l14.464 46.016 13.376-46.016zM412.428 114.608l-23.68 67.84q-2.368 6.847-6.016 12.544-3.584 5.696-9.408 9.408-5.76 3.775-14.656 4.672l-1.664-8.576q6.976-1.153 11.008-3.52 4.032-2.369 6.336-6.08 2.369-3.712 4.16-8.896h-3.584l-23.552-67.392h11.52l19.328 59.2 19.072-59.2zM485.53 114.608V182h-10.752v-58.432h-25.216l-1.536 17.792q-.831 11.264-2.112 18.368-1.215 7.04-3.2 11.392-1.983 4.352-5.056 7.104-3.008 2.688-7.488 5.184l-4.544-6.912a25.3 25.3 0 0 0 4.224-3.264q1.857-1.857 3.328-5.312 1.536-3.457 2.624-9.664 1.152-6.208 1.92-16.384l2.112-27.264zM518.312 152.112q.32 7.808 3.008 12.8 2.688 4.928 7.104 7.296 4.416 2.304 9.6 2.304t9.344-1.536q4.224-1.536 8.64-4.544l5.056 7.104q-4.735 3.712-10.816 5.824a37 37 0 0 1-12.352 2.112q-9.792 0-16.704-4.416t-10.56-12.288q-3.584-7.937-3.584-18.368 0-10.24 3.648-18.176t10.24-12.48 15.552-4.544q8.512 0 14.656 4.032 6.144 3.967 9.408 11.392 3.328 7.36 3.328 17.6 0 1.728-.064 3.264a39 39 0 0 1-.192 2.624zm18.304-30.08q-7.488 0-12.544 5.312-4.991 5.312-5.696 16.448h35.136q-.192-10.817-4.736-16.256-4.543-5.504-12.16-5.504M637.686 114.608V182h-10.752v-31.552q0-6.593.384-12.672.384-6.144 1.024-10.752L599.67 182h-13.056v-67.392h10.752v31.488q0 6.528-.384 12.928-.384 6.335-.96 10.304l28.352-54.72zm-25.792-15.36q-4.863 0-9.024-1.664-4.095-1.665-6.72-4.864-2.623-3.201-3.136-7.936l7.424-1.6q1.409 4.16 4.16 5.952 2.753 1.728 7.296 1.728 4.48 0 7.488-1.728 3.009-1.793 4.352-5.952l7.424 1.6q-.511 4.735-3.264 7.936-2.687 3.2-6.848 4.864t-9.152 1.664M719.684 114.608l-1.28 8.96h-24.128V182h-10.752v-58.432h-24.64v-8.96zM791.186 114.608V182h-10.752v-31.552q0-6.593.384-12.672.384-6.144 1.024-10.752L753.17 182h-13.056v-67.392h10.752v31.488q0 6.528-.384 12.928-.384 6.335-.96 10.304l28.352-54.72zM841.184 113.2q8.385 0 14.528 2.048 6.145 2.048 9.472 5.952 3.392 3.84 3.392 9.536 0 5.247-2.88 9.024-2.88 3.711-10.688 5.696 8.704.831 12.928 4.928 4.224 4.032 4.224 11.712 0 7.04-3.904 11.456-3.903 4.351-10.368 6.4-6.4 2.048-14.144 2.048h-25.472v-66.496q5.313-.96 11.008-1.6 5.76-.704 11.904-.704m.128 8.576q-3.84 0-6.528.192t-5.76.576v50.752h14.464q8.577 0 12.864-2.688t4.288-8.448q0-4.929-2.56-7.36-2.56-2.496-6.464-3.328a35.6 35.6 0 0 0-8-.896h-16.64v-8.448h15.936q6.657 0 10.624-2.176 3.968-2.24 3.968-8.192 0-5.505-4.032-7.744-4.032-2.24-12.16-2.24"/></svg>
+      </div>
+
+      <h1 class="title" id="viewTopic">
+        Как аналитики принимают решения на данных, а не на ощущениях
+      </h1>
+
+      <p class="subtitle" id="viewSubtitle">
+        Разберём, как формулировать продуктовые вопросы, собирать нужные данные, проверять гипотезы и не утонуть в дэшбордах.
+      </p>
+
+      <div class="bottom-group">
+        <div class="speaker">
+          <div class="speaker-avatar" id="viewAvatar">А</div>
+          <div class="speaker-meta">
+            <div class="speaker-name" id="viewSpeakerName">Алексей Иванов</div>
+            <div class="speaker-role" id="viewSpeakerRole">Lead Product Analyst, Simulative</div>
+          </div>
+        </div>
+
+        <div class="tags" id="viewTags">
+          <span class="tag">SQL · Python · BI</span>
+          <span class="tag">юнит‑экономика</span>
+          <span class="tag">A/B‑тесты</span>
+        </div>
+      </div>
+
+      <div class="footer-left">
+        <span>подготовлено школой</span>
+        <span class="logo" id="viewOrgLabel">SIMULATIVE</span>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="timer-card">
+        <div class="timer-header">
+          <span id="timerLabel">скоро начнём эфир</span>
+          <span class="live-pill">
+            <span class="live-dot"></span>
+            live soon
+          </span>
+        </div>
+        <div class="timer-main">
+          <div class="timer-segment">
+            <div class="timer-value" id="minutes">--</div>
+            <div class="timer-caption">минут</div>
+          </div>
+          <div class="timer-segment">
+            <div class="timer-value" id="seconds">--</div>
+            <div class="timer-caption">секунд</div>
+          </div>
+        </div>
+        <div class="timer-sub" id="timerSub">Укажите дату и время эфира в панели сверху.</div>
+        <div class="timer-footer">
+          <span id="timerDate">Дата и время появятся после выбора.</span>
+          <span class="tz">МСК · UTC+3</span>
+        </div>
+      </div>
+
+      <div class="chart-window">
+        <div class="chart-dot"></div>
+        <div class="chart">
+          <svg id="lineSvg"><path id="linePath" d=""></path></svg>
+          <div class="chart-bars" id="barsContainer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    function drawGrid() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      ctx.fillStyle = '#ff9600';
+      const gap = Math.max(canvas.width, canvas.height) / 24;
+      for (let x = 0; x < canvas.width + gap; x += gap)
+        for (let y = 0; y < canvas.height + gap; y += gap) {
+          ctx.beginPath(); ctx.arc(x, y, 1.1, 0, Math.PI*2); ctx.fill();
+        }
+    }
+    drawGrid();
+    new ResizeObserver(drawGrid).observe(canvas);
+
+    const configToggle = document.getElementById("configToggle");
+    const configPanel = document.getElementById("configForm");
+    const topicInput = document.getElementById("topic");
+    const subtitleInput = document.getElementById("subtitle");
+    const speakerNameInput = document.getElementById("speakerName");
+    const speakerRoleInput = document.getElementById("speakerRole");
+    const speakerTagsInput = document.getElementById("speakerTags");
+    const datetimeInput = document.getElementById("datetime");
+    const orgLabelInput = document.getElementById("orgLabel");
+    const viewTopic = document.getElementById("viewTopic");
+    const viewSubtitle = document.getElementById("viewSubtitle");
+    const viewSpeakerName = document.getElementById("viewSpeakerName");
+    const viewSpeakerRole = document.getElementById("viewSpeakerRole");
+    const viewAvatar = document.getElementById("viewAvatar");
+    const viewTags = document.getElementById("viewTags");
+    const viewOrgLabel = document.getElementById("viewOrgLabel");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const timerLabel = document.getElementById("timerLabel");
+    const timerSub = document.getElementById("timerSub");
+    const timerDate = document.getElementById("timerDate");
+
+    configToggle.addEventListener("click", () => {
+      const isOpen = configToggle.getAttribute("data-open") === "true";
+      configToggle.setAttribute("data-open", String(!isOpen));
+      configPanel.classList.toggle("hidden", isOpen);
+    });
+
+    function updateTexts() {
+      viewTopic.textContent = topicInput.value || "Тема вебинара";
+      viewSubtitle.textContent = subtitleInput.value || "";
+      viewSpeakerName.textContent = speakerNameInput.value || "Имя Фамилия";
+      viewSpeakerRole.textContent = speakerRoleInput.value || "Должность спикера";
+      viewAvatar.textContent = (speakerNameInput.value || "А").trim().charAt(0) || "А";
+      viewTags.innerHTML = "";
+      (speakerTagsInput.value || "").split(",").map(t => t.trim()).filter(Boolean).forEach(tag => {
+        const span = document.createElement("span");
+        span.className = "tag"; span.textContent = tag;
+        viewTags.appendChild(span);
+      });
+      viewOrgLabel.textContent = orgLabelInput.value || "SIMULATIVE";
+      const raw = datetimeInput.value;
+      if (raw) {
+        const d = new Date(raw + ":00+03:00");
+        if (!isNaN(d.getTime())) {
+          timerDate.textContent = "Старт эфира: " + d.toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }) + " (МСК)";
+        }
+      } else {
+        timerDate.textContent = "Дата и время появятся после выбора.";
+      }
+    }
+    configPanel.addEventListener("input", updateTexts);
+
+    function getTargetDate() {
+      const raw = datetimeInput.value;
+      if (!raw) return null;
+      try { return new Date(raw + ":00+03:00"); } catch { return null; }
+    }
+
+    function updateCountdown() {
+      const target = getTargetDate();
+      if (!target) {
+        timerLabel.textContent = "скоро начнём эфир";
+        minutesEl.textContent = "--";
+        secondsEl.textContent = "--";
+        timerSub.textContent = "Укажите дату и время эфира в панели сверху.";
+        return;
+      }
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
+        minutesEl.textContent = "00"; secondsEl.textContent = "00";
+        timerLabel.textContent = "уже в эфире";
+        timerSub.textContent = "Эфир должен идти. Проверьте ссылку на комнату.";
+        return;
+      }
+      const totalSeconds = Math.floor(diff / 1000);
+      const m = Math.floor(totalSeconds / 60);
+      const s = totalSeconds % 60;
+      minutesEl.textContent = String(m).padStart(2, "0");
+      secondsEl.textContent = String(s).padStart(2, "0");
+      timerLabel.textContent = "скоро начнём эфир";
+      if (totalSeconds <= 60) timerSub.textContent = "Через минуту начинаем — подготовьтесь к старту.";
+      else if (totalSeconds <= 5 * 60) timerSub.textContent = "До старта осталось несколько минут — проверьте звук и материалы.";
+      else timerSub.textContent = "Эфир готовится. Пока есть время — соберите вопросы к спикеру.";
+    }
+    setInterval(updateCountdown, 1000);
+    updateTexts();
+    updateCountdown();
+
+    const barsContainer = document.getElementById("barsContainer");
+    const linePath = document.getElementById("linePath");
+    const svg = document.getElementById("lineSvg");
+    const BAR_COUNT = 10;
+
+    for (let i = 0; i < BAR_COUNT; i++) {
+      const bar = document.createElement("div");
+      bar.className = "chart-bar";
+      bar.style.height = 40 + Math.random() * 120 + "px";
+      barsContainer.appendChild(bar);
+    }
+    setInterval(() => {
+      document.querySelectorAll(".chart-bar").forEach(bar => {
+        bar.style.height = 50 + Math.random() * 150 + "px";
+      });
+    }, 1000);
+
+    function generateCurve() {
+      const rect = svg.getBoundingClientRect();
+      const w = rect.width || 1; const h = rect.height || 1;
+      const pts = [];
+      for (let i = 0; i < 8; i++) pts.push([(i / 7) * w, h - (Math.random() * h * 0.8 + h * 0.1)]);
+      let d = `M ${pts[0][0]},${pts[0][1]}`;
+      for (let i = 1; i < pts.length; i++) d += ` L ${pts[i][0]},${pts[i][1]}`;
+      linePath.setAttribute("d", d);
+    }
+    function animateCurve() { generateCurve(); linePath.style.opacity = "1"; setTimeout(() => { linePath.style.opacity = "0"; }, 3000); }
+    animateCurve();
+    setInterval(animateCurve, 5000);
+  </script>
+</body>
+</html>

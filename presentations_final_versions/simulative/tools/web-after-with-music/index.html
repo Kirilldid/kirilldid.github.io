@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Спасибо за участие — Симулейтив</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #0f0f0f;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      font-family: 'Onest', sans-serif;
+    }
+
+    .stage {
+      position: relative;
+      width: 100vw; height: 56.25vw;
+      max-height: 100vh; max-width: 177.78vh;
+      background: #181818;
+      overflow: hidden;
+    }
+    .stage::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,.45) 100%);
+      pointer-events: none; z-index: 0;
+    }
+
+    #bg-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      opacity: 0.09; pointer-events: none;
+    }
+
+    .glow {
+      position: absolute;
+      width: 55%; height: 85%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(255,140,0,.16) 0%, transparent 65%);
+      pointer-events: none;
+      animation: glowDrift 12s ease-in-out infinite alternate;
+    }
+    @keyframes glowDrift {
+      0%   { top: -25%; right: -10%; transform: scale(1); }
+      33%  { top: -10%; right: 5%; transform: scale(1.15); }
+      66%  { top: -5%; right: -20%; transform: scale(0.9); }
+      100% { top: -20%; right: -5%; transform: scale(1.05); }
+    }
+
+    #chart-canvas {
+      position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 40%;
+      z-index: 1; pointer-events: none;
+      opacity: 0.35;
+    }
+
+    .badge {
+      position: absolute; top: 5%; left: 7.5%;
+      border-radius: 10vw;
+      padding: .6vw 1.2vw;
+      z-index: 2;
+      opacity: 0; transform: translateY(-1vw);
+      animation: fadeDown .5s .3s cubic-bezier(.2,0,.1,1) forwards;
+    }
+    @keyframes fadeDown {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .scene {
+      position: absolute; inset: 0; z-index: 1;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      padding: 0 5% 4% 5%;
+      text-align: center;
+    }
+
+    .label {
+      font-size: 1.1vw; font-weight: 500;
+      color: rgba(255,255,255,.3);
+      letter-spacing: .16em; text-transform: uppercase;
+      margin-bottom: .6vw;
+      opacity: 0; transform: translateY(1.2vw);
+      animation: riseIn .55s .6s cubic-bezier(.2,0,.1,1) forwards;
+    }
+
+    .title {
+      font-size: 4.2vw; font-weight: 800; color: #fff;
+      line-height: 1.1; letter-spacing: -.02em;
+      margin-bottom: .8vw;
+      opacity: 0; transform: translateY(1.5vw);
+      animation: riseIn .55s .8s cubic-bezier(.2,0,.1,1) forwards;
+    }
+    .title em { font-style: normal; color: #ff9600; }
+
+    .subtitle {
+      font-size: 1.35vw; font-weight: 400;
+      color: rgba(255,255,255,.45); line-height: 1.55;
+      max-width: 52%;
+      opacity: 0; transform: translateY(1.2vw);
+      animation: riseIn .55s 1s cubic-bezier(.2,0,.1,1) forwards;
+    }
+
+    .divider {
+      width: 3vw; height: .18vw;
+      background: linear-gradient(90deg, #ff9600, #ffc257);
+      border-radius: .1vw; margin: 1.2vw auto 1.6vw;
+      box-shadow: 0 0 10px rgba(255,150,0,.4);
+      opacity: 0;
+      animation: fadeIn .5s .7s ease forwards;
+    }
+
+    @keyframes riseIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .title { font-size: 7vw; }
+      .subtitle { font-size: 2.8vw; max-width: 80%; }
+      .label { font-size: 2.2vw; }
+      .badge { padding: .3vw 1.5vw; }
+    }
+    @media (max-width: 480px) {
+      .title { font-size: 9vw; }
+      .subtitle { font-size: 3.8vw; max-width: 90%; }
+      .label { font-size: 3vw; }
+      .badge { padding: .3vw 1.5vw; }
+    }
+
+    .sound-controls {
+      position: fixed;
+      z-index: 1000;
+      right: 24px;
+      bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sound-toggle {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      background: rgba(14, 18, 30, 0.58);
+      color: #fff;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: transform 160ms ease, background 160ms ease;
+      flex-shrink: 0;
+    }
+    .sound-toggle:hover {
+      transform: scale(1.06);
+      background: rgba(35, 46, 72, 0.75);
+    }
+    .sound-toggle.is-playing {
+      color: #8ee8d2;
+      border-color: rgba(142, 232, 210, 0.55);
+    }
+
+    .volume-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 0;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.18);
+      outline: none;
+      opacity: 0;
+      transition: width 200ms ease, opacity 200ms ease;
+      cursor: pointer;
+    }
+    .sound-controls:hover .volume-slider {
+      width: 80px;
+      opacity: 1;
+    }
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      border: none;
+    }
+    .volume-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <canvas id="bg-canvas"></canvas>
+  <div class="glow" id="glow"></div>
+  <canvas id="chart-canvas"></canvas>
+
+  <div class="badge"><svg style="height:3.33vw;width:auto;display:block;" viewBox="0 0 873 210" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="#ff9600" d="M0 0h190.292v188.134H0z"/><path fill="#ffffff" d="M137.191 52.492q12.497 0 20.921 3.148 8.424 3.147 16.015 9.257l-8.98 10.46q-6.017-5.09-12.775-7.22-6.665-2.222-13.978-2.222-10.461 0-19.347 4.999-8.887 4.906-14.349 16.385-5.37 11.386-5.37 30.919 0 18.977 5.092 30.456 5.184 11.478 13.979 16.57 8.793 5.091 19.625 5.092 10.738 0 17.588-3.24 6.943-3.24 12.035-7.406l8.331 10.553q-5.832 5.647-15.182 9.813-9.35 4.073-22.957 4.073-15.46 0-28.05-7.591-12.496-7.591-19.81-22.217-7.313-14.72-7.313-36.103 0-21.477 7.406-36.103 7.498-14.626 19.903-22.124 12.496-7.5 27.216-7.499M253.936 114.608V182h-10.752v-31.552q0-6.593.384-12.672.385-6.144 1.024-10.752L215.92 182h-13.056v-67.392h10.752v31.488q0 6.528-.384 12.928-.384 6.335-.96 10.304l28.352-54.72zM333.246 114.608 338.11 182h-10.304l-2.624-32.96q-.384-5.44-.576-11.2-.127-5.76 0-12.544h-.512l-13.376 45.376h-10.752l-14.848-45.376h-.512q.257 5.504.128 11.84a305 305 0 0 1-.448 11.712L282.366 182H272.19l4.736-67.392h14.144l14.464 46.016 13.376-46.016zM412.428 114.608l-23.68 67.84q-2.368 6.847-6.016 12.544-3.584 5.696-9.408 9.408-5.76 3.775-14.656 4.672l-1.664-8.576q6.976-1.153 11.008-3.52 4.032-2.369 6.336-6.08 2.369-3.712 4.16-8.896h-3.584l-23.552-67.392h11.52l19.328 59.2 19.072-59.2zM485.53 114.608V182h-10.752v-58.432h-25.216l-1.536 17.792q-.831 11.264-2.112 18.368-1.215 7.04-3.2 11.392-1.983 4.352-5.056 7.104-3.008 2.688-7.488 5.184l-4.544-6.912a25.3 25.3 0 0 0 4.224-3.264q1.857-1.857 3.328-5.312 1.536-3.457 2.624-9.664 1.152-6.208 1.92-16.384l2.112-27.264zM518.312 152.112q.32 7.808 3.008 12.8 2.688 4.928 7.104 7.296 4.416 2.304 9.6 2.304t9.344-1.536q4.224-1.536 8.64-4.544l5.056 7.104q-4.735 3.712-10.816 5.824a37 37 0 0 1-12.352 2.112q-9.792 0-16.704-4.416t-10.56-12.288q-3.584-7.937-3.584-18.368 0-10.24 3.648-18.176t10.24-12.48 15.552-4.544q8.512 0 14.656 4.032 6.144 3.967 9.408 11.392 3.328 7.36 3.328 17.6 0 1.728-.064 3.264a39 39 0 0 1-.192 2.624zm18.304-30.08q-7.488 0-12.544 5.312-4.991 5.312-5.696 16.448h35.136q-.192-10.817-4.736-16.256-4.543-5.504-12.16-5.504M637.686 114.608V182h-10.752v-31.552q0-6.593.384-12.672.384-6.144 1.024-10.752L599.67 182h-13.056v-67.392h10.752v31.488q0 6.528-.384 12.928-.384 6.335-.96 10.304l28.352-54.72zm-25.792-15.36q-4.863 0-9.024-1.664-4.095-1.665-6.72-4.864-2.623-3.201-3.136-7.936l7.424-1.6q1.409 4.16 4.16 5.952 2.753 1.728 7.296 1.728 4.48 0 7.488-1.728 3.009-1.793 4.352-5.952l7.424 1.6q-.511 4.735-3.264 7.936-2.687 3.2-6.848 4.864t-9.152 1.664M719.684 114.608l-1.28 8.96h-24.128V182h-10.752v-58.432h-24.64v-8.96zM791.186 114.608V182h-10.752v-31.552q0-6.593.384-12.672.384-6.144 1.024-10.752L753.17 182h-13.056v-67.392h10.752v31.488q0 6.528-.384 12.928-.384 6.335-.96 10.304l28.352-54.72zM841.184 113.2q8.385 0 14.528 2.048 6.145 2.048 9.472 5.952 3.392 3.84 3.392 9.536 0 5.247-2.88 9.024-2.88 3.711-10.688 5.696 8.704.831 12.928 4.928 4.224 4.032 4.224 11.712 0 7.04-3.904 11.456-3.903 4.351-10.368 6.4-6.4 2.048-14.144 2.048h-25.472v-66.496q5.313-.96 11.008-1.6 5.76-.704 11.904-.704m.128 8.576q-3.84 0-6.528.192t-5.76.576v50.752h14.464q8.577 0 12.864-2.688t4.288-8.448q0-4.929-2.56-7.36-2.56-2.496-6.464-3.328a35.6 35.6 0 0 0-8-.896h-16.64v-8.448h15.936q6.657 0 10.624-2.176 3.968-2.24 3.968-8.192 0-5.505-4.032-7.744-4.032-2.24-12.16-2.24"/></svg></div>
+
+  <section class="scene" id="s0">
+    <p class="label">ВЕБИНАРЫ ПО АНАЛИЗУ ДАННЫХ</p>
+    <div class="divider"></div>
+    <h1 class="title">Спасибо за участие<br>в <em>вебинаре</em></h1>
+    <p class="subtitle">До встречи на следующих мероприятиях — следите за новыми эфирами в рассылке и соцсетях</p>
+  </section>
+
+
+</div>
+
+<audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="audio/data-school-loop.wav" type="audio/wav" />
+</audio>
+
+<div class="sound-controls">
+  <button
+    id="soundToggle"
+    type="button"
+    aria-label="Включить фоновую музыку"
+    aria-pressed="false"
+    class="sound-toggle"
+  >
+    <span aria-hidden="true">&#9835;</span>
+  </button>
+  <input
+    id="volumeSlider"
+    type="range"
+    min="0"
+    max="100"
+    value="16"
+    class="volume-slider"
+    aria-label="Громкость"
+  />
+</div>
+<script>
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  function drawGrid() {
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    ctx.fillStyle = '#ff9600';
+    const gap = Math.max(canvas.width, canvas.height) / 24;
+    for (let x = 0; x < canvas.width + gap; x += gap)
+      for (let y = 0; y < canvas.height + gap; y += gap) {
+        ctx.beginPath(); ctx.arc(x, y, 1.1, 0, Math.PI*2); ctx.fill();
+      }
+  }
+  drawGrid();
+  new ResizeObserver(drawGrid).observe(canvas);
+
+  const cc = document.getElementById('chart-canvas');
+  const cctx = cc.getContext('2d');
+  let bars = [];
+  let chartTick = 0;
+  const BAR_COUNT = 40;
+
+  function initBars() {
+    bars = Array.from({ length: BAR_COUNT }, (_, i) => ({
+      x: (i / BAR_COUNT) * cc.width,
+      w: cc.width / BAR_COUNT * 0.55,
+      speed: 0.3 + Math.random() * 0.7,
+      phase: Math.random() * Math.PI * 2,
+      amp: 0.3 + Math.random() * 0.7,
+      baseH: 0.15 + Math.random() * 0.3,
+    }));
+  }
+
+  function drawChart() {
+    chartTick += 0.02;
+    cc.width = cc.offsetWidth;
+    cc.height = cc.offsetHeight;
+    if (bars.length === 0) initBars();
+
+    const h = cc.height;
+    const w = cc.width;
+
+    cctx.clearRect(0, 0, w, h);
+
+    bars.forEach((b, i) => {
+      const bh = h * (b.baseH + Math.sin(chartTick * b.speed + b.phase) * b.amp * 0.3 + 0.1) * 2.2;
+      const bw = b.w || Math.max(3, w / BAR_COUNT * 0.5);
+      const bx = (i / BAR_COUNT) * w + (w / BAR_COUNT - bw) / 2;
+
+      const grad = cctx.createLinearGradient(0, h - bh, 0, h);
+      grad.addColorStop(0, 'rgba(255,150,0,0.5)');
+      grad.addColorStop(0.5, 'rgba(255,150,0,0.2)');
+      grad.addColorStop(1, 'rgba(255,150,0,0.02)');
+
+      cctx.fillStyle = grad;
+      cctx.beginPath();
+      cctx.roundRect(bx, h - bh, bw, bh, [2, 2, 0, 0]);
+      cctx.fill();
+    });
+
+    requestAnimationFrame(drawChart);
+  }
+  drawChart();
+
+  // === Audio control ===
+  const music = document.querySelector("#bgMusic");
+  const toggleBtn = document.querySelector("#soundToggle");
+  const volumeSlider = document.querySelector("#volumeSlider");
+  music.volume = 0.16;
+
+  function setButtonState(isPlaying) {
+    toggleBtn.classList.toggle("is-playing", isPlaying);
+    toggleBtn.setAttribute("aria-pressed", String(isPlaying));
+    toggleBtn.setAttribute(
+      "aria-label",
+      isPlaying ? "Выключить фоновую музыку" : "Включить фоновую музыку"
+    );
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    if (music.paused) {
+      music.currentTime = 0;
+      music.play().then(() => setButtonState(true)).catch(() => setButtonState(false));
+    } else {
+      music.pause();
+      setButtonState(false);
+    }
+  });
+
+  volumeSlider.addEventListener("input", () => {
+    music.volume = volumeSlider.value / 100;
+  });
+
+  // Автозапуск при первом взаимодействии с страницей
+  document.addEventListener("pointerdown", () => {
+    if (music.paused) {
+      music.currentTime = 0;
+      music.play().then(() => setButtonState(true)).catch(() => setButtonState(false));
+    }
+  }, { once: true });
+</script>
+</body>
+</html>
