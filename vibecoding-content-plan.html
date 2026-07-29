@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Контент-план — Вайбкодинг канал</title>
+<style>
+  :root { --sidebar-w: 220px; --accent: #667eea; --bg: #f8f9fa; --card: #fff; --text: #1a1a2e; --text-muted: #718096; --border: #e2e8f0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; display: flex; min-height: 100vh; }
+  .sidebar { width: var(--sidebar-w); background: #fff; border-right: 1px solid var(--border); position: fixed; top: 0; left: 0; bottom: 0; display: flex; flex-direction: column; z-index: 100; overflow-y: auto; }
+  .sidebar-header { padding: 20px 18px 12px; border-bottom: 1px solid var(--border); }
+  .sidebar-header h1 { font-size: 16px; line-height: 1.3; }
+  .sidebar-header .tag { font-size: 11px; color: var(--accent); font-weight: 600; margin-top: 2px; }
+  .sidebar-nav { padding: 12px 0; flex: 1; }
+  .nav-group { margin-bottom: 8px; }
+  .nav-group-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); padding: 8px 18px 4px; font-weight: 600; }
+  .nav-link { display: block; padding: 6px 18px; font-size: 13px; color: var(--text); text-decoration: none; border-left: 3px solid transparent; transition: all .15s; cursor: pointer; }
+  .nav-link:hover { background: #edf2f7; border-left-color: var(--accent); color: var(--accent); }
+  .nav-link.post-link { padding-left: 32px; font-size: 12px; color: var(--text-muted); }
+  .nav-link.post-link:hover { color: var(--accent); }
+  .main { margin-left: var(--sidebar-w); flex: 1; padding: 32px 40px 60px; max-width: 960px; }
+  section { margin-bottom: 48px; scroll-margin-top: 20px; }
+  .section-title { font-size: 22px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 10px; }
+  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .kpi-card { background: var(--card); border-radius: 10px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .kpi-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-muted); }
+  .kpi-card .value { font-size: 22px; font-weight: 700; color: var(--accent); margin-top: 2px; }
+  .kpi-card .sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .topics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .topic-card { background: var(--card); border-radius: 8px; padding: 12px 14px; border-left: 3px solid var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,0.04); font-size: 14px; }
+  .topic-card strong { display: block; margin-bottom: 2px; }
+  .topic-card.full { grid-column: span 2; }
+  .rubric-table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--card); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .rubric-table th { background: #edf2f7; font-weight: 600; }
+  .rubric-table th, .rubric-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  .day-badge { display: inline-block; background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; padding: 1px 8px; border-radius: 4px; }
+  .stage-card { background: var(--card); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .stage-card h3 { margin-bottom: 4px; font-size: 16px; }
+  .stage-goal { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+  .stage-card ul { padding-left: 18px; font-size: 14px; }
+  .stage-card ul li { margin-bottom: 3px; }
+  .funnel { background: var(--card); border-radius: 12px; padding: 24px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .funnel-step { display: inline-block; padding: 10px 20px; margin: 4px auto; border-radius: 8px; font-weight: 600; font-size: 14px; }
+  .funnel-step:nth-child(1) { background: #ebf4ff; color: #2b6cb0; }
+  .funnel-step:nth-child(3) { background: #e6fffa; color: #234e52; }
+  .funnel-step:nth-child(5) { background: #fefcbf; color: #744210; }
+  .funnel-step:nth-child(7) { background: var(--accent); color: #fff; }
+  .funnel-arrow { font-size: 20px; color: #cbd5e0; }
+  .posts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .post-card { background: var(--card); border-radius: 10px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); cursor: pointer; transition: all .2s; border: 1px solid transparent; }
+  .post-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-color: var(--accent); }
+  .post-card .num { display: inline-block; width: 26px; height: 26px; line-height: 26px; background: var(--accent); color: #fff; border-radius: 50%; font-size: 12px; font-weight: 700; text-align: center; margin-bottom: 8px; }
+  .post-card h4 { font-size: 15px; margin-bottom: 4px; }
+  .post-card .summary { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+  .post-card .tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .post-card .tag { font-size: 10px; background: #edf2f7; padding: 2px 8px; border-radius: 4px; color: var(--text-muted); }
+  .post-card .tag.expert { background: #fefcbf; color: #744210; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; }
+  .modal-overlay.active { display: flex; }
+  .modal { background: #fff; border-radius: 14px; max-width: 680px; width: 100%; padding: 32px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: modalIn .2s ease; }
+  @keyframes modalIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+  .modal-close:hover { background: #f7fafc; color: var(--text); }
+  .modal .num-badge { display: inline-block; width: 32px; height: 32px; line-height: 32px; background: var(--accent); color: #fff; border-radius: 50%; font-size: 14px; font-weight: 700; text-align: center; margin-bottom: 12px; }
+  .modal h2 { font-size: 22px; margin-bottom: 4px; }
+  .modal .post-meta { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .modal .post-meta span { background: #edf2f7; padding: 2px 10px; border-radius: 4px; }
+  .modal .content { font-size: 15px; line-height: 1.8; }
+  .modal .content h3 { font-size: 16px; margin: 16px 0 8px; color: var(--accent); }
+  .modal .content p { margin-bottom: 10px; }
+  .modal .content ul { padding-left: 20px; margin-bottom: 10px; }
+  .modal .content ul li { margin-bottom: 4px; }
+  .modal .content .highlight { background: #ebf4ff; border-radius: 8px; padding: 14px 16px; margin: 12px 0; font-size: 14px; }
+  .modal .content table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0; }
+  .modal .content table th, .modal .content table td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+  .modal .content table th { background: #edf2f7; }
+  .names-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .name-group { background: var(--card); border-radius: 8px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .name-group h4 { font-size: 13px; margin-bottom: 6px; color: var(--accent); }
+  .name-group ul { list-style: none; font-size: 14px; }
+  .name-group ul li { padding: 2px 0; }
+  .rec { display: flex; gap: 10px; margin-top: 16px; }
+  .rec-item { flex: 1; background: var(--card); border-radius: 8px; padding: 14px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .rec-item .num { display: inline-block; width: 22px; height: 22px; line-height: 22px; background: var(--accent); color: #fff; border-radius: 50%; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+  .rec-item .name { font-weight: 700; font-size: 14px; }
+  .rec-item .desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .todo-list { list-style: none; }
+  .todo-list li { padding: 8px 14px; margin-bottom: 4px; background: var(--card); border-radius: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); font-size: 14px; }
+  .todo-list li::before { content: "☐ "; color: #cbd5e0; }
+  .template { background: #1a1a2e; color: #e2e8f0; border-radius: 10px; padding: 16px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.7; white-space: pre-wrap; margin-bottom: 12px; }
+  @media (max-width: 768px) { .sidebar { display: none; } .main { margin-left: 0; padding: 20px 16px; } .posts-grid { grid-template-columns: 1fr; } .topics-grid { grid-template-columns: 1fr; } .kpi-grid { grid-template-columns: 1fr; } .rec { flex-direction: column; } .modal { padding: 24px 20px; } }
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <h1>🎯 Контент-план</h1>
+    <div class="tag">Вайбкодинг · Версия 1.0</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-group-label">База</div>
+      <a class="nav-link" href="#overview">📊 Обзор</a>
+      <a class="nav-link" href="#roadmap">🗺 Роадмап</a>
+      <a class="nav-link" href="#funnel">🔄 Воронка</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Посты</div>
+      <a class="nav-link post-link" onclick="openPost(0)">1. Манифест</a>
+      <a class="nav-link post-link" onclick="openPost(1)">2. Эволюция</a>
+      <a class="nav-link post-link" onclick="openPost(2)">3. Инструменты</a>
+      <a class="nav-link post-link" onclick="openPost(3)">4. CLI vs плагины</a>
+      <a class="nav-link post-link" onclick="openPost(4)">5. Токеномика</a>
+      <a class="nav-link post-link" onclick="openPost(5)">6. Локальные модельки</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Прочее</div>
+      <a class="nav-link" href="#templates">📝 Шаблоны</a>
+      <a class="nav-link" href="#names">🏷 Названия</a>
+      <a class="nav-link" href="#todo">✅ Todo</a>
+    </div>
+  </nav>
+</aside>
+<main class="main">
+
+<!-- Overview -->
+<section id="overview">
+  <h2 class="section-title">📊 Обзор</h2>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="label">Аудитория</div><div class="value">Уровень 0-3</div><div class="sub">Начинающие, фрилансеры, смежники</div></div>
+    <div class="kpi-card"><div class="label">Площадки</div><div class="value">Telegram + Threads</div><div class="sub">Основная + привлечение</div></div>
+    <div class="kpi-card"><div class="label">Ресурсы</div><div class="value">6-7 ч/нед</div><div class="sub">1 автор + руководитель</div></div>
+  </div>
+  <table class="rubric-table" style="margin-bottom: 20px;">
+    <tr><th>Метрика</th><th>Неделя 1</th><th>Неделя 3-4</th><th>Неделя 8+</th></tr>
+    <tr><td><strong>Подписчики</strong></td><td>1 500</td><td>2 500-3 000</td><td>5 000+</td></tr>
+    <tr><td><strong>ER</strong></td><td>20%+</td><td>20%+</td><td>15-20%</td></tr>
+    <tr><td><strong>Переходы на вебинары</strong></td><td>-</td><td>50-100</td><td>100-200+</td></tr>
+  </table>
+  <h3 style="font-size:16px;margin:20px 0 12px;">🧩 Темы (контент-карта)</h3>
+  <div class="topics-grid">
+    <div class="topic-card"><strong>🛠 Инструменты</strong>Cursor, Bolt.new, Lovable, Windsurf, Claude, v0</div>
+    <div class="topic-card"><strong>🤖 Провайдеры</strong>OpenAI, Anthropic, Google, open-source</div>
+    <div class="topic-card"><strong>🎯 Промпты</strong>Базовые и продвинутые техники</div>
+    <div class="topic-card"><strong>💡 Идеи проектов</strong>От лендингов до MVP</div>
+    <div class="topic-card"><strong>🚀 Деплой</strong>GitHub Pages, Vercel, Netlify, Railway</div>
+    <div class="topic-card"><strong>🔌 MCP / Skills</strong>Расширение возможностей агентов</div>
+    <div class="topic-card full"><strong>📋 Кейсы и интервью</strong>Реальные проекты через вайбкодинг</div>
+  </div>
+  <h3 style="font-size:16px;margin:20px 0 12px;">📅 Сетка рубрик (недели 1-2)</h3>
+  <table class="rubric-table">
+    <tr><th>День</th><th>Рубрика</th><th>Пример заголовка</th></tr>
+    <tr><td><span class="day-badge">Пн</span></td><td>Манифест</td><td>«Вайбкодинг — это не хайп. Это новый способ создавать софт»</td></tr>
+    <tr><td><span class="day-badge">Вт</span></td><td>Инструмент</td><td>«Cursor — IDE, которая пишет код за тебя»</td></tr>
+    <tr><td><span class="day-badge">Ср</span></td><td>Кейс</td><td>«Как маркетолог собрал лендинг за 30 мин без кода»</td></tr>
+    <tr><td><span class="day-badge">Чт</span></td><td>Промпты</td><td>«Топ-10 промптов для генерации рабочих сайтов»</td></tr>
+    <tr><td><span class="day-badge">Пт</span></td><td>Деплой</td><td>«GitHub Pages, Vercel, Netlify: где хостить бесплатно»</td></tr>
+    <tr><td><span class="day-badge">Сб</span></td><td>Идея проекта</td><td>«Сделай свой первый сервис за вечер через Bolt.new»</td></tr>
+    <tr><td><span class="day-badge">Вс</span></td><td>Дайджест</td><td>«Лучшие ссылки, проекты и новости недели»</td></tr>
+  </table>
+</section>
+
+<!-- Roadmap -->
+<section id="roadmap">
+  <h2 class="section-title">🗺 Роадмап</h2>
+  <div class="stage-card">
+    <h3>🔧 Подготовка (за неделю до старта)</h3>
+    <div class="stage-goal">Название · аватарка · визуал · 5-7 постов · Threads · анонс</div>
+  </div>
+  <div class="stage-card">
+    <h3>🚀 Запуск (недели 1-2)</h3>
+    <div class="stage-goal">1 500 подписчиков · ER >20%</div>
+    <ul><li>Перелив с каналов Хекслета</li><li>Ежедневные посты (14/2 нед)</li><li>Обсуждения и Threads</li></ul>
+  </div>
+  <div class="stage-card">
+    <h3>🔥 Комьюнити (недели 3-6)</h3>
+    <div class="stage-goal">2 500-3 000 подписчиков · ER >20%</div>
+    <ul><li>Первый вебинар</li><li>Спецпредложение Хекслета</li><li>Вопрос недели · Интервью</li></ul>
+  </div>
+  <div class="stage-card">
+    <h3>⚡ Системная работа (недели 7+)</h3>
+    <div class="stage-goal">5 000+ подписчиков · ER 15-20%</div>
+    <ul><li>3-4 поста/нед</li><li>Вебинары раз в месяц</li><li>Закреплённые рубрики</li></ul>
+  </div>
+</section>
+
+<!-- Posts -->
+<section id="posts">
+  <h2 class="section-title">📝 Стартовые посты</h2>
+  <div class="posts-grid">
+    <div class="post-card" onclick="openPost(0)">
+      <div class="num">1</div>
+      <h4>Манифест</h4>
+      <div class="summary">Почему вайбкодинг — это новая реальность, а не хайп</div>
+      <div class="tags"><span class="tag">Введение</span><span class="tag expert">Кирилл</span></div>
+    </div>
+    <div class="post-card" onclick="openPost(1)">
+      <div class="num">2</div>
+      <h4>Эволюция вайбкодинга</h4>
+      <div class="summary">От чатов к плагинам, от плагинов к CLI-агентам</div>
+      <div class="tags"><span class="tag">История</span><span class="tag expert">Валентин</span></div>
+    </div>
+    <div class="post-card" onclick="openPost(2)">
+      <div class="num">3</div>
+      <h4>Инструменты и провайдеры</h4>
+      <div class="summary">Claude Code, Opencode, Codex CLI, Cline, Cursor</div>
+      <div class="tags"><span class="tag">Обзор</span><span class="tag expert">Грегори</span></div>
+    </div>
+    <div class="post-card" onclick="openPost(3)">
+      <div class="num">4</div>
+      <h4>CLI vs Плагины</h4>
+      <div class="summary">Что выбрать новичку, а что — профи</div>
+      <div class="tags"><span class="tag">Сравнение</span><span class="tag expert">Грегори</span><span class="tag expert">Кирилл</span></div>
+    </div>
+    <div class="post-card" onclick="openPost(4)">
+      <div class="num">5</div>
+      <h4>Токеномика и лимиты</h4>
+      <div class="summary">Сколько стоят подписки и на что хватает</div>
+      <div class="tags"><span class="tag">Гайд</span><span class="tag expert">Все эксперты</span></div>
+    </div>
+    <div class="post-card" onclick="openPost(5)">
+      <div class="num">6</div>
+      <h4>Локальные модельки</h4>
+      <div class="summary">Почему это почти не сработает (и когда сработает)</div>
+      <div class="tags"><span class="tag">Разбор</span><span class="tag expert">Грегори</span><span class="tag expert">Кирилл</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Funnel -->
+<section id="funnel">
+  <h2 class="section-title">🔄 Воронка конверсии</h2>
+  <div class="funnel">
+    <div class="funnel-step">📱 Telegram-канал</div>
+    <div class="funnel-arrow">⬇</div>
+    <div class="funnel-step">🎤 Вебинары и Q&A</div>
+    <div class="funnel-arrow">⬇</div>
+    <div class="funnel-step">🏷 Спецпредложение</div>
+    <div class="funnel-arrow">⬇</div>
+    <div class="funnel-step">📚 Курс Хекслета</div>
+  </div>
+  <p style="font-size:14px;color:var(--text-muted);text-align:center;">Первые 1.5-2 нед — контент. Продажи с 3-й недели.</p>
+</section>
+
+<!-- Templates -->
+<section id="templates">
+  <h2 class="section-title">📝 Шаблоны постов</h2>
+  <h3 style="font-size:16px;margin-bottom:8px;">🛠 Инструмент недели</h3>
+  <div class="template">🛠 [Название] — [описание]
+Кому: [аудитория] · Цена: [бесплатно/$X]
+⭐ Рейтинг: [X/10]
+
+Чем полезен:
+• [фича 1] · • [фича 2] · • [фича 3]
+
+👇 Пример за 30 сек: [гифка/скриншот]
+#инструменты #вайбкодинг</div>
+  <h3 style="font-size:16px;margin-bottom:8px;">📦 Кейс / Проект</h3>
+  <div class="template">📦 Кейс: [название проекта]
+Кто: [роль] · Стек: [инструменты]
+Результат: [ссылка/скриншот]
+Главный урок: [инсайт]
+#кейсы #вайбкодинг</div>
+</section>
+
+<!-- Names -->
+<section id="names">
+  <h2 class="section-title">🏷 Варианты названий</h2>
+  <div class="names-grid">
+    <div class="name-group"><h4>Хекслет</h4><ul><li>Хекслет Вайб</li><li>VibeCoding by Hexlet</li><li>ХексВайб</li></ul></div>
+    <div class="name-group"><h4>Старт</h4><ul><li>Старт в вайбкодинг</li><li>Вайбкодинг с нуля</li><li>Vibe Start</li></ul></div>
+    <div class="name-group"><h4>Кейсы</h4><ul><li>ВайбКейсы</li><li>Кейсы вайбкодеров</li><li>Практика вайбкодинга</li></ul></div>
+    <div class="name-group"><h4>Комбо</h4><ul><li>Vibe & Code</li><li>ВайбХекс</li><li>Старт в IT: Вайбкодинг</li></ul></div>
+  </div>
+  <h3 style="font-size:14px;margin-bottom:10px;">🎯 Финальные кандидаты</h3>
+  <div class="rec">
+    <div class="rec-item"><div class="num">1</div><div class="name">База вайбкодинга / Проекты, тулзы</div><div class="desc">«База вайбкодинга / Про...»</div></div>
+    <div class="rec-item"><div class="num">2</div><div class="name">Вайбкодинг: проекты, инструменты</div><div class="desc">«Вайбкодинг: проекты, и...»</div></div>
+    <div class="rec-item"><div class="num">3</div><div class="name">База вайбкодера / Проекты → тулзы</div><div class="desc">«База вайбкодера / Прое...»</div></div>
+  </div>
+</section>
+
+<!-- Todo -->
+<section id="todo">
+  <h2 class="section-title">✅ Todo-лист: первая неделя</h2>
+  <ul class="todo-list">
+    <li>Выбрать название канала</li>
+    <li>Создать аватарку и описание</li>
+    <li>Согласовать визуальный стиль</li>
+    <li>Написать 7 постов для первой недели</li>
+    <li>Согласовать анонс с Хекслетом</li>
+    <li>Настроить Threads</li>
+    <li>Запустить канал</li>
+    <li>Сделать первый анонс</li>
+  </ul>
+</section>
+
+</main>
+
+<!-- Modal overlay -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="num-badge" id="modalNum">1</div>
+    <h2 id="modalTitle">Заголовок</h2>
+    <div class="post-meta" id="modalMeta"></div>
+    <div class="content" id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const POSTS = [
+  {num:1, title:'Манифест: что такое вайбкодинг и почему это сейчас', meta:'<span>Введение</span><span>Кирилл Диденко</span>', content:'<p><strong>Суть:</strong> задать тон, объяснить "почему сейчас".</p><ul><li>Вайбкодинг — эволюция: блокнот → IDE → copilot → описание словами</li><li>Кому нужно: не-программистам и программистам (×10)</li><li>Что будет: инструменты, кейсы, гайды</li></ul><div class="highlight">💡 Закончить вопросом "А ты пробовал?"</div>'},
+  {num:2, title:'Эволюция: от чатов к CLI-агентам', meta:'<span>История</span><span>Валентин Исипчук</span>', content:'<p>Три эпохи: чат-эра → плагиновая эра → CLI-эра.</p><p>CLI-агенты — качественный скачок. Новичку страшно — поэтому мы здесь.</p><div class="highlight">💡 Спросить у экспертов "с чего начинали вы?"</div>'},
+  {num:3, title:'Инструменты и провайдеры', meta:'<span>Обзор</span><span>Грегори Салиба</span>', content:'<p>Claude Code, Opencode, Codex CLI, Cline, Cursor.</p><p>Новичку — Cursor. Для автоматизации — Cline. Терминал — Claude Code.</p><div class="highlight">💡 Кирилл: Cursor+Cline. Грегори: Claude Code. Опрос в конце.</div>'},
+  {num:4, title:'CLI-агенты vs плагины', meta:'<span>Сравнение</span><span>Грегори + Кирилл</span>', content:'<p>CLI — контроль и сложные задачи. Плагины — быстрый вход.</p><p>Но граница стирается (Cline — плагин как CLI).</p><div class="highlight">💡 Кружочки от экспертов.</div>'},
+  {num:5, title:'Токеномика и лимиты', meta:'<span>Гайд</span><span>Все эксперты</span>', content:'<p>Claude Pro $20, Max $100/200, ChatGPT $20, Copilot $10, Cursor $20.</p><p>Что такое токены. Лайфхаки экономии.</p><div class="highlight">💡 Таблица "наш опыт". Самый комментируемый пост.</div>'},
+  {num:6, title:'Локальные модельки', meta:'<span>Разбор</span><span>Грегори + Кирилл</span>', content:'<p><strong>Почему нет:</strong> слабее, нужен GPU, на CPU — черепаха.</p><p><strong>Когда да:</strong> Whisper (Кирилл), DeepSeek-coder (Грегори), офлайн.</p><div class="highlight">💡 Использовать для узких задач, не заменять Claude/Cursor.</div>'}
+];
+
+function openPost(idx) {
+  const p = POSTS[idx];
+  if (!p) return;
+  document.getElementById('modalNum').textContent = p.num;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalMeta').innerHTML = p.meta;
+  document.getElementById('modalContent').innerHTML = p.content;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
