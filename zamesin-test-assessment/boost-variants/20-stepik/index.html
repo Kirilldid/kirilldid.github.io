@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOOST — Stepik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --purple:#6c7bdf;--purple-dark:#3e50cb;--blue:#4485ed;
+  --orange:#fea832;--coral:#ff7965;--green:#288b28;
+  --dark:#222;--text:#777;--muted:#999;--light:#bbbbbb;
+  --bg:#f6f6f6;--bg-purple:#e9ebfa;--card:#fff;
+  --border:#e6e9ed;
+  --shadow:rgba(0,0,0,.15) 0px 0px 1px 0px,rgba(0,0,0,.15) 0px 1px 1px 0px;
+  --skeleton:linear-gradient(to right,#eee 8%,#ddd 18%,#eee 33%);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Roboto',sans-serif;color:var(--dark);background:var(--bg);overflow-x:hidden;line-height:1.5}
+
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:var(--card);border-bottom:1px solid var(--border);
+  padding:0 32px;display:flex;justify-content:space-between;align-items:center;height:56px;
+}
+.nav-brand{font-weight:900;font-size:18px;color:var(--purple-dark)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav a{text-decoration:none;font-size:14px;color:var(--text);font-weight:500;transition:color .2s}
+.nav a:hover{color:var(--purple-dark)}
+.nav-cta{
+  background:var(--purple);color:#fff;border:none;padding:10px 22px;
+  border-radius:6px;font-size:14px;font-weight:500;cursor:pointer;
+  transition:all .15s;
+}
+.nav-cta:hover{background:var(--purple-dark)}
+
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:100px 24px 60px;
+  background:var(--bg-purple);position:relative;overflow:hidden;
+}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:20px;
+  background:var(--card);color:var(--purple-dark);
+  font-size:13px;font-weight:500;margin-bottom:16px;
+  box-shadow:var(--shadow);
+}
+.hero h1{font-size:clamp(36px,4.5vw,52px);font-weight:900;line-height:1.1;margin-bottom:16px}
+.hero h1 span{color:var(--purple)}
+.hero-sub{font-size:17px;color:var(--text);max-width:440px;line-height:1.7;margin-bottom:32px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:6px;
+  font-family:'Roboto',sans-serif;font-size:15px;font-weight:500;
+  text-decoration:none;cursor:pointer;border:none;transition:all .15s;
+}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-purple:hover{background:var(--purple-dark)}
+.btn-outline{background:var(--card);color:var(--purple);box-shadow:var(--shadow)}
+.btn-outline:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+
+.hero-visual{
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 1px 5px 3px rgba(0,0,0,.05);
+}
+.hero-visual img{width:100%;display:block}
+
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  max-width:1100px;margin:-32px auto 0;position:relative;z-index:2;padding:0 24px;
+}
+.stat-card{
+  background:var(--card);border-radius:12px;padding:24px;text-align:center;
+  box-shadow:var(--shadow);
+}
+.stat-num{font-size:clamp(28px,3vw,36px);font-weight:900;line-height:1}
+.stat-num.purple{color:var(--purple)}
+.stat-num.orange{color:var(--orange)}
+.stat-num.green{color:var(--green)}
+.stat-num.coral{color:var(--coral)}
+.stat-label{font-size:13px;color:var(--muted);margin-top:6px}
+
+.section{padding:72px 24px}
+.section-title{font-size:clamp(28px,3.5vw,42px);font-weight:900;text-align:center;margin-bottom:12px}
+.section-sub{text-align:center;color:var(--text);font-size:15px;max-width:500px;margin:0 auto 48px}
+
+.game-steps{max-width:700px;margin:0 auto}
+.game-step{
+  display:flex;gap:20px;padding:20px 0;
+  border-bottom:1px solid var(--border);align-items:flex-start;
+}
+.game-step:first-child{border-top:1px solid var(--border)}
+.step-icon{
+  min-width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.icon-setup{background:#e8f5e9}
+.icon-prd{background:#e3f2fd}
+.icon-mvp{background:#fce4ec}
+.step-xp{font-size:11px;font-weight:700;margin-top:4px}
+.game-step h3{font-size:17px;font-weight:700;margin-bottom:4px}
+.game-step p{font-size:14px;color:var(--text);line-height:1.6}
+
+.progress-box{
+  max-width:700px;margin:32px auto 0;
+  background:var(--card);border-radius:12px;padding:20px;
+  box-shadow:var(--shadow);
+}
+.progress-header{display:flex;justify-content:space-between;margin-bottom:8px}
+.progress-label{font-size:14px;font-weight:700}
+.progress-pct{font-size:14px;font-weight:700;color:var(--purple)}
+.progress-track{height:10px;background:var(--border);border-radius:5px;overflow:hidden}
+.progress-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--purple),var(--blue))}
+
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
+.case-card{
+  background:var(--card);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);transition:all .2s;
+}
+.case-card:hover{transform:translateY(-2px);box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.case-card img{width:100%;height:200px;object-fit:cover}
+.case-body{padding:16px}
+.case-tag{font-size:12px;font-weight:500;color:var(--purple);margin-bottom:4px}
+.case-title{font-size:16px;font-weight:700;margin-bottom:4px}
+.case-desc{font-size:13px;color:var(--text)}
+
+.author-card{
+  max-width:1100px;margin:0 auto;
+  background:var(--card);border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 1fr;
+}
+.author-img{width:100%;height:100%;object-fit:cover;min-height:320px}
+.author-info{padding:40px;display:flex;flex-direction:column;justify-content:center}
+.author-info h3{font-size:24px;font-weight:900;margin-bottom:8px}
+.author-info p{font-size:14px;color:var(--text);line-height:1.6;margin-bottom:6px}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
+.price-card{
+  background:var(--card);border-radius:12px;padding:32px;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;
+}
+.price-card.featured{border:2px solid var(--purple);position:relative}
+.price-card.featured::after{
+  content:'ПОПУЛЯРНЫЙ';position:absolute;top:16px;right:16px;
+  background:var(--bg-purple);color:var(--purple-dark);padding:4px 12px;border-radius:20px;
+  font-size:10px;font-weight:700;
+}
+.price-label{font-size:13px;font-weight:500;color:var(--purple);margin-bottom:8px}
+.price-amount{font-size:clamp(32px,4vw,44px);font-weight:900;margin-bottom:24px;line-height:1}
+.price-features{list-style:none;flex:1}
+.price-features li{padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--text)}
+.price-features li::before{content:'✓ ';color:var(--green);font-weight:700}
+.price-card .btn{margin-top:20px;justify-content:center}
+
+.footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-size:12px;color:var(--light)}
+.footer a{color:var(--purple);text-decoration:none}
+
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr);margin-top:-16px}
+  .cases-grid,.pricing-grid{grid-template-columns:1fr}
+  .author-card{grid-template-columns:1fr}
+  .author-img{min-height:250px}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand">BOOST</span>
+  <div class="nav-links">
+    <a href="#program">Программа</a>
+    <a href="#cases">Кейсы</a>
+    <a href="#pricing">Тарифы</a>
+    <button class="nav-cta">Записаться</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-badge">✦ Интенсив по вайбкодингу</span>
+      <h1>Научись <span>вайбкодить</span> за выходные</h1>
+      <p class="hero-sub">Интенсив по вайбкодингу с продуктовым подходом. За два воркшопа создашь работающий продукт. 95% новичков.</p>
+      <div class="hero-cta">
+        <a href="https://boost-intensive.ru/#pricing" class="btn btn-purple">Записаться — 14 900 ₽</a>
+        <a href="#program" class="btn btn-outline">Программа</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="https://boost-intensive.ru/_next/image?url=%2Fimages%2Fivan-screen-5253.jpg&w=3840&q=75" alt="Ваня Замесин">
+    </div>
+  </div>
+</section>
+
+<div style="max-width:1100px;margin:48px auto 0;padding:0 24px">
+  <div class="stats">
+    <div class="stat-card"><div class="stat-num purple">9.2</div><div class="stat-label">Оценка / 10</div></div>
+    <div class="stat-card"><div class="stat-num orange">95%</div><div class="stat-label">Без опыта</div></div>
+    <div class="stat-card"><div class="stat-num green">1000+</div><div class="stat-label">Участников</div></div>
+    <div class="stat-card"><div class="stat-num coral">3</div><div class="stat-label">Воркшопа</div></div>
+  </div>
+</div>
+
+<section class="section" id="program">
+  <div class="section-title">Программа</div>
+  <div class="section-sub">Пройди все модули и создай свой продукт</div>
+  <div class="game-steps">
+    <div class="game-step">
+      <div class="step-icon icon-setup">🛠</div>
+      <div>
+        <h3>Установочная сессия</h3>
+        <p>Настраиваем инструменты и подключаем сервисы. Всё готово к работе.</p>
+        <div class="step-xp" style="color:var(--green)">+100 XP</div>
+      </div>
+    </div>
+    <div class="game-step">
+      <div class="step-icon icon-prd">💬</div>
+      <div>
+        <h3>PRD и лендинг</h3>
+        <p>Опишите продукт голосом. Нейросеть создаст PRD и лендинг из слов.</p>
+        <div class="step-xp" style="color:var(--blue)">+500 XP</div>
+      </div>
+    </div>
+    <div class="game-step">
+      <div class="step-icon icon-mvp">🚀</div>
+      <div>
+        <h3>Создание MVP</h3>
+        <p>Соберите приложение, интегрируйте с лендингом, задеплойте.</p>
+        <div class="step-xp" style="color:var(--coral)">+1000 XP</div>
+      </div>
+    </div>
+  </div>
+  <div class="progress-box">
+    <div class="progress-header"><span class="progress-label">Прогресс курса</span><span class="progress-pct">72%</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:72%"></div></div>
+  </div>
+</section>
+
+<section class="section" id="cases" style="background:var(--card)">
+  <div class="section-title">Кейсы</div>
+  <div class="section-sub">Что создали выпускники</div>
+  <div class="cases-grid">
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/anastasia-kalacheva-knowledge-school/full.png" alt="Knowledge School">
+      <div class="case-body"><div class="case-tag">ПРОДУКТ</div><div class="case-title">Knowledge School</div><div class="case-desc">AI-конструктор курсов</div></div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/sofya-tretyakova-strateg/full.png" alt="СТРАТЕГ">
+      <div class="case-body"><div class="case-tag">ПРОДУКТ</div><div class="case-title">СТРАТЕГ</div><div class="case-desc">Стратегическая разведка для SEO</div></div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/zaira-keligova-oskelly-atelier/full.png" alt="OSKELLY">
+      <div class="case-body"><div class="case-tag">ПРОДУКТ</div><div class="case-title">OSKELLY × AI Atelier</div><div class="case-desc">AI-стилист в Telegram</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="author">
+  <div class="section-title">Автор</div>
+  <div class="author-card">
+    <img class="author-img" src="https://boost-intensive.ru/_next/image?url=%2Fimages%2Fivan-screen-5253.jpg&w=3840&q=75" alt="Ваня Замесин">
+    <div class="author-info">
+      <h3>Ваня Замесин</h3>
+      <p>Эксперт №1 среди IT-продакт-менеджеров. 11+ лет опыта.</p>
+      <p>Автор методологии Advanced JTBD.</p>
+      <p>Руководил Яндекс Картинками — 30M MAU.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing" style="background:var(--card)">
+  <div class="section-title">Тарифы</div>
+  <div class="section-sub">Выберите подходящий</div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-label">Интенсив</div>
+      <div class="price-amount">14 900 ₽</div>
+      <ul class="price-features"><li>3 воркшопа</li><li>Кураторы</li><li>Записи навсегда</li></ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-outline">Записаться</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">+ Q&A</div>
+      <div class="price-amount">19 900 ₽</div>
+      <ul class="price-features"><li>Всё из Интенсив</li><li>Q&A сессия</li><li>Больше поддержки</li></ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-purple">Записаться</a>
+    </div>
+    <div class="price-card">
+      <div class="price-label">Полная</div>
+      <div class="price-amount">44 900 ₽</div>
+      <ul class="price-features"><li>Boost + Pro</li><li>AI-система</li><li>Боты и агенты</li></ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-outline">Записаться</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>BOOST · Stepik · Variant #20</span>
+  <br><a href="https://boost-intensive.ru" target="_blank">boost-intensive.ru</a>
+</footer>
+
+</body>
+</html>

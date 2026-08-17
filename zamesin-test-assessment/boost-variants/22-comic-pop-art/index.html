@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOOST — Comic Pop Art</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#fffde7;--fg:#1a1a1a;--yellow:#ffd600;--red:#e53935;
+  --blue:#1e88e5;--pink:#f50057;--green:#43a047;
+  --black:#1a1a1a;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Comic Neue',cursive;
+  background:var(--bg);color:var(--fg);
+  overflow-x:hidden;
+}
+.bangers{font-family:'Bangers',cursive;letter-spacing:.05em}
+
+.halftone{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:-1;
+  background-image:radial-gradient(circle,rgba(0,0,0,.08) 1px,transparent 1px);
+  background-size:8px 8px;
+}
+
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--yellow);
+  border-bottom:6px solid var(--black);
+  padding:8px 24px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.nav-brand{font-size:28px;color:var(--black);text-shadow:3px 3px 0 var(--red)}
+.nav a{
+  font-size:14px;font-weight:700;color:var(--black);
+  text-decoration:none;padding:4px 12px;
+  border:3px solid var(--black);background:#fff;
+  transition:all .1s;
+}
+.nav a:hover{background:var(--pink);color:#fff;border-color:var(--black);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--black)}
+
+.hero{
+  min-height:90vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  padding:60px 24px;text-align:center;
+  position:relative;
+}
+.burst{
+  position:absolute;width:400px;height:400px;
+  background:var(--yellow);
+  clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  animation:burst-spin 20s linear infinite;
+  opacity:.2;
+}
+@keyframes burst-spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+.speech-bubble{
+  background:#fff;border:4px solid var(--black);
+  border-radius:20px;padding:12px 24px;
+  font-size:14px;font-weight:700;
+  position:relative;margin-bottom:24px;
+  box-shadow:4px 4px 0 var(--black);
+}
+.speech-bubble::after{
+  content:'';position:absolute;bottom:-16px;left:50%;
+  transform:translateX(-50%);
+  border:10px solid transparent;border-top:10px solid var(--black);
+}
+.speech-bubble::before{
+  content:'';position:absolute;bottom:-10px;left:50%;
+  transform:translateX(-50%);
+  border:8px solid transparent;border-top:8px solid #fff;
+  z-index:1;
+}
+.hero h1{
+  font-size:clamp(48px,10vw,100px);
+  line-height:.95;margin-bottom:16px;
+  text-shadow:4px 4px 0 var(--red);
+  color:var(--black);
+  position:relative;z-index:1;
+}
+.hero h1 .yellow{color:var(--yellow);text-shadow:4px 4px 0 var(--black)}
+.hero-sub{
+  font-size:18px;max-width:500px;line-height:1.5;
+  margin-bottom:32px;position:relative;z-index:1;
+  background:#fff;padding:12px 20px;border:3px solid var(--black);
+  box-shadow:3px 3px 0 var(--black);
+}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;position:relative;z-index:1}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:16px 32px;
+  font-family:'Bangers',cursive;font-size:20px;
+  letter-spacing:.05em;
+  text-decoration:none;cursor:pointer;
+  border:4px solid var(--black);
+  transition:all .1s;
+  box-shadow:4px 4px 0 var(--black);
+}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--black)}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:#c62828}
+.btn-yellow{background:var(--yellow);color:var(--black)}
+.btn-yellow:hover{background:#fdd835}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:#1565c0}
+
+.pow{
+  text-align:center;font-family:'Bangers',cursive;
+  font-size:48px;color:var(--red);
+  text-shadow:3px 3px 0 var(--black);
+  padding:16px;
+}
+
+.section{padding:60px 24px}
+.section-title{
+  font-size:clamp(32px,5vw,52px);
+  text-align:center;margin-bottom:40px;
+  text-shadow:3px 3px 0 var(--yellow);
+}
+
+.stats-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  max-width:900px;margin:0 auto;
+}
+.stat-item{
+  background:#fff;border:4px solid var(--black);
+  padding:24px 16px;text-align:center;
+  box-shadow:4px 4px 0 var(--black);
+  transition:all .1s;
+}
+.stat-item:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--black)}
+.stat-num{font-size:clamp(32px,4vw,48px);font-weight:700;color:var(--red);line-height:1}
+.stat-label{font-size:12px;font-weight:700;margin-top:6px}
+
+.program-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;max-width:1000px;margin:0 auto;
+}
+.program-card{
+  background:#fff;border:4px solid var(--black);
+  padding:24px;text-align:center;
+  box-shadow:4px 4px 0 var(--black);
+  transition:all .1s;position:relative;
+}
+.program-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--black)}
+.program-card::before{
+  content:attr(data-num);
+  position:absolute;top:-16px;right:-8px;
+  background:var(--yellow);border:3px solid var(--black);
+  padding:4px 12px;font-family:'Bangers',cursive;
+  font-size:14px;box-shadow:2px 2px 0 var(--black);
+}
+.program-emoji{font-size:48px;margin-bottom:12px}
+.program-card h3{font-family:'Bangers',cursive;font-size:22px;margin-bottom:8px}
+.program-card p{font-size:14px;line-height:1.5}
+
+.cases-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:16px;max-width:1000px;margin:0 auto;
+}
+.case-card{
+  background:#fff;border:4px solid var(--black);
+  overflow:hidden;box-shadow:4px 4px 0 var(--black);
+  transition:all .1s;
+}
+.case-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--black)}
+.case-card img{width:100%;height:200px;object-fit:cover;border-bottom:4px solid var(--black)}
+.case-body{padding:16px}
+.case-tag{font-family:'Bangers',cursive;font-size:14px;color:var(--pink);margin-bottom:4px}
+.case-title{font-family:'Bangers',cursive;font-size:20px;margin-bottom:4px}
+.case-desc{font-size:14px}
+
+.author-card{
+  max-width:700px;margin:0 auto;
+  background:#fff;border:4px solid var(--black);
+  box-shadow:4px 4px 0 var(--black);
+  display:grid;grid-template-columns:1fr 1fr;
+  overflow:hidden;
+}
+.author-img{width:100%;height:100%;object-fit:cover;min-height:300px;border-right:4px solid var(--black)}
+.author-info{padding:24px;display:flex;flex-direction:column;justify-content:center}
+.author-info h3{font-family:'Bangers',cursive;font-size:24px;margin-bottom:8px;color:var(--red)}
+.author-info p{font-size:14px;line-height:1.5;margin-bottom:6px}
+
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;max-width:1000px;margin:0 auto;
+}
+.price-card{
+  background:#fff;border:4px solid var(--black);
+  padding:24px;box-shadow:4px 4px 0 var(--black);
+  display:flex;flex-direction:column;
+  transition:all .1s;
+}
+.price-card:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--black)}
+.price-card.featured{background:var(--yellow)}
+.price-label{font-family:'Bangers',cursive;font-size:18px;color:var(--red);margin-bottom:8px}
+.price-amount{font-size:clamp(32px,4vw,44px);font-weight:700;margin-bottom:20px;line-height:1}
+.price-features{list-style:none;flex:1}
+.price-features li{
+  padding:8px 0;border-bottom:2px dashed rgba(0,0,0,.1);
+  font-size:14px;line-height:1.5;
+}
+.price-features li::before{content:'💥 ';margin-right:4px}
+.price-card .btn{margin-top:20px;text-align:center;justify-content:center}
+
+.footer{
+  text-align:center;padding:16px;
+  background:var(--black);color:var(--yellow);
+  font-family:'Bangers',cursive;font-size:14px;
+  letter-spacing:.1em;
+}
+.footer a{color:var(--pink);text-decoration:none}
+
+@media(max-width:768px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .author-card{grid-template-columns:1fr}
+  .author-img{border-right:none;border-bottom:4px solid var(--black);min-height:250px}
+  .section{padding:40px 16px}
+}
+</style>
+</head>
+<body>
+<div class="halftone"></div>
+
+<nav class="nav">
+  <span class="nav-brand bangers">BOOST!</span>
+  <a href="../index.html">← Все варианты</a>
+</nav>
+
+<section class="hero">
+  <div class="burst"></div>
+  <div class="speech-bubble bangers">ВАЙБКОДИНГ — ЭТО ПРОСТО!</div>
+  <h1 class="bangers">НАЧНИ<br><span class="yellow">ВАЙБКОДИТЬ</span><br>ЗА ВЫХОДНЫЕ</h1>
+  <p class="hero-sub">Интенсив по вайбкодингу с продуктовым подходом. За два воркшопа создашь работающий продукт!</p>
+  <div class="hero-cta">
+    <a href="https://boost-intensive.ru/#pricing" class="btn btn-red">ПОЕХАЛИ! — 14 900 ₽</a>
+    <a href="#program" class="btn btn-yellow">ПРОГРАММА</a>
+  </div>
+</section>
+
+<div class="pow bangers">★ POW! ★</div>
+
+<section class="section" id="stats">
+  <div class="section-title bangers">ЦИФРЫ!</div>
+  <div class="stats-grid">
+    <div class="stat-item"><div class="stat-num bangers">9.2</div><div class="stat-label">ОЦЕНКА / 10</div></div>
+    <div class="stat-item"><div class="stat-num bangers">95%</div><div class="stat-label">БЕЗ ОПЫТА</div></div>
+    <div class="stat-item"><div class="stat-num bangers">1000+</div><div class="stat-label">УЧАСТНИКОВ</div></div>
+    <div class="stat-item"><div class="stat-num bangers">3</div><div class="stat-label">ВОРКШОПА</div></div>
+  </div>
+</section>
+
+<div class="pow bangers">★ BAM! ★</div>
+
+<section class="section" id="program">
+  <div class="section-title bangers">ПРОГРАММА!</div>
+  <div class="program-grid">
+    <div class="program-card" data-num="1">
+      <div class="program-emoji">🛠️</div>
+      <h3>Установка</h3>
+      <p>Настраиваем инструменты и подключаем сервисы. Всё готово к работе!</p>
+    </div>
+    <div class="program-card" data-num="2">
+      <div class="program-emoji">💬</div>
+      <h3>PRD и лендинг</h3>
+      <p>Опишешь продукт голосом. Нейросеть создаст лендинг из слов!</p>
+    </div>
+    <div class="program-card" data-num="3">
+      <div class="program-emoji">🚀</div>
+      <h3>MVP</h3>
+      <p>Соберёшь приложение и задеплоишь. Продукт готов!</p>
+    </div>
+  </div>
+</section>
+
+<div class="pow bangers">★ BOOM! ★</div>
+
+<section class="section" id="cases">
+  <div class="section-title bangers">КЕЙСЫ!</div>
+  <div class="cases-grid">
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/anastasia-kalacheva-knowledge-school/full.png" alt="Knowledge School">
+      <div class="case-body">
+        <div class="case-tag">ПРОДУКТ</div>
+        <div class="case-title">KNOWLEDGE SCHOOL</div>
+        <div class="case-desc">AI-конструктор курсов</div>
+      </div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/sofya-tretyakova-strateg/full.png" alt="СТРАТЕГ">
+      <div class="case-body">
+        <div class="case-tag">ПРОДУКТ</div>
+        <div class="case-title">СТРАТЕГ</div>
+        <div class="case-desc">Стратегическая разведка для SEO</div>
+      </div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/zaira-keligova-oskelly-atelier/full.png" alt="OSKELLY">
+      <div class="case-body">
+        <div class="case-tag">ПРОДУКТ</div>
+        <div class="case-title">OSKELLY × AI ATELIER</div>
+        <div class="case-desc">AI-стилист в Telegram</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="author">
+  <div class="section-title bangers">АВТОР!</div>
+  <div class="author-card">
+    <img class="author-img" src="https://boost-intensive.ru/_next/image?url=%2Fimages%2Fivan-screen-5253.jpg&w=3840&q=75" alt="Ваня Замесин">
+    <div class="author-info">
+      <h3>ВАНЯ ЗАМЕСИН</h3>
+      <p>Эксперт №1 среди IT-продакт-менеджеров!</p>
+      <p>Автор методологии Advanced JTBD!</p>
+      <p>Руководил Яндекс Картинками — 30M MAU!</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="section-title bangers">ТАРИФЫ!</div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-label">ИНТЕНСИВ</div>
+      <div class="price-amount bangers">14 900 ₽</div>
+      <ul class="price-features">
+        <li>3 воркшопа</li>
+        <li>Кураторы</li>
+        <li>Записи навсегда</li>
+      </ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-yellow">КУПИТЬ</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">+ Q&A</div>
+      <div class="price-amount bangers">19 900 ₽</div>
+      <ul class="price-features">
+        <li>Всё из Интенсив</li>
+        <li>+ Q&A сессия</li>
+        <li>Больше поддержки</li>
+      </ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-red">КУПИТЬ!</a>
+    </div>
+    <div class="price-card">
+      <div class="price-label">ПОЛНАЯ</div>
+      <div class="price-amount bangers">44 900 ₽</div>
+      <ul class="price-features">
+        <li>Boost + Pro</li>
+        <li>AI-система</li>
+        <li>Боты и агенты</li>
+      </ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-blue">КУПИТЬ</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>BOOST × Comic Pop Art · Variant #22</span>
+  <br><a href="https://boost-intensive.ru" target="_blank">boost-intensive.ru</a>
+</footer>
+
+</body>
+</html>

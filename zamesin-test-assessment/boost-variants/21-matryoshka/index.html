@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOOST — Matryoshka</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#fff5e6;--fg:#2c1810;--red:#c0392b;--gold:#d4a017;
+  --green:#27ae60;--blue:#2980b9;--cream:#ffe8cc;
+  --dim:#7a6050;--border:rgba(44,24,16,.12);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Montserrat',sans-serif;
+  background:var(--bg);color:var(--fg);
+  overflow-x:hidden;
+}
+
+.ornament-top{
+  width:100%;height:40px;
+  background:
+    repeating-linear-gradient(90deg,
+      transparent 0,transparent 20px,
+      var(--red) 20px,var(--red) 22px,
+      transparent 22px,transparent 40px
+    );
+  position:relative;
+}
+.ornament-top::after{
+  content:'◆ ◇ ◆ ◇ ◆';
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:var(--bg);padding:0 16px;
+  color:var(--gold);font-size:14px;letter-spacing:.3em;
+}
+
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--red);
+  padding:12px 32px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:4px solid var(--gold);
+}
+.nav-brand{
+  font-family:'Comfortaa',cursive;font-size:18px;font-weight:700;
+  color:#fff;
+}
+.nav a{color:rgba(255,255,255,.8);text-decoration:none;font-size:13px;transition:color .2s}
+.nav a:hover{color:#fff}
+
+.hero{
+  min-height:90vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  padding:60px 24px;text-align:center;
+  position:relative;
+  background:
+    radial-gradient(circle at 20% 80%,rgba(192,57,43,.08) 0%,transparent 50%),
+    radial-gradient(circle at 80% 20%,rgba(212,160,23,.08) 0%,transparent 50%),
+    radial-gradient(circle at 50% 50%,rgba(39,174,96,.05) 0%,transparent 50%);
+}
+.matryoshka-art{
+  font-size:120px;margin-bottom:24px;
+  animation:matryoshka-wobble 3s ease-in-out infinite;
+  filter:drop-shadow(0 8px 16px rgba(0,0,0,.1));
+}
+@keyframes matryoshka-wobble{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.hero-label{
+  font-family:'Comfortaa',cursive;font-size:14px;
+  color:var(--red);margin-bottom:16px;
+  padding:6px 20px;border:2px solid var(--red);
+  border-radius:100px;display:inline-block;
+}
+.hero h1{
+  font-size:clamp(36px,6vw,64px);font-weight:800;
+  line-height:1.1;margin-bottom:20px;
+}
+.hero h1 .red{color:var(--red)}
+.hero h1 .gold{color:var(--gold)}
+.hero-sub{
+  font-size:17px;color:var(--dim);max-width:560px;
+  line-height:1.7;margin-bottom:36px;
+}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:16px 32px;border-radius:100px;
+  font-family:inherit;font-size:15px;font-weight:600;
+  text-decoration:none;cursor:pointer;transition:all .3s;
+  border:3px solid transparent;
+}
+.btn-red{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-red:hover{background:#a93226;border-color:#a93226;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--red);border-color:var(--red)}
+.btn-outline:hover{background:var(--red);color:#fff}
+
+.divider{
+  text-align:center;padding:8px 0;
+  font-size:20px;color:var(--gold);letter-spacing:.5em;
+  border-top:2px solid var(--border);border-bottom:2px solid var(--border);
+}
+
+.section{padding:80px 24px}
+.section-title{
+  font-family:'Comfortaa',cursive;
+  font-size:clamp(28px,4vw,44px);font-weight:700;
+  text-align:center;margin-bottom:48px;color:var(--red);
+}
+.section-title::after{
+  content:'';display:block;width:80px;height:3px;
+  background:var(--gold);margin:12px auto 0;
+}
+
+.stats-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+  max-width:900px;margin:0 auto;
+}
+.stat-item{
+  background:#fff;border-radius:20px;padding:28px 20px;
+  text-align:center;border:2px solid var(--border);
+  box-shadow:0 4px 12px rgba(0,0,0,.04);
+  transition:all .3s;
+}
+.stat-item:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.stat-emoji{font-size:32px;margin-bottom:8px}
+.stat-num{font-size:clamp(32px,4vw,44px);font-weight:800;color:var(--red);line-height:1}
+.stat-label{font-size:12px;color:var(--dim);margin-top:6px}
+
+.program-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;max-width:1000px;margin:0 auto;
+}
+.program-card{
+  background:#fff;border-radius:20px;padding:32px;
+  border:2px solid var(--border);text-align:center;
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.program-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:4px;
+}
+.program-card:nth-child(1)::before{background:var(--red)}
+.program-card:nth-child(2)::before{background:var(--gold)}
+.program-card:nth-child(3)::before{background:var(--green)}
+.program-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.program-emoji{font-size:48px;margin-bottom:16px}
+.program-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+.program-card p{font-size:14px;color:var(--dim);line-height:1.6}
+
+.cases-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:20px;max-width:1000px;margin:0 auto;
+}
+.case-card{
+  background:#fff;border-radius:20px;overflow:hidden;
+  border:2px solid var(--border);
+  transition:all .3s;
+}
+.case-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.case-card img{width:100%;height:200px;object-fit:cover}
+.case-body{padding:20px}
+.case-tag{font-size:11px;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.case-title{font-size:17px;font-weight:700;margin-bottom:6px}
+.case-desc{font-size:13px;color:var(--dim);line-height:1.5}
+
+.author-card{
+  max-width:700px;margin:0 auto;
+  background:#fff;border-radius:24px;
+  border:2px solid var(--border);overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.author-img{width:100%;height:100%;object-fit:cover;min-height:300px}
+.author-info{padding:32px;display:flex;flex-direction:column;justify-content:center}
+.author-info h3{font-family:'Comfortaa',cursive;font-size:22px;font-weight:700;color:var(--red);margin-bottom:12px}
+.author-info p{font-size:14px;color:var(--dim);line-height:1.6;margin-bottom:8px}
+
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;max-width:1000px;margin:0 auto;
+}
+.price-card{
+  background:#fff;border-radius:24px;padding:32px;
+  border:2px solid var(--border);
+  display:flex;flex-direction:column;
+  transition:all .3s;
+}
+.price-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.price-card.featured{border-color:var(--red);box-shadow:0 4px 20px rgba(192,57,43,.15)}
+.price-label{font-family:'Comfortaa',cursive;font-size:14px;color:var(--red);margin-bottom:8px}
+.price-amount{font-size:clamp(36px,4vw,48px);font-weight:800;margin-bottom:24px;line-height:1}
+.price-features{list-style:none;flex:1}
+.price-features li{
+  padding:10px 0;border-bottom:1px solid var(--border);
+  font-size:14px;color:var(--dim);line-height:1.5;
+}
+.price-features li::before{content:'🏵️ ';margin-right:4px}
+.price-card .btn{margin-top:24px;text-align:center;justify-content:center}
+
+.footer{
+  text-align:center;padding:24px;
+  background:var(--red);color:#fff;
+  font-size:13px;border-top:4px solid var(--gold);
+}
+.footer a{color:var(--cream);text-decoration:none}
+
+@media(max-width:768px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .author-card{grid-template-columns:1fr}
+  .author-img{min-height:250px}
+  .section{padding:60px 16px}
+}
+</style>
+</head>
+<body>
+
+<div class="ornament-top"></div>
+
+<nav class="nav">
+  <span class="nav-brand">🌸 BOOST</span>
+  <a href="../index.html">← Все варианты</a>
+</nav>
+
+<section class="hero">
+  <div class="matryoshka-art">🪆</div>
+  <div class="hero-label">Вайбкодинг-интенсив</div>
+  <h1>Открой <span class="red">свой</span> <span class="gold">продукт</span></h1>
+  <p class="hero-sub">За два воркшопа с нуля ты начнёшь вайбкодить свободно и создашь работающий продукт. Не нужно уметь программировать.</p>
+  <div class="hero-cta">
+    <a href="https://boost-intensive.ru/#pricing" class="btn btn-red">Начать — 14 900 ₽</a>
+    <a href="#program" class="btn btn-outline">Программа</a>
+  </div>
+</section>
+
+<div class="divider">◆ ◇ ◆ ◇ ◆</div>
+
+<section class="section" id="stats">
+  <div class="section-title">Цифры интенсива</div>
+  <div class="stats-grid">
+    <div class="stat-item"><div class="stat-emoji">⭐</div><div class="stat-num">9.2</div><div class="stat-label">Оценка / 10</div></div>
+    <div class="stat-item"><div class="stat-emoji">🌱</div><div class="stat-num">95%</div><div class="stat-label">Без опыта</div></div>
+    <div class="stat-item"><div class="stat-emoji">🚀</div><div class="stat-num">1000+</div><div class="stat-label">Участников</div></div>
+    <div class="stat-item"><div class="stat-emoji">🎯</div><div class="stat-num">3</div><div class="stat-label">Воркшопа</div></div>
+  </div>
+</section>
+
+<div class="divider">◆ ◇ ◆ ◇ ◆</div>
+
+<section class="section" id="program">
+  <div class="section-title">Как устроен интенсив</div>
+  <div class="program-grid">
+    <div class="program-card">
+      <div class="program-emoji">🛠️</div>
+      <h3>Установочная сессия</h3>
+      <p>Вместе ставим инструменты, подключаем сервисы. Готовим всё для работы.</p>
+    </div>
+    <div class="program-card">
+      <div class="program-emoji">✨</div>
+      <h3>PRD и лендинг</h3>
+      <p>Опишешь продукт голосом. Нейросеть создаст PRD и работающий лендинг.</p>
+    </div>
+    <div class="program-card">
+      <div class="program-emoji">🚀</div>
+      <h3>Создание MVP</h3>
+      <p>Соберёшь приложение, соединишь с лендингом, задеплоишь на сервер.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider">◆ ◇ ◆ ◇ ◆</div>
+
+<section class="section" id="cases">
+  <div class="section-title">Кейсы участников</div>
+  <div class="cases-grid">
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/anastasia-kalacheva-knowledge-school/full.png" alt="Knowledge School">
+      <div class="case-body">
+        <div class="case-tag">Продукт</div>
+        <div class="case-title">Knowledge School</div>
+        <div class="case-desc">AI-конструктор курсов — экспертиза в курсы, которые проходят</div>
+      </div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/sofya-tretyakova-strateg/full.png" alt="СТРАТЕГ">
+      <div class="case-body">
+        <div class="case-tag">Продукт</div>
+        <div class="case-title">СТРАТЕГ</div>
+        <div class="case-desc">Стратегическая разведка для SEO</div>
+      </div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/zaira-keligova-oskelly-atelier/full.png" alt="OSKELLY">
+      <div class="case-body">
+        <div class="case-tag">Продукт</div>
+        <div class="case-title">OSKELLY × AI Atelier</div>
+        <div class="case-desc">AI-стилист уровня maison в Telegram</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">◆ ◇ ◆ ◇ ◆</div>
+
+<section class="section" id="author">
+  <div class="section-title">Автор курса</div>
+  <div class="author-card">
+    <img class="author-img" src="https://boost-intensive.ru/_next/image?url=%2Fimages%2Fivan-screen-5253.jpg&w=3840&q=75" alt="Ваня Замесин">
+    <div class="author-info">
+      <h3>Ваня Замесин</h3>
+      <p>Эксперт №1 среди IT-продакт-менеджеров. 11+ лет в продуктовом менеджменте.</p>
+      <p>Автор методологии Advanced JTBD.</p>
+      <p>Руководил Яндекс Картинками — 30 млн MAU.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider">◆ ◇ ◆ ◇ ◆</div>
+
+<section class="section" id="pricing">
+  <div class="section-title">Тарифы</div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-label">Интенсив</div>
+      <div class="price-amount">14 900 ₽</div>
+      <ul class="price-features">
+        <li>3 встречи с тренерами</li>
+        <li>Поддержка кураторов</li>
+        <li>Гайды и шаблон PRD</li>
+        <li>Записи навсегда</li>
+      </ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-outline">Купить</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">Интенсив + Q&A</div>
+      <div class="price-amount">19 900 ₽</div>
+      <ul class="price-features">
+        <li>Всё из «Интенсив»</li>
+        <li>Q&A-встреча</li>
+        <li>Разбор вопросов</li>
+        <li>Больше поддержки</li>
+      </ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-red">Купить</a>
+    </div>
+    <div class="price-card">
+      <div class="price-label">Полная программа</div>
+      <div class="price-amount">44 900 ₽</div>
+      <ul class="price-features">
+        <li>Boost + Pro</li>
+        <li>6 воркшопов</li>
+        <li>AI-система</li>
+        <li>Боты и агенты</li>
+      </ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-outline">Купить</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>BOOST × Matryoshka · Variant #21</span>
+  <br><a href="https://boost-intensive.ru" target="_blank">boost-intensive.ru</a>
+</footer>
+
+</body>
+</html>

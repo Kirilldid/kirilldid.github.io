@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOOST — Chaos Maximalism</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#fff;--fg:#111;
+  --neon:#39ff14;--magenta:#ff2d95;--cyan:#00f0ff;--yellow:#ffe600;
+  --orange:#ff6b00;--purple:#b026ff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--fg);overflow-x:hidden}
+.display{font-family:'Unbounded',sans-serif}
+
+.ticker{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:var(--magenta);color:#fff;
+  font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;
+  padding:4px 0;overflow:hidden;white-space:nowrap;
+}
+.ticker-inner{
+  display:inline-block;
+  animation:ticker 30s linear infinite;
+}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.nav{
+  position:fixed;top:28px;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(16px);
+  border-bottom:3px solid var(--fg);
+  padding:0 32px;display:flex;justify-content:space-between;align-items:center;height:56px;
+}
+.nav-brand{
+  font-family:'Unbounded',sans-serif;font-weight:900;font-size:22px;
+  background:linear-gradient(135deg,var(--magenta),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.nav a{text-decoration:none;font-size:14px;font-weight:700;color:var(--fg);transition:all .2s;padding:4px 8px;border:2px solid transparent}
+.nav a:hover{border-color:var(--fg);background:var(--yellow)}
+
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  padding:140px 24px 80px;text-align:center;
+  position:relative;
+}
+.hero-bg{
+  position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;
+}
+.hero-blob{
+  position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;
+  animation:blob-float 8s ease-in-out infinite alternate;
+}
+.blob1{width:400px;height:400px;background:var(--magenta);top:10%;left:10%;animation-delay:0s}
+.blob2{width:300px;height:300px;background:var(--cyan);top:60%;right:10%;animation-delay:2s}
+.blob3{width:350px;height:350px;background:var(--yellow);bottom:10%;left:30%;animation-delay:4s}
+@keyframes blob-float{0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,-40px) scale(1.2)}}
+
+.hero h1{
+  font-family:'Unbounded',sans-serif;font-weight:900;
+  font-size:clamp(36px,8vw,72px);line-height:1;
+  max-width:700px;margin-bottom:20px;position:relative;z-index:1;
+  background:linear-gradient(135deg,var(--fg) 30%,var(--magenta));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  font-size:17px;color:var(--fg);max-width:460px;line-height:1.7;
+  margin-bottom:32px;position:relative;z-index:1;
+  border:3px solid var(--fg);padding:16px 20px;background:#fff;
+}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:16px 28px;border-radius:0;
+  font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;
+  text-decoration:none;cursor:pointer;border:3px solid var(--fg);
+  transition:all .15s;position:relative;
+}
+.btn::after{
+  content:'';position:absolute;top:4px;left:4px;right:-4px;bottom:-4px;
+  background:var(--fg);z-index:-1;transition:all .15s;
+}
+.btn:hover{transform:translate(2px,2px)}
+.btn:hover::after{top:2px;left:2px;right:-2px;bottom:-2px}
+.btn-neon{background:var(--neon);color:var(--fg)}
+.btn-magenta{background:var(--magenta);color:#fff;border-color:var(--magenta)}
+.btn-magenta::after{background:var(--magenta)}
+.btn-yellow{background:var(--yellow);color:var(--fg)}
+
+.section{padding:80px 24px;border-top:4px solid var(--fg)}
+.section-title{
+  font-family:'Unbounded',sans-serif;font-weight:900;
+  font-size:clamp(28px,4vw,44px);text-align:center;margin-bottom:12px;
+}
+.section-sub{text-align:center;color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 48px;font-weight:600}
+
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  max-width:900px;margin:0 auto;border:3px solid var(--fg);
+}
+.stat-item{
+  padding:32px 24px;text-align:center;
+  border-right:2px solid var(--fg);
+}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(28px,3vw,40px);line-height:1}
+.stat-item:nth-child(1) .stat-num{color:var(--magenta)}
+.stat-item:nth-child(2) .stat-num{color:var(--cyan)}
+.stat-item:nth-child(3) .stat-num{color:var(--orange)}
+.stat-item:nth-child(4) .stat-num{color:var(--purple)}
+.stat-label{font-size:12px;font-weight:700;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+
+.program-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  max-width:900px;margin:0 auto;border:3px solid var(--fg);
+}
+.program-card{
+  padding:32px 24px;text-align:center;border-right:2px solid var(--fg);
+  border-bottom:2px solid var(--fg);position:relative;overflow:hidden;
+}
+.program-card:nth-child(3n){border-right:none}
+.program-card:nth-child(n+4){border-bottom:none}
+.program-card::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+  opacity:.06;z-index:0;
+}
+.program-card:nth-child(1)::before{background:var(--magenta)}
+.program-card:nth-child(2)::before{background:var(--cyan)}
+.program-card:nth-child(3)::before{background:var(--yellow)}
+.program-icon{font-size:40px;margin-bottom:12px;position:relative;z-index:1}
+.program-card h3{font-family:'Unbounded',sans-serif;font-size:16px;font-weight:700;margin-bottom:8px;position:relative;z-index:1}
+.program-card p{font-size:13px;color:var(--fg);opacity:.6;line-height:1.6;position:relative;z-index:1}
+
+.cases-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  max-width:1000px;margin:0 auto;border:3px solid var(--fg);
+}
+.case-card{
+  border-right:2px solid var(--fg);border-bottom:2px solid var(--fg);
+  overflow:hidden;transition:all .2s;
+}
+.case-card:nth-child(3n){border-right:none}
+.case-card:nth-child(n+4){border-bottom:none}
+.case-card:hover{background:var(--yellow)}
+.case-card img{width:100%;height:200px;object-fit:cover;border-bottom:2px solid var(--fg)}
+.case-body{padding:16px}
+.case-tag{font-family:'Unbounded',sans-serif;font-size:11px;font-weight:700;color:var(--magenta);margin-bottom:4px}
+.case-title{font-size:16px;font-weight:800;margin-bottom:4px}
+.case-desc{font-size:13px;color:var(--fg);opacity:.6}
+
+.author-card{
+  max-width:700px;margin:0 auto;border:3px solid var(--fg);
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.author-img{width:100%;height:100%;object-fit:cover;min-height:300px;border-right:2px solid var(--fg)}
+.author-info{padding:32px;display:flex;flex-direction:column;justify-content:center}
+.author-info h3{font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.author-info p{font-size:14px;line-height:1.6;margin-bottom:6px;opacity:.6}
+
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  max-width:1000px;margin:0 auto;border:3px solid var(--fg);
+}
+.price-card{
+  padding:32px;display:flex;flex-direction:column;
+  border-right:2px solid var(--fg);
+}
+.price-card:last-child{border-right:none}
+.price-card.featured{background:var(--yellow)}
+.price-label{font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;margin-bottom:8px}
+.price-card:nth-child(1) .price-label{color:var(--magenta)}
+.price-card:nth-child(2) .price-label{color:var(--fg)}
+.price-card:nth-child(3) .price-label{color:var(--purple)}
+.price-amount{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(28px,3vw,36px);margin-bottom:24px;line-height:1}
+.price-features{list-style:none;flex:1}
+.price-features li{padding:8px 0;border-bottom:2px dashed rgba(0,0,0,.1);font-size:13px;font-weight:600}
+.price-features li::before{content:'★ ';color:var(--magenta)}
+.price-card .btn{margin-top:20px;justify-content:center}
+
+.footer{
+  text-align:center;padding:24px;
+  background:var(--fg);color:#fff;
+  font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;
+}
+.footer a{color:var(--neon);text-decoration:none}
+
+@media(max-width:768px){
+  .stats-row,.program-grid,.cases-grid,.pricing-grid{grid-template-columns:1fr}
+  .stat-item{border-right:none;border-bottom:2px solid var(--fg)}
+  .stat-item:last-child{border-bottom:none}
+  .program-card{border-right:none}
+  .cases-grid .case-card{border-right:none}
+  .author-card{grid-template-columns:1fr}
+  .author-img{border-right:none;border-bottom:2px solid var(--fg);min-height:250px}
+  .price-card{border-right:none;border-bottom:2px solid var(--fg)}
+}
+</style>
+</head>
+<body>
+
+<div class="ticker">
+  <span class="ticker-inner">★ ВАЙБКОДИНГ ★ ЗА ВЫХОДНЫЕ ★ BOOST ★ 14 900 ₽ ★ 95% НОВИЧКОВ ★ ВАНЯ ЗАМЕСИН ★ 1000+ УЧАСТНИКОВ ★ ВАЙБКОДИНГ ★ ЗА ВЫХОДНЫЕ ★ BOOST ★ 14 900 ₽ ★ 95% НОВИЧКОВ ★ ВАНЯ ЗАМЕСИН ★ 1000+ УЧАСТНИКОВ ★ </span>
+</div>
+
+<nav class="nav">
+  <span class="nav-brand">BOOST!!!</span>
+  <a href="../index.html">← ВСЕ ВАРИАНТЫ</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-blob blob1"></div>
+    <div class="hero-blob blob2"></div>
+    <div class="hero-blob blob3"></div>
+  </div>
+  <h1>НАУЧИСЬ ВАЙБКОДИТЬ ЗА ВЫХОДНЫЕ</h1>
+  <p class="hero-sub">Интенсив по вайбкодингу с продуктовым подходом. За два воркшопа создашь РАБОТАЮЩИЙ ПРОДУКТ. 95% новичков. 1000+ выпускников.</p>
+  <div class="hero-cta">
+    <a href="https://boost-intensive.ru/#pricing" class="btn btn-neon">ЗАПИСАТЬСЯ — 14 900 ₽</a>
+    <a href="#program" class="btn btn-magenta">ПРОГРАММА</a>
+    <a href="#cases" class="btn btn-yellow">КЕЙСЫ</a>
+  </div>
+</section>
+
+<section class="section" id="stats">
+  <div class="section-title display">ЦИФРЫ</div>
+  <div class="stats-row">
+    <div class="stat-item"><div class="stat-num">9.2</div><div class="stat-label">Рейтинг</div></div>
+    <div class="stat-item"><div class="stat-num">95%</div><div class="stat-label">Новички</div></div>
+    <div class="stat-item"><div class="stat-num">1000+</div><div class="stat-label">Участники</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Модуля</div></div>
+  </div>
+</section>
+
+<section class="section" id="program">
+  <div class="section-title display">ПРОГРАММА</div>
+  <div class="section-sub">Три шага к хаосу</div>
+  <div class="program-grid">
+    <div class="program-card">
+      <div class="program-icon">🛠️</div>
+      <h3>Установка</h3>
+      <p>Инструменты и сервисы. Всё готово.</p>
+    </div>
+    <div class="program-card">
+      <div class="program-icon">💬</div>
+      <h3>PRD + Лендинг</h3>
+      <p>Голос → Продукт. Нейросеть как соавтор.</p>
+    </div>
+    <div class="program-card">
+      <div class="program-icon">🚀</div>
+      <h3>MVP</h3>
+      <p>Сборка, интеграция, деплой.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cases">
+  <div class="section-title display">КЕЙСЫ</div>
+  <div class="section-sub">Что создали выпускники</div>
+  <div class="cases-grid">
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/anastasia-kalacheva-knowledge-school/full.png" alt="Knowledge School">
+      <div class="case-body"><div class="case-tag">PRODUCT</div><div class="case-title">Knowledge School</div><div class="case-desc">AI-конструктор курсов</div></div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/sofya-tretyakova-strateg/full.png" alt="СТРАТЕГ">
+      <div class="case-body"><div class="case-tag">PRODUCT</div><div class="case-title">СТРАТЕГ</div><div class="case-desc">Стратегическая разведка для SEO</div></div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/zaira-keligova-oskelly-atelier/full.png" alt="OSKELLY">
+      <div class="case-body"><div class="case-tag">PRODUCT</div><div class="case-title">OSKELLY × AI Atelier</div><div class="case-desc">AI-стилист в Telegram</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="author">
+  <div class="section-title display">АВТОР</div>
+  <div class="author-card">
+    <img class="author-img" src="https://boost-intensive.ru/_next/image?url=%2Fimages%2Fivan-screen-5253.jpg&w=3840&q=75" alt="Ваня Замесин">
+    <div class="author-info">
+      <h3>Ваня Замесин</h3>
+      <p>Эксперт №1 среди IT-продакт-менеджеров. 11+ лет опыта.</p>
+      <p>Автор методологии Advanced JTBD.</p>
+      <p>Руководил Яндекс Картинками — 30M MAU.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="section-title display">ТАРИФЫ</div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-label">ИНТЕНСИВ</div>
+      <div class="price-amount">14 900 ₽</div>
+      <ul class="price-features"><li>3 воркшопа</li><li>Кураторы</li><li>Записи навсегда</li></ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-yellow">КУПИТЬ</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">+ Q&A</div>
+      <div class="price-amount">19 900 ₽</div>
+      <ul class="price-features"><li>Всё из Интенсив</li><li>Q&A сессия</li><li>Больше поддержки</li></ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-magenta">КУПИТЬ!</a>
+    </div>
+    <div class="price-card">
+      <div class="price-label">ПОЛНАЯ</div>
+      <div class="price-amount">44 900 ₽</div>
+      <ul class="price-features"><li>Boost + Pro</li><li>AI-система</li><li>Боты и агенты</li></ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn" style="background:var(--purple);color:#fff;border-color:var(--purple)">КУПИТЬ</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>BOOST × CHAOS MAXIMALISM · Variant #30</span>
+  <br><a href="https://boost-intensive.ru" target="_blank">boost-intensive.ru</a>
+</footer>
+
+</body>
+</html>

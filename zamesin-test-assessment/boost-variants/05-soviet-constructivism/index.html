@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOOST — Конструктивизм</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f5e6c8;--fg:#1a1a1a;--red:#cc0000;--black:#1a1a1a;--cream:#f5e6c8;--gold:#b8860b}
+html{scroll-behavior:smooth}
+body{font-family:'Oswald',sans-serif;background:var(--cream);color:var(--fg);overflow-x:hidden}
+
+.diagonal-stripe{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:-1;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 80px,
+      rgba(204,0,0,.03) 80px,
+      rgba(204,0,0,.03) 82px
+    );
+}
+
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:var(--red);
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 32px;height:56px;
+  border-bottom:4px solid var(--black);
+}
+.nav-brand{
+  font-size:18px;font-weight:700;color:#fff;
+  letter-spacing:.15em;text-transform:uppercase;
+}
+.nav a{color:#fff;text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.05em}
+.nav a:hover{text-decoration:underline}
+
+.hero{
+  min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:0;
+  padding-top:56px;position:relative;
+}
+.hero-left{
+  background:var(--red);color:#fff;
+  padding:80px 48px;display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.hero-left::before{
+  content:'';position:absolute;top:-50%;right:-30%;
+  width:80%;height:200%;
+  background:var(--black);
+  transform:rotate(-15deg);
+  opacity:.15;
+}
+.hero-right{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  background:var(--black);
+}
+.hero-right img{
+  width:80%;height:80%;object-fit:cover;
+  border:8px solid var(--cream);
+  filter:grayscale(100%) contrast(1.2);
+}
+.hero-right::after{
+  content:'';position:absolute;
+  top:10%;left:10%;right:10%;bottom:10%;
+  border:4px solid var(--red);
+  pointer-events:none;
+}
+.hero-label{
+  font-size:13px;letter-spacing:.3em;text-transform:uppercase;
+  opacity:.7;margin-bottom:24px;position:relative;z-index:1;
+}
+.hero h1{
+  font-size:clamp(48px,8vw,96px);font-weight:700;
+  line-height:.9;letter-spacing:-.02em;
+  text-transform:uppercase;position:relative;z-index:1;
+}
+.hero h1 em{
+  font-style:normal;display:block;
+  color:var(--cream);
+  -webkit-text-stroke:2px var(--cream);
+}
+.hero-sub{
+  font-size:16px;margin-top:32px;line-height:1.6;
+  opacity:.8;max-width:400px;position:relative;z-index:1;
+}
+.hero-cta{
+  margin-top:40px;display:flex;gap:16px;flex-wrap:wrap;
+  position:relative;z-index:1;
+}
+.btn{
+  display:inline-block;padding:16px 32px;
+  font-family:inherit;font-size:16px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;
+  text-decoration:none;cursor:pointer;
+  transition:all .2s;border:3px solid transparent;
+}
+.btn-red{background:var(--cream);color:var(--red);border-color:var(--cream)}
+.btn-red:hover{background:transparent;color:var(--cream)}
+.btn-outline{background:transparent;color:var(--cream);border-color:var(--cream)}
+.btn-outline:hover{background:var(--cream);color:var(--red)}
+.btn-black{background:var(--black);color:var(--cream);border-color:var(--black)}
+.btn-black:hover{background:var(--red);border-color:var(--red)}
+
+.section{padding:80px 48px;border-top:4px solid var(--black)}
+.section-label{
+  font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--red);margin-bottom:16px;
+}
+.section h2{
+  font-size:clamp(36px,5vw,64px);font-weight:700;
+  text-transform:uppercase;line-height:1;
+  margin-bottom:48px;
+}
+.section h2 em{font-style:normal;color:var(--red)}
+
+.stats-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+}
+.stat-item{
+  padding:32px 24px;text-align:center;
+  border:2px solid var(--black);margin:-1px;
+  position:relative;
+}
+.stat-item::before{
+  content:'';position:absolute;top:0;left:50%;
+  transform:translateX(-50%);
+  width:40px;height:4px;background:var(--red);
+}
+.stat-num{
+  font-size:clamp(40px,5vw,64px);font-weight:700;
+  color:var(--red);line-height:1;
+}
+.stat-label{
+  font-size:12px;text-transform:uppercase;letter-spacing:.15em;
+  color:var(--fg);margin-top:8px;
+}
+
+.program-list{max-width:800px}
+.program-item{
+  display:flex;gap:32px;
+  padding:32px 0;
+  border-bottom:2px solid var(--black);
+  align-items:flex-start;
+}
+.program-item:first-child{border-top:2px solid var(--black)}
+.program-num{
+  font-size:64px;font-weight:700;color:var(--red);
+  line-height:.8;min-width:80px;
+}
+.program-item h3{font-size:20px;font-weight:600;margin-bottom:8px;text-transform:uppercase}
+.program-item p{font-size:14px;color:#555;line-height:1.6}
+
+.cases-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border:3px solid var(--black);
+}
+.case-item{
+  border-right:2px solid var(--black);overflow:hidden;
+  position:relative;
+}
+.case-item:last-child{border-right:none}
+.case-item img{
+  width:100%;height:220px;object-fit:cover;
+  border-bottom:3px solid var(--black);
+  filter:grayscale(80%) contrast(1.1);
+}
+.case-item::after{
+  content:'';position:absolute;top:12px;left:12px;
+  width:30px;height:30px;background:var(--red);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+}
+.case-body{padding:20px}
+.case-tag{font-size:10px;color:var(--red);text-transform:uppercase;letter-spacing:.15em;margin-bottom:6px}
+.case-title{font-size:16px;font-weight:600;margin-bottom:6px;text-transform:uppercase}
+.case-desc{font-size:12px;color:#666;line-height:1.5}
+
+.author-block{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:3px solid var(--black);
+}
+.author-img{
+  width:100%;height:100%;object-fit:cover;
+  filter:grayscale(100%) contrast(1.2);
+  min-height:400px;border-right:3px solid var(--black);
+}
+.author-info{padding:48px;display:flex;flex-direction:column;justify-content:center}
+.author-info h3{font-size:clamp(28px,3vw,40px);font-weight:700;text-transform:uppercase;margin-bottom:20px;line-height:1}
+.author-info p{font-size:14px;color:#555;line-height:1.7;margin-bottom:12px}
+.author-info .highlight{color:var(--red);font-weight:600}
+
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border:3px solid var(--black);
+}
+.price-card{
+  padding:32px;border-right:2px solid var(--black);
+  display:flex;flex-direction:column;
+}
+.price-card:last-child{border-right:none}
+.price-card.featured{background:var(--red);color:#fff;border-color:var(--black)}
+.price-card.featured .price-label{color:var(--cream)}
+.price-card.featured .price-features li{color:rgba(255,255,255,.8)}
+.price-label{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.price-amount{font-size:clamp(36px,4vw,56px);font-weight:700;margin-bottom:24px;line-height:1}
+.price-features{list-style:none;flex:1}
+.price-features li{
+  padding:10px 0;border-bottom:1px solid rgba(0,0,0,.1);
+  font-size:13px;line-height:1.5;
+}
+.price-features li::before{content:'▸ ';color:var(--red)}
+.price-card .btn{margin-top:24px;text-align:center}
+
+.footer{
+  background:var(--black);color:var(--cream);
+  padding:32px 48px;display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;text-transform:uppercase;letter-spacing:.1em;
+}
+.footer a{color:var(--cream);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+@media(max-width:900px){
+  .hero,.author-block{grid-template-columns:1fr}
+  .hero-left{padding:60px 24px}
+  .hero-right{min-height:400px}
+  .author-img{border-right:none;border-bottom:3px solid var(--black);min-height:300px}
+  .cases-grid,.pricing-grid{grid-template-columns:1fr}
+  .case-item{border-right:none;border-bottom:2px solid var(--black)}
+  .case-item:last-child{border-bottom:none}
+  .price-card{border-right:none;border-bottom:2px solid var(--black)}
+  .price-card:last-child{border-bottom:none}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .section,.hero-left{padding:60px 24px}
+}
+</style>
+</head>
+<body>
+<div class="diagonal-stripe"></div>
+
+<nav class="nav">
+  <span class="nav-brand">BOOST</span>
+  <a href="../index.html">← Все варианты</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-label">Вайбкодинг-интенсив · 2026</div>
+    <h1>НАЧНИ<br><em>ВАЙБКОДИТЬ</em></h1>
+    <p class="hero-sub">За два воркшопа с нуля ты начнёшь вайбкодить свободно и создашь работающий продукт.</p>
+    <div class="hero-cta">
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-red">Пройти курс</a>
+      <a href="#program" class="btn btn-outline">Программа</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://boost-intensive.ru/_next/image?url=%2Fedited_no_wound_compressed.jpg&w=3840&q=75" alt="Ваня Замесин">
+  </div>
+</section>
+
+<section class="section" id="stats">
+  <div class="section-label">Цифры</div>
+  <h2>Интенсив <em>в цифрах</em></h2>
+  <div class="stats-grid">
+    <div class="stat-item"><div class="stat-num">9.2</div><div class="stat-label">Оценка / 10</div></div>
+    <div class="stat-item"><div class="stat-num">95%</div><div class="stat-label">Без техбэкграунда</div></div>
+    <div class="stat-item"><div class="stat-num">1000+</div><div class="stat-label">Начали вайбкодить</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Воркшопа</div></div>
+  </div>
+</section>
+
+<section class="section" id="program">
+  <div class="section-label">Программа</div>
+  <h2>Как устроен <em>интенсив</em></h2>
+  <div class="program-list">
+    <div class="program-item">
+      <div class="program-num">01</div>
+      <div>
+        <h3>Установочная сессия</h3>
+        <p>Вместе ставим и настраиваем инструменты, подключаем сервисы. Приходишь готовым к работе.</p>
+      </div>
+    </div>
+    <div class="program-item">
+      <div class="program-num">02</div>
+      <div>
+        <h3>PRD и лендинг</h3>
+        <p>Опишешь продукт голосом по шаблону Вани Замесина. Нейросеть соберёт PRD и сгенерирует лендинг.</p>
+      </div>
+    </div>
+    <div class="program-item">
+      <div class="program-num">03</div>
+      <div>
+        <h3>Создание MVP</h3>
+        <p>Превратишь описание в работающее приложение. Соединишь лендинг и продукт. Деплой на сервер.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cases">
+  <div class="section-label">Кейсы</div>
+  <h2>Что делают <em>участники</em></h2>
+  <div class="cases-grid">
+    <div class="case-item">
+      <img src="https://boost-intensive.ru/projects/anastasia-kalacheva-knowledge-school/full.png" alt="Knowledge School">
+      <div class="case-body">
+        <div class="case-tag">Продукт</div>
+        <div class="case-title">Knowledge School</div>
+        <div class="case-desc">AI-конструктор курсов — экспертиза в курсы, которые проходят</div>
+      </div>
+    </div>
+    <div class="case-item">
+      <img src="https://boost-intensive.ru/projects/sofya-tretyakova-strateg/full.png" alt="СТРАТЕГ">
+      <div class="case-body">
+        <div class="case-tag">Продукт</div>
+        <div class="case-title">СТРАТЕГ</div>
+        <div class="case-desc">Стратегическая разведка для SEO</div>
+      </div>
+    </div>
+    <div class="case-item">
+      <img src="https://boost-intensive.ru/projects/elena-bogomolova-mayak/full.png" alt="Маяк">
+      <div class="case-body">
+        <div class="case-tag">Продукт</div>
+        <div class="case-title">Маяк</div>
+        <div class="case-desc">Налоговые и кадровые изменения находят вас сами</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="author">
+  <div class="section-label">Автор</div>
+  <h2>Ваня <em>Замесин</em></h2>
+  <div class="author-block">
+    <img class="author-img" src="https://boost-intensive.ru/_next/image?url=%2Fimages%2Fivan-screen-5253.jpg&w=3840&q=75" alt="Ваня Замесин">
+    <div class="author-info">
+      <p><span class="highlight">Эксперт №1</span> среди IT-продакт-менеджеров. 11+ лет в продуктовом менеджменте.</p>
+      <p>Автор методологии Advanced JTBD.</p>
+      <p>Руководил продуктом в <span class="highlight">Яндекс Картинках</span> — 30 млн MAU, забрали 25% рынка у Google Images.</p>
+      <p>Создал курс «Как делать продукт» — <span class="highlight">самый популярный</span> курс по продукту в России.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="section-label">Тарифы</div>
+  <h2>Выбери <em>свой путь</em></h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-label">Интенсив</div>
+      <div class="price-amount">14 900 ₽</div>
+      <ul class="price-features">
+        <li>3 онлайн-встречи с тренерами</li>
+        <li>Поддержка кураторов</li>
+        <li>Гайды, промпты, шаблон PRD</li>
+        <li>Записи воркшопов навсегда</li>
+      </ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-black">Купить</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">Интенсив + Q&A</div>
+      <div class="price-amount">19 900 ₽</div>
+      <ul class="price-features">
+        <li>Всё из тарифа «Интенсив»</li>
+        <li>Живая групповая Q&A-встреча</li>
+        <li>Разбор вопросов тренером</li>
+        <li>Больше поддержки</li>
+      </ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-red">Купить</a>
+    </div>
+    <div class="price-card">
+      <div class="price-label">Полная программа</div>
+      <div class="price-amount">44 900 ₽</div>
+      <ul class="price-features">
+        <li>Boost + Boost Pro</li>
+        <li>6 воркшопов Pro</li>
+        <li>AI-система вокруг проекта</li>
+        <li>Боты, агенты, дашборды</li>
+      </ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-black">Купить</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>BOOST × Конструктивизм · Variant #05</span>
+  <a href="https://boost-intensive.ru" target="_blank">boost-intensive.ru</a>
+</footer>
+
+</body>
+</html>
