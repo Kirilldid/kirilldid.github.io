@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOOST — Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a1628;--grid:rgba(74,144,226,.08);--line:rgba(74,144,226,.2);--fg:#c8daf0;--accent:#4a90e2;--accent2:#22d3ee;--muted:#6b83a8;--surface:rgba(10,22,40,.7);--border:rgba(74,144,226,.15)}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--fg);overflow-x:hidden}
+.mono{font-family:'Share Tech Mono',monospace}
+
+.bp-bg{
+  position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,22,40,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 32px;display:flex;justify-content:space-between;align-items:center;height:52px;
+}
+.nav-brand{font-family:'Share Tech Mono',monospace;font-size:14px;color:var(--accent);letter-spacing:.1em}
+.nav a{text-decoration:none;font-size:13px;color:var(--muted);transition:color .2s}
+.nav a:hover{color:var(--accent)}
+
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:120px 24px 80px;text-align:center;
+}
+.hero-box{
+  max-width:700px;position:relative;
+  border:1px solid var(--accent);padding:48px;
+}
+.hero-box::before{
+  content:'';position:absolute;top:8px;left:8px;right:8px;bottom:8px;
+  border:1px dashed var(--border);
+}
+.hero-box::after{
+  content:'Ø';position:absolute;top:-10px;left:-10px;
+  font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--accent);
+  background:var(--bg);padding:2px;
+}
+.hero-tag{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.15em;margin-bottom:24px}
+.hero h1{font-size:clamp(32px,6vw,52px);font-weight:700;line-height:1.05;margin-bottom:16px}
+.hero h1 span{color:var(--accent)}
+.hero-sub{font-size:16px;color:var(--muted);max-width:480px;line-height:1.6;margin-bottom:32px}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 24px;font-family:'Share Tech Mono',monospace;
+  font-size:13px;text-decoration:none;cursor:pointer;
+  border:1px solid var(--accent);background:transparent;
+  color:var(--accent);transition:all .2s;
+}
+.btn:hover{background:var(--accent);color:var(--bg)}
+.btn-filled{background:var(--accent);color:var(--bg)}
+.btn-filled:hover{background:var(--accent2);border-color:var(--accent2)}
+
+.specs{
+  position:absolute;right:-120px;top:50%;transform:translateY(-50%);
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--muted);text-align:right;line-height:2;
+}
+
+.section{padding:80px 24px;border-top:1px solid var(--border)}
+.section-title{font-family:'Share Tech Mono',monospace;font-size:clamp(24px,3vw,36px);text-align:center;margin-bottom:12px;letter-spacing:.05em}
+.section-sub{text-align:center;color:var(--muted);font-size:14px;max-width:500px;margin:0 auto 48px;font-family:'Share Tech Mono',monospace}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);max-width:900px;margin:0 auto}
+.stat-item{background:var(--bg);padding:32px 24px;text-align:center}
+.stat-num{font-family:'Share Tech Mono',monospace;font-size:clamp(28px,3vw,36px);color:var(--accent);line-height:1}
+.stat-label{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.1em;text-transform:uppercase}
+
+.specs-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);
+  max-width:900px;margin:0 auto;
+}
+.spec-item{
+  background:var(--bg);padding:28px 24px;
+  border-left:3px solid var(--accent);
+}
+.spec-item:nth-child(2){border-color:var(--accent2)}
+.spec-item:nth-child(3){border-color:#a78bfa}
+.spec-item h3{font-family:'Share Tech Mono',monospace;font-size:14px;color:var(--accent);margin-bottom:8px}
+.spec-item:nth-child(2) h3{color:var(--accent2)}
+.spec-item:nth-child(3) h3{color:#a78bfa}
+.spec-item p{font-size:14px;color:var(--muted);line-height:1.6}
+
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border);max-width:1000px;margin:0 auto}
+.case-card{background:var(--bg);overflow:hidden;transition:all .3s}
+.case-card:hover{background:var(--surface)}
+.case-card img{width:100%;height:200px;object-fit:cover;border-bottom:1px solid var(--border)}
+.case-body{padding:16px}
+.case-tag{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:4px}
+.case-title{font-size:16px;font-weight:600;margin-bottom:4px}
+.case-desc{font-size:13px;color:var(--muted)}
+
+.author-card{max-width:700px;margin:0 auto;border:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr}
+.author-img{width:100%;height:100%;object-fit:cover;min-height:300px;border-right:1px solid var(--border)}
+.author-info{padding:32px;display:flex;flex-direction:column;justify-content:center}
+.author-info h3{font-family:'Share Tech Mono',monospace;font-size:18px;color:var(--accent);margin-bottom:12px}
+.author-info p{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:6px}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border);max-width:1000px;margin:0 auto}
+.price-card{background:var(--bg);padding:32px;display:flex;flex-direction:column}
+.price-card.featured{background:var(--surface);box-shadow:inset 0 0 30px rgba(74,144,226,.05)}
+.price-label{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:8px;letter-spacing:.1em}
+.price-amount{font-family:'Share Tech Mono',monospace;font-size:clamp(28px,3vw,36px);color:var(--accent);margin-bottom:24px;line-height:1}
+.price-features{list-style:none;flex:1}
+.price-features li{padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted)}
+.price-features li::before{content:'▸ ';color:var(--accent)}
+.price-card .btn{margin-top:20px;justify-content:center}
+
+.footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-family:'Share Tech Mono',monospace;letter-spacing:.05em}
+.footer a{color:var(--accent);text-decoration:none}
+
+@media(max-width:768px){
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .specs-grid{grid-template-columns:1fr}
+  .author-card{grid-template-columns:1fr}
+  .author-img{border-right:none;border-bottom:1px solid var(--border);min-height:250px}
+  .specs{display:none}
+}
+</style>
+</head>
+<body>
+<div class="bp-bg"></div>
+
+<nav class="nav">
+  <span class="nav-brand">BOOST://BLUEPRINT</span>
+  <a href="../index.html">← Все варианты</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-box">
+    <div class="hero-tag">REV.01 — VIBE CODING INTENSIVE</div>
+    <h1>Научись <span>вайбкодить</span> за выходные</h1>
+    <p class="hero-sub">Интенсив по вайбкодингу с продуктовым подходом. За два воркшопа — работающий продукт.</p>
+    <div class="hero-cta">
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-filled">ЗАПИСАТЬСЯ — 14 900 ₽</a>
+      <a href="#specs" class="btn">СПЕЦИФИКАЦИИ</a>
+    </div>
+    <div class="specs">
+      SCALE: 1:1<br>
+      SHEET: 01 OF 30<br>
+      MATERIAL: HTML/CSS/JS<br>
+      TOLERANCE: ±10%
+    </div>
+  </div>
+</section>
+
+<section class="section" id="stats">
+  <div class="section-title">ТЕХНИЧЕСКИЕ ХАРАКТЕРИСТИКИ</div>
+  <div class="section-sub">// performance metrics</div>
+  <div class="stats-row">
+    <div class="stat-item"><div class="stat-num">9.2</div><div class="stat-label">Рейтинг</div></div>
+    <div class="stat-item"><div class="stat-num">95%</div><div class="stat-label">Новички</div></div>
+    <div class="stat-item"><div class="stat-num">1000+</div><div class="stat-label">Участники</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Модуля</div></div>
+  </div>
+</section>
+
+<section class="section" id="specs">
+  <div class="section-title">СПЕЦИФИКАЦИИ</div>
+  <div class="section-sub">// module breakdown</div>
+  <div class="specs-grid">
+    <div class="spec-item">
+      <h3>[01] УСТАНОВКА</h3>
+      <p>Настройка инструментов и подключение сервисов. Всё готово к работе.</p>
+    </div>
+    <div class="spec-item">
+      <h3>[02] PRD + ЛЕНДИНГ</h3>
+      <p>Описание продукта голосом. Нейросеть создаёт PRD и лендинг из слов.</p>
+    </div>
+    <div class="spec-item">
+      <h3>[03] MVP</h3>
+      <p>Сборка приложения, интеграция, деплой. Продукт готов.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="cases">
+  <div class="section-title">ОБРАЗЦЫ ИЗДЕЛИЙ</div>
+  <div class="section-sub">// reference implementations</div>
+  <div class="cases-grid">
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/anastasia-kalacheva-knowledge-school/full.png" alt="Knowledge School">
+      <div class="case-body"><div class="case-tag">REF.NO:001</div><div class="case-title">Knowledge School</div><div class="case-desc">AI-конструктор курсов</div></div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/sofya-tretyakova-strateg/full.png" alt="СТРАТЕГ">
+      <div class="case-body"><div class="case-tag">REF.NO:002</div><div class="case-title">СТРАТЕГ</div><div class="case-desc">Стратегическая разведка для SEO</div></div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/zaira-keligova-oskelly-atelier/full.png" alt="OSKELLY">
+      <div class="case-body"><div class="case-tag">REF.NO:003</div><div class="case-title">OSKELLY × AI Atelier</div><div class="case-desc">AI-стилист в Telegram</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="author">
+  <div class="section-title">АВТОР ПРОЕКТА</div>
+  <div class="author-card">
+    <img class="author-img" src="https://boost-intensive.ru/_next/image?url=%2Fimages%2Fivan-screen-5253.jpg&w=3840&q=75" alt="Ваня Замесин">
+    <div class="author-info">
+      <h3>ВАНЯ ЗАМЕСИН</h3>
+      <p>Эксперт №1 среди IT-продакт-менеджеров. 11+ лет опыта.</p>
+      <p>Автор методологии Advanced JTBD.</p>
+      <p>Руководил Яндекс Картинками — 30M MAU.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="section-title">КОММЕРЧЕСКОЕ ПРЕДЛОЖЕНИЕ</div>
+  <div class="section-sub">// pricing tiers</div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-label">[A] ИНТЕНСИВ</div>
+      <div class="price-amount">14 900 ₽</div>
+      <ul class="price-features"><li>3 воркшопа</li><li>Кураторы</li><li>Записи навсегда</li></ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn">ЗАПИСАТЬСЯ</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-label">[B] + Q&A</div>
+      <div class="price-amount">19 900 ₽</div>
+      <ul class="price-features"><li>Всё из Интенсив</li><li>Q&A сессия</li><li>Больше поддержки</li></ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn btn-filled">ЗАПИСАТЬСЯ</a>
+    </div>
+    <div class="price-card">
+      <div class="price-label">[C] ПОЛНАЯ</div>
+      <div class="price-amount">44 900 ₽</div>
+      <ul class="price-features"><li>Boost + Pro</li><li>AI-система</li><li>Боты и агенты</li></ul>
+      <a href="https://boost-intensive.ru/#pricing" class="btn">ЗАПИСАТЬСЯ</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>BOOST × Blueprint · Variant #27 · boost-intensive.ru</span>
+</footer>
+
+</body>
+</html>

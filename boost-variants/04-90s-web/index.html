@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOOST ~ Добро пожаловать!!!</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Times New Roman',Times,serif;
+  background:#000080;color:#ffff00;
+  overflow-x:hidden;
+}
+a{color:#00ffff}
+a:visited{color:#ff00ff}
+
+.bg-stars{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:-1;
+  background:
+    radial-gradient(1px 1px at 10% 20%,#fff 50%,transparent 100%),
+    radial-gradient(1px 1px at 30% 70%,#fff 50%,transparent 100%),
+    radial-gradient(1px 1px at 50% 10%,#fff 50%,transparent 100%),
+    radial-gradient(1px 1px at 70% 60%,#fff 50%,transparent 100%),
+    radial-gradient(1px 1px at 90% 30%,#fff 50%,transparent 100%),
+    radial-gradient(1px 1px at 15% 80%,#fff 50%,transparent 100%),
+    radial-gradient(1px 1px at 85% 45%,#fff 50%,transparent 100%),
+    radial-gradient(2px 2px at 45% 55%,#ffff00 50%,transparent 100%),
+    radial-gradient(1px 1px at 65% 85%,#00ffff 50%,transparent 100%);
+  background-color:#000080;
+}
+
+.marquee-bar{
+  background:#ff0000;color:#fff;
+  padding:4px 0;font-size:14px;font-weight:bold;
+  overflow:hidden;white-space:nowrap;
+}
+.marquee-content{
+  display:inline-block;
+  animation:marquee 20s linear infinite;
+}
+@keyframes marquee{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+
+.nav{
+  background:#000;border-bottom:3px ridge #808080;
+  padding:8px 16px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:8px;
+}
+.nav a{
+  color:#00ff00;text-decoration:none;font-size:12px;
+  padding:4px 8px;border:1px solid #808080;
+  background:#000;font-family:'MS Sans Serif',Arial,sans-serif;
+}
+.nav a:hover{background:#000080;color:#fff}
+.nav-brand{color:#ffff00;font-weight:bold;font-size:14px}
+
+.hero{
+  text-align:center;padding:40px 16px;
+  border:3px double #ffff00;margin:16px;
+}
+.hero h1{
+  font-size:clamp(28px,5vw,48px);
+  color:#ff0000;text-shadow:2px 2px #000;
+  animation:rainbow 3s linear infinite;
+}
+@keyframes rainbow{
+  0%{color:#ff0000}16%{color:#ff8800}33%{color:#ffff00}
+  50%{color:#00ff00}66%{color:#0088ff}83%{color:#ff00ff}100%{color:#ff0000}
+}
+.hero-sub{
+  font-size:18px;color:#00ffff;margin-top:16px;
+  text-shadow:1px 1px #000;
+}
+.hero-img{
+  margin:24px auto;
+}
+.hero-img img{
+  width:200px;height:200px;border-radius:50%;
+  border:4px ridge #c0c0c0;
+  animation:spin 10s linear infinite;
+}
+@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+
+.visitor-counter{
+  background:#000;border:2px inset #808080;
+  display:inline-block;padding:4px 12px;
+  font-family:'Courier New',monospace;font-size:12px;
+  color:#00ff00;margin:16px auto;
+}
+
+hr.fancy{
+  border:none;height:4px;
+  background:linear-gradient(90deg,#ff0000,#ff8800,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff);
+  margin:24px 0;
+}
+
+.section{
+  margin:16px;padding:16px;
+  border:2px ridge #c0c0c0;background:#000040;
+}
+.section h2{
+  font-size:24px;color:#ff00ff;text-align:center;
+  text-shadow:2px 2px #000;margin-bottom:16px;
+}
+.section h2::before{content:'★ ';color:#ffff00}
+.section h2::after{content:' ★';color:#ffff00}
+
+.blinking{text-decoration:blink}
+
+.new-badge{
+  background:#ff0000;color:#fff;
+  padding:2px 8px;font-size:11px;font-weight:bold;
+  display:inline-block;animation:blink-text 1s step-end infinite;
+  font-family:Arial,sans-serif;
+}
+@keyframes blink-text{0%,100%{opacity:1}50%{opacity:0}}
+
+table{
+  width:100%;border-collapse:collapse;
+  font-size:14px;
+}
+table td,table th{
+  border:2px ridge #808080;padding:8px 12px;
+  text-align:left;
+}
+table th{background:#000080;color:#ffff00}
+table tr:nth-child(even){background:#000060}
+
+.stats-table{max-width:600px;margin:0 auto}
+.stats-num{color:#00ff00;font-weight:bold;font-size:18px}
+
+.program-table{max-width:700px;margin:0 auto}
+.program-num{color:#ff0000;font-weight:bold}
+.program-table td:nth-child(2){color:#00ffff}
+
+.cases-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;
+}
+.case-card{
+  border:2px ridge #808080;background:#000030;
+  overflow:hidden;
+}
+.case-card img{
+  width:100%;height:160px;object-fit:cover;
+  border-bottom:2px ridge #808080;
+}
+.case-card-body{padding:12px}
+.case-card-body .tag{color:#ff00ff;font-size:11px}
+.case-card-body h3{color:#ffff00;font-size:16px;margin:4px 0}
+.case-card-body p{color:#00ffff;font-size:13px}
+
+.author-box{
+  border:3px double #ffff00;padding:16px;
+  max-width:600px;margin:0 auto;text-align:center;
+}
+.author-box img{
+  width:150px;height:150px;border-radius:50%;
+  border:3px ridge #c0c0c0;margin-bottom:12px;
+}
+.author-box h3{font-size:20px;color:#ff0000}
+.author-box p{font-size:14px;color:#c0c0c0;margin:8px 0}
+
+.guestbook{
+  border:2px ridge #808080;padding:16px;
+  max-width:500px;margin:0 auto;
+  background:#000030;
+}
+.guestbook h3{color:#ffff00;margin-bottom:8px}
+.guestbook-entry{
+  border-bottom:1px dashed #808080;padding:8px 0;
+  font-size:13px;
+}
+.guestbook-entry .name{color:#00ff00;font-weight:bold}
+.guestbook-entry .date{color:#808080;font-size:11px}
+.guestbook-entry .msg{color:#c0c0c0}
+
+.pricing-table{max-width:700px;margin:0 auto}
+.price-cell{
+  background:#000040;text-align:center;
+}
+.price-cell.featured{background:#400040}
+.price-amount{
+  color:#00ff00;font-size:24px;font-weight:bold;
+}
+
+.btn-90s{
+  display:inline-block;padding:8px 16px;
+  background:#c0c0c0;color:#000;
+  border:2px outset #fff;
+  font-family:'MS Sans Serif',Arial,sans-serif;
+  font-size:12px;cursor:pointer;text-decoration:none;
+}
+.btn-90s:hover{background:#ffff00}
+.btn-90s:active{border-style:inset}
+
+.email-link{
+  color:#00ffff;text-decoration:underline;
+  font-size:14px;
+}
+
+.footer{
+  text-align:center;padding:16px;
+  border-top:3px ridge #808080;
+  font-size:12px;color:#808080;
+}
+.footer a{color:#00ffff}
+
+.webring{
+  text-align:center;padding:16px;
+  border:2px ridge #808080;margin:16px;
+  background:#000040;
+}
+.webring span{color:#ffff00;font-size:12px}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.floating{animation:float 3s ease-in-out infinite}
+
+@media(max-width:600px){
+  .hero h1{font-size:24px}
+  .section{margin:8px;padding:8px}
+  .nav{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="bg-stars"></div>
+
+<div class="marquee-bar">
+  <span class="marquee-content">★ ДОБРО ПОЖАЛОВАТЬ НА BOOST!!! ★ НАЧНИ ВАЙБКОДИТЬ ЗА ВЫХОДНЫЕ ★ 14 900 РУБЛЕЙ ★ УСПЕЙ ЗАПИСАТЬСЯ!!! ★ 1000+ УЧАСТНИКОВ ★ </span>
+</div>
+
+<nav class="nav">
+  <span class="nav-brand">BOOST.RU</span>
+  <a href="../index.html">[ Все варианты ]</a>
+  <a href="#program">Программа</a>
+  <a href="#cases">Кейсы</a>
+  <a href="#pricing">Тарифы</a>
+  <span class="new-badge">NEW!</span>
+</nav>
+
+<div class="visitor-counter">
+  Счётчик посетителей: <span style="color:#ff0000">001</span><span style="color:#ffff00">337</span>
+</div>
+
+<section class="hero">
+  <h1 class="floating">BOOST — ИНТЕНСИВ ПО ВАЙБКОДИНГУ!!!</h1>
+  <p class="hero-sub">За два воркшопа с нуля ты начнёшь вайбкодить и создашь работающий продукт!!!</p>
+  <div class="hero-img">
+    <img src="https://boost-intensive.ru/_next/image?url=%2Fedited_no_wound_compressed.jpg&w=3840&q=75" alt="Ваня Замесин">
+  </div>
+  <p style="color:#ffff00;font-size:16px"><b>Автор курса — Ваня Замесин</b></p>
+  <p class="hero-sub">Не нужно уметь программировать — 95% участников без техбэкграунда!</p>
+  <br>
+  <a href="https://boost-intensive.ru/#pricing" class="btn-90s" style="font-size:16px;padding:12px 24px">>>> ПРИСОЕДИНИТЬСЯ (14 900 РУБ.) <<<</a>
+</section>
+
+<hr class="fancy">
+
+<div class="section" id="stats">
+  <h2>ЦИФРЫ ИНТЕНСИВА</h2>
+  <table class="stats-table">
+    <tr><th>Показатель</th><th>Значение</th></tr>
+    <tr><td>Средняя оценка</td><td class="stats-num">9.2 / 10</td></tr>
+    <tr><td>Без техбэкграунда</td><td class="stats-num">95%</td></tr>
+    <tr><td>Начали вайбкодить</td><td class="stats-num">1000+</td></tr>
+    <tr><td>Живых воркшопов</td><td class="stats-num">3</td></tr>
+  </table>
+</div>
+
+<hr class="fancy">
+
+<div class="section" id="program">
+  <h2>ПРОГРАММА ИНТЕНСИВА</h2>
+  <table class="program-table">
+    <tr><th>№</th><th>Воркшоп</th><th>Описание</th></tr>
+    <tr><td class="program-num">01</td><td>Установочная сессия</td><td>Вместе ставим инструменты и настраиваем сервисы</td></tr>
+    <tr><td class="program-num">02</td><td>PRD и лендинг</td><td>Опишешь продукт голосом — нейросеть соберёт PRD и лендинг</td></tr>
+    <tr><td class="program-num">03</td><td>Создание MVP</td><td>Превратишь описание в работающее приложение и задеплоишь</td></tr>
+  </table>
+</div>
+
+<hr class="fancy">
+
+<div class="section" id="cases">
+  <h2>КЕЙСЫ УЧАСТНИКОВ <span class="new-badge">NEW!</span></h2>
+  <div class="cases-grid">
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/anastasia-kalacheva-knowledge-school/full.png" alt="Knowledge School">
+      <div class="case-card-body">
+        <div class="tag">Продукт</div>
+        <h3>Knowledge School</h3>
+        <p>AI-конструктор курсов — экспертиза в курсы, которые проходят</p>
+      </div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/sofya-tretyakova-strateg/full.png" alt="СТРАТЕГ">
+      <div class="case-card-body">
+        <div class="tag">Продукт</div>
+        <h3>СТРАТЕГ</h3>
+        <p>Стратегическая разведка для SEO</p>
+      </div>
+    </div>
+    <div class="case-card">
+      <img src="https://boost-intensive.ru/projects/zaira-keligova-oskelly-atelier/full.png" alt="OSKELLY">
+      <div class="case-card-body">
+        <div class="tag">Продукт</div>
+        <h3>OSKELLY × AI Atelier</h3>
+        <p>AI-стилист уровня maison в Telegram</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="fancy">
+
+<div class="section">
+  <h2>ЧТО ГОВОРЯТ УЧАСТНИКИ</h2>
+  <div class="guestbook">
+    <h3>Гостевая книга отзывов:</h3>
+    <div class="guestbook-entry">
+      <span class="name">Евгения Ф.</span> <span class="date">[20.08.2025]</span>
+      <p class="msg">10/10! Появились инструменты для автоматизации работы. Есть рабочий прототип, который улучшаю по фидбеку.</p>
+    </div>
+    <div class="guestbook-entry">
+      <span class="name">Елена Т.</span> <span class="date">[22.08.2025]</span>
+      <p class="msg">10/10! Навайбкодила первый сайт. Поддержка была на каждом этапе. Даже слово «деплой» больше не пугает!</p>
+    </div>
+    <div class="guestbook-entry">
+      <span class="name">Василий П.</span> <span class="date">[23.08.2025]</span>
+      <p class="msg">10/10! Автоматизирую анализ звонков отдела продаж. Самое ценное — снятие барьера «начать с нуля».</p>
+    </div>
+  </div>
+</div>
+
+<hr class="fancy">
+
+<div class="section">
+  <h2>АВТОР КУРСА</h2>
+  <div class="author-box">
+    <img src="https://boost-intensive.ru/_next/image?url=%2Fimages%2Fivan-screen-5253.jpg&w=3840&q=75" alt="Ваня Замесин">
+    <h3>Ваня Замесин</h3>
+    <p>Эксперт №1 среди IT-продакт-менеджеров</p>
+    <p>11+ лет в продуктовом менеджменте</p>
+    <p>Автор методологии Advanced JTBD</p>
+    <p>Руководил продуктом в Яндекс Картинках — 30 млн MAU</p>
+  </div>
+</div>
+
+<hr class="fancy">
+
+<div class="section" id="pricing">
+  <h2>ТАРИФЫ</h2>
+  <table class="pricing-table">
+    <tr><th>Тариф</th><th>Цена</th><th>Что входит</th></tr>
+    <tr><td>Интенсив</td><td class="price-amount">14 900 ₽</td><td>3 встречи + кураторы + записи</td></tr>
+    <tr><td>Интенсив + Q&A</td><td class="price-amount">19 900 ₽</td><td>Всё + живая Q&A-сессия</td></tr>
+    <tr><td>Полная программа</td><td class="price-amount">44 900 ₽</td><td>Boost + Boost Pro + AI-система</td></tr>
+  </table>
+  <br>
+  <div style="text-align:center">
+    <a href="https://boost-intensive.ru/#pricing" class="btn-90s">[ КУПИТЬ СЕЙЧАС ]</a>
+  </div>
+</div>
+
+<hr class="fancy">
+
+<div class="webring">
+  <span>« BOOST WEBRING » — Присоединяйтесь к сообществу вайбкодеров!</span>
+</div>
+
+<div class="marquee-bar">
+  <span class="marquee-content" style="animation-direction:reverse">★ СПАСИБО ЗА ВИЗИТ!!! ★ НЕ ЗАБУДЬТЕ ЗАПИСАТЬСЯ НА BOOST!!! ★ ВСТРЕТИМСЯ НА ВОРКШОПЕ!!! ★ </span>
+</div>
+
+<footer class="footer">
+  <p>© 2026 BOOST.RU — Все права защищены!!!</p>
+  <p>Сайт создан в <a href="https://boost-intensive.ru" target="_blank">Netscape Navigator 4.0</a></p>
+  <p class="blinking" style="color:#ff0000">>>> КЛИКНИТЕ СЮДА ДЛЯ ЗАПИСИ <<<</p>
+</footer>
+
+</body>
+</html>
