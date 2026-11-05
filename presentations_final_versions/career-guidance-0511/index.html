@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
@@ -227,6 +227,111 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
 .news-card{background:var(--surface-white);border:1px solid var(--border-subtle);border-left:4px solid var(--error,#d32f2f);border-radius:10px;padding:12px 16px;display:flex;flex-direction:column;gap:4px}
 .news-source{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)}
 .news-headline{font-size:14px;font-weight:800;line-height:1.3;color:var(--on-surface);margin:0}
+
+
+  /* Финальный слайд E04: темная тема, волны и стекло */
+  #e04 {
+    background: #090d16 !important;
+    position: relative;
+    overflow: hidden;
+  }
+  #e04 .glow-orb {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 650px;
+    height: 420px;
+    background: radial-gradient(ellipse at center, rgba(20, 68, 230, 0.38) 0%, rgba(93, 81, 174, 0.22) 40%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 1;
+  }
+  #e04 .waves-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    min-height: 240px;
+    max-height: 400px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+  #e04 .waves {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin-bottom: -7px;
+  }
+  #e04 .parallax > use {
+    animation: move-wave 20s cubic-bezier(.55,.5,.45,.5) infinite;
+  }
+  #e04 .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+  #e04 .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+  #e04 .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+  #e04 .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 18s; }
+  @keyframes move-wave {
+    0% { transform: translate3d(-90px, 0, 0); }
+    100% { transform: translate3d(85px, 0, 0); }
+  }
+  #e04 .glass-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(24px) saturate(190%);
+    -webkit-backdrop-filter: blur(24px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 24px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    padding: 44px 54px;
+    max-width: 680px;
+    width: 90%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  /* Контрастный нижний бар на темном слайде E04 */
+  #e04 .sb {
+    z-index: 10;
+  }
+  #e04 .sb-item {
+    color: #94a3b8;
+  }
+  #e04 .sb-item.cur {
+    color: #ffffff;
+    font-weight: 800;
+  }
+  #e04 .sb-item.cur .st {
+    background: #38bdf8;
+    color: #090d16;
+    font-weight: 800;
+  }
+  #e04 .sb-item.done {
+    color: #818cf8;
+  }
+  #e04 .sb-line {
+    background: rgba(255, 255, 255, 0.2);
+    height: 3px;
+  }
+  #e04 .sb-line i {
+    background: #38bdf8;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+  }
+  #e04 .gift-chip {
+    background: rgba(15, 23, 42, 0.85);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+  }
+  #e04 .brand {
+    color: #ffffff;
+    opacity: 0.9;
+    z-index: 10;
+  }
 
 </style>
 </head>
@@ -1514,7 +1619,152 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
     </div>
     <h1 class="hl anim d2" style="max-width:24ch;color:var(--primary)">Мы разобрали, как работает IT-команда</h1>
     <p class="anim d2" style="font-size:20px;font-weight:600;margin:0;color:var(--on-surface-variant)">Теперь — как системно освоить эти направления</p>
-    <p class="anim d3" style="margin:8px 0 0;font-size:15px;font-weight:800;letter-spacing:.4em;text-transform:uppercase;color:var(--secondary)">Хекслет</p>
+    
+  </div>
+</section>
+
+<!-- SLIDE:S01B -->
+<section class="slide" id="s01b" data-title="Рынок работодателя" data-sb="sales" data-gift="2">
+  <header class="head anim">
+    <p class="kicker">Трудоустройство 2026 · Контекст</p>
+    <h1 class="hl">Рынок работодателя: что изменилось в найме</h1>
+  </header>
+  <div class="body" style="flex-direction:column;gap:22px;justify-content:center">
+    
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px" class="anim d1">
+      
+      <!-- Карточка 1: Перегруз на HH.RU -->
+      <div class="card l2" style="padding:22px 20px;display:flex;flex-direction:column;gap:12px;background:var(--surface-white);border:1px solid var(--border-subtle)">
+        <div>
+          <span class="tile s36 t-pri"><svg><use href="#i-search"/></svg></span>
+        </div>
+        <b style="font-size:16px;color:var(--on-surface);line-height:1.3">Перегруз на hh.ru</b>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--on-surface-variant);line-height:1.45">
+          <p style="margin:0">• Сотни откликов за первые часы после публикации</p>
+          <p style="margin:0">• Отклики наугад больше не дают конверсии</p>
+          <p style="margin:0">• Входящий поток джунов рекрутеры не разбирают физически</p>
+        </div>
+      </div>
+
+      <!-- Карточка 2: Скрытый найм -->
+      <div class="card l2" style="padding:22px 20px;display:flex;flex-direction:column;gap:12px;background:var(--surface-white);border:1px solid var(--border-subtle)">
+        <div>
+          <span class="tile s36 t-sec"><svg><use href="#i-route"/></svg></span>
+        </div>
+        <b style="font-size:16px;color:var(--on-surface);line-height:1.3">Скрытый найм</b>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--on-surface-variant);line-height:1.45">
+          <p style="margin:0">• Закрытие позиций до публикации на открытом рынке</p>
+          <p style="margin:0">• Реферальные программы сотрудников</p>
+          <p style="margin:0">• Прямой поиск через нетворкинг</p>
+        </div>
+      </div>
+
+      <!-- Карточка 3: Изменение ролей -->
+      <div class="card l2" style="padding:22px 20px;display:flex;flex-direction:column;gap:12px;background:var(--surface-white);border:1px solid var(--border-subtle)">
+        <div>
+          <span class="tile s36 t-ter"><svg><use href="#i-spark"/></svg></span>
+        </div>
+        <b style="font-size:16px;color:var(--on-surface);line-height:1.3">Изменение ролей</b>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--on-surface-variant);line-height:1.45">
+          <p style="margin:0">• С одной стороны хотят опыт с ИИ, с другой — старые требования</p>
+          <p style="margin:0">• Есть позиции типа LLM-инженера, но не для джунов</p>
+          <p style="margin:0">• Базовые требования не перестают расти</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Инфостиль плашка-вывод -->
+    <div class="plate anim d2" style="background:var(--container-low);border:1px solid var(--border-subtle);border-radius:10px;padding:12px 20px;display:flex;align-items:center;gap:14px">
+      <span class="tile s32 t-ter" style="flex-shrink:0"><svg><use href="#i-warn"/></svg></span>
+      <p style="margin:0;font-size:14px;font-weight:700;color:var(--on-surface);line-height:1.4">
+        Вывод: просто нажимать кнопку «Откликнуться» на hh.ru в 2026 году бесполезно — стратегия поиска изменилась.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- SLIDE:S01C -->
+<section class="slide" id="s01c" data-title="4 правила активного поиска" data-sb="sales" data-gift="2">
+  <header class="head anim">
+    <p class="kicker">Стратегия поиска · 2026</p>
+    <h1 class="hl">4 правила активного поиска</h1>
+  </header>
+  <div class="body" style="flex-direction:column;gap:20px;justify-content:center">
+    
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px" class="anim d1">
+      
+      <!-- Карточка 1: Мультиканальность -->
+      <div class="card l2" style="padding:18px 20px;display:flex;flex-direction:column;gap:10px;background:var(--surface-white);border:1px solid var(--border-subtle)">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="tile s36 t-pri"><svg><use href="#i-route"/></svg></span>
+          <div>
+            <b style="display:block;font-size:16px;color:var(--on-surface)">Мультиканальность</b>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--on-surface-variant);line-height:1.4">
+          <p style="margin:0">• Профили на всех площадках (LinkedIn, Хабр Карьера и др.)</p>
+          <p style="margin:0">• Поиск прямых контактов HR и лидов в Telegram</p>
+          <p style="margin:0">• Программы стажировок, в том числе «галеры»</p>
+        </div>
+      </div>
+
+      <!-- Карточка 2: Коммерческий опыт -->
+      <div class="card l2" style="padding:18px 20px;display:flex;flex-direction:column;gap:10px;background:var(--surface-white);border:1px solid var(--border-subtle)">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="tile s36 t-sec"><svg><use href="#i-store"/></svg></span>
+          <div>
+            <b style="display:block;font-size:16px;color:var(--on-surface)">Коммерческий опыт</b>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--on-surface-variant);line-height:1.4">
+          <p style="margin:0">• Пет-проекты больше никого не впечатляют</p>
+          <p style="margin:0">• Нужен опыт работы над живым продуктом</p>
+          <p style="margin:0">• Опенсорс и заказная разработка в портфолио</p>
+        </div>
+      </div>
+
+      <!-- Карточка 3: Использование ИИ -->
+      <div class="card l2" style="padding:18px 20px;display:flex;flex-direction:column;gap:10px;background:var(--surface-white);border:1px solid var(--border-subtle)">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="tile s36 t-ter"><svg><use href="#i-spark"/></svg></span>
+          <div>
+            <b style="display:block;font-size:16px;color:var(--on-surface)">Использование ИИ</b>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--on-surface-variant);line-height:1.4">
+          <p style="margin:0">• Работодатели ждут, что вы используете ИИ</p>
+          <p style="margin:0">• Навык №1: связка человек + нейросеть</p>
+          <p style="margin:0">• Проверка и ревью кода вместо слепого копипаста</p>
+        </div>
+      </div>
+
+      <!-- Карточка 4: Нетворк и рефералы -->
+      <div class="card l2" style="padding:18px 20px;display:flex;flex-direction:column;gap:10px;background:var(--surface-white);border:1px solid var(--border-subtle)">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="tile s36 t-pri"><svg><use href="#i-user"/></svg></span>
+          <div>
+            <b style="display:block;font-size:16px;color:var(--on-surface)">Нетворк и рефералы</b>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--on-surface-variant);line-height:1.4">
+          <p style="margin:0">• Рекомендация сотрудника гарантирует просмотр</p>
+          <p style="margin:0">• Сообщества, хакатоны, выпускники курсов</p>
+          <p style="margin:0">• Выход на нанимающих менеджеров напрямую</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Инфостиль плашка-вывод (подводка к Хекслету) -->
+    <div class="plate anim d2" style="background:var(--primary-fixed);border:1px solid var(--primary);border-radius:10px;padding:12px 20px;display:flex;align-items:center;gap:14px">
+      <span class="tile s32 t-pri" style="flex-shrink:0"><svg><use href="#i-target"/></svg></span>
+      <p style="margin:0;font-size:14px;font-weight:700;color:var(--on-surface);line-height:1.4">
+        В Хекслете мы готовим к этому рынку: даем реальный прод-опыт и карьерное сопровождение.
+      </p>
+    </div>
+
   </div>
 </section>
 
@@ -1681,62 +1931,111 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
     <h1 class="hl">Классические направления Хекслета</h1>
     <p class="sub">Все эти и многие другие направления можно освоить в Хекслете</p>
   </header>
-  <div class="body" style="flex-direction:column;gap:16px;justify-content:center">
-    <div class="anim d1" style="width:100%;max-width:1360px;align-self:center;border:1px solid var(--border-subtle);border-radius:14px;overflow:hidden;background:var(--surface-white)">
-      <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border-subtle);background:var(--container-low)">
-        <span style="width:10px;height:10px;border-radius:50%;background:var(--outline-variant);flex:none"></span><span style="width:10px;height:10px;border-radius:50%;background:var(--outline-variant);flex:none"></span><span style="width:10px;height:10px;border-radius:50%;background:var(--outline-variant);flex:none"></span>
-        <span style="flex:1;margin-left:10px;padding:5px 16px;border-radius:999px;background:var(--surface-white);border:1px solid var(--border-subtle);font-size:12px;font-weight:600;color:var(--text-muted)">ru.hexlet.io/programs</span>
+  <div class="body" style="flex-direction:column;gap:18px;justify-content:center">
+    <div class="anim d1" style="width:100%;max-width:1320px;align-self:center;border:1px solid var(--border-subtle);border-radius:14px;overflow:hidden;background:var(--surface-white);box-shadow:0 4px 16px rgba(0,0,0,0.04)">
+      
+      <!-- Браузерная плашка -->
+      <div style="display:flex;align-items:center;gap:8px;padding:9px 16px;border-bottom:1px solid var(--border-subtle);background:var(--container-low)">
+        <span style="width:9px;height:9px;border-radius:50%;background:var(--outline-variant);flex:none"></span>
+        <span style="width:9px;height:9px;border-radius:50%;background:var(--outline-variant);flex:none"></span>
+        <span style="width:9px;height:9px;border-radius:50%;background:var(--outline-variant);flex:none"></span>
+        <span style="flex:1;margin-left:10px;padding:4px 14px;border-radius:999px;background:var(--surface-white);border:1px solid var(--border-subtle);font-size:11.5px;font-weight:600;color:var(--text-muted)">ru.hexlet.io/programs</span>
       </div>
-      <div style="padding:16px 18px;display:flex;flex-direction:column;gap:12px">
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
-          <div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:8px"><span class="tile t-sec s24"><svg><use href="#i-window"/></svg></span><span style="font-size:14px;font-weight:700">Frontend</span></div>
-            <p style="margin:0;font-size:11.5px;font-weight:600;line-height:1.35;color:var(--text-muted)">10 месяцев · старт 27 августа · 4 проекта</p>
-            <p style="margin:0;font-size:13.5px;font-weight:800">110 000 ₽<span style="font-weight:600;font-size:11.5px;color:var(--text-muted)"> · от 4 579 ₽/мес</span></p>
+
+      <!-- Сетка легких карточек -->
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+        
+        <!-- Верхний ряд: Разработка (4 карточки) -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+          
+          <!-- Frontend -->
+          <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span class="tile t-sec s28"><svg><use href="#i-window"/></svg></span>
+              <span class="tbadge tb-blue" style="font-size:11px">10 месяцев</span>
+            </div>
+            <b style="font-size:15px;color:var(--on-surface)">Frontend</b>
+            <p style="margin:0;font-size:12px;color:var(--on-surface-variant);line-height:1.4">React, TypeScript, Next.js, AI-pairing · 4 проекта в портфолио</p>
           </div>
-          <div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:8px"><span class="tile t-sec s24"><svg><use href="#i-coffee"/></svg></span><span style="font-size:14px;font-weight:700">Java</span></div>
-            <p style="margin:0;font-size:11.5px;font-weight:600;line-height:1.35;color:var(--text-muted)">10 месяцев · старт 27 августа · 5 проектов</p>
-            <p style="margin:0;font-size:13.5px;font-weight:800">110 000 ₽<span style="font-weight:600;font-size:11.5px;color:var(--text-muted)"> · от 4 579 ₽/мес</span></p>
+
+          <!-- Java -->
+          <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span class="tile t-sec s28"><svg><use href="#i-coffee"/></svg></span>
+              <span class="tbadge tb-blue" style="font-size:11px">10 месяцев</span>
+            </div>
+            <b style="font-size:15px;color:var(--on-surface)">Java</b>
+            <p style="margin:0;font-size:12px;color:var(--on-surface-variant);line-height:1.4">Spring Boot, Hibernate, SQL, Enterprise · 5 проектов в портфолио</p>
           </div>
-          <div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:8px"><span class="tile t-sec s24"><svg><use href="#i-py"/></svg></span><span style="font-size:14px;font-weight:700">Python</span></div>
-            <p style="margin:0;font-size:11.5px;font-weight:600;line-height:1.35;color:var(--text-muted)">10 месяцев · старт 27 августа · 4 проекта</p>
-            <p style="margin:0;font-size:13.5px;font-weight:800">110 000 ₽<span style="font-weight:600;font-size:11.5px;color:var(--text-muted)"> · от 4 583 ₽/мес</span></p>
+
+          <!-- Python -->
+          <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span class="tile t-sec s28"><svg><use href="#i-py"/></svg></span>
+              <span class="tbadge tb-blue" style="font-size:11px">10 месяцев</span>
+            </div>
+            <b style="font-size:15px;color:var(--on-surface)">Python</b>
+            <p style="margin:0;font-size:12px;color:var(--on-surface-variant);line-height:1.4">Django, FastAPI, PostgreSQL, API · 4 проекта в портфолио</p>
           </div>
-          <div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:8px"><span class="tile t-sec s24"><svg><use href="#i-inf"/></svg></span><span style="font-size:14px;font-weight:700">DevOps с нуля</span></div>
-            <p style="margin:0;font-size:11.5px;font-weight:600;line-height:1.35;color:var(--text-muted)">10–14 месяцев · старт 27 августа · до 8 проектов</p>
-            <p style="margin:0;font-size:13.5px;font-weight:800">128 000 ₽<span style="font-weight:600;font-size:11.5px;color:var(--text-muted)"> · от 5 334 ₽/мес</span></p>
+
+          <!-- DevOps -->
+          <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span class="tile t-sec s28"><svg><use href="#i-inf"/></svg></span>
+              <span class="tbadge tb-blue" style="font-size:11px">10–14 месяцев</span>
+            </div>
+            <b style="font-size:15px;color:var(--on-surface)">DevOps</b>
+            <p style="margin:0;font-size:12px;color:var(--on-surface-variant);line-height:1.4">Linux, Docker, Kubernetes, CI/CD · до 8 проектов в портфолио</p>
           </div>
+
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:75%;margin:0 auto">
-          <div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:8px"><span class="tile t-ter s24"><svg><use href="#i-search"/></svg></span><span style="font-size:14px;font-weight:700">Ручное тестирование</span></div>
-            <p style="margin:0;font-size:11.5px;font-weight:600;line-height:1.35;color:var(--text-muted)">4 месяца · старт 27 августа · 2 проекта</p>
-            <p style="margin:0;font-size:13.5px;font-weight:800">53 100 ₽<span style="font-weight:600;font-size:11.5px;color:var(--text-muted)"> · от 3 031 ₽/мес</span></p>
+
+        <!-- Нижний ряд: Тестирование (3 карточки) -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:82%;margin:0 auto">
+          
+          <!-- Ручное тестирование -->
+          <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span class="tile t-ter s28"><svg><use href="#i-search"/></svg></span>
+              <span class="tbadge tb-yellow" style="font-size:11px">4 месяца</span>
+            </div>
+            <b style="font-size:15px;color:var(--on-surface)">Ручное тестирование</b>
+            <p style="margin:0;font-size:12px;color:var(--on-surface-variant);line-height:1.4">Тест-дизайн, DevTools, Postman, SQL · 2 проекта</p>
           </div>
-          <div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:8px"><span class="tile t-ter s24"><svg><use href="#i-bot"/></svg></span><span style="font-size:14px;font-weight:700">Автоматизация QA</span></div>
-            <p style="margin:0;font-size:11.5px;font-weight:600;line-height:1.35;color:var(--text-muted)">6 месяцев · старт 27 августа · JS · Python · Java</p>
-            <p style="margin:0;font-size:13.5px;font-weight:800">67 500 ₽<span style="font-weight:600;font-size:11.5px;color:var(--text-muted)"> · от 3 853 ₽/мес</span></p>
+
+          <!-- Автоматизация QA -->
+          <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span class="tile t-ter s28"><svg><use href="#i-bot"/></svg></span>
+              <span class="tbadge tb-yellow" style="font-size:11px">6 месяцев</span>
+            </div>
+            <b style="font-size:15px;color:var(--on-surface)">Автоматизация QA</b>
+            <p style="margin:0;font-size:12px;color:var(--on-surface-variant);line-height:1.4">Автотесты на JS, Python или Java · CI/CD пайплайны</p>
           </div>
-          <div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:8px"><span class="tile t-ter s24"><svg><use href="#i-layers"/></svg></span><span style="font-size:14px;font-weight:700">QA: с нуля до автоматизатора</span></div>
-            <p style="margin:0;font-size:11.5px;font-weight:600;line-height:1.35;color:var(--text-muted)">10 месяцев · старт 27 августа · 5 проектов</p>
-            <p style="margin:0;font-size:13.5px;font-weight:800">100 800 ₽<span style="font-weight:600;font-size:11.5px;color:var(--text-muted)"> · от 5 754 ₽/мес</span></p>
+
+          <!-- QA: с нуля до автоматизатора -->
+          <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:#fefce8;border:1.5px solid #ca8a04;border-radius:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span class="tile t-ter s28" style="background:#fef08a"><svg><use href="#i-layers"/></svg></span>
+              <span class="tbadge tb-green" style="font-size:11px">Флагманский бандл</span>
+            </div>
+            <b style="font-size:15px;color:var(--on-surface)">QA: с нуля до автоматизатора</b>
+            <p style="margin:0;font-size:12px;color:var(--on-surface-variant);line-height:1.4">Полный стек Manual + Automation · 10 месяцев · 5 проектов</p>
           </div>
+
         </div>
+
       </div>
+
     </div>
-    <div class="plate anim d2" style="align-self:center;background:var(--container-low);color:var(--on-surface)">На все направления действуют специальные условия для зрителей вебинара</div>
+
   </div>
 </section>
 
 <!-- SLIDE:S07 -->
 <section class="slide" id="s07" data-title="Программа: Frontend" data-sb="sales" data-gift="2">
   <header class="head anim">
-    <p class="kicker">Про Хекслет · Направление 1 из 7</p>
+    <p class="kicker">Про Хекслет · Направление 1 из 5</p>
     <h1 class="hl">Фронтенд-разработчик</h1>
   </header>
   <div class="body" style="gap:30px">
@@ -1784,34 +2083,100 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Проекты</span><span>Игры разума · Вычислитель отличий · RSS-агрегатор · Чат</span></div>
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Результат</span><span>4 проекта в портфолио, junior-вакансия от 85 000 ₽</span></div>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 27 августа · 10 месяцев</span></div>
+      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 5 ноября · 10 месяцев</span></div>
     </div>
   </div>
 </section>
 
 <!-- SLIDE:S08 -->
-<section class="slide" id="s08" data-title="Условия вебинара: Frontend" data-gift="2">
+<section class="slide" id="s08" data-title="Условия вебинара: Фронтенд-разработчик" data-gift="2">
   <header class="head anim">
-    <p class="kicker">Про Хекслет · Условие вебинара</p>
+    <p class="kicker">Про Хекслет · Специальные условия</p>
     <h1 class="hl">Условия для участников вебинара</h1>
   </header>
   <div class="body" style="justify-content:center;align-items:center">
-    <div class="card l2 anim d1" style="width:880px;padding:26px 30px">
-
-      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-        <p style="margin:0;font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)">Фронтенд-разработчик</p>
-        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
-          <s style="font-size:15px;font-weight:600;color:var(--text-muted)">85 000 ₽</s>
-          <span style="font-size:32px;font-weight:800;line-height:1">68 000 ₽</span>
-          <span class="chip" style="font-size:12px;font-weight:800;padding:5px 12px">−20% для зрителей вебинара</span>
+    <div class="anim d1" style="width:960px;max-width:96%;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:16px;box-shadow:0 12px 36px rgba(0,0,0,0.06);overflow:hidden">
+      
+      <!-- Темная премиальная шапка: повод и дедлайн -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 26px;background:#0f172a;color:#fff">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase">
+          <span style="color:#f59e0b">🔥</span> Чёрная пятница в Хекслете
         </div>
-        <p style="margin:4px 0 0;font-size:13px;font-weight:600;color:var(--on-surface-variant)">или <s>4 579 ₽/мес</s> → 3 829 ₽/мес в рассрочку на 24 мес</p>
-
-        <div style="display:flex;gap:12px;margin-top:8px;align-items:stretch">
-          <div class="plate anim d2" style="flex:1;text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:15px;padding:12px 16px">Скидка 20% — специально для зрителей вебинара</div>
-          <div class="plate anim d3" style="flex:0 0 auto;text-align:center;background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700;font-size:13px;padding:12px 18px;white-space:nowrap">Действует до 28 августа включительно</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#94a3b8">
+          <span>Спецусловия действуют до 8 ноября</span>
         </div>
       </div>
+
+      <!-- Основная двухколоночная сетка -->
+      <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:24px;padding:24px 28px">
+        
+        <!-- Левая колонка: Профессия и ценообразование -->
+        <div style="display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="font-size:22px;font-weight:800;color:var(--on-surface);letter-spacing:-0.01em">Фронтенд-разработчик</div>
+            <div style="font-size:13px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">10 месяцев · 4 проекта в портфолио · Тариф «Расширенный»</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--text-muted);font-weight:600">Базовая стоимость курса</span>
+              <span style="color:var(--text-muted);text-decoration:line-through;font-weight:600">119 000 ₽</span>
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--on-surface-variant);font-weight:600">Цена в Чёрную пятницу</span>
+              <span style="color:var(--on-surface);font-weight:700">86 900 ₽</span>
+            </div>
+
+            <!-- Акцентная скидка эфира -->
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#991b1b">Доп. скидка для участников вебинара</span>
+              <span style="font-size:14.5px;font-weight:850;color:#dc2626">−5 000 ₽</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая колонка: Финальная цена + Единый блок подарков -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+          
+          <!-- Финальная цена -->
+          <div style="background:var(--container-low);border:1px solid var(--border-subtle);border-radius:12px;padding:14px 18px">
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)">Финальная цена на эфире</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px">
+              <span style="font-size:36px;font-weight:900;line-height:1;color:var(--primary);letter-spacing:-0.02em">81 900 ₽</span>
+            </div>
+            <div style="font-size:12px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">
+              при полной оплате · или рассрочка от 7 400 ₽/мес
+            </div>
+          </div>
+
+          <!-- Единый блок подарков -->
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#334155">
+              <svg style="width:15px;height:15px;color:#0284c7;flex:none"><use href="#i-gift"/></svg>
+              2 подарка к вашей профессии
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--on-surface);line-height:1.35">
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Индивидуальное занятие с наставником:</b> разбор проектов и план карьеры</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Курс по вайбкодингу:</b> разработка сервисов с AI в подарок</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Нижняя строка фиксации -->
+      <div style="padding:10px 26px;background:#f8fafc;border-top:1px solid var(--border-subtle);text-align:center;font-size:12px">
+        <span style="font-weight:600;color:var(--on-surface-variant)">Условия бронируются для участников эфира «Как устроиться в IT в 2027»</span>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1819,7 +2184,7 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
 <!-- SLIDE:S09 -->
 <section class="slide" id="s09" data-title="Программа: Java" data-sb="sales" data-gift="2">
   <header class="head anim">
-    <p class="kicker">Про Хекслет · Направление 2 из 7</p>
+    <p class="kicker">Про Хекслет · Направление 2 из 5</p>
     <h1 class="hl">Java-разработчик</h1>
   </header>
   <div class="body" style="gap:30px">
@@ -1867,34 +2232,100 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Проекты</span><span>Игры разума · Вычислитель отличий · Валидатор данных · Анализатор страниц · Менеджер задач</span></div>
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Результат</span><span>5 проектов в портфолио, доход от 120 000 ₽ уже в первый год</span></div>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 27 августа · 10 месяцев</span></div>
+      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 5 ноября · 10 месяцев</span></div>
     </div>
   </div>
 </section>
 
 <!-- SLIDE:S10 -->
-<section class="slide" id="s10" data-title="Условия вебинара: Java" data-gift="2">
+<section class="slide" id="s10" data-title="Условия вебинара: Java-разработчик" data-gift="2">
   <header class="head anim">
-    <p class="kicker">Про Хекслет · Условие вебинара</p>
+    <p class="kicker">Про Хекслет · Специальные условия</p>
     <h1 class="hl">Условия для участников вебинара</h1>
   </header>
   <div class="body" style="justify-content:center;align-items:center">
-    <div class="card l2 anim d1" style="width:880px;padding:26px 30px">
-
-      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-        <p style="margin:0;font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)">Java-разработчик</p>
-        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
-          <s style="font-size:15px;font-weight:600;color:var(--text-muted)">85 000 ₽</s>
-          <span style="font-size:32px;font-weight:800;line-height:1">68 000 ₽</span>
-          <span class="chip" style="font-size:12px;font-weight:800;padding:5px 12px">−20% для зрителей вебинара</span>
+    <div class="anim d1" style="width:960px;max-width:96%;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:16px;box-shadow:0 12px 36px rgba(0,0,0,0.06);overflow:hidden">
+      
+      <!-- Темная премиальная шапка: повод и дедлайн -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 26px;background:#0f172a;color:#fff">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase">
+          <span style="color:#f59e0b">🔥</span> Чёрная пятница в Хекслете
         </div>
-        <p style="margin:4px 0 0;font-size:13px;font-weight:600;color:var(--on-surface-variant)">или <s>4 579 ₽/мес</s> → 3 829 ₽/мес в рассрочку на 24 мес</p>
-
-        <div style="display:flex;gap:12px;margin-top:8px;align-items:stretch">
-          <div class="plate anim d2" style="flex:1;text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:15px;padding:12px 16px">Скидка 20% — специально для зрителей вебинара</div>
-          <div class="plate anim d3" style="flex:0 0 auto;text-align:center;background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700;font-size:13px;padding:12px 18px;white-space:nowrap">Действует до 28 августа включительно</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#94a3b8">
+          <span>Спецусловия действуют до 8 ноября</span>
         </div>
       </div>
+
+      <!-- Основная двухколоночная сетка -->
+      <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:24px;padding:24px 28px">
+        
+        <!-- Левая колонка: Профессия и ценообразование -->
+        <div style="display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="font-size:22px;font-weight:800;color:var(--on-surface);letter-spacing:-0.01em">Java-разработчик</div>
+            <div style="font-size:13px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">10 месяцев · 5 проектов в портфолио · Тариф «Расширенный»</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--text-muted);font-weight:600">Базовая стоимость курса</span>
+              <span style="color:var(--text-muted);text-decoration:line-through;font-weight:600">119 000 ₽</span>
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--on-surface-variant);font-weight:600">Цена в Чёрную пятницу</span>
+              <span style="color:var(--on-surface);font-weight:700">89 900 ₽</span>
+            </div>
+
+            <!-- Акцентная скидка эфира -->
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#991b1b">Доп. скидка для участников вебинара</span>
+              <span style="font-size:14.5px;font-weight:850;color:#dc2626">−5 000 ₽</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая колонка: Финальная цена + Единый блок подарков -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+          
+          <!-- Финальная цена -->
+          <div style="background:var(--container-low);border:1px solid var(--border-subtle);border-radius:12px;padding:14px 18px">
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)">Финальная цена на эфире</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px">
+              <span style="font-size:36px;font-weight:900;line-height:1;color:var(--primary);letter-spacing:-0.02em">84 900 ₽</span>
+            </div>
+            <div style="font-size:12px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">
+              при полной оплате · или рассрочка от 7 700 ₽/мес
+            </div>
+          </div>
+
+          <!-- Единый блок подарков -->
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#334155">
+              <svg style="width:15px;height:15px;color:#0284c7;flex:none"><use href="#i-gift"/></svg>
+              2 подарка к вашей профессии
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--on-surface);line-height:1.35">
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Индивидуальное занятие с наставником:</b> разбор проектов и план карьеры</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Курс по вайбкодингу:</b> разработка сервисов с AI в подарок</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Нижняя строка фиксации -->
+      <div style="padding:10px 26px;background:#f8fafc;border-top:1px solid var(--border-subtle);text-align:center;font-size:12px">
+        <span style="font-weight:600;color:var(--on-surface-variant)">Условия бронируются для участников эфира «Как устроиться в IT в 2027»</span>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1902,7 +2333,7 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
 <!-- SLIDE:S11 -->
 <section class="slide" id="s11" data-title="Программа: Python" data-sb="sales" data-gift="2">
   <header class="head anim">
-    <p class="kicker">Про Хекслет · Направление 3 из 7</p>
+    <p class="kicker">Про Хекслет · Направление 3 из 5</p>
     <h1 class="hl">Python-разработчик</h1>
   </header>
   <div class="body" style="gap:30px">
@@ -1949,35 +2380,100 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Проекты</span><span>Игры разума · Вычислитель отличий · Анализатор страниц · Менеджер задач</span></div>
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Результат</span><span>4 проекта в портфолио, junior-вакансия от 90 000 ₽</span></div>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 27 августа · 10 месяцев</span></div>
+      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 5 ноября · 10 месяцев</span></div>
     </div>
   </div>
 </section>
 
 <!-- SLIDE:S12 -->
-<section class="slide" id="s12" data-title="Условия вебинара: Python" data-gift="2">
+<section class="slide" id="s12" data-title="Условия вебинара: Python-разработчик" data-gift="2">
   <header class="head anim">
-    <p class="kicker">Про Хекслет · Условие вебинара</p>
+    <p class="kicker">Про Хекслет · Специальные условия</p>
     <h1 class="hl">Условия для участников вебинара</h1>
   </header>
   <div class="body" style="justify-content:center;align-items:center">
-
-    <div class="card l2 anim d1" style="width:880px;padding:26px 30px">
-
-      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-        <p style="margin:0;font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)">Python-разработчик</p>
-        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
-          <s style="font-size:15px;font-weight:600;color:var(--text-muted)">85 000 ₽</s>
-          <span style="font-size:32px;font-weight:800;line-height:1">68 000 ₽</span>
-          <span class="chip" style="font-size:12px;font-weight:800;padding:5px 12px">−20% для зрителей вебинара</span>
+    <div class="anim d1" style="width:960px;max-width:96%;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:16px;box-shadow:0 12px 36px rgba(0,0,0,0.06);overflow:hidden">
+      
+      <!-- Темная премиальная шапка: повод и дедлайн -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 26px;background:#0f172a;color:#fff">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase">
+          <span style="color:#f59e0b">🔥</span> Чёрная пятница в Хекслете
         </div>
-        <p style="margin:4px 0 0;font-size:13px;font-weight:600;color:var(--on-surface-variant)">или <s>4 579 ₽/мес</s> → 3 829 ₽/мес в рассрочку на 24 мес</p>
-
-        <div style="display:flex;gap:12px;margin-top:8px;align-items:stretch">
-          <div class="plate anim d2" style="flex:1;text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:15px;padding:12px 16px">Скидка 20% — специально для зрителей вебинара</div>
-          <div class="plate anim d3" style="flex:0 0 auto;text-align:center;background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700;font-size:13px;padding:12px 18px;white-space:nowrap">Действует до 28 августа включительно</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#94a3b8">
+          <span>Спецусловия действуют до 8 ноября</span>
         </div>
       </div>
+
+      <!-- Основная двухколоночная сетка -->
+      <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:24px;padding:24px 28px">
+        
+        <!-- Левая колонка: Профессия и ценообразование -->
+        <div style="display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="font-size:22px;font-weight:800;color:var(--on-surface);letter-spacing:-0.01em">Python-разработчик</div>
+            <div style="font-size:13px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">10 месяцев · 4 проекта в портфолио · Тариф «Расширенный»</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--text-muted);font-weight:600">Базовая стоимость курса</span>
+              <span style="color:var(--text-muted);text-decoration:line-through;font-weight:600">119 000 ₽</span>
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--on-surface-variant);font-weight:600">Цена в Чёрную пятницу</span>
+              <span style="color:var(--on-surface);font-weight:700">93 900 ₽</span>
+            </div>
+
+            <!-- Акцентная скидка эфира -->
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#991b1b">Доп. скидка для участников вебинара</span>
+              <span style="font-size:14.5px;font-weight:850;color:#dc2626">−5 000 ₽</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая колонка: Финальная цена + Единый блок подарков -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+          
+          <!-- Финальная цена -->
+          <div style="background:var(--container-low);border:1px solid var(--border-subtle);border-radius:12px;padding:14px 18px">
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)">Финальная цена на эфире</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px">
+              <span style="font-size:36px;font-weight:900;line-height:1;color:var(--primary);letter-spacing:-0.02em">88 900 ₽</span>
+            </div>
+            <div style="font-size:12px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">
+              при полной оплате · или рассрочка от 8 080 ₽/мес
+            </div>
+          </div>
+
+          <!-- Единый блок подарков -->
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#334155">
+              <svg style="width:15px;height:15px;color:#0284c7;flex:none"><use href="#i-gift"/></svg>
+              2 подарка к вашей профессии
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--on-surface);line-height:1.35">
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Индивидуальное занятие с наставником:</b> разбор проектов и план карьеры</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Курс по вайбкодингу:</b> разработка сервисов с AI в подарок</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Нижняя строка фиксации -->
+      <div style="padding:10px 26px;background:#f8fafc;border-top:1px solid var(--border-subtle);text-align:center;font-size:12px">
+        <span style="font-weight:600;color:var(--on-surface-variant)">Условия бронируются для участников эфира «Как устроиться в IT в 2027»</span>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1985,7 +2481,7 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
 <!-- SLIDE:S13 -->
 <section class="slide" id="s13" data-title="Программа: DevOps" data-sb="sales" data-gift="2">
   <header class="head anim">
-    <p class="kicker">Про Хекслет · Направление 4 из 7</p>
+    <p class="kicker">Про Хекслет · Направление 4 из 5</p>
     <h1 class="hl">DevOps-инженер</h1>
   </header>
   <div class="body" style="gap:30px">
@@ -2018,181 +2514,100 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Проекты</span><span>Деплой PaaS · Инфраструктура как код · Observability · Kubernetes — в Yandex.Cloud</span></div>
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Результат</span><span>три инфраструктурных проекта в Yandex.Cloud в портфолио</span></div>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 27 августа · 10–14 месяцев</span></div>
+      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 5 ноября · 10–14 месяцев</span></div>
     </div>
   </div>
 </section>
 
 <!-- SLIDE:S14 -->
-<section class="slide" id="s14" data-title="Условия вебинара: DevOps" data-gift="2">
+<section class="slide" id="s14" data-title="Условия вебинара: DevOps-инженер" data-gift="2">
   <header class="head anim">
-    <p class="kicker">Про Хекслет · Условие вебинара</p>
+    <p class="kicker">Про Хекслет · Специальные условия</p>
     <h1 class="hl">Условия для участников вебинара</h1>
   </header>
   <div class="body" style="justify-content:center;align-items:center">
-
-    <div class="card l2 anim d1" style="width:880px;padding:26px 30px">
-
-      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-        <p style="margin:0;font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)">DevOps-инженер</p>
-        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
-          <s style="font-size:15px;font-weight:600;color:var(--text-muted)">99 000 ₽</s>
-          <span style="font-size:32px;font-weight:800;line-height:1">79 200 ₽</span>
-          <span class="chip" style="font-size:12px;font-weight:800;padding:5px 12px">−20% для зрителей вебинара</span>
+    <div class="anim d1" style="width:960px;max-width:96%;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:16px;box-shadow:0 12px 36px rgba(0,0,0,0.06);overflow:hidden">
+      
+      <!-- Темная премиальная шапка: повод и дедлайн -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 26px;background:#0f172a;color:#fff">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase">
+          <span style="color:#f59e0b">🔥</span> Чёрная пятница в Хекслете
         </div>
-        <p style="margin:4px 0 0;font-size:13px;font-weight:600;color:var(--on-surface-variant)">или <s>5 334 ₽/мес</s> → 4 459 ₽/мес в рассрочку на 24 мес</p>
-
-        <div style="display:flex;gap:12px;margin-top:8px;align-items:stretch">
-          <div class="plate anim d2" style="flex:1;text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:15px;padding:12px 16px">Скидка 20% — специально для зрителей вебинара</div>
-          <div class="plate anim d3" style="flex:0 0 auto;text-align:center;background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700;font-size:13px;padding:12px 18px;white-space:nowrap">Действует до 28 августа включительно</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#94a3b8">
+          <span>Спецусловия действуют до 8 ноября</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- SLIDE:S15 -->
-<section class="slide" id="s15" data-title="Программа: Manual QA" data-sb="sales" data-gift="2">
-  <header class="head anim">
-    <p class="kicker">Про Хекслет · Направление 5 из 7</p>
-    <h1 class="hl">Инженер по ручному тестированию</h1>
-  </header>
-  <div class="body" style="gap:30px">
-    <div class="anim d1" style="width:36%;background:var(--container-low);border-radius:var(--radius-m);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px">
-      <div style="width:100%;max-width:440px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:10px;overflow:hidden">
-        <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span style="padding:3px 10px;border-radius:999px;background:#ffc3b0;color:#924124;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em">Bug · критический</span>
-            <span style="padding:3px 10px;border-radius:999px;background:var(--container-high);font-size:9.5px;font-weight:800;color:var(--on-surface-variant)">#142</span>
-            <svg style="width:13px;height:13px;margin-left:auto;color:var(--text-muted)"><use href="#i-search"/></svg>
-          </div>
-          <p style="margin:0;font-size:12.5px;font-weight:800;line-height:1.3">Кнопка «Купить» неактивна после редиректа</p>
+      <!-- Основная двухколоночная сетка -->
+      <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:24px;padding:24px 28px">
+        
+        <!-- Левая колонка: Профессия и ценообразование -->
+        <div style="display:flex;flex-direction:column;justify-content:space-between">
           <div>
-            <p style="margin:0 0 3px;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--text-muted)">Шаги воспроизведения</p>
-            <p style="margin:0;font-size:11px;line-height:1.5;color:var(--on-surface-variant)">1. Добавить товар в корзину<br>2. Открыть корзину и нажать «Купить»<br>3. Дождаться редиректа на оплату</p>
+            <div style="font-size:22px;font-weight:800;color:var(--on-surface);letter-spacing:-0.01em">DevOps-инженер</div>
+            <div style="font-size:13px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">10–14 месяцев · до 8 проектов в портфолио · Тариф «Расширенный»</div>
           </div>
-          <div style="border-top:1px solid var(--border-subtle);padding-top:8px;display:flex;gap:16px">
-            <div><p style="margin:0;font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted)">Ожидаемо</p><p style="margin:1px 0 0;font-size:11px;font-weight:600">Переход к оплате</p></div>
-            <div><p style="margin:0;font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#924124">Фактически</p><p style="margin:1px 0 0;font-size:11px;font-weight:600">Кнопка без реакции</p></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
-            <span style="padding:3px 10px;border-radius:999px;border:1px solid var(--border-subtle);font-size:9.5px;font-weight:700;color:var(--text-muted)">Chrome 126 · Прод</span>
-            <div style="margin-left:auto;display:flex;align-items:center;gap:6px">
-              <span style="width:18px;height:18px;border-radius:50%;background:var(--container-high);display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--on-surface-variant)">А</span>
-              <span style="font-size:10.5px;font-weight:600;color:var(--on-surface-variant)">Аня, тестировщик</span>
+
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--text-muted);font-weight:600">Базовая стоимость курса</span>
+              <span style="color:var(--text-muted);text-decoration:line-through;font-weight:600">129 000 ₽</span>
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--on-surface-variant);font-weight:600">Цена в Чёрную пятницу</span>
+              <span style="color:var(--on-surface);font-weight:700">115 900 ₽</span>
+            </div>
+
+            <!-- Акцентная скидка эфира -->
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#991b1b">Доп. скидка для участников вебинара</span>
+              <span style="font-size:14.5px;font-weight:850;color:#dc2626">−5 000 ₽</span>
             </div>
           </div>
         </div>
-      </div>
-      <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)">Проект курса · Тестирование интернет-магазина</p>
-    </div>
-    <div class="anim d2" style="flex:1;display:flex;flex-direction:column;gap:15px;min-width:0;justify-content:center">
-      <p style="margin:0;font-size:17px;font-weight:600;line-height:1.5">Самый доступный вход в IT. Анна только что показала профессию вживую — на нашем же продукте доставки.</p>
-      <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;font-weight:600">
-        <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Для кого</span><span>с нуля; внимательность и системность</span></div>
-        <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Что освоите</span><span>тест-дизайн · DevTools · API · SQL · Jira</span></div>
-        <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Проекты</span><span>Тестирование интернет-магазина · Тестирование в продакшене</span></div>
-        <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Результат</span><span>тестовая документация и баг-репорты, первая вакансия через 4 месяца</span></div>
-      </div>
-      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 27 августа · 4 месяца</span></div>
-    </div>
-  </div>
-</section>
 
-<!-- SLIDE:S16 -->
-<section class="slide" id="s16" data-title="Условия вебинара: Manual QA" data-gift="2">
-  <header class="head anim">
-    <p class="kicker">Про Хекслет · Условие вебинара</p>
-    <h1 class="hl">Условия для участников вебинара</h1>
-  </header>
-  <div class="body" style="justify-content:center;align-items:center">
-
-    <div class="card l2 anim d1" style="width:880px;padding:26px 30px">
-
-      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-        <p style="margin:0;font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)">Инженер по ручному тестированию</p>
-        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
-          <s style="font-size:15px;font-weight:600;color:var(--text-muted)">53 100 ₽</s>
-          <span style="font-size:32px;font-weight:800;line-height:1">36 000 ₽</span>
-          <span class="chip" style="font-size:12px;font-weight:800;padding:5px 12px">−20% для зрителей вебинара</span>
-        </div>
-        <p style="margin:4px 0 0;font-size:13px;font-weight:600;color:var(--on-surface-variant)">или <s>3 031 ₽/мес</s> → 2 027 ₽/мес в рассрочку на 24 мес</p>
-
-        <div style="display:flex;gap:12px;margin-top:8px;align-items:stretch">
-          <div class="plate anim d2" style="flex:1;text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:15px;padding:12px 16px">Скидка 20% — специально для зрителей вебинара</div>
-          <div class="plate anim d3" style="flex:0 0 auto;text-align:center;background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700;font-size:13px;padding:12px 18px;white-space:nowrap">Действует до 28 августа включительно</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SLIDE:S17 -->
-<section class="slide" id="s17" data-title="Программа: Automation QA" data-sb="sales" data-gift="2">
-  <header class="head anim">
-    <p class="kicker">Про Хекслет · Направление 6 из 7</p>
-    <h1 class="hl">Автоматизатор тестирования</h1>
-  </header>
-  <div class="body" style="gap:30px">
-    <div class="anim d1" style="width:36%;background:var(--container-low);border-radius:var(--radius-m);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px">
-      <div style="width:100%;max-width:440px;background:#151618;border-radius:10px;overflow:hidden">
-        <div style="display:flex;align-items:center;gap:6px;padding:8px 12px;background:#22252a;border-bottom:1px solid #33363b">
-          <span style="width:8px;height:8px;border-radius:50%;background:#45484d"></span><span style="width:8px;height:8px;border-radius:50%;background:#45484d"></span><span style="width:8px;height:8px;border-radius:50%;background:#45484d"></span>
-          <span style="margin-left:auto;padding:3px 12px;border-radius:999px;background:#151618;font-size:11px;font-weight:600;color:#a0a0a8">login.spec.js</span>
-        </div>
-        <div style="padding:14px 16px">
-          <p style="margin:0;font-family:Consolas,'Courier New',monospace;font-size:11px;line-height:1.65;white-space:pre;color:#d6deeb"><span style="color:#c792ea">test</span>(<span style="color:#c3e88d">'логин ведёт на доску'</span>, <span style="color:#c792ea">async</span> ({ page }) <span style="color:#969696">=&gt;</span> {
-  <span style="color:#c792ea">await</span> page.<span style="color:#82aaff">goto</span>(<span style="color:#c3e88d">'/login'</span>);
-  <span style="color:#c792ea">await</span> page.<span style="color:#82aaff">fill</span>(<span style="color:#c3e88d">'#email'</span>, <span style="color:#c3e88d">'anna@ex.io'</span>);
-  <span style="color:#c792ea">await</span> page.<span style="color:#82aaff">click</span>(<span style="color:#c3e88d">'button:has-text("Войти")'</span>);
-  <span style="color:#c792ea">await</span> <span style="color:#82aaff">expect</span>(page).<span style="color:#82aaff">toHaveURL</span>(<span style="color:#c3e88d">'/desk'</span>);
-});</p>
-          <div style="margin-top:10px;padding-top:9px;border-top:1px solid #33363b;display:flex;align-items:center;gap:7px">
-            <svg style="width:12px;height:12px;color:#8be04b"><use href="#i-check"/></svg>
-            <span style="font-family:Consolas,'Courier New',monospace;font-size:11px;font-weight:700;color:#8be04b">2 passed</span>
-            <span style="font-family:Consolas,'Courier New',monospace;font-size:11px;color:#6f7379">· 1.4s · chromium</span>
+        <!-- Правая колонка: Финальная цена + Единый блок подарков -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+          
+          <!-- Финальная цена -->
+          <div style="background:var(--container-low);border:1px solid var(--border-subtle);border-radius:12px;padding:14px 18px">
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)">Финальная цена на эфире</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px">
+              <span style="font-size:36px;font-weight:900;line-height:1;color:var(--primary);letter-spacing:-0.02em">110 900 ₽</span>
+            </div>
+            <div style="font-size:12px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">
+              при полной оплате · или рассрочка от 10 080 ₽/мес
+            </div>
           </div>
+
+          <!-- Единый блок подарков -->
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#334155">
+              <svg style="width:15px;height:15px;color:#0284c7;flex:none"><use href="#i-gift"/></svg>
+              2 подарка к вашей профессии
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--on-surface);line-height:1.35">
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Индивидуальное занятие с наставником:</b> разбор проектов и план карьеры</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Курс по вайбкодингу:</b> разработка сервисов с AI в подарок</span>
+              </div>
+            </div>
+          </div>
+
         </div>
+
       </div>
-      <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)">Проект курса · E2E «Канбан-доска»</p>
-    </div>
-    <div class="anim d2" style="flex:1;display:flex;flex-direction:column;gap:15px;min-width:0;justify-content:center">
-      <p style="margin:0;font-size:17px;font-weight:600;line-height:1.5">Программирование плюс тестирование. Мост от manual: рутина автоматизируется — ценность растёт у тех, кто умеет писать автотесты.</p>
-      <div style="display:flex;flex-direction:column;gap:8px;font-size:15px;font-weight:600">
-        <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Для кого</span><span>есть база manual или опыт разработки</span></div>
-        <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Что освоите</span><span>Playwright · Selenium · Jest / Pytest / JUnit · CI — на JavaScript, Python или Java</span></div>
-        <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Проекты</span><span>Игры разума · Вычислитель отличий · E2E «Канбан-доска»</span></div>
-        <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Результат</span><span>автотесты в портфолио, middle от 170 000 ₽</span></div>
+
+      <!-- Нижняя строка фиксации -->
+      <div style="padding:10px 26px;background:#f8fafc;border-top:1px solid var(--border-subtle);text-align:center;font-size:12px">
+        <span style="font-weight:600;color:var(--on-surface-variant)">Условия бронируются для участников эфира «Как устроиться в IT в 2027»</span>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 27 августа · 6 месяцев</span></div>
-    </div>
-  </div>
-</section>
 
-<!-- SLIDE:S18 -->
-<section class="slide" id="s18" data-title="Условия вебинара: Automation QA" data-gift="2">
-  <header class="head anim">
-    <p class="kicker">Про Хекслет · Условие вебинара</p>
-    <h1 class="hl">Условия для участников вебинара</h1>
-  </header>
-  <div class="body" style="justify-content:center;align-items:center">
-
-    <div class="card l2 anim d1" style="width:880px;padding:26px 30px">
-
-      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-        <p style="margin:0;font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)">Автоматизатор тестирования</p>
-        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
-          <s style="font-size:15px;font-weight:600;color:var(--text-muted)">67 500 ₽</s>
-          <span style="font-size:32px;font-weight:800;line-height:1">48 000 ₽</span>
-          <span class="chip" style="font-size:12px;font-weight:800;padding:5px 12px">−20% для зрителей вебинара</span>
-        </div>
-        <p style="margin:4px 0 0;font-size:13px;font-weight:600;color:var(--on-surface-variant)">или <s>3 853 ₽/мес</s> → 2 703 ₽/мес в рассрочку на 24 мес</p>
-
-        <div style="display:flex;gap:12px;margin-top:8px;align-items:stretch">
-          <div class="plate anim d2" style="flex:1;text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:15px;padding:12px 16px">Скидка 20% — специально для зрителей вебинара</div>
-          <div class="plate anim d3" style="flex:0 0 auto;text-align:center;background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700;font-size:13px;padding:12px 18px;white-space:nowrap">Действует до 28 августа включительно</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -2200,7 +2615,7 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
 <!-- SLIDE:S19 -->
 <section class="slide" id="s19" data-title="Программа: QA Bundle" data-sb="sales" data-gift="2">
   <header class="head anim">
-    <p class="kicker">Про Хекслет · Направление 7 из 7</p>
+    <p class="kicker">Про Хекслет · Направление 5 из 5</p>
     <h1 class="hl">QA: с нуля до автоматизатора</h1>
   </header>
   <div class="body" style="gap:30px">
@@ -2241,35 +2656,100 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Проекты</span><span>5 проектов в портфолио — финал: E2E «Канбан-доска»</span></div>
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Результат</span><span>комбинированный профиль manual + auto, диплом о переподготовке</span></div>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 27 августа · 10 месяцев</span></div>
+      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span><span>старт 5 ноября · 10 месяцев</span></div>
     </div>
   </div>
 </section>
 
 <!-- SLIDE:S20 -->
-<section class="slide" id="s20" data-title="Условия вебинара: QA Bundle" data-gift="2">
+<section class="slide" id="s20" data-title="Условия вебинара: QA-инженер: с нуля до автоматизатора" data-gift="2">
   <header class="head anim">
-    <p class="kicker">Про Хекслет · Условие вебинара</p>
+    <p class="kicker">Про Хекслет · Специальные условия</p>
     <h1 class="hl">Условия для участников вебинара</h1>
   </header>
   <div class="body" style="justify-content:center;align-items:center">
-
-    <div class="card l2 anim d1" style="width:880px;padding:26px 30px">
-
-      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
-        <p style="margin:0;font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)">QA: с нуля до автоматизатора</p>
-        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
-          <s style="font-size:15px;font-weight:600;color:var(--text-muted)">100 800 ₽</s>
-          <span style="font-size:32px;font-weight:800;line-height:1">68 000 ₽</span>
-          <span class="chip" style="font-size:12px;font-weight:800;padding:5px 12px">−20% для зрителей вебинара</span>
+    <div class="anim d1" style="width:960px;max-width:96%;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:16px;box-shadow:0 12px 36px rgba(0,0,0,0.06);overflow:hidden">
+      
+      <!-- Темная премиальная шапка: повод и дедлайн -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 26px;background:#0f172a;color:#fff">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase">
+          <span style="color:#f59e0b">🔥</span> Чёрная пятница в Хекслете
         </div>
-        <p style="margin:4px 0 0;font-size:13px;font-weight:600;color:var(--on-surface-variant)">или <s>5 754 ₽/мес</s> → 3 829 ₽/мес в рассрочку на 24 мес</p>
-
-        <div style="display:flex;gap:12px;margin-top:8px;align-items:stretch">
-          <div class="plate anim d2" style="flex:1;text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:15px;padding:12px 16px">Скидка 20% — специально для зрителей вебинара</div>
-          <div class="plate anim d3" style="flex:0 0 auto;text-align:center;background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700;font-size:13px;padding:12px 18px;white-space:nowrap">Действует до 28 августа включительно</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#94a3b8">
+          <span>Спецусловия действуют до 8 ноября</span>
         </div>
       </div>
+
+      <!-- Основная двухколоночная сетка -->
+      <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:24px;padding:24px 28px">
+        
+        <!-- Левая колонка: Профессия и ценообразование -->
+        <div style="display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="font-size:22px;font-weight:800;color:var(--on-surface);letter-spacing:-0.01em">QA: с нуля до автоматизатора</div>
+            <div style="font-size:13px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">Флагманский бандл · 10 месяцев · 5 проектов · Тариф «Расширенный»</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--text-muted);font-weight:600">Базовая стоимость курса</span>
+              <span style="color:var(--text-muted);text-decoration:line-through;font-weight:600">155 000 ₽</span>
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--on-surface-variant);font-weight:600">Цена в Чёрную пятницу</span>
+              <span style="color:var(--on-surface);font-weight:700">115 000 ₽</span>
+            </div>
+
+            <!-- Акцентная скидка эфира -->
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#991b1b">Доп. скидка для участников вебинара</span>
+              <span style="font-size:14.5px;font-weight:850;color:#dc2626">−5 000 ₽</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая колонка: Финальная цена + Единый блок подарков -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+          
+          <!-- Финальная цена -->
+          <div style="background:var(--container-low);border:1px solid var(--border-subtle);border-radius:12px;padding:14px 18px">
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)">Финальная цена на эфире</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px">
+              <span style="font-size:36px;font-weight:900;line-height:1;color:var(--primary);letter-spacing:-0.02em">110 000 ₽</span>
+            </div>
+            <div style="font-size:12px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">
+              при полной оплате · или рассрочка от 10 000 ₽/мес
+            </div>
+          </div>
+
+          <!-- Единый блок подарков -->
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#334155">
+              <svg style="width:15px;height:15px;color:#0284c7;flex:none"><use href="#i-gift"/></svg>
+              2 подарка к вашей профессии
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--on-surface);line-height:1.35">
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Индивидуальное занятие с наставником:</b> разбор проектов и план карьеры</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Курс по вайбкодингу:</b> разработка сервисов с AI в подарок</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Нижняя строка фиксации -->
+      <div style="padding:10px 26px;background:#f8fafc;border-top:1px solid var(--border-subtle);text-align:center;font-size:12px">
+        <span style="font-weight:600;color:var(--on-surface-variant)">Условия бронируются для участников эфира «Как устроиться в IT в 2027»</span>
+      </div>
+
     </div>
   </div>
 </section>
@@ -2490,6 +2970,70 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
   </div>
 </section>
 
+<!-- SLIDE:AI07B -->
+<section class="slide" id="ai07b" data-title="Вайбкодинг — новая норма" data-sb="ai" data-gift="3">
+  <header class="head anim">
+    <p class="kicker">ИИ · Новая норма</p>
+    <h1 class="hl">Вайбкодинг: реальность в разработке и за её пределами</h1>
+  </header>
+  <div class="body" style="flex-direction:column;gap:16px;justify-content:center">
+    
+    <!-- 2 колонки: Было vs Стало -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px" class="anim d1">
+      
+      <!-- Колонка 1: Раньше -->
+      <div class="card l2" style="padding:16px 20px;display:flex;flex-direction:column;gap:8px;background:var(--surface-white);border:1px solid #d1d5db;box-shadow:0 1px 3px rgba(0,0,0,0.05)">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)">Раньше · Эксперимент</span>
+        <b style="font-size:15px;color:var(--on-surface)">«Баловство без конкретной цели»</b>
+        <div style="display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--on-surface-variant);line-height:1.4">
+          <p style="margin:0">• Сборка простых лендингов и скриптов на коленке</p>
+          <p style="margin:0">• Скепсис индустрии: «настоящий код пишут только руками»</p>
+        </div>
+      </div>
+
+      <!-- Колонка 2: Сейчас -->
+      <div class="card l2" style="padding:16px 20px;display:flex;flex-direction:column;gap:8px;background:var(--surface-white);border:2px solid var(--primary);box-shadow:0 2px 8px rgba(37,99,235,0.08)">
+        <span style="font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--primary)">Сейчас · Промышленный стандарт</span>
+        <b style="font-size:15px;color:var(--on-surface)">Базовый инструмент в бигтехе</b>
+        <div style="display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--on-surface-variant);line-height:1.4">
+          <p style="margin:0">• Агентские среды разработки: Cursor, Claude Code, Copilot</p>
+          <p style="margin:0">• По данным исследований GitHub, около 46–60% кода генерирует ИИ</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Карточка: Кто сейчас вайбкодит -->
+    <div class="card l2 anim d2" style="padding:16px 20px;display:flex;flex-direction:column;gap:10px;background:var(--surface-white);border:1px solid var(--border-subtle)">
+      <b style="font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--on-surface)">Как это работает:</b>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:13.5px;font-weight:700;color:var(--primary)">Разработчики</span>
+          <span style="font-size:12.5px;color:var(--on-surface-variant);line-height:1.35">Ускоряют написание фичей и рефакторинг в 2–3 раза</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:13.5px;font-weight:700;color:var(--primary)">Тестировщики</span>
+          <span style="font-size:12.5px;color:var(--on-surface-variant);line-height:1.35">Генерируют сценарии, тест-модели и автотесты</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:13.5px;font-weight:700;color:var(--primary)">Аналитики и продакты</span>
+          <span style="font-size:12.5px;color:var(--on-surface-variant);line-height:1.35">Автоматизируют рутину и быстро собирают прототипы</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Нижняя плашка-вывод -->
+    <div class="plate anim d3" style="background:linear-gradient(135deg,#eff6ff 0%,#f5f3ff 50%,#fdf2f8 100%);border:1.5px solid #818cf8;border-radius:12px;padding:14px 22px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 16px rgba(99,102,241,0.12)">
+      <span class="tile s36" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(99,102,241,0.3)"><svg><use href="#i-spark"/></svg></span>
+      <p style="margin:0;font-size:14px;font-weight:700;color:#1e1b4b;line-height:1.45">
+        <span style="color:#4f46e5;text-transform:uppercase;letter-spacing:.06em;font-size:12px;display:block;margin-bottom:2px">Живой пример</span>
+        Даже эту презентацию маркетолог собирал вместе с Antigravity и OpenCode, сократив время на работу с Figma и дизайнером.
+      </p>
+    </div>
+
+  </div>
+</section>
+
 <!-- SLIDE:AI08 -->
 <section class="slide" id="ai08" data-title="Подарок: вайбкодинг" data-sb="ai" data-gift="4" data-gift-lit="1">
   <header class="head anim">
@@ -2571,43 +3115,6 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
   </div>
 </section>
 
-<!-- SLIDE:AI10 -->
-<section class="slide" id="ai10" data-title="Архитектура LLM-приложения" data-sb="ai" data-gift="4">
-  <header class="head anim">
-    <p class="kicker">ИИ · Архитектура</p>
-    <h1 class="hl">Архитектура LLM-приложения: контур защиты и проверки</h1>
-  </header>
-  <div class="body" style="justify-content:center;align-items:center">
-    <div class="anim d1" style="width:100%;max-width:920px">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 455" font-family="-apple-system, 'Segoe UI', Roboto, sans-serif" style="width:100%;height:auto">
-        <defs>
-          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker>
-          <marker id="arrowO" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ea580c"/></marker>
-          <marker id="arrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/></marker>
-        </defs>
-        <text x="460" y="22" text-anchor="middle" font-size="10.5" fill="#64748b">оранжевый — барьеры · жёлтый — действия · синий — модель · зелёный — доверенный результат · красный — отказ</text>
-        <rect x="16" y="48" width="100" height="64" rx="8" fill="#f1f5f9" stroke="#64748b"/><text x="66" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="#1a1a1a">Запрос</text><text x="66" y="91" text-anchor="middle" font-size="10.5" fill="#475569">от пользователя</text><text x="66" y="104" text-anchor="middle" font-size="10.5" fill="#475569">untrusted</text>
-        <rect x="166" y="48" width="160" height="64" rx="8" fill="#fff7ed" stroke="#ea580c"/><text x="246" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="#7c2d12">Анонимизация PII</text><text x="246" y="91" text-anchor="middle" font-size="10.5" fill="#9a3412">имена, телефоны,</text><text x="246" y="104" text-anchor="middle" font-size="10.5" fill="#9a3412">счета → плейсхолдеры</text>
-        <rect x="376" y="48" width="160" height="64" rx="8" fill="#fff7ed" stroke="#ea580c"/><text x="456" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="#7c2d12">Защита от инъекций</text><text x="456" y="91" text-anchor="middle" font-size="10.5" fill="#9a3412">детектор вредоносных</text><text x="456" y="104" text-anchor="middle" font-size="10.5" fill="#9a3412">инструкций в тексте</text>
-        <rect x="586" y="48" width="140" height="64" rx="8" fill="#f1f5f9" stroke="#64748b"/><text x="656" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="#1a1a1a">Экстракторы</text><text x="656" y="91" text-anchor="middle" font-size="10.5" fill="#475569">структура из текста:</text><text x="656" y="104" text-anchor="middle" font-size="10.5" fill="#475569">факты, поля, сущности</text>
-        <rect x="786" y="48" width="118" height="64" rx="8" fill="#eff6ff" stroke="#2563eb"/><text x="845" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="#1e3a8a">LLM</text><text x="845" y="95" text-anchor="middle" font-size="10.5" fill="#475569">ядро приложения</text>
-        <line x1="116" y1="80" x2="162" y2="80" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="326" y1="80" x2="372" y2="80" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="536" y1="80" x2="582" y2="80" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="726" y1="80" x2="782" y2="80" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
-        <rect x="736" y="192" width="168" height="64" rx="8" fill="#fefce8" stroke="#ca8a04"/><text x="820" y="218" text-anchor="middle" font-size="13" font-weight="600" fill="#713f12">Инструменты</text><text x="820" y="235" text-anchor="middle" font-size="10.5" fill="#854d0e">поиск · БД · API</text><text x="820" y="248" text-anchor="middle" font-size="10.5" fill="#854d0e">только allowlist</text>
-        <line x1="856" y1="112" x2="856" y2="188" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/><line x1="886" y1="188" x2="886" y2="112" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/><text x="850" y="163" text-anchor="end" font-size="10" fill="#475569">вызов</text><text x="850" y="180" text-anchor="end" font-size="10" fill="#475569">результат</text>
-        <rect x="520" y="192" width="180" height="64" rx="8" fill="#fff7ed" stroke="#ea580c"/><text x="610" y="218" text-anchor="middle" font-size="13" font-weight="600" fill="#7c2d12">Проверка выхода</text><text x="610" y="235" text-anchor="middle" font-size="10.5" fill="#9a3412">схема JSON · цитаты</text><text x="610" y="248" text-anchor="middle" font-size="10.5" fill="#9a3412">существуют · без PII</text>
-        <line x1="824" y1="112" x2="712" y2="186" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/><text x="742" y="186" text-anchor="middle" font-size="10" fill="#475569">черновик</text>
-        <line x1="622" y1="186" x2="798" y2="114" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrowO)"/><text x="616" y="178" text-anchor="end" font-size="10" fill="#9a3412">ретрай</text>
-        <line x1="456" y1="112" x2="456" y2="328" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrowR)"/><text x="464" y="176" font-size="10" fill="#dc2626">отказ</text>
-        <line x1="516" y1="224" x2="462" y2="224" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3"/><text x="489" y="217" text-anchor="middle" font-size="9.5" fill="#dc2626">не прошёл</text>
-        <rect x="386" y="332" width="140" height="64" rx="8" fill="#fef2f2" stroke="#dc2626"/><text x="456" y="358" text-anchor="middle" font-size="13" font-weight="600" fill="#7f1d1d">Отказ</text><text x="456" y="375" text-anchor="middle" font-size="10.5" fill="#991b1b">без деталей</text><text x="456" y="388" text-anchor="middle" font-size="10.5" fill="#991b1b">внутренних проверок</text>
-        <rect x="560" y="332" width="300" height="64" rx="8" fill="#f0fdf4" stroke="#16a34a"/><text x="710" y="358" text-anchor="middle" font-size="13" font-weight="600" fill="#14532d">Ответ пользователю</text><text x="710" y="375" text-anchor="middle" font-size="10.5" fill="#166534">прошёл все проверки · PII</text><text x="710" y="388" text-anchor="middle" font-size="10.5" fill="#166534">расшифрован в доверенной зоне</text>
-        <line x1="610" y1="256" x2="610" y2="328" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)"/>
-        <text x="460" y="420" text-anchor="middle" font-size="10.5" fill="#64748b">модель — единственный ненадёжный компонент: барьеры стоят до неё и после неё</text>
-      </svg>
-    </div>
-  </div>
-</section>
-
 <!-- SLIDE:F01 -->
 <section class="slide" id="f01" data-title="Рынок меняется" data-sb="ai" data-gift="4" style="background:var(--primary-fixed)">
   <header class="head anim" style="visibility:hidden;position:absolute"><h1></h1></header>
@@ -2618,40 +3125,6 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
     <div class="plate anim d4" style="max-width:640px;text-align:center">Хекслет обновляет программы под этот рынок</div>
   </div>
 </section>
-
-<!-- SLIDE:F02 -->
-<section class="slide" id="f02" data-title="Как Хекслет развивается" data-sb="ai" data-gift="4">
-  <header class="head anim">
-    <p class="kicker">Подведение итогов · Эволюция</p>
-    <h1 class="hl">Хекслет развивается вместе с индустрией</h1>
-  </header>
-  <div class="body" style="flex-direction:column;gap:24px;justify-content:center">
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px" class="anim d1">
-      <div class="card l2" style="padding:22px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
-        <span class="tile s48"><svg><use href="#i-book"/></svg></span>
-        <b style="font-size:17px">Классическая<br>разработка</b>
-        <p style="margin:0;font-size:13px;color:var(--on-surface-variant);line-height:1.4">База профессии:<br>HTML · Java · Python · SQL</p>
-      </div>
-      <div class="card l2" style="padding:22px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
-        <span class="tile s48 t-sec"><svg><use href="#i-grid"/></svg></span>
-        <b style="font-size:17px">Инженерные<br>практики</b>
-        <p style="margin:0;font-size:13px;color:var(--on-surface-variant);line-height:1.4">Рабочие процессы:<br>CI/CD · тестирование · DevOps</p>
-      </div>
-      <div class="card l2" style="padding:22px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
-        <span class="tile s48 t-ter"><svg><use href="#i-bot"/></svg></span>
-        <b style="font-size:17px">AI-first<br>разработка</b>
-        <p style="margin:0;font-size:13px;color:var(--on-surface-variant);line-height:1.4">AI-роли:<br>автоматизация · вайбкодинг</p>
-      </div>
-    </div>
-    <div style="display:flex;justify-content:center;gap:16px;align-items:center" class="anim d2">
-      <span class="arrow" style="font-size:22px">→</span>
-      <span class="arrow" style="font-size:22px">→</span>
-    </div>
-    <p class="anim d3" style="margin:0;text-align:center;font-size:15px;font-weight:700;color:var(--primary)">Новые программы появляются именно сейчас</p>
-  </div>
-</section>
-
-
 
 <!-- SLIDE:F04 -->
 <section class="slide" id="f04" data-title="Программа: AI-автоматизация" data-sb="ai" data-gift="4">
@@ -2697,28 +3170,100 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Что освоите</span><span>JavaScript · n8n · API · LLM · вебхуки</span></div>
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Результат</span><span>4 проекта: боты, CRM, интеграции, AI-ассистент</span></div>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span>Старт 3 сентября · 4 месяца</div>
+      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span>Старт 10 декабря · 4 месяца</div>
     </div>
   </div>
 </section>
 
 <!-- SLIDE:F04A -->
-<section class="slide" id="f04a" data-title="Оффер: AI-автоматизация" data-sb="ai" data-gift="4">
+<section class="slide" id="f04a" data-title="Условия вебинара: AI-автоматизация" data-sb="ai" data-gift="4">
   <header class="head anim">
-    <p class="kicker">Подведение итогов · Оффер</p>
-    <h1 class="hl">Специальное условие на AI-автоматизацию</h1>
+    <p class="kicker">Подведение итогов · Специальные условия</p>
+    <h1 class="hl">Условия для участников вебинара</h1>
   </header>
   <div class="body" style="justify-content:center;align-items:center">
-    <div style="max-width:800px;width:100%" class="anim d1">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <p style="margin:0;font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)">AI-автоматизация</p>
-        <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span>Старт 3 сентября · 4 месяца</div>
+    <div class="anim d1" style="width:960px;max-width:96%;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:16px;box-shadow:0 12px 36px rgba(0,0,0,0.06);overflow:hidden">
+      
+      <!-- Темная премиальная шапка: повод и дедлайн -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 26px;background:#0f172a;color:#fff">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase">
+          <span style="color:#f59e0b">🔥</span> Чёрная пятница в Хекслете
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#94a3b8">
+          <span>Спецусловия действуют до 8 ноября</span>
+        </div>
       </div>
 
-    </div>
-    <div style="display:flex;gap:12px;margin-top:18px;align-items:stretch" class="anim d2">
-      <div class="plate" style="flex:1;text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:16px;padding:14px 20px">Скидка 20% — специально для зрителей вебинара</div>
-      <div class="plate" style="flex:0 0 auto;text-align:center;background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700;font-size:14px;padding:14px 22px;white-space:nowrap">Действует до 28 августа включительно</div>
+      <!-- Основная двухколоночная сетка -->
+      <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:24px;padding:24px 28px">
+        
+        <!-- Левая колонка: Профессия и ценообразование -->
+        <div style="display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="font-size:22px;font-weight:800;color:var(--on-surface);letter-spacing:-0.01em">AI-автоматизация</div>
+            <div style="font-size:13px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">4 месяца · 4 проекта в портфолио · Тариф «Расширенный»</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--text-muted);font-weight:600">Базовая стоимость курса</span>
+              <span style="color:var(--text-muted);text-decoration:line-through;font-weight:600">69 000 ₽</span>
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:13.5px">
+              <span style="color:var(--on-surface-variant);font-weight:600">Формат обучения</span>
+              <span style="color:var(--on-surface);font-weight:700">Онлайн · Старт 10 декабря</span>
+            </div>
+
+            <!-- Акцентная скидка эфира -->
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px">
+              <span style="font-size:12.5px;font-weight:700;color:#991b1b">Скидка для участников вебинара</span>
+              <span style="font-size:14.5px;font-weight:850;color:#dc2626">−5 000 ₽</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая колонка: Финальная цена + Единый блок подарков -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+          
+          <!-- Финальная цена -->
+          <div style="background:var(--container-low);border:1px solid var(--border-subtle);border-radius:12px;padding:14px 18px">
+            <div style="font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)">Финальная цена на эфире</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px">
+              <span style="font-size:36px;font-weight:900;line-height:1;color:var(--primary);letter-spacing:-0.02em">64 000 ₽</span>
+            </div>
+            <div style="font-size:12px;font-weight:600;color:var(--on-surface-variant);margin-top:4px">
+              при полной оплате · или рассрочка от 5 800 ₽/мес
+            </div>
+          </div>
+
+          <!-- Единый блок подарков -->
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#334155">
+              <svg style="width:15px;height:15px;color:#0284c7;flex:none"><use href="#i-gift"/></svg>
+              2 подарка к вашей программе
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--on-surface);line-height:1.35">
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Индивидуальное занятие с наставником:</b> разбор проектов и план карьеры</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:8px">
+                <span style="color:#0284c7;font-weight:800;flex:none">✦</span>
+                <span><b>Курс по вайбкодингу:</b> разработка сервисов с AI в подарок</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Нижняя строка фиксации -->
+      <div style="padding:10px 26px;background:#f8fafc;border-top:1px solid var(--border-subtle);text-align:center;font-size:12px">
+        <span style="font-weight:600;color:var(--on-surface-variant)">Условия бронируются для участников эфира «Как устроиться в IT в 2027»</span>
+      </div>
+
     </div>
   </div>
 </section>
@@ -2773,90 +3318,253 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Что освоите</span><span>Кодинг на Claude Code · реальные проекты · воркшопы</span></div>
         <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:112px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Результат</span><span>2 проекта + 4 воркшопа с наставником</span></div>
       </div>
-      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span>Старт 16 сентября · 1 месяц</div>
+      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span>Старт 17 декабря · 1 месяц · В подарок к любой профессии</div>
     </div>
   </div>
 </section>
 
 <!-- SLIDE:F05A -->
-<section class="slide" id="f05a" data-title="Оффер: Вайбкодинг" data-sb="ai" data-gift="4">
+<section class="slide" id="f05a" data-title="Вайбкодинг в подарок" data-sb="ai" data-gift="4">
   <header class="head anim">
-    <p class="kicker">Подведение итогов · Оффер</p>
-    <h1 class="hl">Специальное условие на вайбкодинг</h1>
+    <p class="kicker">Подведение итогов · Специальный бонус</p>
+    <h1 class="hl">Курс по вайбкодингу — в подарок к любой профессии</h1>
   </header>
   <div class="body" style="justify-content:center;align-items:center">
-    <div style="max-width:800px;width:100%" class="anim d1">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <p style="margin:0;font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tertiary)">Вайбкодинг</p>
-        <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--on-surface-variant)">Онлайн<span class="arrow" style="font-size:14px">·</span>Старт 16 сентября · 1 месяц</div>
+    <div class="anim d1" style="width:960px;max-width:96%;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:16px;box-shadow:0 12px 36px rgba(0,0,0,0.06);overflow:hidden">
+      
+      <!-- Темная премиальная шапка: повод и дедлайн -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 26px;background:#0f172a;color:#fff">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase">
+          <span style="color:#f59e0b">🎁</span> Специальный подарок вебинара
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#94a3b8">
+          <span>При бронировании до 8 ноября</span>
+        </div>
       </div>
 
-    </div>
-    <div style="display:flex;gap:12px;margin-top:18px;align-items:stretch" class="anim d2">
-      <div class="plate" style="flex:1;text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:16px;padding:14px 20px">Скидка 20% — специально для зрителей вебинара</div>
-      <div class="plate" style="flex:0 0 auto;text-align:center;background:var(--secondary-container);color:var(--on-secondary-container);font-weight:700;font-size:14px;padding:14px 22px;white-space:nowrap">Действует до 28 августа включительно</div>
+      <!-- Основная двухколоночная сетка -->
+      <div style="display:grid;grid-template-columns:1.05fr 1.15fr;gap:24px;padding:26px 28px">
+        
+        <!-- Левая колонка: Оффер подарка -->
+        <div style="display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <span class="tbadge tb-green" style="font-size:12px;padding:4px 12px;margin-bottom:10px;display:inline-block">Бонус для участников эфира</span>
+            <div style="font-size:22px;font-weight:800;color:var(--on-surface);line-height:1.25">
+              Вам не нужно покупать этот курс отдельно
+            </div>
+            <p style="margin:12px 0 0;font-size:14px;color:var(--on-surface-variant);line-height:1.55">
+              Курс по вайбкодингу мы <b>подарим дополнительно к любому из выбранных курсов</b> Хекслета. Осваивайте фундаментальную профессию и сразу усиливайте себя современными инструментами AI-разработки.
+            </p>
+          </div>
+
+          <!-- Плашка 0 ₽ -->
+          <div style="background:var(--container-low);border:1px solid var(--border-subtle);border-radius:12px;padding:14px 18px;margin-top:16px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <div>
+                <span style="font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)">Стоимость для участников:</span>
+                <div style="display:flex;align-items:baseline;gap:10px;margin-top:2px">
+                  <span style="font-size:36px;font-weight:900;line-height:1;color:#16a34a">0 ₽</span>
+                  <span style="font-size:16px;font-weight:600;color:var(--text-muted);text-decoration:line-through">35 000 ₽</span>
+                </div>
+              </div>
+              <span class="tbadge tb-blue" style="font-size:11px">Старт 17 декабря · 1 месяц</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая колонка: Что входит в подарок -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;height:100%;justify-content:center">
+            <div style="font-size:12.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#334155;display:flex;align-items:center;gap:8px">
+              <span class="tile s28 t-sec" style="flex:none"><svg><use href="#i-spark"/></svg></span>
+              Что вы освоите на курсе по вайбкодингу:
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--on-surface);line-height:1.45">
+              <div style="display:flex;align-items:flex-start;gap:10px">
+                <span style="color:#6366f1;font-weight:800;flex:none">✦</span>
+                <span><b>Создание сервисов без рутины:</b> рабочие лендинги, скрипты и боты через AI-агентов</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px">
+                <span style="color:#6366f1;font-weight:800;flex:none">✦</span>
+                <span><b>Стек Claude Code и нейросетей:</b> правильный промптинг, контекст и код-ревью генераций</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px">
+                <span style="color:#6366f1;font-weight:800;flex:none">✦</span>
+                <span><b>Практика с наставником:</b> 4 живых воркшопа + 2 готовых проекта в портфолио</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
 </section>
 
 <!-- SLIDE:F06 -->
-<section class="slide" id="f06" data-title="Все профессии со скидкой" data-sb="ai" data-gift="5">
+<section class="slide" id="f06" data-title="Финальный оффер: все направления" data-sb="ai" data-gift="5">
   <header class="head anim">
-    <p class="kicker">Подведение итогов · Каталог</p>
-    <h1 class="hl">Скидка 20% на все 9 направлений</h1>
-    <p class="sub">Выберите профессию и забронируйте условия</p>
+    <p class="kicker">Подведение итогов · Специальное предложение</p>
+    <h1 class="hl">Зафиксируйте условия Чёрной пятницы до 8 ноября</h1>
+    <p class="sub">Специальные условия действуют на все ключевые направления Хекслета</p>
   </header>
-  <div class="body" style="gap:24px">
-    <div class="anim d1" style="width:55%;background:var(--container-low);border-radius:var(--radius-m);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px">
-      <div style="width:100%;max-width:520px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:10px;overflow:hidden">
-        <div style="display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--container-low);border-bottom:1px solid var(--border-subtle)">
-          <span style="width:8px;height:8px;border-radius:50%;background:var(--outline-variant)"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--outline-variant)"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--outline-variant)"></span>
-          <span style="margin-left:auto;padding:3px 12px;border-radius:999px;background:var(--surface-white);border:1px solid var(--border-subtle);font-size:11px;font-weight:600;color:var(--text-muted)">ru.hexlet.io/programs</span>
+  <div class="body" style="gap:28px;align-items:center;justify-content:center">
+    
+    <!-- Левая колонка: Браузер с каталогом программ (без цен, чистый стиль) -->
+    <div class="anim d1" style="width:530px;border:1px solid var(--border-subtle);border-radius:14px;overflow:hidden;background:var(--surface-white);box-shadow:0 8px 24px rgba(0,0,0,0.05);display:flex;flex-direction:column">
+      
+      <!-- Верхняя браузерная плашка -->
+      <div style="display:flex;align-items:center;gap:6px;padding:9px 14px;background:var(--container-low);border-bottom:1px solid var(--border-subtle)">
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--outline-variant)"></span>
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--outline-variant)"></span>
+        <span style="width:8px;height:8px;border-radius:50%;background:var(--outline-variant)"></span>
+        <span style="margin-left:auto;padding:3px 12px;border-radius:999px;background:var(--surface-white);border:1px solid var(--border-subtle);font-size:11px;font-weight:600;color:var(--text-muted)">ru.hexlet.io/programs</span>
+      </div>
+
+      <!-- Сетка 9 программ -->
+      <div style="padding:14px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        
+        <!-- Frontend -->
+        <div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--surface-white)">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="tile t-sec s20"><svg><use href="#i-window"/></svg></span>
+            <span style="font-size:12.5px;font-weight:700;color:var(--on-surface)">Frontend</span>
+          </div>
+          <p style="margin:0;font-size:11px;font-weight:600;color:var(--text-muted)">10 мес · 4 проекта</p>
         </div>
-        <div style="padding:14px 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-          <div class="card" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;border:1.5px solid var(--primary)">
-            <div style="display:flex;align-items:center;gap:6px"><span class="tile t-sec s20"><svg><use href="#i-window"/></svg></span><span style="font-size:12px;font-weight:700">Frontend</span></div>
-            <p style="margin:0;font-size:10px;font-weight:600;color:var(--text-muted)">10 мес · <s>110 000 ₽</s></p>
+
+        <!-- Java -->
+        <div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--surface-white)">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="tile t-sec s20"><svg><use href="#i-coffee"/></svg></span>
+            <span style="font-size:12.5px;font-weight:700;color:var(--on-surface)">Java</span>
           </div>
-          <div class="card" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;border:1.5px solid var(--primary)">
-            <div style="display:flex;align-items:center;gap:6px"><span class="tile t-sec s20"><svg><use href="#i-coffee"/></svg></span><span style="font-size:12px;font-weight:700">Java</span></div>
-            <p style="margin:0;font-size:10px;font-weight:600;color:var(--text-muted)">10 мес · <s>110 000 ₽</s></p>
-          </div>
-          <div class="card" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;border:1.5px solid var(--primary)">
-            <div style="display:flex;align-items:center;gap:6px"><span class="tile t-sec s20"><svg><use href="#i-py"/></svg></span><span style="font-size:12px;font-weight:700">Python</span></div>
-            <p style="margin:0;font-size:10px;font-weight:600;color:var(--text-muted)">10 мес · <s>110 000 ₽</s></p>
-          </div>
-          <div class="card" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;border:1.5px solid var(--primary)">
-            <div style="display:flex;align-items:center;gap:6px"><span class="tile t-sec s20"><svg><use href="#i-inf"/></svg></span><span style="font-size:12px;font-weight:700">DevOps</span></div>
-            <p style="margin:0;font-size:10px;font-weight:600;color:var(--text-muted)">10–14 мес · <s>128 000 ₽</s></p>
-          </div>
-          <div class="card" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;border:1.5px solid var(--primary)">
-            <div style="display:flex;align-items:center;gap:6px"><span class="tile t-ter s20"><svg><use href="#i-search"/></svg></span><span style="font-size:12px;font-weight:700">Ручное тестирование</span></div>
-            <p style="margin:0;font-size:10px;font-weight:600;color:var(--text-muted)">4 мес · <s>53 100 ₽</s></p>
-          </div>
-          <div class="card" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;border:1.5px solid var(--primary)">
-            <div style="display:flex;align-items:center;gap:6px"><span class="tile t-ter s20"><svg><use href="#i-bot"/></svg></span><span style="font-size:12px;font-weight:700">Авто-QA</span></div>
-            <p style="margin:0;font-size:10px;font-weight:600;color:var(--text-muted)">6 мес · <s>67 500 ₽</s></p>
-          </div>
-          <div class="card" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;border:1.5px solid var(--primary)">
-            <div style="display:flex;align-items:center;gap:6px"><span class="tile t-ter s20"><svg><use href="#i-layers"/></svg></span><span style="font-size:12px;font-weight:700">QA: с нуля до автоматизатора</span></div>
-            <p style="margin:0;font-size:10px;font-weight:600;color:var(--text-muted)">10 мес · <s>100 800 ₽</s></p>
-          </div>
-          <div class="card" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;border:2px solid var(--tertiary);background:var(--tertiary-container)">
-            <div style="display:flex;align-items:center;gap:6px"><span class="tile t-ter s20" style="background:var(--tertiary);color:#fff"><svg><use href="#i-bot"/></svg></span><span style="font-size:12px;font-weight:700;color:var(--on-tertiary-container)">AI-автоматизация</span></div>
-            <p style="margin:0;font-size:10px;font-weight:600;color:var(--on-tertiary-container)">4 мес · <s>99 000 ₽</s></p>
-          </div>
-          <div class="card" style="padding:8px 10px;display:flex;flex-direction:column;gap:4px;border:2px solid var(--tertiary);background:var(--tertiary-container)">
-            <div style="display:flex;align-items:center;gap:6px"><span class="tile t-ter s20" style="background:var(--tertiary);color:#fff"><svg><use href="#i-bot"/></svg></span><span style="font-size:12px;font-weight:700;color:var(--on-tertiary-container)">Вайбкодинг</span></div>
-            <p style="margin:0;font-size:10px;font-weight:600;color:var(--on-tertiary-container)">1 мес · <s>45 000 ₽</s></p>
-          </div>
+          <p style="margin:0;font-size:11px;font-weight:600;color:var(--text-muted)">10 мес · 5 проектов</p>
         </div>
+
+        <!-- Python -->
+        <div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--surface-white)">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="tile t-sec s20"><svg><use href="#i-py"/></svg></span>
+            <span style="font-size:12.5px;font-weight:700;color:var(--on-surface)">Python</span>
+          </div>
+          <p style="margin:0;font-size:11px;font-weight:600;color:var(--text-muted)">10 мес · 4 проекта</p>
+        </div>
+
+        <!-- DevOps -->
+        <div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--surface-white)">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="tile t-sec s20"><svg><use href="#i-inf"/></svg></span>
+            <span style="font-size:12.5px;font-weight:700;color:var(--on-surface)">DevOps</span>
+          </div>
+          <p style="margin:0;font-size:11px;font-weight:600;color:var(--text-muted)">10–14 мес · 8 проектов</p>
+        </div>
+
+        <!-- Ручной QA -->
+        <div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--surface-white)">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="tile t-ter s20"><svg><use href="#i-search"/></svg></span>
+            <span style="font-size:12.5px;font-weight:700;color:var(--on-surface)">Ручной QA</span>
+          </div>
+          <p style="margin:0;font-size:11px;font-weight:600;color:var(--text-muted)">4 мес · 2 проекта</p>
+        </div>
+
+        <!-- Авто-QA -->
+        <div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--surface-white)">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="tile t-ter s20"><svg><use href="#i-bot"/></svg></span>
+            <span style="font-size:12.5px;font-weight:700;color:var(--on-surface)">Авто-QA</span>
+          </div>
+          <p style="margin:0;font-size:11px;font-weight:600;color:var(--text-muted)">6 мес · автотесты</p>
+        </div>
+
+        <!-- QA бандл (обычная аккуратная карточка без подсветки) -->
+        <div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--surface-white)">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="tile t-ter s20"><svg><use href="#i-layers"/></svg></span>
+            <span style="font-size:12.5px;font-weight:700;color:var(--on-surface)">QA бандл</span>
+          </div>
+          <p style="margin:0;font-size:11px;font-weight:600;color:var(--text-muted)">10 мес · 5 проектов</p>
+        </div>
+
+        <!-- AI-автоматизация -->
+        <div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--surface-white)">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="tile t-ter s20"><svg><use href="#i-bot"/></svg></span>
+            <span style="font-size:12.5px;font-weight:700;color:var(--on-surface)">AI-авто</span>
+          </div>
+          <p style="margin:0;font-size:11px;font-weight:600;color:var(--text-muted)">4 мес · 4 проекта</p>
+        </div>
+
+        <!-- Вайбкодинг -->
+        <div class="card" style="padding:10px 12px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--border-subtle);border-radius:8px;background:var(--surface-white)">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="tile t-sec s20"><svg><use href="#i-spark"/></svg></span>
+            <span style="font-size:12.5px;font-weight:700;color:var(--on-surface)">Вайбкодинг</span>
+          </div>
+          <p style="margin:0;font-size:11px;font-weight:600;color:var(--text-muted)">1 мес · в подарок</p>
+        </div>
+
       </div>
     </div>
-    <div class="anim d2" style="flex:1;display:flex;flex-direction:column;gap:16px;justify-content:center;align-items:center;max-width:380px">
-      <div class="plate" style="text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:18px;padding:14px 24px">Оставьте заявку и забронируйте скидку 20% до 28 августа</div>
-      <div class="plate" style="text-align:center;background:var(--tertiary-container);color:var(--on-tertiary-container);font-weight:700;font-size:13px;padding:10px 18px">Мы свяжемся с вами и подберём программу</div>
+
+    <!-- Правая колонка: Стройный CTA-блок с иконками условий -->
+    <div class="anim d2" style="width:450px;border:1px solid var(--border-subtle);border-radius:14px;overflow:hidden;background:var(--surface-white);box-shadow:0 8px 24px rgba(0,0,0,0.05);display:flex;flex-direction:column">
+      
+      <!-- Темная премиальная шапка -->
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 20px;background:#0f172a;color:#fff">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase">
+          <svg style="width:14px;height:14px;color:#f59e0b;flex:none"><use href="#i-spark"/></svg>
+          Чёрная пятница
+        </div>
+        <div style="font-size:12px;font-weight:600;color:#94a3b8">
+          Действует до 8 ноября
+        </div>
+      </div>
+
+      <!-- Перечисление 3 условий с иконками из спрайта -->
+      <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-size:14.5px;font-weight:800;color:var(--on-surface)">Условия для участников вебинара:</div>
+        
+        <div style="display:flex;flex-direction:column;gap:12px">
+          
+          <!-- Условие 1: Скидка 5000 -->
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <span class="tile s28" style="background:#fee2e2;color:#dc2626;flex:none;border-radius:7px"><svg style="width:14px;height:14px"><use href="#i-check"/></svg></span>
+            <div style="font-size:13px;line-height:1.4;color:var(--on-surface)">
+              <b>Скидка Чёрной пятницы + ещё −5 000 ₽</b> дополнительно для участников эфира
+            </div>
+          </div>
+
+          <!-- Условие 2: Наставник -->
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <span class="tile s28" style="background:#e0f2fe;color:#0284c7;flex:none;border-radius:7px"><svg style="width:14px;height:14px"><use href="#i-gift"/></svg></span>
+            <div style="font-size:13px;line-height:1.4;color:var(--on-surface)">
+              <b>Индивидуальное занятие с наставником</b> в подарок (разбор кода и карьеры)
+            </div>
+          </div>
+
+          <!-- Условие 3: Вайбкодинг -->
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <span class="tile s28" style="background:#e0f2fe;color:#0284c7;flex:none;border-radius:7px"><svg style="width:14px;height:14px"><use href="#i-gift"/></svg></span>
+            <div style="font-size:13px;line-height:1.4;color:var(--on-surface)">
+              <b>Курс по вайбкодингу в подарок</b> бесплатно к любому выбранному курсу
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Финальная кнопка-баннер -->
+      <div style="padding:16px 20px;background:#f8fafc;border-top:1px solid var(--border-subtle)">
+        <div class="plate" style="text-align:center;background:var(--primary);color:#fff;font-weight:800;font-size:14.5px;padding:13px 18px;border-radius:8px">
+          Оставьте заявку по баннеру под окном трансляции
+        </div>
+      </div>
+
     </div>
+
   </div>
 </section>
 
@@ -2890,23 +3598,136 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
 <!-- SLIDE:E02 -->
 <section class="slide" id="e02" data-title="Общая таблица: все направления" data-sb="ai" data-gift="5" data-gift-lit="5">
   <header class="head anim">
-    <p class="kicker">Итоги · Таблица</p>
+    <p class="kicker">Итоги · Сводная матрица</p>
     <h1 class="hl">Сравнение направлений</h1>
   </header>
-  <div class="body" style="align-items:center;padding:0 24px">
-    <div class="tbl-scroll anim d1">
-    <table class="tbl" style="font-size:12px">
-      <tr><th style="width:110px;position:sticky;top:0;background:var(--surface-white);z-index:2">Направление</th><th style="position:sticky;top:0;background:var(--surface-white);z-index:2">Вакансии</th><th style="position:sticky;top:0;background:var(--surface-white);z-index:2">Зарплата (jun)</th><th style="position:sticky;top:0;background:var(--surface-white);z-index:2">Конкуренция</th><th style="position:sticky;top:0;background:var(--surface-white);z-index:2">Стажировки</th><th style="position:sticky;top:0;background:var(--surface-white);z-index:2">Переход</th><th style="position:sticky;top:0;background:var(--surface-white);z-index:2">Простота входа</th><th style="position:sticky;top:0;background:var(--surface-white);z-index:2">Фриланс</th><th style="position:sticky;top:0;background:var(--surface-white);z-index:2">Устойчивость к ИИ</th></tr>
-<tr><td>Frontend</td><td class="hm4">1 049</td><td class="hm3">63k–118k</td><td class="hm5">5</td><td class="hm5">5</td><td class="hm2">2</td><td class="hm4">4</td><td class="hm5">5</td><td class="hm3">AI ускоряет вёрстку, но UX и архитектура — за человеком</td></tr>
-<tr><td>Java<span class="qtip" data-tip="По запросу «java developer» могут подмешиваться QA и другие роли">?</span></td><td class="hm4">1 348</td><td class="hm4">98k–167k</td><td class="hm3">3</td><td class="hm5">5</td><td class="hm2">2</td><td class="hm2">2</td><td class="hm3">3</td><td class="hm3">Синтаксис на 2-м плане: решает инженерная база, ревью ИИ-кода и агентская разработка</td></tr>
-<tr><td>Python<span class="qtip" data-tip="По запросу «python backend» подмешиваются аналитики, ML, DS">?</span></td><td class="hm3">733</td><td class="hm4">94k–161k</td><td class="hm4">4</td><td class="hm4">4</td><td class="hm2">2</td><td class="hm3">3</td><td class="hm4">4</td><td class="hm3">Синтаксис на 2-м плане: решает инженерная база, ревью ИИ-кода и агентская разработка</td></tr>
-<tr><td>DevOps</td><td class="hm5">1 743</td><td class="hm4">87k–164k</td><td class="hm3">3</td><td class="hm2">2</td><td class="hm5">5</td><td class="hm1">1</td><td class="hm1">1</td><td class="hm3">AI генерирует конфиги, но инциденты и безопасность — за человеком</td></tr>
-      <tr><td>Manual QA<span class="qtip" data-tip="Высокая неточность: на hh.ru тяжело отделить ручных тестировщиков от автоматизаторов">?</span></td><td class="hm5">5 983</td><td class="hm3">63k–111k</td><td class="hm5">5</td><td class="hm4">4</td><td class="hm5">5</td><td class="hm4">4</td><td class="hm1">1</td><td class="hm3">Чек-листы и тест-кейсы ИИ генерит за минуты; человек — в UX и исследовательских тестах</td></tr>
-      <tr><td>Auto QA<span class="qtip" data-tip="Высокая неточность: на hh.ru тяжело отделить автоматизаторов от смежных SDET/Manual ролей">?</span></td><td class="hm4">1 117</td><td class="hm4">85k–159k</td><td class="hm3">3</td><td class="hm3">3</td><td class="hm4">4</td><td class="hm2">2</td><td class="hm1">1</td><td class="hm3">Написание кода тестов на нейросетях; человек — в стратегии, тестовой архитектуре и CI/CD</td></tr>
-      <tr class="our"><td>AI-автомат.</td><td class="hm2">сотни</td><td class="hm2"><em>н/д</em></td><td class="hm2">2</td><td class="hm2">2</td><td class="hm5">4.5</td><td class="hm3">3</td><td class="hm5">5</td><td class="hm3">AI — инструмент, но интервью и проектирование — за человеком</td></tr>
-      <tr class="our"><td>Вайбкодер</td><td class="hm1">мало</td><td class="hm2"><em>н/д</em></td><td class="hm2">2</td><td class="hm1">1</td><td class="hm1">—</td><td class="hm5">5</td><td class="hm5">5</td><td class="hm3">AI генерирует код, но декомпозиция и ревью — за человеком</td></tr>
-    </table>
+  <div class="body" style="flex-direction:column;align-items:stretch;justify-content:flex-start;padding:0 10px;margin-top:15px;min-height:0">
+    
+    <!-- Скроллируемый контейнер таблицы -->
+    <div class="tbl-scroll anim d1" style="max-height:min(520px,62vh);width:100%;overflow:auto;border:1px solid var(--border-subtle);border-radius:12px;background:var(--surface-white);box-shadow:0 4px 14px rgba(0,0,0,0.06)">
+      <table class="tbl" style="font-size:12px;width:100%;min-width:980px;border-collapse:separate;border-spacing:0">
+        <thead>
+          <tr>
+            <th style="width:130px;position:sticky;top:0;left:0;background:#f8fafc;z-index:4;border-bottom:2px solid var(--border-subtle);padding:10px 14px">Направление</th>
+            <th style="position:sticky;top:0;background:#f8fafc;z-index:3;border-bottom:2px solid var(--border-subtle);padding:10px 14px">Вакансии</th>
+            <th style="position:sticky;top:0;background:#f8fafc;z-index:3;border-bottom:2px solid var(--border-subtle);padding:10px 14px">Зарплата (jun)</th>
+            <th style="position:sticky;top:0;background:#f8fafc;z-index:3;border-bottom:2px solid var(--border-subtle);padding:10px 14px">Конкуренция</th>
+            <th style="position:sticky;top:0;background:#f8fafc;z-index:3;border-bottom:2px solid var(--border-subtle);padding:10px 14px">Стажировки</th>
+            <th style="position:sticky;top:0;background:#f8fafc;z-index:3;border-bottom:2px solid var(--border-subtle);padding:10px 14px">Переход</th>
+            <th style="position:sticky;top:0;background:#f8fafc;z-index:3;border-bottom:2px solid var(--border-subtle);padding:10px 14px">Простота входа</th>
+            <th style="position:sticky;top:0;background:#f8fafc;z-index:3;border-bottom:2px solid var(--border-subtle);padding:10px 14px">Фриланс</th>
+            <th style="position:sticky;top:0;background:#f8fafc;z-index:3;border-bottom:2px solid var(--border-subtle);padding:10px 14px;min-width:240px">Устойчивость к ИИ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Frontend -->
+          <tr>
+            <td style="position:sticky;left:0;background:var(--surface-white);z-index:2;font-weight:800;border-right:1px solid var(--border-subtle)">Frontend</td>
+            <td><span class="tbadge tb-blue">1 049</span></td>
+            <td class="hm3">63k–118k</td>
+            <td><span class="tbadge tb-red"><span class="dot"></span>5/5</span></td>
+            <td style="font-size:11.5px;color:var(--on-surface)">Т-Банк, Яндекс, Т1, Альфа</td>
+            <td><span class="tbadge tb-orange">2/5</span></td>
+            <td><span class="tbadge tb-orange"><span class="dot"></span>4/5</span></td>
+            <td><span class="tbadge tb-green">5/5 Много</span></td>
+            <td style="font-size:11.5px;line-height:1.35;color:var(--on-surface-variant)">AI ускоряет вёрстку, но UX и архитектура — за человеком</td>
+          </tr>
+
+          <!-- Java -->
+          <tr>
+            <td style="position:sticky;left:0;background:var(--surface-white);z-index:2;font-weight:800;border-right:1px solid var(--border-subtle)">Java<span class="qtip" data-tip="По запросу «java developer» могут подмешиваться QA и другие роли">?</span></td>
+            <td><span class="tbadge tb-blue">1 348</span></td>
+            <td class="hm4">98k–167k</td>
+            <td><span class="tbadge tb-yellow"><span class="dot"></span>3/5</span></td>
+            <td style="font-size:11.5px;color:var(--on-surface)">Т-Банк, Сбер, Т1, Aston</td>
+            <td><span class="tbadge tb-orange">2/5</span></td>
+            <td><span class="tbadge tb-red"><span class="dot"></span>2/5</span></td>
+            <td><span class="tbadge tb-yellow">3/5 Мало</span></td>
+            <td style="font-size:11.5px;line-height:1.35;color:var(--on-surface-variant)"><b>Синтаксис на 2-м плане:</b> решает инженерная база, ревью ИИ-кода и агентская разработка</td>
+          </tr>
+
+          <!-- Python -->
+          <tr>
+            <td style="position:sticky;left:0;background:var(--surface-white);z-index:2;font-weight:800;border-right:1px solid var(--border-subtle)">Python<span class="qtip" data-tip="По запросу «python backend» подмешиваются аналитики, ML, DS">?</span></td>
+            <td><span class="tbadge tb-blue">733</span></td>
+            <td class="hm4">94k–161k</td>
+            <td><span class="tbadge tb-orange"><span class="dot"></span>4/5</span></td>
+            <td style="font-size:11.5px;color:var(--on-surface)">Т-Банк, Сбер, Яндекс, Альфа</td>
+            <td><span class="tbadge tb-orange">2/5</span></td>
+            <td><span class="tbadge tb-yellow"><span class="dot"></span>3/5</span></td>
+            <td><span class="tbadge tb-green">4/5 Есть</span></td>
+            <td style="font-size:11.5px;line-height:1.35;color:var(--on-surface-variant)"><b>Синтаксис на 2-м плане:</b> решает инженерная база, ревью ИИ-кода и агентская разработка</td>
+          </tr>
+
+          <!-- DevOps -->
+          <tr>
+            <td style="position:sticky;left:0;background:var(--surface-white);z-index:2;font-weight:800;border-right:1px solid var(--border-subtle)">DevOps</td>
+            <td><span class="tbadge tb-blue">1 743</span></td>
+            <td class="hm4">87k–164k</td>
+            <td><span class="tbadge tb-yellow"><span class="dot"></span>3/5</span></td>
+            <td style="font-size:11.5px;color:var(--on-surface)">Aston, Т1</td>
+            <td><span class="tbadge tb-green">5/5</span></td>
+            <td><span class="tbadge tb-red"><span class="dot"></span>1/5</span></td>
+            <td><span class="tbadge tb-red"><span class="dot"></span>1/5</span></td>
+            <td style="font-size:11.5px;line-height:1.35;color:var(--on-surface-variant)">AI генерирует конфиги, но инциденты и безопасность — за человеком</td>
+          </tr>
+
+          <!-- Manual QA -->
+          <tr>
+            <td style="position:sticky;left:0;background:var(--surface-white);z-index:2;font-weight:800;border-right:1px solid var(--border-subtle)">Manual QA<span class="qtip" data-tip="Высокая неточность: на hh.ru тяжело отделить ручных тестировщиков от автоматизаторов">?</span></td>
+            <td><span class="tbadge tb-blue">5 983</span></td>
+            <td class="hm3">63k–111k</td>
+            <td><span class="tbadge tb-red"><span class="dot"></span>5/5</span></td>
+            <td style="font-size:11.5px;color:var(--on-surface)">Т-Банк, Альфа, IT.FUT</td>
+            <td><span class="tbadge tb-green">5/5</span></td>
+            <td><span class="tbadge tb-orange"><span class="dot"></span>4/5</span></td>
+            <td><span class="tbadge tb-red"><span class="dot"></span>1/5</span></td>
+            <td style="font-size:11.5px;line-height:1.35;color:var(--on-surface-variant)">Чек-листы и тест-кейсы ИИ генерит за минуты; человек — в UX и исследовательских тестах</td>
+          </tr>
+
+          <!-- Auto QA -->
+          <tr>
+            <td style="position:sticky;left:0;background:var(--surface-white);z-index:2;font-weight:800;border-right:1px solid var(--border-subtle)">Auto QA<span class="qtip" data-tip="Высокая неточность: на hh.ru тяжело отделить автоматизаторов от смежных SDET/Manual ролей">?</span></td>
+            <td><span class="tbadge tb-blue">1 117</span></td>
+            <td class="hm4">85k–159k</td>
+            <td><span class="tbadge tb-yellow"><span class="dot"></span>3/5</span></td>
+            <td style="font-size:11.5px;color:var(--on-surface)">Т-Банк, Skillfactory, Контур</td>
+            <td><span class="tbadge tb-green">4/5</span></td>
+            <td><span class="tbadge tb-red"><span class="dot"></span>2/5</span></td>
+            <td><span class="tbadge tb-red"><span class="dot"></span>1/5</span></td>
+            <td style="font-size:11.5px;line-height:1.35;color:var(--on-surface-variant)">Написание кода тестов на нейросетях; человек — в стратегии, тестовой архитектуре и CI/CD</td>
+          </tr>
+
+          <!-- AI-автоматизация -->
+          <tr style="background:#f0fdf4">
+            <td style="position:sticky;left:0;background:#f0fdf4;z-index:2;font-weight:800;border-right:1px solid var(--border-subtle);color:var(--primary)">AI-автомат.</td>
+            <td><span class="tbadge tb-yellow">сотни</span></td>
+            <td class="hm2"><em>н/д</em></td>
+            <td><span class="tbadge tb-green"><span class="dot"></span>2/5</span></td>
+            <td style="font-size:11.5px;color:var(--on-surface)">Яндекс, Сбер, VK</td>
+            <td><span class="tbadge tb-green">4.5/5</span></td>
+            <td><span class="tbadge tb-yellow"><span class="dot"></span>3/5</span></td>
+            <td><span class="tbadge tb-green">5/5 Много</span></td>
+            <td style="font-size:11.5px;line-height:1.35;color:var(--on-surface-variant)">AI — инструмент, но интервью и проектирование — за человеком</td>
+          </tr>
+
+          <!-- Вайбкодер -->
+          <tr style="background:#f0fdf4">
+            <td style="position:sticky;left:0;background:#f0fdf4;z-index:2;font-weight:800;border-right:1px solid var(--border-subtle);color:var(--primary)">Вайбкодер</td>
+            <td><span class="tbadge tb-orange">мало</span></td>
+            <td class="hm2"><em>н/д</em></td>
+            <td><span class="tbadge tb-green"><span class="dot"></span>2/5</span></td>
+            <td style="font-size:11.5px;color:var(--on-surface)">Стартапы, личные проекты</td>
+            <td><span class="tbadge tb-yellow">—</span></td>
+            <td><span class="tbadge tb-green"><span class="dot"></span>5/5</span></td>
+            <td><span class="tbadge tb-green">5/5 Много</span></td>
+            <td style="font-size:11.5px;line-height:1.35;color:var(--on-surface-variant)">AI генерирует код, но декомпозиция и ревью — за человеком</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+
 
   </div>
 </section>
@@ -2917,25 +3738,80 @@ table.tbl{border-collapse:collapse;width:100%;background:var(--surface-white);
     <p class="kicker">Итоги · План действий</p>
     <h1 class="hl">Следующий шаг</h1>
   </header>
-  <div class="body" style="flex-direction:column;gap:20px;justify-content:center;align-items:center">
-    <div style="width:100%;max-width:660px;display:flex;flex-direction:column;gap:14px" class="anim d1">
-      <div class="card" style="display:flex;gap:18px;align-items:center"><span class="tile s48">1</span><b style="font-size:17px">Забрать таблицу и стартер-паки в боте</b></div>
-      <div class="card" style="display:flex;gap:18px;align-items:center"><span class="tile s48">2</span><b style="font-size:17px">Выбрать 1–2 направления</b></div>
-      <div class="card" style="display:flex;gap:18px;align-items:center"><span class="tile s48">3</span><b style="font-size:17px">Посмотреть материалы по профессии</b></div>
-      <div class="card" style="display:flex;gap:18px;align-items:center"><span class="tile s48">4</span><b style="font-size:17px">Определить первый проект</b></div>
+  <div class="body" style="flex-direction:column;gap:16px;justify-content:center;align-items:flex-start">
+    <div style="width:100%;max-width:760px;display:flex;flex-direction:column;gap:12px" class="anim d1">
+      <div class="card" style="display:flex;gap:18px;align-items:center;padding:16px 22px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:12px">
+        <span class="tile s48" style="font-weight:800;font-size:20px">1</span>
+        <b style="font-size:17px;color:var(--on-surface)">Забрать таблицу и стартер-паки в боте</b>
+      </div>
+      <div class="card" style="display:flex;gap:18px;align-items:center;padding:16px 22px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:12px">
+        <span class="tile s48" style="font-weight:800;font-size:20px">2</span>
+        <b style="font-size:17px;color:var(--on-surface)">Выбрать 1–2 направления</b>
+      </div>
+      <div class="card" style="display:flex;gap:18px;align-items:center;padding:16px 22px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:12px">
+        <span class="tile s48" style="font-weight:800;font-size:20px">3</span>
+        <b style="font-size:17px;color:var(--on-surface)">Посмотреть материалы по профессии</b>
+      </div>
+      <div class="card" style="display:flex;gap:18px;align-items:center;padding:16px 22px;background:var(--surface-white);border:1px solid var(--border-subtle);border-radius:12px">
+        <span class="tile s48" style="font-weight:800;font-size:20px">4</span>
+        <b style="font-size:17px;color:var(--on-surface)">Определить первый проект</b>
+      </div>
     </div>
-    <div class="plate ter anim d2" style="text-align:center;max-width:660px;font-size:16px;font-weight:800;padding:16px 24px">Оставьте заявку и забронируйте скидку 20% до 28 августа</div>
   </div>
 </section>
 
 <!-- SLIDE:E04 -->
-<section class="slide" id="e04" data-title="Спасибо за внимание!" data-sb="ai" data-gift="5" style="background:var(--primary-fixed)">
+<section class="slide" id="e04" data-title="Спасибо за внимание!" data-sb="ai" data-gift="5">
   <header class="head anim" style="visibility:hidden;position:absolute"><h1></h1></header>
-  <div class="body" style="flex-direction:column;gap:28px;justify-content:center;align-items:center;text-align:center">
-    <h1 class="hl anim d1" style="max-width:24ch;color:var(--primary)">Спасибо за внимание!</h1>
-    <p class="anim d2" style="font-size:20px;font-weight:600;margin:0;color:var(--on-surface-variant)">Остались вопросы? Задавайте в чате</p>
-    <div class="plate ter anim d3" style="max-width:700px;text-align:center;font-size:18px;font-weight:800;padding:18px 28px">Оставьте заявку — забронируйте скидку 20% до 28 августа</div>
-    <p class="anim d4" style="margin:0;font-size:13px;font-weight:600;color:var(--text-muted)">Ссылка в чате · <span class="ph">[QR / ссылка]</span></p>
+  
+  <!-- Фоновый световой ореол -->
+  <div class="glow-orb"></div>
+
+  <!-- Анимация волн на заднем плане -->
+  <div class="waves-wrap">
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+      </defs>
+      <g class="parallax">
+        <use href="#gentle-wave" x="48" y="0" fill="rgba(20, 68, 230, 0.22)" />
+        <use href="#gentle-wave" x="48" y="3" fill="rgba(93, 81, 174, 0.28)" />
+        <use href="#gentle-wave" x="48" y="5" fill="rgba(14, 165, 233, 0.25)" />
+        <use href="#gentle-wave" x="48" y="7" fill="rgba(9, 13, 22, 0.94)" />
+      </g>
+    </svg>
+  </div>
+
+  <!-- Стеклянная плашка по центру -->
+  <div class="body" style="justify-content:center;align-items:center;width:100%;height:100%;z-index:2">
+    <div class="glass-card anim d1">
+      
+      <!-- Бейдж -->
+      <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;background:rgba(20,68,230,0.25);border:1px solid rgba(96,165,250,0.3);color:#93c5fd;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:18px">
+        <span style="width:7px;height:7px;border-radius:50%;background:#38bdf8;box-shadow:0 0 8px #38bdf8"></span>
+        Хекслет · Вебинар 2026
+      </div>
+
+      <!-- Главная надпись -->
+      <h1 style="font-size:clamp(36px, 4vw, 52px);font-weight:900;margin:0 0 16px;color:#ffffff;letter-spacing:-0.02em;line-height:1.15;text-shadow:0 2px 14px rgba(0,0,0,0.4)">
+        Спасибо за внимание!
+      </h1>
+
+      <!-- Вопросы -->
+      <p style="font-size:20px;font-weight:600;margin:0 0 24px;color:#cbd5e1;line-height:1.45;max-width:28ch">
+        Остались вопросы? Задавайте их прямо сейчас в чате трансляции
+      </p>
+
+      <!-- Тонкий световой разделитель -->
+      <div style="height:1px;width:100%;max-width:360px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);margin-bottom:20px"></div>
+
+      <!-- Подсказка про эфир -->
+      <div style="display:flex;align-items:center;gap:12px;padding:12px 22px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);font-size:14px;font-weight:600;color:#f1f5f9;box-shadow:0 4px 16px rgba(0,0,0,0.2)">
+        <span class="tile s28" style="background:rgba(56,189,248,0.25);color:#38bdf8;border-radius:8px;flex:none"><svg style="width:15px;height:15px"><use href="#i-chat"/></svg></span>
+        <span>Отвечаем в прямом эфире · Поможем определиться с направлением</span>
+      </div>
+
+    </div>
   </div>
 </section>
 
