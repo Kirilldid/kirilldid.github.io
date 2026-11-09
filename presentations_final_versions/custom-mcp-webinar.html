@@ -962,84 +962,64 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
 </div>
 
 <!-- ==================== SPEAKER: TAKEAWAYS (BENTO GRID) ==================== -->
-<div class="slide" id="s08" data-slide="17" data-title="Что нам это даёт">
+<style>
+#s08 .repo-qr-box{background:#ffffff;border-radius:12px;padding:10px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center}
+#s08 .repo-qr-box img{width:140px;height:140px;display:block;border-radius:6px}
+</style>
+<div class="slide" id="s08" data-slide="17" data-title="Что показала практика">
   <div class="slide-inner">
-    <div class="headline-lg mb-12">Что нам это даёт: выводы после практики</div>
-    <div class="body-lg text-muted mb-24">Итоги лайвкодинга: что проверено в&nbsp;демо и&nbsp;что нужно для полноценного продакшена.</div>
+    <div class="headline-lg mb-12">Что показала практика: выводы лайвкодинга</div>
+    <div class="body-lg text-muted mb-24">Ключевые факты о&nbsp;работе кастомного MCP-сервера и&nbsp;проект спикера.</div>
     
     <div class="flex flex-col gap-20" style="flex:1">
-      <!-- Row 1: Col-7 (Tinted Light Card) + Col-5 (White Card) -->
+      <!-- Row 1: Col-6 (Contract instead of SQL) + Col-6 (Applicability) -->
       <div class="grid-12 items-stretch" style="gap:20px">
-        <div class="col-7">
-          <div class="card" style="height:100%;padding:26px 28px;background:#f0f4ff;border:1px solid rgba(20,68,230,.18);display:flex;flex-direction:column;justify-content:space-between">
-            <div>
-              <div class="label-caps mb-8" style="color:var(--primary)">Результат лайвкодинга</div>
-              <div class="headline-md mb-10" style="font-size:22px;color:var(--text-main)">Контракт вместо прямого SQL</div>
-              <div class="body" style="color:var(--text-main);line-height:1.5">
-                Ограничили доступные операции и&nbsp;выдаваемые поля: агент работает только через проверенные функции. Pydantic отсекает невалидные параметры, а&nbsp;PostgreSQL блокирует доступ к&nbsp;таблицам <code>private</code>.
-              </div>
-            </div>
-            <div class="flex wrap gap-8 mt-16">
-              <span class="badge" style="background:#fff;border-color:rgba(20,68,230,.2);color:var(--primary)">FastMCP stdio</span>
-              <span class="badge" style="background:#fff;border-color:rgba(20,68,230,.2);color:var(--primary)">SECURITY DEFINER</span>
-              <span class="badge" style="background:#fff;border-color:rgba(0,184,124,.4);color:#00875a">&check; Валидация + Read-only</span>
+        <div class="col-6">
+          <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;justify-content:center">
+            <div class="headline-md mb-12" style="font-size:22px;color:var(--text-main)">Контракт вместо прямого SQL</div>
+            <div class="body" style="color:var(--text-muted);line-height:1.55;font-size:15px">
+              Агент не генерирует произвольные запросы и&nbsp;не имеет прямого доступа к&nbsp;таблицам. Все обращения идут только через две функции с&nbsp;проверенными фильтрами (оплаченные заказы, расчёт выручки).
             </div>
           </div>
         </div>
 
-        <div class="col-5">
-          <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;justify-content:space-between">
-            <div>
-              <div class="label-caps mb-8" style="color:var(--text-muted)">Конфиденциальность данных</div>
-              <div class="headline-md mb-10" style="font-size:22px">PII не передаётся агенту</div>
-              <div class="body" style="color:var(--text-muted);line-height:1.5">
-                Прямой доступ к клиентам закрыт на уровне БД. Важно помнить: любые возвращаемые поля попадают в контекст модели, поэтому в контракт включаем только безопасные агрегаты.
-              </div>
-            </div>
-            <div class="flex items-center gap-8 mt-16" style="color:var(--primary);font-weight:700;font-size:14px">
-              <svg style="width:18px;height:18px"><use href="#i-check"/></svg> Минимизация передаваемых данных
+        <div class="col-6">
+          <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;justify-content:center">
+            <div class="headline-md mb-12" style="font-size:22px;color:var(--text-main)">Работает с&nbsp;любым стеком</div>
+            <div class="body" style="color:var(--text-muted);line-height:1.55;font-size:15px">
+              Паттерн не привязан к PostgreSQL: его можно повторить для MySQL, ClickHouse, Redis или внутренних REST API. Разработчик описывает ручки сервиса, а&nbsp;любой MCP-клиент (Cursor, OpenCode) вызывает их по единому протоколу.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Row 2: Col-5 (White Card) + Col-7 (Primary Blue Featured Card) -->
+      <!-- Row 2: Col-5 (Production Checklist) + Col-7 (Repository & QR) -->
       <div class="grid-12 items-stretch" style="gap:20px">
         <div class="col-5">
-          <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;justify-content:space-between">
-            <div>
-              <div class="label-caps mb-8" style="color:var(--text-muted)">Что нужно для продакшена</div>
-              <div class="headline-md mb-10" style="font-size:22px">Меры сверх базового демо</div>
-              <div class="body" style="color:var(--text-muted);line-height:1.45;font-size:14px">
-                &bull; Ограничение частоты вызовов (rate limiting) и&nbsp;параллельных сессий<br>
-                &bull; Полноценный multi-tenant RBAC и&nbsp;аудит логов<br>
-                &bull; Для закрытых данных — локальные/on-premise LLM
-              </div>
-            </div>
-            <div class="flex items-center gap-8 mt-16" style="color:var(--text-muted);font-weight:600;font-size:13px">
-              <svg style="width:16px;height:16px;color:var(--primary)"><use href="#i-shield"/></svg> Защита на всех трёх слоях
+          <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;justify-content:center">
+            <div class="headline-md mb-12" style="font-size:22px">Что нужно для продакшена</div>
+            <div class="body" style="color:var(--text-muted);line-height:1.6;font-size:14px">
+              &bull; <b>Ограничение нагрузки:</b> rate limiting вызовов и лимит параллельных подключений к СУБД.<br>
+              &bull; <b>Аудит:</b> сквозное логирование запросов и ответов.<br>
+              &bull; <b>Конфиденциальность:</b> при строгих требованиях к тайне — локальные/on-premise LLM.
             </div>
           </div>
         </div>
 
         <div class="col-7">
-          <div class="card featured" style="height:100%;padding:26px 28px;background:var(--primary);color:#fff;border-color:var(--primary);display:flex;flex-direction:column;justify-content:space-between">
-            <div>
-              <div class="label-caps mb-8" style="color:rgba(255,255,255,.7)">Архитектурный паттерн</div>
-              <div class="headline-md mb-10" style="font-size:23px;color:#fff;font-weight:800">Переносимый подход для рабочих задач</div>
+          <div class="card featured" style="height:100%;padding:26px 28px;background:var(--primary);color:#fff;border-color:var(--primary);display:flex;align-items:center;gap:24px">
+            <div style="flex:1">
+              <div class="headline-md mb-8" style="font-size:23px;color:#fff;font-weight:800">Проект спикера на GitHub</div>
+              <div style="font-family:var(--font-mono);font-size:13px;color:#a6b3ff;margin-bottom:10px">
+                github.com/denden121/postgres-mcp-template
+              </div>
               <div class="body" style="color:rgba(255,255,255,.9);line-height:1.5;font-size:15px">
-                Кастомный MCP — это управляемый шлюз. Схема «Строгий контракт + изолированная роль СУБД + ограничения Harness» работает одинаково надёжно с&nbsp;любой базой данных.
+                Всё, что мы сегодня разбирали: сервер, функции, схемы валидации и тестовая база в Docker. Забирайте по ссылке или QR-коду.
               </div>
             </div>
-            <div class="flex flex-col gap-10 mt-16">
-              <div class="bento-pill">
-                <svg><use href="#i-spark"/></svg>
-                <span><b>Переносимость:</b> легко адаптируется под MySQL, ClickHouse, Redis или внутренние REST API</span>
-              </div>
-              <div class="bento-pill">
-                <svg><use href="#i-zap"/></svg>
-                <span><b>Автоматизация рутины:</b> агент готовит типовые отчёты без прямого доступа к продакшен-БД</span>
-              </div>
+
+            <div class="repo-qr-box" style="align-self:center">
+              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASgAAAEoAQAAAADDfFG0AAACF0lEQVR4nO1aXW/DMAg0qP//LzNxB44TtWoftkA10ynzBw+nK5wxqdj4wPQTp7G90jYT0ywDzDDk1Cym4bL5SnuAqTGGDBMwZByJHTs7vk58OSNkyrnyITjzQezs+EpbmBB/mIwhZGk5CTZfz5gQ0sWRvPJ6bf8mHy1nIAn6BfmaO13Ra+35OK6fdOmKXm/3ErsOBVHlkWbt0evtXg/yJBQuHo+ycOZTa4teb/eSIMsoW2QKkUYNI3Nd0WuJl3kgeYmKZ3CItUzKzujf2y97iSdhxhiSEQlJrqj6jdFX5ONAbX8EVNReSeLWryur5hEmzoxByPiBguFa1PXb1hovG+J6hUPyuA+F5Et39BX1lyDveERmcbFUYF3Ra5GXZBYi1KJbASWj9PdGf7eX+AD6haXgDskYtVhn9O/tL7wsuoReSyylfRRn3dHfql8CflK3MJ/NnNjqil4rvCxCifVERJbXGCwyynB1jq+xxtlyiYyVruj1dq9hHkdjvtzgOHpf2PJnV/Ra0191Q+rFDZKl6myFbf0697+cK74Oympi7d/v8/Flf1UinI6LYzTyu2aHlvbvYfPNdnTwfbb169wvdJsiH92vOAFYu3b9trXy/bbkJQh8RdXK3wh0Ra+VXpavO3BvjFKMuv8F6Gu8JK+MKWv8X46rVz7aaWkejsd6V/RafD7aQh1Le/51Ra+V9dcXotftFdaViR92KA4EijFMKgAAAABJRU5ErkJggg==" alt="QR Репозиторий"/>
             </div>
           </div>
         </div>
@@ -1047,7 +1027,6 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
     </div>
   </div>
 </div>
-
 <!-- ==================== SALES: ENTRY ==================== -->
 <div class="slide slide-fullbg" id="h01" data-slide="18" data-title="Где освоить AI-инженерию">
   <div class="slide-inner centered">
