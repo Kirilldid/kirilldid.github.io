@@ -21,8 +21,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Prepare deploy directory
+        run: |
+          mkdir -p deploy
+          cp -r zamesin-test-assessment/* deploy/
+          cp -r presentations_final_versions deploy/presentations_final_versions
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: presentations_final_versions
+          path: deploy
       - id: deployment
         uses: actions/deploy-pages@v4
