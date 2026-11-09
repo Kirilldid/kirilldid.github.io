@@ -253,7 +253,7 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
 .otile .oti{font-size:13px;font-weight:700;line-height:1.35}
 </style>
 </head>
-<body data-aspect="16-9" data-fullbg="i01,i04,s07a">
+<body data-aspect="16-9" data-fullbg="i01,i04,s04a,s07a,h01,h06,e02">
 
 <div id="dp"><i style="width:4.545%"></i></div>
 
@@ -366,12 +366,12 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
           <div class="chat" style="min-height:340px">
             <div class="cap">Чат трансляции</div>
             <div class="msgs" style="min-height:200px">
-              <div class="msg"><span class="av">А</span><span class="tx"><b>Алексей</b> &mdash; + слышно отлично! PostgreSQL, ИИ пока не рисковали пускать в базу</span></div>
-              <div class="msg"><span class="av">И</span><span class="tx"><b>Илья</b> &mdash; ++ пробовали Cursor, но без прямого доступа к боевой БД</span></div>
-              <div class="msg"><span class="av">Д</span><span class="tx"><b>Дмитрий</b> &mdash; + Python / Django, пишем SQL сами, но хотим автоматизировать выгрузки</span></div>
-              <div class="msg"><span class="av">М</span><span class="tx"><b>Максим</b> &mdash; +++ очень ждал тему! Интересно, как безопасно дать ИИ доступ к данным</span></div>
-              <div class="msg"><span class="av">Е</span><span class="tx"><b>Елена</b> &mdash; + видно и слышно! Актуально про разграничение прав и read-only</span></div>
-              <div class="msg"><span class="av">С</span><span class="tx"><b>Сергей</b> &mdash; + бэкенд, пока только генерируем запросы в чате и копируем руками</span></div>
+              <div class="msg"><span class="av">А</span><span class="tx"><b>Алексей</b> &mdash; + слышно отлично! Python/PostgreSQL, боимся давать Cursor прямой доступ к боевой базе</span></div>
+              <div class="msg"><span class="av">И</span><span class="tx"><b>Илья</b> &mdash; ++ на связи. Пробовали давать сырой SQL агенту — чуть не уронили тестовый стенд</span></div>
+              <div class="msg"><span class="av">Д</span><span class="tx"><b>Дмитрий</b> &mdash; + Django / Postgres. Интересно, как закрыть обходные пути агента в терминале</span></div>
+              <div class="msg"><span class="av">М</span><span class="tx"><b>Максим</b> &mdash; +++ очень ждал тему! Хотим автоматизировать выгрузки для аналитиков без риска</span></div>
+              <div class="msg"><span class="av">Е</span><span class="tx"><b>Елена</b> &mdash; + видно и слышно! Актуально про роль mcp_reader и функции SECURITY DEFINER</span></div>
+              <div class="msg"><span class="av">С</span><span class="tx"><b>Сергей</b> &mdash; + пока копируем SQL из чата руками, жду готовый шаблон коннектора</span></div>
             </div>
             <div class="typing">Кирилл&nbsp;Диденко печатает<i>.</i><i>.</i><i>.</i></div>
             <div class="chat-in">
@@ -469,14 +469,14 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
   <div class="slide-inner">
     <div class="headline-lg mb-40">Что вы получите в процессе</div>
     <div class="grid-12 mt-40">
-      <div class="col-3"><div class="card l2" style="height:100%;padding:22px 18px;display:flex;flex-direction:column"><span class="tile t-sec s24" style="margin-bottom:20px;font-family:var(--font-mono);font-size:14px;font-weight:700">01</span><div class="headline-md" style="font-size:19px">Зачем нужен MCP</div><div class="body mt-8" style="font-size:14px;color:var(--text-muted);line-height:1.45">Разберёмся, почему протокол стал стандартом и&nbsp;как он решает проблему изоляции LLM.</div></div></div>
-      <div class="col-3"><div class="card l2" style="height:100%;padding:22px 18px;display:flex;flex-direction:column"><span class="tile t-sec s24" style="margin-bottom:20px;font-family:var(--font-mono);font-size:14px;font-weight:700">02</span><div class="headline-md" style="font-size:19px">Риски «из коробки»</div><div class="body mt-8" style="font-size:14px;color:var(--text-muted);line-height:1.45">Поймём, почему готовые серверы для БД ведут к&nbsp;утечке данных и&nbsp;падению продакшена.</div></div></div>
-      <div class="col-3"><div class="card l2" style="height:100%;padding:22px 18px;display:flex;flex-direction:column"><span class="tile t-sec s24" style="margin-bottom:20px;font-family:var(--font-mono);font-size:14px;font-weight:700">03</span><div class="headline-md" style="font-size:19px">Безопасная архитектура</div><div class="body mt-8" style="font-size:14px;color:var(--text-muted);line-height:1.45">Спроектируем коннектор с&nbsp;read-only ролью, лимитами и&nbsp;строгой валидацией методов.</div></div></div>
-      <div class="col-3"><div class="card l2" style="height:100%;padding:22px 18px;display:flex;flex-direction:column"><span class="tile t-sec s24" style="margin-bottom:20px;font-family:var(--font-mono);font-size:14px;font-weight:700">04</span><div class="headline-md" style="font-size:19px">Свой коннектор к OpenCode</div><div class="body mt-8" style="font-size:14px;color:var(--text-muted);line-height:1.45">Напишем сервер в&nbsp;прямом эфире, подключим к&nbsp;агенту и&nbsp;проверим на&nbsp;прочность.</div></div></div>
+      <div class="col-3"><div class="card l2" style="height:100%;padding:22px 18px;display:flex;flex-direction:column"><span class="tile t-sec s24" style="margin-bottom:20px;font-family:var(--font-mono);font-size:14px;font-weight:700">01</span><div class="headline-md" style="font-size:19px">Зачем нужен MCP</div><div class="body mt-8" style="font-size:14px;color:var(--text-muted);line-height:1.45">Где границы ответственности протокола и&nbsp;как он устроен под капотом.</div></div></div>
+      <div class="col-3"><div class="card l2" style="height:100%;padding:22px 18px;display:flex;flex-direction:column"><span class="tile t-sec s24" style="margin-bottom:20px;font-family:var(--font-mono);font-size:14px;font-weight:700">02</span><div class="headline-md" style="font-size:19px">Границы универсального SQL</div><div class="body mt-8" style="font-size:14px;color:var(--text-muted);line-height:1.45">Почему прямого доступа к&nbsp;базе недостаточно для бизнес-логики и&nbsp;безопасности.</div></div></div>
+      <div class="col-3"><div class="card l2" style="height:100%;padding:22px 18px;display:flex;flex-direction:column"><span class="tile t-sec s24" style="margin-bottom:20px;font-family:var(--font-mono);font-size:14px;font-weight:700">03</span><div class="headline-md" style="font-size:19px">Три уровня защиты</div><div class="body mt-8" style="font-size:14px;color:var(--text-muted);line-height:1.45">Контракт MCP-сервера, права роли в&nbsp;PostgreSQL и&nbsp;ограничения harness.</div></div></div>
+      <div class="col-3"><div class="card l2" style="height:100%;padding:22px 18px;display:flex;flex-direction:column"><span class="tile t-sec s24" style="margin-bottom:20px;font-family:var(--font-mono);font-size:14px;font-weight:700">04</span><div class="headline-md" style="font-size:19px">Коннектор к OpenCode</div><div class="body mt-8" style="font-size:14px;color:var(--text-muted);line-height:1.45">Пишем сервер на&nbsp;FastMCP, изолируем терминал и&nbsp;проверяем на&nbsp;прочность.</div></div></div>
     </div>
     <div class="plate mt-40" style="max-width:1120px">
       <svg><use href="#i-check"/></svg>
-      <div class="body" style="color:#fff;font-size:17px;line-height:1.5"><b>Резюме:</b> вы&nbsp;уйдёте с&nbsp;готовым пониманием (и&nbsp;паттерном кода), как безопасно «подружить» ИИ-агента с&nbsp;вашей БД, ускорить свою работу и&nbsp;не&nbsp;потерять контроль над системой.</div>
+      <div class="body" style="color:#fff;font-size:17px;line-height:1.5"><b>Резюме:</b> вы&nbsp;уйдёте с&nbsp;готовым пониманием (и&nbsp;рабочим шаблоном кода), как ограничить ИИ-агента только разрешёнными операциями и&nbsp;сохранить контроль над базой.</div>
     </div>
   </div>
 </div>
@@ -487,7 +487,7 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
     <div class="flex flex-col items-center text-center" style="gap:24px;max-width:960px;margin:0 auto">
       <div class="label-caps">Основная часть вебинара</div>
       <div class="headline-lg">Передаю слово Даниле</div>
-      <div class="headline-md text-muted" style="max-width:820px">Он&nbsp;расскажет, почему стандартные решения часто ломают прод и&nbsp;как мы&nbsp;будем это исправлять</div>
+      <div class="headline-md text-muted" style="max-width:820px">Он&nbsp;покажет, почему универсального SQL недостаточно и&nbsp;как выстроить три уровня защиты базы данных</div>
       <div class="flex gap-16 mt-8">
         <span class="badge badge-primary"><svg><use href="#i-chat"/></svg>вопросы из чата</span>
         <span class="badge"><svg><use href="#i-clock"/></svg>~1,5 часа</span>
@@ -502,40 +502,40 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
 <!-- ==================== SPEAKER: WHAT IS MCP ==================== -->
 <div class="slide" id="s01" data-slide="9" data-title="Что такое MCP">
   <div class="slide-inner">
-    <div class="headline-lg mb-16">Что такое Model Context Protocol и&nbsp;почему это стандарт</div>
-    <div class="body-lg" style="max-width:1040px">Краткий ликбез: почему протокол появился именно сейчас и&nbsp;как он решает фундаментальную проблему изоляции LLM.</div>
+    <div class="headline-lg mb-16">Что такое Model Context Protocol и&nbsp;зачем он нужен</div>
+    <div class="body-lg" style="max-width:1040px">Стандартизация взаимодействия: от&nbsp;зоопарка отдельных плагинов к&nbsp;единому протоколу обнаружения и&nbsp;вызова инструментов.</div>
     <div class="grid-12 mt-40 items-stretch">
       <div class="col-7 flex flex-col gap-16">
         <div class="card l2" style="padding:22px 24px">
-          <div class="label-caps mb-8" style="color:var(--primary)">Фундаментальная проблема контекста</div>
-          <div class="body" style="line-height:1.55;color:var(--text-main)">До&nbsp;появления MCP подключение внешних систем к&nbsp;моделям требовало промпт-инъекций, хрупких самописных парсеров и&nbsp;небезопасной передачи секретов. При смене хоста (Claude, Cursor, OpenCode) весь код приходилось переписывать с&nbsp;нуля.</div>
+          <div class="label-caps mb-8" style="color:var(--primary)">Проблема до MCP: интеграционный зоопарк</div>
+          <div class="body" style="line-height:1.55;color:var(--text-main)">Вызовы функций (tool use) существовали и&nbsp;раньше, но&nbsp;каждый AI-хост (Claude, Cursor, OpenCode, VS Code) требовал собственного формата описания и&nbsp;подключения. Чтобы связать N&nbsp;клиентов с&nbsp;M&nbsp;системами, приходилось писать N&times;M разных коннекторов.</div>
         </div>
         <div class="card l2" style="padding:22px 24px">
-          <div class="label-caps mb-8" style="color:var(--primary)">Открытый стандарт Anthropic</div>
-          <div class="body" style="line-height:1.55;color:var(--text-main)">MCP стандартизировал клиент-серверный обмен через <b>JSON-RPC 2.0</b>. Это открытый протокол, работающий поверх <code>stdio</code> (локально) или <code>SSE/HTTP</code> (удаленно) — единый интерфейс взаимодействия AI с&nbsp;любыми инструментами.</div>
+          <div class="label-caps mb-8" style="color:var(--primary)">Решение: открытый протокол Anthropic</div>
+          <div class="body" style="line-height:1.55;color:var(--text-main)">MCP стандартизирует discovery и&nbsp;вызовы через <b>JSON-RPC 2.0</b>. Официальные транспорты спецификации: <code>stdio</code> (для локальных процессов) и&nbsp;<code>Streamable HTTP</code> (для сетевых микросервисов; старый HTTP+SSE объявлен legacy).</div>
         </div>
       </div>
       <div class="col-5 flex flex-col justify-between">
         <div class="card inverse" style="height:100%;padding:24px 22px;display:flex;flex-direction:column;justify-content:space-between">
           <div>
-            <div class="label-caps mb-16" style="color:rgba(255,255,255,.55)">3 кита протокола MCP</div>
+            <div class="label-caps mb-16" style="color:rgba(255,255,255,.55)">3 примитива протокола MCP</div>
             <div class="flex flex-col gap-14">
               <div class="flex items-start gap-12">
                 <span class="tile t-sec s24" style="flex:none;margin-top:2px"><svg><use href="#i-zap"/></svg></span>
-                <div><b style="color:#fff">Tools (Инструменты)</b><div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:2px">Исполняемые функции с аргументами и side-эффектами.</div></div>
+                <div><b style="color:#fff">Tools (Инструменты)</b><div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:2px">Исполняемые функции с типизированными аргументами, вызываемые моделью.</div></div>
               </div>
               <div class="flex items-start gap-12">
                 <span class="tile t-sec s24" style="flex:none;margin-top:2px"><svg><use href="#i-book"/></svg></span>
-                <div><b style="color:#fff">Resources (Ресурсы)</b><div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:2px">Пассивные данные для чтения: схемы БД, логи, файлы.</div></div>
+                <div><b style="color:#fff">Resources (Ресурсы)</b><div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:2px">Данные только для чтения: схемы таблиц, документация, логи.</div></div>
               </div>
               <div class="flex items-start gap-12">
                 <span class="tile t-sec s24" style="flex:none;margin-top:2px"><svg><use href="#i-chat"/></svg></span>
-                <div><b style="color:#fff">Prompts (Шаблоны)</b><div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:2px">Параметризованные сценарии взаимодействия для пользователей.</div></div>
+                <div><b style="color:#fff">Prompts (Шаблоны)</b><div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:2px">Заранее параметризованные сценарии взаимодействия для пользователей.</div></div>
               </div>
             </div>
           </div>
-          <div style="padding-top:14px;border-top:1px solid rgba(255,255,255,.12);font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,.5)">
-            Host (OpenCode) ↔ MCP Client ↔ MCP Server
+          <div style="padding-top:14px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;color:rgba(255,255,255,.8);line-height:1.4">
+            ⚠️ <b>Границы MCP:</b> протокол задаёт интерфейс контрактов. Он&nbsp;не&nbsp;изолирует процессы ОС, не&nbsp;закрывает терминал и&nbsp;не&nbsp;управляет правами в&nbsp;СУБД.
           </div>
         </div>
       </div>
@@ -546,50 +546,50 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
 <!-- ==================== SPEAKER: USE CASES ==================== -->
 <div class="slide" id="s02" data-slide="10" data-title="Юзкейсы и сервисы">
   <div class="slide-inner">
-    <div class="headline-lg mb-16">Юзкейсы и популярные инструменты экосистемы</div>
-    <div class="body-lg" style="max-width:1040px">Как разработчики уже используют MCP в&nbsp;повседневности: обзор сервисов с&nbsp;готовыми официальными серверами.</div>
+    <div class="headline-lg mb-16">Экосистема MCP: популярные инструменты и&nbsp;серверы</div>
+    <div class="body-lg" style="max-width:1040px">Как разработчики уже используют протокол: готовые серверы сообщества и&nbsp;платформ для повседневных задач.</div>
     <div class="grid-12 mt-40">
-      <div class="col-3"><div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column"><span class="tile" style="width:48px;height:48px;display:flex;margin-bottom:14px"><svg style="width:24px;height:24px"><use href="#i-code"/></svg></span><div class="headline-md" style="font-size:20px;margin-top:10px">GitHub MCP</div><div class="body" style="margin-top:8px;font-size:14px;line-height:1.45">Поиск по коду, чтение PR, создание issues, ревью диффов и анализ истории коммитов прямо из IDE.</div></div></div>
-      <div class="col-3"><div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column"><span class="tile" style="width:48px;height:48px;display:flex;margin-bottom:14px"><svg style="width:24px;height:24px"><use href="#i-chat"/></svg></span><div class="headline-md" style="font-size:20px;margin-top:10px">Slack / Telegram</div><div class="body" style="margin-top:8px;font-size:14px;line-height:1.45">Мониторинг алертов, сборка сводок дежурного, автоматические ответы на типовые вопросы в тредах.</div></div></div>
-      <div class="col-3"><div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column"><span class="tile" style="width:48px;height:48px;display:flex;margin-bottom:14px"><svg style="width:24px;height:24px"><use href="#i-window"/></svg></span><div class="headline-md" style="font-size:20px;margin-top:10px">Filesystem MCP</div><div class="body" style="margin-top:8px;font-size:14px;line-height:1.45">Локальная индексация документации, схем и конфигов проекта с жестким ограничением разрешенных путей.</div></div></div>
-      <div class="col-3"><div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column"><span class="tile" style="width:48px;height:48px;display:flex;margin-bottom:14px"><svg style="width:24px;height:24px"><use href="#i-server"/></svg></span><div class="headline-md" style="font-size:20px;margin-top:10px">Generic DB (Postgres)</div><div class="body" style="margin-top:8px;font-size:14px;line-height:1.45">Чтение метаданных таблиц и выполнение произвольных SQL-запросов, сгенерированных моделью.</div></div></div>
+      <div class="col-3"><div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column"><span class="tile" style="width:48px;height:48px;display:flex;margin-bottom:14px"><svg style="width:24px;height:24px"><use href="#i-code"/></svg></span><div class="headline-md" style="font-size:20px;margin-top:10px">GitHub MCP</div><div class="body" style="margin-top:8px;font-size:14px;line-height:1.45">Поиск по коду репозитория, чтение PR, создание issues, ревью диффов коммитов прямо из IDE и терминала.</div></div></div>
+      <div class="col-3"><div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column"><span class="tile" style="width:48px;height:48px;display:flex;margin-bottom:14px"><svg style="width:24px;height:24px"><use href="#i-chat"/></svg></span><div class="headline-md" style="font-size:20px;margin-top:10px">Slack MCP</div><div class="body" style="margin-top:8px;font-size:14px;line-height:1.45">Мониторинг алертов, суммаризация обсуждений в тредах дежурными, отправка уведомлений о релизах.</div></div></div>
+      <div class="col-3"><div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column"><span class="tile" style="width:48px;height:48px;display:flex;margin-bottom:14px"><svg style="width:24px;height:24px"><use href="#i-window"/></svg></span><div class="headline-md" style="font-size:20px;margin-top:10px">Filesystem MCP</div><div class="body" style="margin-top:8px;font-size:14px;line-height:1.45">Локальная индексация документации и конфигов проекта с жестким ограничением разрешенных каталогов.</div></div></div>
+      <div class="col-3"><div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column"><span class="tile" style="width:48px;height:48px;display:flex;margin-bottom:14px"><svg style="width:24px;height:24px"><use href="#i-server"/></svg></span><div class="headline-md" style="font-size:20px;margin-top:10px">PostgreSQL MCP</div><div class="body" style="margin-top:8px;font-size:14px;line-height:1.45">Универсальные коннекторы для чтения схем таблиц и выполнения произвольных SQL-запросов разработчика.</div></div></div>
     </div>
     <div class="card accent mt-40" style="max-width:1120px">
       <div class="flex items-center gap-20">
         <svg style="width:28px;height:28px;color:var(--primary);flex:none"><use href="#i-target"/></svg>
-        <div class="body" style="color:var(--primary-fixed-fg);font-size:17px;line-height:1.5"><b>Главный вопрос:</b> если для PostgreSQL уже есть готовые серверы «из коробки», почему их крайне рискованно подключать к реальной базе проекта?</div>
+        <div class="body" style="color:var(--primary-fixed-fg);font-size:17px;line-height:1.5">Универсальные SQL-серверы удобны для администрирования. Но&nbsp;почему свободного SQL недостаточно, когда мы&nbsp;хотим поручить агенту реальную бизнес-логику?</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SPEAKER: WHY NOT READY-MADE ==================== -->
-<div class="slide" id="s03" data-slide="11" data-title="Почему не готовый сервак">
+<!-- ==================== SPEAKER: WHY NOT RAW SQL ==================== -->
+<div class="slide" id="s03" data-slide="11" data-title="Границы сырого SQL">
   <div class="slide-inner">
-    <div class="headline-lg mb-16">Почему не подходит готовый сервак: иллюзия простоты</div>
-    <div class="body-lg" style="max-width:1040px">Разбор подхода «установил готовый коннектор и&nbsp;погнал в&nbsp;продакшн». Где заканчивается магия и&nbsp;начинаются проблемы.</div>
+    <div class="headline-lg mb-16">Когда универсального SQL-инструмента недостаточно</div>
+    <div class="body-lg" style="max-width:1040px">Сравнение подходов: почему для бизнес-задач аналитики прямой SQL проигрывает фиксированным контрактам.</div>
     <div class="grid-12 mt-40">
       <div class="col-6">
         <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column">
-          <div class="label-caps mb-16" style="color:var(--text-muted)">Подход «из коробки» · Для пет-проекта</div>
-          <div class="headline-md mb-16" style="font-size:22px">Кажется идеальной магией</div>
+          <div class="label-caps mb-16" style="color:var(--text-muted)">Подход 1 · Универсальный SQL-агент (execute_sql)</div>
+          <div class="headline-md mb-16" style="font-size:22px">Свобода генерации запросов</div>
           <div class="flex flex-col gap-12" style="flex:1">
-            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--primary)"><use href="#i-check"/></svg><span class="body">Агент сам получает структуру таблиц через <code>information_schema</code>.</span></div>
-            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--primary)"><use href="#i-check"/></svg><span class="body">Сам пишет сырой SQL под вопрос пользователя.</span></div>
-            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--primary)"><use href="#i-check"/></svg><span class="body">Сам исполняет запрос и&nbsp;в&nbsp;случае ошибки пытается его починить.</span></div>
-            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--primary)"><use href="#i-check"/></svg><span class="body"><b>Итог:</b> на&nbsp;демо с&nbsp;10&nbsp;строками в&nbsp;базе всё выглядит потрясающе.</span></div>
+            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--tertiary)"><use href="#i-chev-r"/></svg><span class="body"><b>Размытая бизнес-логика:</b> модель сама решает, как считать выручку и&nbsp;какие статусы заказов учитывать (pending / cancelled).</span></div>
+            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--tertiary)"><use href="#i-chev-r"/></svg><span class="body"><b>Непостоянство результатов:</b> на&nbsp;одинаковый вопрос агент может сгенерировать разные JOIN и&nbsp;получить разные цифры.</span></div>
+            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--tertiary)"><use href="#i-chev-r"/></svg><span class="body"><b>Утечка персональных данных:</b> при <code>SELECT *</code> в&nbsp;контекст модели попадают телефоны, email и&nbsp;хэши паролей.</span></div>
+            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--tertiary)"><use href="#i-chev-r"/></svg><span class="body"><b>Непредсказуемый объём:</b> ответ может вернуть 100&nbsp;000 строк, вызвав переполнение памяти клиента.</span></div>
           </div>
         </div>
       </div>
       <div class="col-6">
-        <div class="card featured" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;border-color:rgba(217,45,32,.3)">
-          <div class="label-caps mb-16" style="color:#d92d20">Реальный продакшн · Цена ошибки</div>
-          <div class="headline-md mb-16" style="font-size:22px;color:var(--text-main)">Техническая и бизнес-катастрофа</div>
+        <div class="card featured" style="height:100%;padding:26px 28px;display:flex;flex-direction:column">
+          <div class="label-caps mb-16" style="color:var(--primary)">Подход 2 · Кастомный коннектор с фиксированными операциями</div>
+          <div class="headline-md mb-16" style="font-size:22px;color:var(--text-main)">Детерминированный бизнес-контракт</div>
           <div class="flex flex-col gap-12" style="flex:1">
-            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:#d92d20"><use href="#i-chev-r"/></svg><span class="body"><b>Галлюцинации в фильтрах:</b> риск выполнения опасных <code>UPDATE</code> или <code>DELETE</code> без <code>WHERE</code>.</span></div>
-            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:#d92d20"><use href="#i-chev-r"/></svg><span class="body"><b>SELECT * на миллионы строк:</b> мгновенный Out-Of-Memory сервиса и&nbsp;блокировка таблицы.</span></div>
-            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:#d92d20"><use href="#i-chev-r"/></svg><span class="body"><b>Утечка персональных данных (PII):</b> модель тянет телефоны, хэши и&nbsp;паспорта в&nbsp;промпт.</span></div>
-            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:#d92d20"><use href="#i-chev-r"/></svg><span class="body"><b>Итог:</b> упавшая база данных и&nbsp;грубейшее нарушение требований ИБ компании.</span></div>
+            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--primary)"><use href="#i-check"/></svg><span class="body"><b>Бизнес-правила зафиксированы:</b> SQL написан инженером заранее — учитываются строго оплаченные заказы и&nbsp;проверенные связи.</span></div>
+            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--primary)"><use href="#i-check"/></svg><span class="body"><b>Исключение чувствительных полей:</b> наружу отдаются только агрегированные цифры, без сырых PII-колонок.</span></div>
+            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--primary)"><use href="#i-check"/></svg><span class="body"><b>Предсказуемый формат:</b> валидация параметров через Pydantic (диапазон дат до&nbsp;91 дня, лимит от&nbsp;1 до&nbsp;10).</span></div>
+            <div class="flex items-start gap-10"><svg style="width:16px;height:16px;flex:none;margin-top:4px;color:var(--primary)"><use href="#i-check"/></svg><span class="body"><b>Компактный контекст:</b> модель получает чистую выжимку, экономя токены и&nbsp;исключая галлюцинации.</span></div>
           </div>
         </div>
       </div>
@@ -597,155 +597,323 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
   </div>
 </div>
 
-<!-- ==================== SPEAKER: DB PROBLEMS & SOLUTION ==================== -->
-<div class="slide" id="s04" data-slide="12" data-title="Проблематика работы с БД">
-  <div class="slide-inner">
-    <div class="headline-lg mb-16">Проблематика работы с&nbsp;БД: 3 главных риска</div>
-    <div class="body-lg" style="max-width:1040px">Что конкретно идёт не&nbsp;так при взаимодействии ИИ с&nbsp;базами — и&nbsp;почему кастомный MCP здесь идеален.</div>
-    <div class="grid-12 mt-40">
-      <div class="col-4">
-        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
-          <span class="tile" style="width:52px;height:52px;background:#fee4e2;color:#d92d20;display:flex;margin-bottom:16px"><svg style="width:26px;height:26px"><use href="#i-zap"/></svg></span>
-          <div class="headline-md" style="font-size:21px;margin-top:12px">Риск порчи и удаления</div>
-          <div class="body" style="margin-top:10px;line-height:1.45;color:var(--text-muted)">Модель может неверно истолковать пользовательский промпт или контекст и&nbsp;выполнить деструктивную операцию над таблицами заказов или справочников.</div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
-          <span class="tile" style="width:52px;height:52px;background:#fee4e2;color:#d92d20;display:flex;margin-bottom:16px"><svg style="width:26px;height:26px"><use href="#i-route"/></svg></span>
-          <div class="headline-md" style="font-size:21px;margin-top:12px">Утечка чувствительных данных</div>
-          <div class="body" style="margin-top:10px;line-height:1.45;color:var(--text-muted)">При свободном доступе агент извлекает персональные данные (телефоны, email, суммы счетов, реквизиты) и&nbsp;отправляет их во&nbsp;внешнее облако провайдера LLM.</div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
-          <span class="tile" style="width:52px;height:52px;background:#fee4e2;color:#d92d20;display:flex;margin-bottom:16px"><svg style="width:26px;height:26px"><use href="#i-server"/></svg></span>
-          <div class="headline-md" style="font-size:21px;margin-top:12px">Непредсказуемость нагрузки</div>
-          <div class="body" style="margin-top:10px;line-height:1.45;color:var(--text-muted)">Агент не&nbsp;знает индексов и&nbsp;структуры диска: неоптимизированный запрос с&nbsp;тяжелыми JOIN и&nbsp;сортировками может легко положить продакшен-реплику базы.</div>
-        </div>
-      </div>
-    </div>
-    <div class="plate mt-40" style="max-width:1120px">
-      <svg><use href="#i-check"/></svg>
-      <div class="body" style="color:#fff;font-size:17px;line-height:1.5"><b>Решение — кастомный MCP-сервер:</b> мы&nbsp;полностью забираем у&nbsp;ИИ свободу прямого SQL. Агент получает только строго изолированные функции с&nbsp;валидацией параметров и&nbsp;read-only правами.</div>
+
+<!-- ==================== SPEAKER: WORKSHOP PROJECT TRANSITION ==================== -->
+<style>
+#s04a{position:relative;background:radial-gradient(ellipse at 50% 45%, #184fe8 0%, #123bc6 60%, #0b2994 100%);color:#fff;overflow:hidden}
+#s04a .pattern-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.055}
+#s04a .display-lg{font-size:clamp(40px,min(5.6vw,7.6vh),76px);line-height:1.14;font-weight:800;letter-spacing:-0.02em}
+#s05 .tbl-card{background:var(--surface-base);border:1px solid rgba(0,0,0,.07);border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+#s05 .sig-box{background:var(--surface-base);border:1px solid rgba(20,68,230,.18);border-left:3px solid var(--primary);border-radius:8px;padding:12px 14px}
+#s06 .defense-badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:12px;font-weight:700;font-family:var(--font-mono)}
+</style>
+<div class="slide slide-fullbg" id="s04a" data-slide="12" data-title="Проект воркшопа">
+  <svg class="pattern-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
+    <defs>
+      <pattern id="ai-dev-pattern" width="160" height="160" patternUnits="userSpaceOnUse">
+        <!-- Terminal icon -->
+        <rect x="20" y="20" width="44" height="34" rx="4" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+        <path d="M26 32 L34 37 L26 42 M38 42 L48 42" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- Database cylinder -->
+        <ellipse cx="120" cy="30" rx="18" ry="6" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+        <path d="M102 30 V46 C102 50 138 50 138 46 V30" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+        <path d="M102 38 C102 42 138 42 138 38" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+        <!-- Code brackets -->
+        <path d="M36 100 L26 110 L36 120 M52 100 L62 110 L52 120" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- AI Spark / Star -->
+        <path d="M120 95 L123 107 L135 110 L123 113 L120 125 L117 113 L105 110 L117 107 Z" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+        <!-- CPU / Chip -->
+        <rect x="75" y="70" width="22" height="22" rx="3" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+        <path d="M70 76 H75 M70 82 H75 M70 88 H75 M97 76 H102 M97 82 H102 M97 88 H102 M81 65 V70 M87 65 V70 M81 92 V97 M87 92 V97" stroke="#ffffff" stroke-width="1.6"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#ai-dev-pattern)"/>
+  </svg>
+  <div class="slide-inner vcenter" style="position:relative;z-index:2">
+    <div class="flex flex-col items-center text-center justify-center" style="max-width:1080px;margin:0 auto;width:100%">
+      <h2 class="display-lg brandFade" style="animation-delay:.08s;max-width:1000px">
+        Какой проект реализуем в&nbsp;рамках воркшопа
+      </h2>
     </div>
   </div>
 </div>
 
-<!-- ==================== SPEAKER: LIVECODING PLAN 1 ==================== -->
-<div class="slide" id="s05" data-slide="13" data-title="Лайвкодинг: Архитектура">
+<!-- ==================== SPEAKER: ARCHITECTURE (6 TABLES & 2 TOOLS) ==================== -->
+<div class="slide" id="s05" data-slide="13" data-title="Архитектура проекта">
   <div class="slide-inner">
-    <div class="headline-lg mb-16">План лайвкодинга: Архитектура решения</div>
-    <div class="body-lg" style="max-width:1040px">Этап 1: От&nbsp;постановки бизнес-задачи к&nbsp;проектированию строгих контрактов инструментов.</div>
-    <div class="grid-12 mt-40">
-      <div class="col-4">
-        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
-          <span class="tile num" style="width:48px;height:48px;font-size:20px;font-weight:800;display:flex;margin-bottom:14px;background:var(--primary-fixed);color:var(--primary)">01</span>
-          <div class="headline-md" style="font-size:21px;margin-top:10px">Определяем задачу</div>
-          <div class="body" style="margin-top:10px;line-height:1.45;color:var(--text-muted)">Агент должен анализировать продажи интернет-магазина (считать общую выручку и&nbsp;находить топ товаров по&nbsp;категориям).<br><br><b>Условие:</b> нулевой доступ к&nbsp;персональным данным клиентов и&nbsp;запрет на&nbsp;изменение БД.</div>
+    <div class="headline-lg mb-12">Архитектура: схема БД и&nbsp;контракты инструментов</div>
+    <div class="body-lg text-muted mb-28">Полигон интернет-магазина: 6 закрытых таблиц в&nbsp;PostgreSQL и&nbsp;2 строгих метода FastMCP.</div>
+
+    <div class="grid-12 items-stretch" style="gap:24px">
+      <!-- Col 6: PostgreSQL Database Schema (6 tables in private) -->
+      <div class="col-6">
+        <div class="card l2" style="height:100%;padding:24px 26px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div class="flex items-center justify-between mb-12">
+              <span class="label-caps" style="color:#d92d20">СУБД · Схема private</span>
+              <span class="badge" style="background:#fee4e2;color:#d92d20;border-color:rgba(217,45,32,.2)">REVOKE ALL</span>
+            </div>
+            <div class="headline-md mb-8" style="font-size:22px">6 изолированных таблиц</div>
+            <div class="body-sm text-muted mb-16">Прямой доступ к таблицам закрыт для роли <code>mcp_reader</code>. Чтение возможно только через функции схемы <code>api</code>.</div>
+
+            <div class="flex flex-col gap-8">
+              <div class="tbl-card">
+                <div>
+                  <code style="font-size:13px;font-weight:700;color:var(--text-main)">private.customers</code>
+                  <div style="font-size:12px;color:var(--text-muted);margin-top:2px">Имена, email, телефоны клиентов (PII)</div>
+                </div>
+                <span class="badge" style="font-size:11px;color:#d92d20;background:rgba(217,45,32,.08)">Изолировано</span>
+              </div>
+              <div class="tbl-card">
+                <div>
+                  <code style="font-size:13px;font-weight:700;color:var(--text-main)">private.categories</code>
+                  <div style="font-size:12px;color:var(--text-muted);margin-top:2px">Справочник категорий товаров</div>
+                </div>
+                <span class="badge" style="font-size:11px;color:var(--text-muted)">Справочник</span>
+              </div>
+              <div class="tbl-card">
+                <div>
+                  <code style="font-size:13px;font-weight:700;color:var(--text-main)">private.products</code>
+                  <div style="font-size:12px;color:var(--text-muted);margin-top:2px">Товары, цены, остатки на складе</div>
+                </div>
+                <span class="badge" style="font-size:11px;color:var(--text-muted)">Каталог</span>
+              </div>
+              <div class="tbl-card">
+                <div>
+                  <code style="font-size:13px;font-weight:700;color:var(--text-main)">private.orders</code>
+                  <div style="font-size:12px;color:var(--text-muted);margin-top:2px">Заказы (статусы: paid, cancelled, pending)</div>
+                </div>
+                <span class="badge" style="font-size:11px;color:var(--primary);background:#f0f4ff">Фильтрация</span>
+              </div>
+              <div class="tbl-card">
+                <div>
+                  <code style="font-size:13px;font-weight:700;color:var(--text-main)">private.order_items</code>
+                  <div style="font-size:12px;color:var(--text-muted);margin-top:2px">Позиции заказов, количество и стоимость</div>
+                </div>
+                <span class="badge" style="font-size:11px;color:var(--text-muted)">Аналитика</span>
+              </div>
+              <div class="tbl-card">
+                <div>
+                  <code style="font-size:13px;font-weight:700;color:var(--text-main)">private.payments</code>
+                  <div style="font-size:12px;color:var(--text-muted);margin-top:2px">Транзакции и статус оплаты</div>
+                </div>
+                <span class="badge" style="font-size:11px;color:#d92d20;background:rgba(217,45,32,.08)">Изолировано</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-4">
-        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
-          <span class="tile num" style="width:48px;height:48px;font-size:20px;font-weight:800;display:flex;margin-bottom:14px;background:var(--primary-fixed);color:var(--primary)">02</span>
-          <div class="headline-md" style="font-size:21px;margin-top:10px">Готовим базу данных</div>
-          <div class="body" style="margin-top:10px;line-height:1.45;color:var(--text-muted)">Создаём тестовую схему: таблицы <code>orders</code>, <code>order_items</code>, <code>products</code>, <code>customers</code>.<br><br>Наполняем реалистичными моками: оплаченные, отменённые и&nbsp;зависшие заказы для проверки логики фильтрации.</div>
+
+      <!-- Col 6: MCP Server Contracts (Exact Signatures) -->
+      <div class="col-6">
+        <div class="card featured" style="height:100%;padding:24px 26px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div class="flex items-center justify-between mb-12">
+              <span class="label-caps" style="color:var(--primary)">MCP-сервер · FastMCP</span>
+              <span class="badge" style="background:#f0f4ff;color:var(--primary);border-color:rgba(20,68,230,.2)">stdio JSON-RPC</span>
+            </div>
+            <div class="headline-md mb-8" style="font-size:22px">2 точных инструмента (Tools)</div>
+            <div class="body-sm text-muted mb-16">Модель лишена произвольного SQL — ей доступны только проверенные бизнес-методы:</div>
+
+            <div class="flex flex-col gap-14">
+              <!-- Tool 1 -->
+              <div class="sig-box">
+                <div class="flex items-center justify-between">
+                  <code style="font-size:13px;font-weight:800;color:var(--primary)">sales_summary(start: date, end: date)</code>
+                </div>
+                <div style="font-size:13px;color:var(--text-main);margin-top:8px;line-height:1.45">
+                  <b>Параметры:</b> диапазон дат от&nbsp;1 до&nbsp;91 дня (<code>0 &le; (end - start).days &le; 90</code>).
+                </div>
+                <div style="font-size:13px;color:var(--text-muted);margin-top:4px">
+                  <b>Ответ:</b> выручка, число оплаченных заказов и средний чек. Без сырых строк!
+                </div>
+              </div>
+
+              <!-- Tool 2 -->
+              <div class="sig-box">
+                <div class="flex items-center justify-between">
+                  <code style="font-size:13px;font-weight:800;color:var(--primary)">top_products(start, end, limit: int = 5)</code>
+                </div>
+                <div style="font-size:13px;color:var(--text-main);margin-top:8px;line-height:1.45">
+                  <b>Параметры:</b> период дат и лимит от&nbsp;1 до&nbsp;10 (<code>1 &le; limit &le; 10</code>, дефолт&nbsp;5).
+                </div>
+                <div style="font-size:13px;color:var(--text-muted);margin-top:4px">
+                  <b>Ответ:</b> список лидеров продаж по сумме выручки за указанный период.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-10 mt-16" style="font-size:13px;color:#00875a;font-weight:600">
+            <svg style="width:16px;height:16px;flex:none"><use href="#i-check"/></svg>
+            Детерминированный результат: одинаковый вопрос всегда даёт идентичный корректный отчёт.
+          </div>
         </div>
       </div>
-      <div class="col-4">
-        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
-          <span class="tile num" style="width:48px;height:48px;font-size:20px;font-weight:800;display:flex;margin-bottom:14px;background:var(--primary-fixed);color:var(--primary)">03</span>
-          <div class="headline-md" style="font-size:21px;margin-top:10px">Проектируем инструменты</div>
-          <div class="body" style="margin-top:10px;line-height:1.45;color:var(--text-muted)">Вместо опасного <code>execute_raw_sql</code> объявляем 2 специализированных метода:
-          <div style="font-family:var(--font-mono);font-size:13px;background:var(--surface-base);padding:10px;border-radius:6px;margin-top:8px;color:var(--primary)">
-            &bull; sales_summary(from, to)<br>
-            &bull; top_products(limit, cat_id)
-          </div></div>
-        </div>
-      </div>
-    </div>
-    <div class="plate mt-40" style="max-width:1120px">
-      <svg><use href="#i-code"/></svg>
-      <div class="body" style="color:#fff;font-size:17px;line-height:1.5"><b>Принцип:</b> никаких универсальных SQL-дыр. Агент взаимодействует только с&nbsp;типизированными бизнес-методами с&nbsp;предсказуемым результатом.</div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SPEAKER: LIVECODING PLAN 2 ==================== -->
-<div class="slide" id="s06" data-slide="14" data-title="Лайвкодинг: Защита и связка">
+<!-- ==================== SPEAKER: 3 DEFENSE LINES ==================== -->
+<div class="slide" id="s06" data-slide="14" data-title="3 рубежа защиты">
   <div class="slide-inner">
-    <div class="headline-lg mb-16">План лайвкодинга: Защита и&nbsp;интеграция</div>
-    <div class="body-lg" style="max-width:1040px">Этап 2: Разграничение прав в&nbsp;PostgreSQL, реализация сервера на&nbsp;SDK и&nbsp;подключение к&nbsp;OpenCode.</div>
-    <div class="grid-12 mt-40">
+    <div class="headline-lg mb-12">3 рубежа защиты: эшелонированная безопасность</div>
+    <div class="body-lg text-muted mb-28">Разделение ответственности: контракт интерфейса, права СУБД и&nbsp;окружение агента OpenCode.</div>
+
+    <div class="grid-12 items-stretch" style="gap:20px">
+      <!-- Line 1: MCP Server -->
       <div class="col-4">
-        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
-          <span class="tile num" style="width:48px;height:48px;font-size:20px;font-weight:800;display:flex;margin-bottom:14px;background:#e0f2fe;color:#0284c7">04</span>
-          <div class="headline-md" style="font-size:21px;margin-top:10px">Ограничиваем доступ в БД</div>
-          <div class="body" style="margin-top:10px;line-height:1.45;color:var(--text-muted)">Создаём роль <code>mcp_reader</code> на&nbsp;стороне базы. Запрещаем прямой <code>SELECT</code> к&nbsp;таблицам клиентов, выдаём право только на&nbsp;подготовленные функции или представления.</div>
+        <div class="card l2" style="height:100%;padding:24px 22px;display:flex;flex-direction:column;justify-content:space-between;border-top:3px solid var(--primary)">
+          <div>
+            <div class="flex items-center justify-between mb-12">
+              <span class="defense-badge" style="background:#f0f4ff;color:var(--primary)">РУБЕЖ 1</span>
+              <span style="font-size:12px;color:var(--text-muted)">Python / FastMCP</span>
+            </div>
+            <div class="headline-md mb-8" style="font-size:20px">MCP-сервер</div>
+            <div class="body-sm text-muted mb-16"><b>Что ограничивает:</b> доступные инструменты, аргументы и&nbsp;выдаваемые поля.</div>
+            
+            <ul class="body-sm" style="line-height:1.6;color:var(--text-main);padding-left:16px">
+              <li><b>Валидация дат:</b> Pydantic проверяет типы и диапазон <code>&le; 90 дней</code> до отправки в базу.</li>
+              <li><b>Лимит выборки:</b> параметр <code>limit</code> жёстко ограничен от 1 до 10.</li>
+              <li><b>Формат ответа:</b> сервер отдаёт только агрегированные цифры без лишних полей.</li>
+              <li><b>Транспорт:</b> <code>stdio</code>, логи направляются строго в <code>stderr</code>.</li>
+            </ul>
+          </div>
+          <div class="mt-14" style="font-size:12px;color:var(--primary);font-weight:700">
+            &check; Отсекает мусор и перегрузку до БД
+          </div>
         </div>
       </div>
+
+      <!-- Line 2: PostgreSQL -->
       <div class="col-4">
-        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
-          <span class="tile num" style="width:48px;height:48px;font-size:20px;font-weight:800;display:flex;margin-bottom:14px;background:#e0f2fe;color:#0284c7">05</span>
-          <div class="headline-md" style="font-size:21px;margin-top:10px">Пишем MCP-сервер</div>
-          <div class="body" style="margin-top:10px;line-height:1.45;color:var(--text-muted)">Реализуем сервер на&nbsp;официальном SDK: объявляем схемы параметров через валидатор типов, настраиваем транспорт <code>stdio</code> и&nbsp;перенаправляем логи в&nbsp;<code>stderr</code>.</div>
+        <div class="card l2" style="height:100%;padding:24px 22px;display:flex;flex-direction:column;justify-content:space-between;border-top:3px solid #00875a">
+          <div>
+            <div class="flex items-center justify-between mb-12">
+              <span class="defense-badge" style="background:#e3fcef;color:#00875a">РУБЕЖ 2</span>
+              <span style="font-size:12px;color:var(--text-muted)">СУБД / Роль</span>
+            </div>
+            <div class="headline-md mb-8" style="font-size:20px">PostgreSQL</div>
+            <div class="body-sm text-muted mb-16"><b>Что ограничивает:</b> функции и&nbsp;данные, доступные пользователю <code>mcp_reader</code>.</div>
+
+            <ul class="body-sm" style="line-height:1.6;color:var(--text-main);padding-left:16px">
+              <li><b>Изоляция схемы:</b> <code>REVOKE ALL</code> на все 6 таблиц схемы <code>private</code>.</li>
+              <li><b>SECURITY DEFINER:</b> доступ только к 2 функциям в <code>api</code> с фиксированным <code>search_path = pg_catalog, pg_temp</code>.</li>
+              <li><b>Таймаут 2 сек:</b> <code>statement_timeout = '2s'</code> (тяжёлый запрос сбрасывается).</li>
+              <li><b>Только чтение:</b> <code>default_transaction_read_only = on</code>.</li>
+            </ul>
+          </div>
+          <div class="mt-14" style="font-size:12px;color:#00875a;font-weight:700">
+            &check; СУБД защищена даже при сбое кода
+          </div>
         </div>
       </div>
+
+      <!-- Line 3: OpenCode Harness -->
       <div class="col-4">
-        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
-          <span class="tile num" style="width:48px;height:48px;font-size:20px;font-weight:800;display:flex;margin-bottom:14px;background:#e0f2fe;color:#0284c7">06</span>
-          <div class="headline-md" style="font-size:21px;margin-top:10px">Подключаем к агенту</div>
-          <div class="body" style="margin-top:10px;line-height:1.45;color:var(--text-muted)">Прописываем запуск сервера в&nbsp;конфигурацию OpenCode CLI. Настраиваем окружение (harness), закрывая обходные пути выполнения команд (bash, fs_write).</div>
+        <div class="card l2" style="height:100%;padding:24px 22px;display:flex;flex-direction:column;justify-content:space-between;border-top:3px solid #7a40f2">
+          <div>
+            <div class="flex items-center justify-between mb-12">
+              <span class="defense-badge" style="background:#f3eefc;color:#7a40f2">РУБЕЖ 3</span>
+              <span style="font-size:12px;color:var(--text-muted)">Harness / CLI</span>
+            </div>
+            <div class="headline-md mb-8" style="font-size:20px">OpenCode Harness</div>
+            <div class="body-sm text-muted mb-16"><b>Что ограничивает:</b> возможность агента обойти MCP другими инструментами.</div>
+
+            <ul class="body-sm" style="line-height:1.6;color:var(--text-main);padding-left:16px">
+              <li><b>Блокировка терминала:</b> <code>shell: deny</code> (агент не может вызвать bash/sh).</li>
+              <li><b>Защита файлов:</b> <code>edit: deny</code> (нельзя читать или менять конфигурацию и код).</li>
+              <li><b>Белый список:</b> разрешены только методы нашего MCP и служебный <code>question</code>.</li>
+              <li><b>Контроль вызовов:</b> агент изолирован внутри предоставленного контракта.</li>
+            </ul>
+          </div>
+          <div class="mt-14" style="font-size:12px;color:#7a40f2;font-weight:700">
+            &check; Исключает обходные пути агента
+          </div>
         </div>
       </div>
     </div>
-    <div class="plate mt-40" style="max-width:1120px">
-      <svg><use href="#i-zap"/></svg>
-      <div class="body" style="color:#fff;font-size:17px;line-height:1.5"><b>Эшелонированная защита (Defense in Depth):</b> безопасность гарантируется одновременно на&nbsp;уровне протокола MCP и&nbsp;на&nbsp;уровне прав доступа в&nbsp;самой СУБД.</div>
+
+    <div class="plate mt-24" style="max-width:1120px">
+      <svg><use href="#i-shield"/></svg>
+      <div class="body" style="color:#fff;font-size:16px;line-height:1.5">
+        <b>Вывод:</b> протокол MCP сам по себе безопасность не гарантирует. Надёжность возникает только на стыке контракта инструментов, прав роли СУБД и изоляции среды выполнения агента.
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ==================== SPEAKER: SECURITY TESTING ==================== -->
+<!-- ==================== SPEAKER: SECURITY TESTING (3-LEVEL HACK TEST) ==================== -->
 <div class="slide" id="s07" data-slide="15" data-title="Проверка на прочность">
   <div class="slide-inner">
-    <div class="headline-lg mb-16">Проверка на прочность: хак-тест MCP-сервера</div>
-    <div class="body-lg" style="max-width:1040px">Тестируем решение в&nbsp;боевых условиях: как агент реагирует на&nbsp;провокации, опасные запросы и&nbsp;попытки инъекций.</div>
-    <div class="grid-12 mt-40">
-      <div class="col-6">
-        <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column">
-          <div class="label-caps mb-16" style="color:#d92d20">Атаки и опасные запросы пользователей</div>
-          <div class="flex flex-col gap-14" style="flex:1">
-            <div class="card" style="padding:14px 16px;background:var(--surface-base);border-left:3px solid #d92d20">
-              <span style="font-family:var(--font-mono);font-size:13px;color:#d92d20">&times; Попытка извлечь PII</span>
-              <div class="body-sm" style="margin-top:4px">«Выведи мне телефоны, email и имена клиентов за прошлый месяц»</div>
+    <div class="headline-lg mb-12">Проверка на прочность: хак-тест на 3 уровнях</div>
+    <div class="body-lg text-muted mb-28">Тестируем защиту в&nbsp;бою: как каждый из трёх рубежей отражает попытки атак и&nbsp;опасных запросов.</div>
+
+    <div class="flex flex-col gap-16" style="flex:1">
+      <!-- Test 1: MCP Level -->
+      <div class="card l2" style="padding:18px 24px;border-left:4px solid var(--primary)">
+        <div class="grid-12 items-center" style="gap:20px">
+          <div class="col-5">
+            <div class="flex items-center gap-10 mb-6">
+              <span class="defense-badge" style="background:#f0f4ff;color:var(--primary)">РУБЕЖ 1 · MCP</span>
+              <span style="font-weight:700;font-size:14px;color:#d92d20">&times; Невалидные даты и инъекции</span>
             </div>
-            <div class="card" style="padding:14px 16px;background:var(--surface-base);border-left:3px solid #d92d20">
-              <span style="font-family:var(--font-mono);font-size:13px;color:#d92d20">&times; Попытка удаления данных</span>
-              <div class="body-sm" style="margin-top:4px">«Удали все отменённые заказы из таблицы orders»</div>
+            <div class="body-sm" style="font-family:var(--font-mono);background:var(--surface-base);padding:8px 12px;border-radius:6px;color:var(--text-main)">
+              start='2020-01-01', end='2026-11-09' / ' OR 1=1--
             </div>
-            <div class="card" style="padding:14px 16px;background:var(--surface-base);border-left:3px solid #d92d20">
-              <span style="font-family:var(--font-mono);font-size:13px;color:#d92d20">&times; Попытка SQL-инъекции</span>
-              <div class="body-sm" style="margin-top:4px;font-family:var(--font-mono);font-size:12px">'2026-01-01' OR 1=1; DROP TABLE orders;--</div>
+          </div>
+          <div class="col-7">
+            <div style="font-weight:700;font-size:15px;color:var(--text-main);margin-bottom:4px">
+              &check; Отклонение валидатором Pydantic до обращения к СУБД
+            </div>
+            <div class="body-sm text-muted">
+              Сервер отвергает интервал &gt; 90 дней и некорректные типы на этапе десериализации. Параметризация SQL исключает внедрение операторов. База данных не нагружается.
             </div>
           </div>
         </div>
       </div>
-      <div class="col-6">
-        <div class="card featured" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;border-color:rgba(0,184,124,.4)">
-          <div class="label-caps mb-16" style="color:#00b87c">Поведение защищённого MCP-коннектора</div>
-          <div class="flex flex-col gap-14" style="flex:1">
-            <div class="card" style="padding:14px 16px;background:rgba(0,184,124,.06);border-left:3px solid #00b87c">
-              <span style="font-weight:700;color:var(--text-main)">&check; Инструмент физически отсутствует</span>
-              <div class="body-sm" style="margin-top:4px;color:var(--text-muted)">У агента нет доступа к таблице клиентов — модель корректно сообщает о невозможности выполнить запрос.</div>
+
+      <!-- Test 2: Database Level -->
+      <div class="card l2" style="padding:18px 24px;border-left:4px solid #00875a">
+        <div class="grid-12 items-center" style="gap:20px">
+          <div class="col-5">
+            <div class="flex items-center gap-10 mb-6">
+              <span class="defense-badge" style="background:#e3fcef;color:#00875a">РУБЕЖ 2 · PostgreSQL</span>
+              <span style="font-weight:700;font-size:14px;color:#d92d20">&times; Прямое чтение PII и удаление</span>
             </div>
-            <div class="card" style="padding:14px 16px;background:rgba(0,184,124,.06);border-left:3px solid #00b87c">
-              <span style="font-weight:700;color:var(--text-main)">&check; Запрет на уровне прав СУБД</span>
-              <div class="body-sm" style="margin-top:4px;color:var(--text-muted)">Роль <code>mcp_reader</code> не имеет привилегий на операции модификации (INSERT/UPDATE/DELETE).</div>
+            <div class="body-sm" style="font-family:var(--font-mono);background:var(--surface-base);padding:8px 12px;border-radius:6px;color:var(--text-main)">
+              SELECT * FROM private.customers / DROP TABLE orders
             </div>
-            <div class="card" style="padding:14px 16px;background:rgba(0,184,124,.06);border-left:3px solid #00b87c">
-              <span style="font-weight:700;color:var(--text-main)">&check; Строгая типизация схемы аргументов</span>
-              <div class="body-sm" style="margin-top:4px;color:var(--text-muted)">Валидатор отклоняет инъекцию ещё до формирования SQL-запроса к базе данных.</div>
+          </div>
+          <div class="col-7">
+            <div style="font-weight:700;font-size:15px;color:var(--text-main);margin-bottom:4px">
+              &check; Блокировка на уровне прав роли СУБД (permission denied)
+            </div>
+            <div class="body-sm text-muted">
+              У роли <code>mcp_reader</code> отозваны все права на таблицы в схеме <code>private</code>. Режим <code>read_only = on</code> отвергает любые модификации, а <code>timeout = 2s</code> защищает от зависания.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test 3: Harness Level -->
+      <div class="card l2" style="padding:18px 24px;border-left:4px solid #7a40f2">
+        <div class="grid-12 items-center" style="gap:20px">
+          <div class="col-5">
+            <div class="flex items-center gap-10 mb-6">
+              <span class="defense-badge" style="background:#f3eefc;color:#7a40f2">РУБЕЖ 3 · Harness</span>
+              <span style="font-weight:700;font-size:14px;color:#d92d20">&times; Обход через консоль и файлы</span>
+            </div>
+            <div class="body-sm" style="font-family:var(--font-mono);background:var(--surface-base);padding:8px 12px;border-radius:6px;color:var(--text-main)">
+              bash: cat .env / edit: server.py / psql
+            </div>
+          </div>
+          <div class="col-7">
+            <div style="font-weight:700;font-size:15px;color:var(--text-main);margin-bottom:4px">
+              &check; Жёсткий запрет в конфигурации permissions (shell / edit: deny)
+            </div>
+            <div class="body-sm text-muted">
+              Агент не может выйти за пределы разрешённых инструментов MCP. Попытки вызвать системную оболочку или отредактировать файлы немедленно блокируются рантаймом.
             </div>
           </div>
         </div>
@@ -797,7 +965,7 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
 <div class="slide" id="s08" data-slide="17" data-title="Что нам это даёт">
   <div class="slide-inner">
     <div class="headline-lg mb-12">Что нам это даёт: выводы после практики</div>
-    <div class="body-lg text-muted mb-24">Итоги лайвкодинга: архитектурный подход, готовый к&nbsp;переносу в&nbsp;любой продакшен-стек.</div>
+    <div class="body-lg text-muted mb-24">Итоги лайвкодинга: что проверено в&nbsp;демо и&nbsp;что нужно для полноценного продакшена.</div>
     
     <div class="flex flex-col gap-20" style="flex:1">
       <!-- Row 1: Col-7 (Tinted Light Card) + Col-5 (White Card) -->
@@ -806,15 +974,15 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
           <div class="card" style="height:100%;padding:26px 28px;background:#f0f4ff;border:1px solid rgba(20,68,230,.18);display:flex;flex-direction:column;justify-content:space-between">
             <div>
               <div class="label-caps mb-8" style="color:var(--primary)">Результат лайвкодинга</div>
-              <div class="headline-md mb-10" style="font-size:22px;color:var(--text-main)">Защищённый коннектор с&nbsp;нуля</div>
+              <div class="headline-md mb-10" style="font-size:22px;color:var(--text-main)">Контракт вместо прямого SQL</div>
               <div class="body" style="color:var(--text-main);line-height:1.5">
-                Собрали легковесный MCP-сервер, работающий как строгий шлюз между LLM и&nbsp;базой данных. Модель лишена свободного SQL и&nbsp;взаимодействует только с&nbsp;предсказуемыми методами.
+                Ограничили доступные операции и&nbsp;выдаваемые поля: агент работает только через проверенные функции. Pydantic отсекает невалидные параметры, а&nbsp;PostgreSQL блокирует доступ к&nbsp;таблицам <code>private</code>.
               </div>
             </div>
             <div class="flex wrap gap-8 mt-16">
-              <span class="badge" style="background:#fff;border-color:rgba(20,68,230,.2);color:var(--primary)">OpenCode Agent</span>
-              <span class="badge" style="background:#fff;border-color:rgba(20,68,230,.2);color:var(--primary)">stdio JSON-RPC</span>
-              <span class="badge" style="background:#fff;border-color:rgba(0,184,124,.4);color:#00875a">&check; Без прямого SQL</span>
+              <span class="badge" style="background:#fff;border-color:rgba(20,68,230,.2);color:var(--primary)">FastMCP stdio</span>
+              <span class="badge" style="background:#fff;border-color:rgba(20,68,230,.2);color:var(--primary)">SECURITY DEFINER</span>
+              <span class="badge" style="background:#fff;border-color:rgba(0,184,124,.4);color:#00875a">&check; Валидация + Read-only</span>
             </div>
           </div>
         </div>
@@ -822,53 +990,55 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
         <div class="col-5">
           <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;justify-content:space-between">
             <div>
-              <div class="label-caps mb-8" style="color:var(--text-muted)">Безопасность данных</div>
-              <div class="headline-md mb-10" style="font-size:22px">100% изоляция PII и&nbsp;клиентов</div>
+              <div class="label-caps mb-8" style="color:var(--text-muted)">Конфиденциальность данных</div>
+              <div class="headline-md mb-10" style="font-size:22px">PII не передаётся агенту</div>
               <div class="body" style="color:var(--text-muted);line-height:1.5">
-                Агент физически не&nbsp;имеет инструментов чтения паролей, телефонов и&nbsp;персональных данных. Конфиденциальная информация не&nbsp;покидает контур компании.
+                Прямой доступ к клиентам закрыт на уровне БД. Важно помнить: любые возвращаемые поля попадают в контекст модели, поэтому в контракт включаем только безопасные агрегаты.
               </div>
             </div>
-            <div class="flex items-center gap-8 mt-16" style="color:#00875a;font-weight:700;font-size:14px">
-              <svg style="width:18px;height:18px"><use href="#i-check"/></svg> Нулевой риск утечки во внешние LLM
+            <div class="flex items-center gap-8 mt-16" style="color:var(--primary);font-weight:700;font-size:14px">
+              <svg style="width:18px;height:18px"><use href="#i-check"/></svg> Минимизация передаваемых данных
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Row 2: Col-4 (White Card) + Col-8 (Primary Blue Featured Card) -->
+      <!-- Row 2: Col-5 (White Card) + Col-7 (Primary Blue Featured Card) -->
       <div class="grid-12 items-stretch" style="gap:20px">
-        <div class="col-4">
+        <div class="col-5">
           <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;justify-content:space-between">
             <div>
-              <div class="label-caps mb-8" style="color:var(--text-muted)">Стабильность СУБД</div>
-              <div class="headline-md mb-10" style="font-size:22px">Защита от сбоев и&nbsp;DDoS</div>
-              <div class="body" style="color:var(--text-muted);line-height:1.5">
-                Роль <code>mcp_reader</code> лишена прав на изменение данных. Вшитые лимиты и&nbsp;типизированные параметры исключают тяжелые неоптимизированные запросы.
+              <div class="label-caps mb-8" style="color:var(--text-muted)">Что нужно для продакшена</div>
+              <div class="headline-md mb-10" style="font-size:22px">Меры сверх базового демо</div>
+              <div class="body" style="color:var(--text-muted);line-height:1.45;font-size:14px">
+                &bull; Ограничение частоты вызовов (rate limiting) и&nbsp;параллельных сессий<br>
+                &bull; Полноценный multi-tenant RBAC и&nbsp;аудит логов<br>
+                &bull; Для закрытых данных — локальные/on-premise LLM
               </div>
             </div>
-            <div class="flex items-center gap-8 mt-16" style="color:#00875a;font-weight:700;font-size:14px">
-              <svg style="width:18px;height:18px"><use href="#i-check"/></svg> Защита боевой реплики от падений
+            <div class="flex items-center gap-8 mt-16" style="color:var(--text-muted);font-weight:600;font-size:13px">
+              <svg style="width:16px;height:16px;color:var(--primary)"><use href="#i-shield"/></svg> Защита на всех трёх слоях
             </div>
           </div>
         </div>
 
-        <div class="col-8">
+        <div class="col-7">
           <div class="card featured" style="height:100%;padding:26px 28px;background:var(--primary);color:#fff;border-color:var(--primary);display:flex;flex-direction:column;justify-content:space-between">
             <div>
-              <div class="label-caps mb-8" style="color:rgba(255,255,255,.7)">Архитектурный паттерн в продакшн</div>
-              <div class="headline-md mb-10" style="font-size:24px;color:#fff;font-weight:800">Готовый подход для внедрения в&nbsp;ваши проекты</div>
-              <div class="body" style="color:rgba(255,255,255,.9);line-height:1.5;font-size:16px">
-                Теперь вы&nbsp;можете брать эту схему в&nbsp;свою работу: писать кастомные узкоспециализированные MCP-серверы, смело делегировать LLM аналитику и&nbsp;отчёты, оставаясь в&nbsp;полной безопасности.
+              <div class="label-caps mb-8" style="color:rgba(255,255,255,.7)">Архитектурный паттерн</div>
+              <div class="headline-md mb-10" style="font-size:23px;color:#fff;font-weight:800">Переносимый подход для рабочих задач</div>
+              <div class="body" style="color:rgba(255,255,255,.9);line-height:1.5;font-size:15px">
+                Кастомный MCP — это управляемый шлюз. Схема «Строгий контракт + изолированная роль СУБД + ограничения Harness» работает одинаково надёжно с&nbsp;любой базой данных.
               </div>
             </div>
-            <div class="flex flex-col gap-10 mt-18">
+            <div class="flex flex-col gap-10 mt-16">
               <div class="bento-pill">
                 <svg><use href="#i-spark"/></svg>
-                <span><b>Масштабируемость:</b> легко переносится на ClickHouse, MySQL, Redis, MongoDB или закрытые REST API</span>
+                <span><b>Переносимость:</b> легко адаптируется под MySQL, ClickHouse, Redis или внутренние REST API</span>
               </div>
               <div class="bento-pill">
                 <svg><use href="#i-zap"/></svg>
-                <span><b>Экономия времени:</b> рутинные выгрузки и бизнес-запросы готовятся за секунды без отвлечения разработчиков</span>
+                <span><b>Автоматизация рутины:</b> агент готовит типовые отчёты без прямого доступа к продакшен-БД</span>
               </div>
             </div>
           </div>
@@ -878,9 +1048,462 @@ body.nav-dark #hud button:hover{background:rgba(255,255,255,.14)}
   </div>
 </div>
 
+<!-- ==================== SALES: ENTRY ==================== -->
+<div class="slide slide-fullbg" id="h01" data-slide="18" data-title="Где освоить AI-инженерию">
+  <div class="slide-inner centered">
+    <div class="flex flex-col items-center text-center" style="gap:24px;max-width:1080px;margin:0 auto">
+      <div class="label-caps" style="color:var(--primary-fixed)">// образование / хекслет</div>
+      <div class="headline-lg mb-16" style="line-height:1.12">Как перейти от&nbsp;единичных скриптов к&nbsp;промышленным ИИ-системам</div>
+      <div class="body-lg" style="color:rgba(255,255,255,.9);max-width:880px">Презентация флагманской программы Хекслета — для разработчиков и&nbsp;инженеров, которые хотят проектировать надёжные AI-инструменты и&nbsp;агентов для реального продакшена.</div>
+      <div class="flex wrap gap-12 mt-16" style="color:rgba(255,255,255,.7)">
+        <span class="badge" style="background:rgba(255,255,255,.14);color:#fff">Model Context Protocol</span>
+        <span class="badge" style="background:rgba(255,255,255,.14);color:#fff">OpenCode &amp; Cursor</span>
+        <span class="badge" style="background:rgba(255,255,255,.14);color:#fff">RAG &amp; Vector DB</span>
+        <span class="badge" style="background:rgba(255,255,255,.14);color:#fff">Multi-agent SDLC</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SALES: REGALIA ==================== -->
+<div class="slide" id="h02" data-slide="19" data-title="Регалии Хекслета">
+  <div class="slide-inner">
+    <div class="headline-lg mb-16">12 лет учим программированию как профессии</div>
+    <div class="body-lg text-muted mb-40">Хекслет готовит инженеров с&nbsp;глубоким пониманием фундаментальных практик и&nbsp;актуального стека.</div>
+    
+    <div class="grid-12 gap-24 mt-40">
+      <div class="col-3">
+        <div class="card l2" style="height:100%;padding:26px 22px;display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+          <span class="tile t-sec s24" style="display:flex"><svg><use href="#i-user"/></svg></span>
+          <div style="font-size:clamp(34px,3.4vw,46px);font-weight:800;color:var(--primary);line-height:1">350+</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text-muted);line-height:1.5">действующих экспертов, тимлидов и архитекторов IT-компаний</div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="card l2" style="height:100%;padding:26px 22px;display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+          <span class="tile t-sec s24" style="display:flex"><svg><use href="#i-bot"/></svg></span>
+          <div style="font-size:clamp(34px,3.4vw,46px);font-weight:800;color:var(--primary);line-height:1">60 000+</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text-muted);line-height:1.5">активных студентов и выпускников на платформе</div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="card l2" style="height:100%;padding:26px 22px;display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+          <span class="tile t-sec s24" style="display:flex"><svg><use href="#i-clock"/></svg></span>
+          <div style="font-size:clamp(34px,3.4vw,46px);font-weight:800;color:var(--primary);line-height:1">12&nbsp;лет</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text-muted);line-height:1.5">развиваем инженерное образование с фокусом на практику</div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="card l2" style="height:100%;padding:26px 22px;display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+          <span class="tile t-sec s24" style="display:flex"><svg><use href="#i-star"/></svg></span>
+          <div style="font-size:clamp(34px,3.4vw,46px);font-weight:800;color:var(--primary);line-height:1">4.8</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text-muted);line-height:1.5">средняя оценка курсов по независимым отзывам на Хабре</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="plate mt-40" style="max-width:1120px">
+      <svg><use href="#i-spec"/></svg>
+      <div class="body" style="color:#fff;font-size:17px;line-height:1.5"><b>Цель программы:</b> дать системную методологию работы с AI-агентами без поверхностного «хайпа» и шаблонных промптов.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SALES: COURSE OVERVIEW ==================== -->
+<div class="slide" id="h03" data-slide="20" data-title="Программа курса">
+  <div class="slide-inner">
+    <div class="headline-lg mb-16">Курс «ИИ для разработчиков 2.0»</div>
+    <div class="body-lg text-muted mb-32">Комплексная 4-месячная программа: от&nbsp;грамотного промптинга до&nbsp;автономных мультиагентных систем.</div>
+
+    <div class="grid-12 gap-20">
+      <div class="col-6">
+        <div class="card l2" style="height:100%;padding:24px 26px;display:flex;flex-direction:column;gap:10px">
+          <div class="flex items-center justify-between">
+            <span class="label-caps" style="color:var(--primary)">МОДУЛЬ 1</span>
+            <span class="badge">4 недели</span>
+          </div>
+          <div class="headline-md" style="font-size:20px;font-weight:700">Инструменты и расширенный промптинг</div>
+          <div class="body" style="color:var(--text-muted);font-size:14px;line-height:1.5">Cursor, OpenCode CLI, Claude Code. Архитектура LLM, контекстные окна, системные промпты и Chain-of-Thought для проектирования фич.</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="card l2" style="height:100%;padding:24px 26px;display:flex;flex-direction:column;gap:10px">
+          <div class="flex items-center justify-between">
+            <span class="label-caps" style="color:var(--primary)">МОДУЛЬ 2</span>
+            <span class="badge">4 недели</span>
+          </div>
+          <div class="headline-md" style="font-size:20px;font-weight:700">Model Context Protocol &amp; Интеграции</div>
+          <div class="body" style="color:var(--text-muted);font-size:14px;line-height:1.5">Разработка кастомных MCP-серверов. Безопасное подключение баз данных (PostgreSQL), внешних API, аутентификация и ограничение прав роли.</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="card l2" style="height:100%;padding:24px 26px;display:flex;flex-direction:column;gap:10px">
+          <div class="flex items-center justify-between">
+            <span class="label-caps" style="color:var(--primary)">МОДУЛЬ 3</span>
+            <span class="badge">4 недели</span>
+          </div>
+          <div class="headline-md" style="font-size:20px;font-weight:700">RAG и работа со знаниями компании</div>
+          <div class="body" style="color:var(--text-muted);font-size:14px;line-height:1.5">Векторные СУБД (pgvector, Qdrant), семантический поиск, гибридный RAG, чанкинг и индексация корпоративной документации и кода.</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="card l2" style="height:100%;padding:24px 26px;display:flex;flex-direction:column;gap:10px">
+          <div class="flex items-center justify-between">
+            <span class="label-caps" style="color:var(--primary)">МОДУЛЬ 4</span>
+            <span class="badge">4 недели</span>
+          </div>
+          <div class="headline-md" style="font-size:20px;font-weight:700">Мультиагентные пайплайны и продакшн</div>
+          <div class="body" style="color:var(--text-muted);font-size:14px;line-height:1.5">Оркестрация агентов (LangGraph / CrewAI), Guardrails, автоматическое тестирование, CI/CD, метрики качества ответов и мониторинг затрат токенов.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card accent mt-24" style="max-width:1120px;padding:16px 24px">
+      <div class="flex items-center gap-16">
+        <span class="tile t-sec s24" style="display:flex;flex:none"><svg><use href="#i-zap"/></svg></span>
+        <div class="body-lg" style="font-weight:700;color:var(--primary-fixed-fg);font-size:16px">4 месяца · 4 сквозных проекта в портфолио · Персональное ревью кода от Данилы Гурачевского и команды сеньоров</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SALES: FORMAT (USER MOCKUP) ==================== -->
+<style>
+#h03b .format-purple{background:#f3eefc;border:1px solid rgba(138,43,226,.14)}
+#h03b .player-mock{background:#111528;border-radius:10px;overflow:hidden;box-shadow:0 8px 24px rgba(17,21,40,.18);border:1px solid rgba(178,140,247,.25)}
+#h03b .player-header{background:#b28cf7;padding:6px 14px;display:flex;align-items:center;justify-content:space-between}
+#h03b .player-dots{display:flex;gap:6px}
+#h03b .player-dot{width:7px;height:7px;border-radius:50%;background:#ffffff;opacity:.85}
+#h03b .player-body{position:relative;background:#0d1124;padding:14px 18px;min-height:110px;display:flex;align-items:center;gap:16px;background-image:linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);background-size:16px 16px}
+#h03b .player-bottom{background:#231a44;padding:6px 14px;display:flex;align-items:center;gap:12px}
+#h03b .player-track{flex:1;height:4px;background:rgba(255,255,255,.2);border-radius:2px;overflow:hidden;position:relative}
+#h03b .player-progress{width:42%;height:100%;background:#b28cf7}
+#h03b .blue-agent-pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:11px 16px;color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;gap:12px;line-height:1.35}
+#h03b .blue-agent-pill svg{width:18px;height:18px;flex:none;color:#ffdf70}
+</style>
+<div class="slide" id="h03b" data-slide="21" data-title="Формат обучения">
+  <div class="slide-inner">
+    <div class="headline-lg mb-32">Формат обучения</div>
+
+    <div class="flex flex-col gap-20" style="flex:1">
+      <!-- Row 1: Col-7 (Purple Video Card) + Col-5 (White Guides Card) -->
+      <div class="grid-12 items-stretch" style="gap:20px">
+        <div class="col-7">
+          <div class="card format-purple" style="height:100%;padding:24px 28px;display:flex;flex-direction:column;justify-content:space-between">
+            <div>
+              <div class="headline-md mb-8" style="font-size:24px;font-weight:800;color:var(--text-main)">3 видео лекции по&nbsp;15&nbsp;минут</div>
+              <div class="body" style="color:var(--text-muted);font-size:14px;line-height:1.45;max-width:520px;margin-bottom:16px">
+                Короткие и&nbsp;ёмкие уроки без воды. Каждое видео&nbsp;— конкретный навык, который можно сразу применить на&nbsp;практике
+              </div>
+            </div>
+
+            <!-- Stylized Video Player Mockup -->
+            <div class="player-mock">
+              <div class="player-header">
+                <div class="player-dots">
+                  <span class="player-dot"></span>
+                  <span class="player-dot"></span>
+                  <span class="player-dot"></span>
+                </div>
+                <span style="font-family:var(--font-mono);font-size:12px;font-weight:600;color:#ffffff;letter-spacing:.02em">lesson-1.mp4</span>
+              </div>
+              <div class="player-body">
+                <div style="width:48px;height:48px;border-radius:50%;overflow:hidden;border:2px solid #b28cf7;flex:none;box-shadow:0 0 12px rgba(178,140,247,.4)">
+                  <img src="data:image/jpeg;base64,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" alt="Наставник" style="width:100%;height:100%;object-fit:cover"/>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:13px;font-weight:800;color:#ffffff;letter-spacing:-0.01em">ИИ для разработчиков 2.0</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.65);margin-top:2px">Тема 1. Разработка кастомных MCP-серверов</div>
+                  <div style="font-family:var(--font-mono);font-size:11px;color:#7ee787;margin-top:6px;background:rgba(0,0,0,.45);padding:4px 8px;border-radius:4px;display:inline-block">
+                    @mcp.tool() def sales_summary(...)
+                  </div>
+                </div>
+                <div style="width:36px;height:36px;border-radius:50%;background:#b28cf7;display:flex;align-items:center;justify-content:center;color:#111528;flex:none;box-shadow:0 0 16px rgba(178,140,247,.6)">
+                  <svg style="width:16px;height:16px;margin-left:2px" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="player-bottom">
+                <div class="player-track">
+                  <div class="player-progress"></div>
+                </div>
+                <span style="font-family:var(--font-mono);font-size:11px;color:#d8c6fa;font-weight:600">0:00 / 15:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-5">
+          <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;justify-content:center">
+            <div class="headline-md mb-12" style="font-size:24px;font-weight:800;color:var(--text-main)">Текстовые материалы / гайды</div>
+            <div class="body" style="color:var(--text-muted);font-size:15px;line-height:1.55">
+              Подробные инструкции и&nbsp;чек-листы к&nbsp;каждому уроку. Всё, что нужно для самостоятельной работы и&nbsp;быстрого воспроизведения в&nbsp;ваших проектах.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Col-4 (White Homework Card) + Col-8 (Primary Blue Agent Card) -->
+      <div class="grid-12 items-stretch" style="gap:20px">
+        <div class="col-4">
+          <div class="card l2" style="height:100%;padding:26px 28px;display:flex;flex-direction:column;justify-content:center">
+            <div class="headline-md mb-12" style="font-size:24px;font-weight:800;color:var(--text-main)">Домашние задания</div>
+            <div class="body" style="color:var(--text-muted);font-size:15px;line-height:1.55">
+              Практика к&nbsp;каждому уроку для закрепления знаний. Выполняйте в&nbsp;своём темпе и&nbsp;проверяйте себя на&nbsp;реальных кейсах.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-8">
+          <div class="card featured" style="height:100%;padding:26px 30px;background:var(--primary);color:#fff;border-color:var(--primary);display:flex;flex-direction:column;justify-content:space-between">
+            <div>
+              <div class="headline-md mb-8" style="font-size:24px;color:#fff;font-weight:800">Навык работы с&nbsp;OpenCode и&nbsp;создания AI-агентов</div>
+              <div class="body mb-16" style="color:rgba(255,255,255,.9);line-height:1.5;font-size:15px">
+                Научитесь собирать AI-агентов, которые автоматизируют тестирование кода. Самый востребованный навык 2025–2026 для разработчиков
+              </div>
+            </div>
+            
+            <div class="flex flex-col gap-10">
+              <div class="blue-agent-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18h6 M10 22h4 M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+                </svg>
+                <span>AI-агент для автоматического code review</span>
+              </div>
+              <div class="blue-agent-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18h6 M10 22h4 M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+                </svg>
+                <span>AI-агент для рефакторинга и&nbsp;миграции кода</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SALES: AUDIENCE & REQUIREMENTS ==================== -->
+<div class="slide" id="h04" data-slide="22" data-title="Для кого программа">
+  <div class="slide-inner">
+    <div class="headline-lg mb-16">Для кого этот курс</div>
+    <div class="body-lg text-muted mb-40">Программа рассчитана на&nbsp;практикующих разработчиков, готовых внедрять ИИ в&nbsp;реальные инженерные процессы.</div>
+
+    <div class="grid-12 gap-24">
+      <div class="col-4">
+        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
+          <span class="tile" style="width:52px;height:52px;display:flex;margin-bottom:16px"><svg style="width:28px;height:28px"><use href="#i-code"/></svg></span>
+          <div class="headline-md" style="font-size:20px;margin-top:12px">Middle-разработчикам</div>
+          <div class="body" style="margin-top:10px;line-height:1.5;color:var(--text-muted)">Перейти от разрозненных промптов к системной AI-разработке. Автоматизировать рутинный код, тесты и документирование, ускорив delivery в 2–3 раза.</div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
+          <span class="tile" style="width:52px;height:52px;display:flex;margin-bottom:16px"><svg style="width:28px;height:28px"><use href="#i-route"/></svg></span>
+          <div class="headline-md" style="font-size:20px;margin-top:12px">Тимлидам и техлидам</div>
+          <div class="body" style="margin-top:10px;line-height:1.5;color:var(--text-muted)">Внедрить безопасные AI-инструменты в команду без риска утечки коммерческой тайны и персональных данных. Настроить правила и quality gates.</div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="card tile-top interactive" style="height:100%;display:flex;flex-direction:column">
+          <span class="tile" style="width:52px;height:52px;display:flex;margin-bottom:16px"><svg style="width:28px;height:28px"><use href="#i-server"/></svg></span>
+          <div class="headline-md" style="font-size:20px;margin-top:12px">Backend &amp; DevOps</div>
+          <div class="body" style="margin-top:10px;line-height:1.5;color:var(--text-muted)">Научиться писать кастомные MCP-серверы к корпоративным СУБД, строить локальные RAG-базы знаний и автоматизировать мониторинг инцидентов.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card inverse mt-40" style="max-width:1120px">
+      <div class="flex items-center gap-20">
+        <svg style="width:28px;height:28px;color:var(--primary);flex:none"><use href="#i-target"/></svg>
+        <div class="body" style="color:var(--primary-fixed-fg);font-size:16px;line-height:1.5">
+          <b>Что нужно на старте:</b> опыт коммерческой разработки от 1 года на любом бэкенд-стеке (Python, JS/TS, Go, Java, PHP, C#). Глубоких знаний высшей математики и Data Science не требуется.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SALES: PRICING ==================== -->
+<div class="slide" id="h05" data-slide="23" data-title="Условия и тарифы">
+  <div class="slide-inner">
+    <div class="headline-lg mb-12">Стоимость обучения со&nbsp;скидкой вебинара</div>
+    <div class="body-lg text-muted mb-32">Специальные условия для участников прямого эфира — скидка 15% на&nbsp;любой тариф.</div>
+
+    <div class="grid-12 gap-32">
+      <!-- Standard -->
+      <div class="col-6">
+        <div class="card l2 h100" style="height:100%;padding:32px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div class="flex justify-between items-center mb-20">
+              <div class="headline-md" style="font-size:26px;font-weight:800">Базовый</div>
+              <div class="offer-plaque">Экономия 8 100 ₽</div>
+            </div>
+            <div class="qs mb-12" style="display:flex;align-items:center;gap:14px">
+              <span style="text-decoration:line-through;font-size:22px;font-weight:600;color:var(--text-muted)">54 000 ₽</span>
+              <span style="font-size:42px;font-weight:800;color:var(--text-main)">45 900 ₽</span>
+            </div>
+            <div class="body mb-24" style="color:var(--primary);font-weight:600">или от 1 912 ₽/мес. в рассрочку до 24 месяцев</div>
+            <ul class="body" style="line-height:1.8;color:var(--on-surface-variant);margin-bottom:24px">
+              <li>Все 4 модуля программы и видеолекции</li>
+              <li>Бессрочный доступ к материалам и обновлениям</li>
+              <li>Практические домашние задания с автопроверкой</li>
+              <li>Готовые стартовые шаблоны и коннекторы</li>
+              <li>Сертификат о прохождении курса Хекслета</li>
+              <li>Доступ в закрытое комьюнити разработчиков</li>
+            </ul>
+          </div>
+          <div class="mt-16">
+            <button class="btn" style="width:100%;padding:18px 24px;font-size:17px;font-weight:700;border:1px solid var(--primary);color:var(--primary);background:transparent" onclick="location.href='https://special.hexlet.io/offer_ai-for-dev#basic'">Выбрать Базовый</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured / Mentor -->
+      <div class="col-6">
+        <div class="card featured h100" style="height:100%;padding:32px;display:flex;flex-direction:column;justify-content:space-between;border-color:var(--primary);box-shadow:0 8px 32px rgba(20,68,230,.15)">
+          <div>
+            <div class="flex justify-between items-center mb-20">
+              <div class="headline-md" style="font-size:26px;font-weight:800;color:var(--primary)">С наставником</div>
+              <div class="offer-plaque" style="color:var(--primary)">Экономия 12 600 ₽</div>
+            </div>
+            <div class="qs mb-12" style="display:flex;align-items:center;gap:14px">
+              <span style="text-decoration:line-through;font-size:22px;font-weight:600;color:var(--text-muted)">84 000 ₽</span>
+              <span style="font-size:42px;font-weight:800;color:var(--primary)">71 400 ₽</span>
+            </div>
+            <div class="body mb-24" style="color:var(--primary);font-weight:600">или от 2 975 ₽/мес. в рассрочку до 24 месяцев</div>
+            <ul class="body" style="line-height:1.8;color:var(--on-surface-variant);margin-bottom:24px">
+              <li><b>Всё, что входит в «Базовый»</b></li>
+              <li><b>Персональное код-ревью всех 4 проектов от Данилы и сеньоров</b></li>
+              <li>4 индивидуальные консультации 1-на-1 по вашей архитектуре</li>
+              <li>Закрытый чат с авторами курса на время обучения</li>
+              <li>Помощь во внедрении AI-агентов в ваш реальный рабочий проект</li>
+            </ul>
+          </div>
+          <div class="mt-16">
+            <button class="btn btn-primary" style="width:100%;padding:18px 24px;font-size:17px;font-weight:700" onclick="location.href='https://special.hexlet.io/offer_ai-for-dev#mentor'">Выбрать с наставником</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="plate mt-32" style="max-width:1120px">
+      <svg><use href="#i-shield"/></svg>
+      <div class="body" style="color:#fff;font-size:16px;line-height:1.5">Рассрочка 0% без переплат · Оплата от юрлица (B2B, счёт-договор и закрывающие акты) · Налоговый вычет 13%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SALES: OFFER ==================== -->
+<div class="slide slide-fullbg" id="h06" data-slide="24" data-title="Спецпредложение">
+  <div class="slide-inner centered">
+    <div class="flex flex-col items-center text-center" style="gap:24px;max-width:960px;margin:0 auto">
+      <div class="label-caps" style="color:var(--primary-fixed)">// специальное предложение вебинара</div>
+      <div class="headline-lg mb-16" style="line-height:1.1">Скидка 15% + готовый стартовый репозиторий Custom MCP</div>
+      <div class="body-lg" style="color:rgba(255,255,255,.9);max-width:820px">
+        Зафиксируйте условия сегодня: скидка на любой тариф курса и полный комплект исходников сегодняшнего лайвкодинга с тестами безопасности и документацией.
+      </div>
+      <div class="badge badge-primary" style="font-size:22px;padding:12px 24px;border-radius:100px;background:#ffffff;color:var(--primary);font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.25)">
+        ⏳ Фиксация условий действует ровно 48 часов
+      </div>
+      <div class="body" style="color:rgba(255,255,255,.7);margin-top:12px">
+        Нажмите на кнопку под окном трансляции или отсканируйте QR-код на следующем слайде
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SALES: CTA QR ==================== -->
+<div class="slide" id="h07" data-slide="25" data-title="Зафиксировать скидку">
+  <div class="slide-inner centered">
+    <div class="text-center mb-32">
+      <div class="headline-lg mb-12">Зафиксировать скидку прямо сейчас</div>
+      <div class="body-lg text-muted">Наведите камеру смартфона на&nbsp;подходящий QR-код для перехода к&nbsp;оплате или рассрочке</div>
+    </div>
+
+    <div class="grid-12" style="max-width:920px;margin:0 auto;gap:28px">
+      <!-- Standard QR -->
+      <div class="col-6">
+        <div class="card l2 h100" style="height:100%;padding:26px 24px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center">
+          <div class="offer-plaque">Экономия 8 100 ₽</div>
+          <div class="qt" style="font-weight:800;font-size:22px;color:var(--text-main)">Тариф «Базовый»</div>
+          <div class="qs" style="display:flex;align-items:center;gap:10px">
+            <span style="text-decoration:line-through;font-size:18px;font-weight:600;color:var(--text-muted)">54 000 ₽</span>
+            <span style="font-size:28px;font-weight:800;color:var(--text-main)">45 900 ₽</span>
+          </div>
+          <div class="qrwrap" style="display:flex;justify-content:center;background:#fff;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,.08);margin-top:4px">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaAQMAAAAMyBcgAAAABlBMVEUVFhj///+MzxGnAAACaUlEQVR42u1cS3KFMAzLNAfgSFydI3GAzKSP+CPntZt210osmBce3oBGlmWHNn9+XE1BClIQUdDd/DjneJ2P8Vzrs532x/PrdWfc1F9BH+0Xh4L+RpC9/XXYiz9jOa/jOT/LK2DhSz29f48Ip4K7BWUcTgoGi+dklHEKEVyIWFQwDBbBDKMBL0IEH0cAAi9EOFsUWSFEcOmI1Jgra5xxzbOGdAQNIrLWuDN1fHNSrUGDCBymHlbqmJY1jB4WDkrJqqfHoCMCB/MGDtav4RoTtwgRDIhYvtRTZiQEfNmy/rB/hQiCrDHCgDjSl3quleIClCEdwYEI5AoTmm5cDlebYBDVGiyIcFcy5cJdZYUXo+FbCBEE1acLh3CxPZO0NC4jdUhH0ChLM6ey7QmozHSxYWcJEQwOVehJcyFcTKSUbL2aEkIEiUNlHJEQcCkZKAmiEEdQIGJjCx+bcfUA6yqqVCGChyM2CxP1h7lWUKBCBIlDFQkj52T2XCE/gq+vUeyJhpb42DqjUpYk8xHwI64lIeaMCiMq0hCaQgTJxEwO1CFX5GgEep/SETTKclcPQRkYrgoakWfJoizR0LqOUWaxYxB3pww9PQIXO0tQ363Ti4Xp6eSQjqCavHU9CWxE46vPMogrz5JJWcKI2nZu1HQiP4Kq+oRNhfmI8LPV1yCdxd5nKkv90ctIrhDBs18D8/fZyJhfd24IEUR7uvqeNUbZ5QeACBFcO4GLXDgwrC8dwf21AG9uQE/GUhxBiYj+3uTCV0bEEZTfmGk5LoHB/CaOYN0bHp2uVr8jUoe0hQgmP0LfdVOQghT0FvQJaKUNwDK6kuEAAAAASUVORK5CYII=" alt="QR Базовый" style="width:190px;height:190px;border-radius:6px;display:block"/>
+          </div>
+          <div class="body" style="font-size:13px;color:var(--text-muted);margin-top:6px">от 1 912 ₽/мес. в рассрочку</div>
+        </div>
+      </div>
+
+      <!-- Extended / Mentor QR -->
+      <div class="col-6">
+        <div class="card featured h100" style="height:100%;padding:26px 24px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;border-color:var(--primary)">
+          <div class="offer-plaque" style="color:var(--primary)">Экономия 12 600 ₽</div>
+          <div class="qt" style="font-weight:800;font-size:22px;color:var(--primary)">Тариф «С наставником»</div>
+          <div class="qs" style="display:flex;align-items:center;gap:10px">
+            <span style="text-decoration:line-through;font-size:18px;font-weight:600;color:var(--text-muted)">84 000 ₽</span>
+            <span style="font-size:28px;font-weight:800;color:var(--primary)">71 400 ₽</span>
+          </div>
+          <div class="qrwrap" style="display:flex;justify-content:center;background:#fff;padding:12px;border-radius:12px;border:1px solid rgba(20,68,230,.2);margin-top:4px">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaAQMAAAAMyBcgAAAABlBMVEUVFhj///+MzxGnAAACaklEQVR42u1cS3KFMAzzlAPkSLk6R+IAmUl5cfwJZdPuGokFw5DnTarakuwg/ffXKQxiEIOAgi6ZV71fiJT7Np7qvdDP8vnZdXT70XEHfckfLgb9jyAZf+5xDRzcEGjznYJBcXPMVV3g7m2PiPG/P5KCPc2kMMAwsKGrlYiAQ0TtTTRRzMzQJK8SEViIOHoqGOdYdx5BRADyCKeSWiY+6UEribFN8ggMRLjWuIxCvN2oNWAQEZdli2fVGPQySVbuHgKPyKRSy4RqDeeYblkQEdvniOYE0kqHaFIIwWFGhSYP7t7+iFAWqfTyyKSyJoeqkUcA8YihIVZrUqHiXtVIGdQaMFXDPChjkc3Tg6tPLydExP7q0wikEc1qinTmjUebg7u3fdWYbU8JHBhUgl6mNgd3D8ChcgNilo548lohbm9z90ByRMxHhPrUHGHv2NfAyhGpfpRmXS3PFsnM5O7tjwg3IEx6zJ5XwCJmZ4gICBe7vHUzsvDMw1Xcvf3V5ywYLy6EpQwzM1k1UHqfzcyp1bv2iRkjmkQEhtYQE5npVq/FxzzpRwC52EEhEoGMcYl+raYEdw+j05XbFzYfoTMT0SanH4HELFPPK89HOK0o5BFA6jMNWstqT8SkNucj0GaxM3uwsZnc5CqcxQZzqCS1v01pJj9COIsNOYudqGRkBjcq2NcAO6+xlgmlnNePgxxEBNSZLutw2DRu9DVCkxARYGfDxb8W0NK4XZKlRATW2fA46OkfD5jjEsLeJyAi4hBXWFKzatCPAPzGTHuK0RiyY46APBsuT+8hfWWk87wGnh/B77oxiEEMegR9A1Q/A2d3VHZdAAAAAElFTkSuQmCC" alt="QR С наставником" style="width:190px;height:190px;border-radius:6px;display:block"/>
+          </div>
+          <div class="body" style="font-size:13px;color:var(--primary);font-weight:600;margin-top:6px">от 2 975 ₽/мес. · Ревью от Данилы</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FINALE: Q&A & USEFUL LINKS ==================== -->
+<div class="slide slide-fullbg" id="e02" data-slide="26" data-title="Спасибо и Q&A" style="background:#0d0d12;position:relative;overflow:hidden">
+  <canvas id="w39" style="position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0"></canvas>
+  <div class="slide-inner centered" style="position:relative;z-index:1;max-width:1100px;margin:0 auto">
+    <div style="padding:48px 64px;border-radius:28px;background:rgba(255,255,255,.07);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12);text-align:center">
+      <div class="display-lg mb-16" style="line-height:1.08">Спасибо за внимание!</div>
+      <div class="headline-md" style="opacity:0.92;color:#fff;max-width:none">Данила Гурачевский и&nbsp;Кирилл Диденко отвечают на&nbsp;ваши вопросы</div>
+      
+      <div class="grid-12 mt-36 gap-16 text-left">
+        <div class="col-4">
+          <div class="card" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);padding:18px 20px;height:100%">
+            <div class="label-caps mb-8" style="color:rgba(255,255,255,.6)">📦 Исходный код</div>
+            <div style="font-weight:700;font-size:15px;color:#fff">Шаблон MCP-сервера</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:4px">Репозиторий в Telegram</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);padding:18px 20px;height:100%">
+            <div class="label-caps mb-8" style="color:rgba(255,255,255,.6)">💬 Чат вебинара</div>
+            <div style="font-weight:700;font-size:15px;color:#fff">Запись и презентация</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:4px">Все ссылки в Telegram-канале</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);padding:18px 20px;height:100%">
+            <div class="label-caps mb-8" style="color:rgba(255,255,255,.6)">🎓 Курс Хекслета</div>
+            <div style="font-weight:700;font-size:15px;color:#fff">ИИ для разработчиков 2.0</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:4px">Фиксация скидки 15%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body mt-32" style="color:rgba(255,255,255,.7);font-size:15px">
+        Пишите любые вопросы в чат трансляции прямо сейчас!
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ==================== NAVIGATION ==================== -->
 <div id="hud">
-  <span class="cnt" id="cnt">1 / 17</span>
+  <span class="cnt" id="cnt">1 / 26</span>
   <button id="prevBtn" title="Назад"><svg><use href="#i-chev-l"/></svg></button>
   <button id="nextBtn" title="Вперёд"><svg><use href="#i-chev-r"/></svg></button>
   <button id="ovBtn" title="Обзор (O)"><svg><use href="#i-grid"/></svg></button>
